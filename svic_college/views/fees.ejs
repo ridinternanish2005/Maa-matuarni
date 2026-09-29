@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Fee Structure | SVIC Inter College</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fef9f0 0%, #fff4e8 100%);
+            overflow-x: hidden;
+        }
+
+        /* ========== TOP HEADER ========== */
+        .top-header {
+            background: linear-gradient(135deg, #060241, #050347, #021853);
+            color: #fef9c3;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+            gap: 12px;
+            border-bottom: 2px solid #f59e0b;
+        }
+
+        .web-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .web-text p, .web-text a {
+            color: #fef9c3;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .highlight-link {
+            color: #fcd34d;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .highlight-link:hover {
+            color: #f59e0b;
+            transform: translateX(3px);
+        }
+
+        .right-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .right-text .link {
+            color: #fcd34d;
+            text-decoration: none;
+            font-size: 11px;
+            transition: all 0.3s;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .right-text .link:hover {
+            color: #fff;
+            background: rgba(245,158,11,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ========== MAIN NAVBAR ========== */
+        .main-header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .navbar-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6, #06b6d4, #f59e0b);
+            background-size: 200% 100%;
+            animation: lineMove 3s ease infinite;
+            z-index: 10;
+        }
+
+        @keyframes lineMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 65px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .logo img { height: 50px; max-width: 180px; }
+        }
+
+        .menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .upperNav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+            border: none;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.35);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236,72,153,0.45);
+        }
+
+        .btn-box { display: flex; gap: 12px; }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn:last-child {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .toggle-btn:hover { transform: translateY(-2px); }
+
+        .lowerNav {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: #1f2937;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(120deg, #fef3c7, #fde68a);
+            border-radius: 40px;
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .menu-link:hover::before { width: 100%; }
+        .menu-link:hover { color: #d97706; transform: translateY(-2px); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(245,158,11,0.1);
+            border-radius: 12px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .menu { display: none; }
+            .hamburger { display: flex; }
+            .top-header { flex-direction: column; text-align: center; }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            transition: right 0.3s;
+            padding: 80px 25px 30px;
+            overflow-y: auto;
+        }
+        .mobile-menu-overlay.active { right: 0; }
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #f59e0b;
+        }
+        .mobile-nav-list { list-style: none; }
+        .mobile-nav-list li { margin-bottom: 15px; }
+        .mobile-nav-list li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 12px;
+        }
+        .screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        .screen-overlay.active { display: block; }
+
+        /* ========== FEE STRUCTURE PAGE ========== */
+        .page-header {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e, #4c1d95);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Fee Cards */
+        .fee-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .fee-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .fee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .card-header i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-header .duration {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+
+        .fee-row:hover {
+            background: #fef3c7;
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        .fee-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .fee-amount {
+            font-weight: 700;
+            color: #f59e0b;
+        }
+
+        .total-row {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .total-row .fee-amount {
+            color: #ec4899;
+            font-size: 1.2rem;
+        }
+
+        /* Scholarship Section */
+        .scholarship-section {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .scholarship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .scholarship-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .scholarship-card i {
+            font-size: 45px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .scholarship-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .scholarship-card .discount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ec4899;
+            margin: 10px 0;
+        }
+
+        .scholarship-card p {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        /* Payment Options */
+        .payment-section {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .payment-method {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            transform: translateY(-3px);
+        }
+
+        .payment-method i {
+            font-size: 40px;
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .payment-method p {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Fee Note */
+        .fee-note {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .fee-note i {
+            font-size: 40px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .fee-note h3 {
+            margin-bottom: 10px;
+        }
+
+        .fee-note p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #e0e7ff;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .footer-col a:hover { color: #f59e0b; transform: translateX(5px); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(245,158,11,0.2);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.5rem; }
+            .fee-cards { grid-template-columns: 1fr; }
+            .container { padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+<%-include('partials/header')%>
+
+<div class="container">
+    <!-- Fee Cards for Different Streams -->
+    <div class="fee-cards">
+        <!-- Science Stream -->
+        <div class="fee-card">
+            <div class="card-header">
+                <i class="fas fa-flask"></i>
+                <h3>Science Stream</h3>
+                <div class="duration">Class 11th & 12th (PCM/PCB)</div>
+            </div>
+            <div class="card-body">
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-file-invoice"></i> Admission Fee</span><span class="fee-amount">₹ 5,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-graduation-cap"></i> Tuition Fee (Annual)</span><span class="fee-amount">₹ 25,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-book"></i> Lab & Practical Fee</span><span class="fee-amount">₹ 4,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-building"></i> Development Fund</span><span class="fee-amount">₹ 3,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-id-card"></i> Miscellaneous</span><span class="fee-amount">₹ 2,000</span></div>
+                <div class="total-row"><span>Total Annual Fee</span><span class="fee-amount">₹ 39,000</span></div>
+            </div>
+        </div>
+
+        <!-- Commerce Stream -->
+        <div class="fee-card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i>
+                <h3>Commerce Stream</h3>
+                <div class="duration">Class 11th & 12th</div>
+            </div>
+            <div class="card-body">
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-file-invoice"></i> Admission Fee</span><span class="fee-amount">₹ 5,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-graduation-cap"></i> Tuition Fee (Annual)</span><span class="fee-amount">₹ 22,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-laptop"></i> Computer Lab Fee</span><span class="fee-amount">₹ 3,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-building"></i> Development Fund</span><span class="fee-amount">₹ 3,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-id-card"></i> Miscellaneous</span><span class="fee-amount">₹ 2,000</span></div>
+                <div class="total-row"><span>Total Annual Fee</span><span class="fee-amount">₹ 35,000</span></div>
+            </div>
+        </div>
+
+        <!-- Arts Stream -->
+        <div class="fee-card">
+            <div class="card-header">
+                <i class="fas fa-palette"></i>
+                <h3>Arts Stream</h3>
+                <div class="duration">Class 11th & 12th</div>
+            </div>
+            <div class="card-body">
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-file-invoice"></i> Admission Fee</span><span class="fee-amount">₹ 4,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-graduation-cap"></i> Tuition Fee (Annual)</span><span class="fee-amount">₹ 18,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-building"></i> Development Fund</span><span class="fee-amount">₹ 3,000</span></div>
+                <div class="fee-row"><span class="fee-label"><i class="fas fa-id-card"></i> Miscellaneous</span><span class="fee-amount">₹ 2,000</span></div>
+                <div class="total-row"><span>Total Annual Fee</span><span class="fee-amount">₹ 27,000</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scholarship Section -->
+    <div class="scholarship-section">
+        <h2 class="section-title">🏆 Scholarships & Concessions</h2>
+        <div class="scholarship-grid">
+            <div class="scholarship-card" onclick="showToast('Merit Scholarship - Up to 50% off on tuition fee')">
+                <i class="fas fa-star"></i>
+                <h4>Merit Scholarship</h4>
+                <div class="discount">Up to 50%</div>
+                <p>For students scoring 85%+ in previous class</p>
+            </div>
+            <div class="scholarship-card" onclick="showToast('Sports Quota - Up to 30% fee waiver')">
+                <i class="fas fa-futbol"></i>
+                <h4>Sports Quota</h4>
+                <div class="discount">Up to 30%</div>
+                <p>For state/national level sports achievers</p>
+            </div>
+            <div class="scholarship-card" onclick="showToast('EWS Scholarship - 25% fee concession')">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h4>EWS Scholarship</h4>
+                <div class="discount">25%</div>
+                <p>For economically weaker sections (Income &lt; 2.5L)</p>
+            </div>
+            <div class="scholarship-card" onclick="showToast('Defense/Government Employee - 20% concession')">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Defense/Government Ward</h4>
+                <div class="discount">20%</div>
+                <p>For children of defense personnel & govt employees</p>
+            </div>
+            <div class="scholarship-card" onclick="showToast('Sibling Concession - 15% off')">
+                <i class="fas fa-users"></i>
+                <h4>Sibling Concession</h4>
+                <div class="discount">15%</div>
+                <p>If two or more siblings studying in SVIC</p>
+            </div>
+            <div class="scholarship-card" onclick="showToast('Girl Child Scholarship - Special concession')">
+                <i class="fas fa-female"></i>
+                <h4>Girl Child Scholarship</h4>
+                <div class="discount">10%</div>
+                <p>Special scholarship for meritorious girl students</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="payment-section">
+        <h2 class="section-title">💳 Payment Options</h2>
+        <div class="payment-grid">
+            <div class="payment-method" onclick="showToast('Online Payment via Net Banking')"><i class="fas fa-university"></i><p>Net Banking</p></div>
+            <div class="payment-method" onclick="showToast('Credit/Debit Card Payment')"><i class="fab fa-cc-visa"></i><p>Credit/Debit Card</p></div>
+            <div class="payment-method" onclick="showToast('UPI Payment Available')"><i class="fas fa-mobile-alt"></i><p>UPI / QR Code</p></div>
+            <div class="payment-method" onclick="showToast('Cash/DD Payment at College Office')"><i class="fas fa-money-bill-wave"></i><p>Cash / Demand Draft</p></div>
+            <div class="payment-method" onclick="showToast('EMI Facility Available')"><i class="fas fa-calendar-alt"></i><p>EMI Facility (0% Interest)</p></div>
+            <div class="payment-method" onclick="showToast('Scholarship Application Available')"><i class="fas fa-gift"></i><p>Scholarship Apply</p></div>
+        </div>
+    </div>
+
+    <!-- Important Note -->
+    <div class="fee-note">
+        <i class="fas fa-info-circle"></i>
+        <h3>Important Notes</h3>
+        <p>✓ Fees can be paid annually or semester-wise (two installments)<br>
+        ✓ 5% discount if full annual fee is paid before 31st March<br>
+        ✓ Late fee of ₹200 per month after due date<br>
+        ✓ Hostel & Transport facilities available at additional cost<br>
+        ✓ Scholarships are subject to verification of documents</p>
+    </div>
+
+    <!-- Additional Hostel & Transport Fees -->
+    <div style="margin-top: 40px;">
+        <h2 class="section-title">🏠 Additional Facilities (Optional)</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+            <div style="background: white; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <i class="fas fa-hotel" style="font-size: 45px; color: #f59e0b; margin-bottom: 15px;"></i>
+                <h3 style="margin-bottom: 15px;">Hostel Facility</h3>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;"><span>Boys Hostel (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 65,000</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;"><span>Girls Hostel (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 65,000</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0;"><span>Mess Fee (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 40,000</span></div>
+            </div>
+            <div style="background: white; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <i class="fas fa-bus" style="font-size: 45px; color: #f59e0b; margin-bottom: 15px;"></i>
+                <h3 style="margin-bottom: 15px;">Transport Facility</h3>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;"><span>Within 10 km (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 15,000</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;"><span>10-20 km (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 22,000</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0;"><span>20+ km (Annual)</span><span style="color:#ec4899; font-weight:700;">₹ 28,000</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col"><h4>SVIC College</h4><a href="#">About Us</a><a href="#">Mission & Vision</a><a href="#">Infrastructure</a><a href="#">Awards</a></div>
+        <div class="footer-col"><h4>Quick Links</h4><a href="#">Admission 2025-26</a><a href="#">Fee Structure</a><a href="#">Scholarships</a><a href="#">Download Brochure</a></div>
+        <div class="footer-col"><h4>Resources</h4><a href="#">Student Portal</a><a href="#">Faculty Portal</a><a href="#">Library</a><a href="#">Exam Schedule</a></div>
+        <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-map-marker-alt"></i> SVIC Campus, Knowledge Park, Greater Noida</p><p><i class="fas fa-phone"></i> +91-9876543210</p><p><i class="fas fa-envelope"></i> info@svic.edu.in</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SVIC Inter College. All rights reserved. | Designed with <i class="fas fa-heart" style="color:#f59e0b;"></i> for excellence</p></div>
+</footer>
+
+<script>
+    function openMobileMenu() {
+        document.getElementById('mobileMenu').classList.add('active');
+        document.getElementById('screenOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.getElementById('screenOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.innerHTML = `<div style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1b4b;color:white;padding:12px 25px;border-radius:50px;font-size:14px;z-index:10000;box-shadow:0 5px 20px rgba(0,0,0,0.2);animation:fadeInUp 0.3s ease;">${message}</div>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+    
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fadeInUp { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }`;
+    document.head.appendChild(style);
+    
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 992) closeMobileMenu(); });
+    
+    console.log("✅ Fee Structure Page Loaded - Fully Responsive & Interactive");
+</script>
+<%-include('partials/footer')%>
+</body>
+</html>

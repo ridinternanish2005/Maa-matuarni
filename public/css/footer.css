@@ -1,0 +1,454 @@
+
+        /* ----- RESET & BASE ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f4f7fc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ============================================================== */
+        /* ========== FOOTER — RID TECH INSPIRED STYLE ================= */
+        /* ============================================================== */
+
+        .footer {
+            margin-top: auto;
+            background: #0d1b2a;
+            color: #e8edf3;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* -------- TOP SECTION (main footer content) -------- */
+        .footer-top {
+            padding: 40px 0 28px;
+            background: #0d1b2a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .footer-top .footer-container {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 0.9fr;
+            gap: 32px 24px;
+            align-items: start;
+        }
+
+        /* ---- BRAND / CONTACT COLUMN ---- */
+        .footer-brand h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .footer-brand h2 .highlight {
+            color: #4fc3f7;
+        }
+
+        .footer-brand .brand-line {
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #4fc3f7, #0288d1);
+            border-radius: 4px;
+            margin: 6px 0 10px;
+        }
+
+        .footer-brand .tagline {
+            font-size: 0.8rem;
+            color: #9bb7d4;
+            font-weight: 400;
+            margin-bottom: 14px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 6px;
+            color: #cbdae9;
+            font-size: 0.82rem;
+        }
+
+        .footer-contact-item i {
+            width: 16px;
+            margin-top: 3px;
+            color: #4fc3f7;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .footer-contact-item .address-text {
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        /* ---- LINK COLUMNS ---- */
+        .footer-links-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        .footer-links-col h4::after {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: #4fc3f7;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+
+        .footer-links-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .footer-links-col ul li a {
+            color: #cbdae9;
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.25s ease, padding-left 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links-col ul li a i {
+            font-size: 0.6rem;
+            color: #4fc3f7;
+            transition: transform 0.2s ease;
+        }
+
+        .footer-links-col ul li a:hover {
+            color: #ffffff;
+            padding-left: 2px;
+        }
+
+        .footer-links-col ul li a:hover i {
+            transform: translateX(3px);
+        }
+
+        /* ---- SOCIAL COLUMN ---- */
+        .footer-social h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        .footer-social h4::after {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: #4fc3f7;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            color: #cbdae9;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .social-icons a:hover {
+            background: #4fc3f7;
+            color: #0d1b2a;
+            transform: translateY(-3px);
+            border-color: #4fc3f7;
+            box-shadow: 0 4px 14px rgba(79, 195, 247, 0.3);
+        }
+
+        /* -------- BOTTOM SECTION (copyright bar) -------- */
+        .footer-bottom {
+            padding: 14px 0;
+            background: #09152a;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .footer-bottom .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.72rem;
+            color: #7e9ab8;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px 14px;
+        }
+
+        .footer-bottom-links a {
+            color: #7e9ab8;
+            text-decoration: none;
+            font-size: 0.72rem;
+            transition: color 0.25s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #cbdae9;
+        }
+
+        .footer-bottom-links .divider {
+            color: #3a5570;
+            font-size: 0.6rem;
+        }
+
+        .developed-by {
+            font-size: 0.68rem;
+            color: #5a7a9a;
+        }
+
+        /* ============================================================== */
+        /* ==================== RESPONSIVE BREAKPOINTS ================== */
+        /* ============================================================== */
+
+        /* --- Laptops & small desktops --- */
+        @media (max-width: 1024px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1.2fr 1fr 1fr 0.9fr;
+                gap: 28px 20px;
+            }
+        }
+
+        /* --- Tablets --- */
+        @media (max-width: 820px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px 28px;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+
+            .footer-brand h2 {
+                font-size: 1.2rem;
+            }
+
+            .footer-links-col h4,
+            .footer-social h4 {
+                font-size: 0.85rem;
+            }
+
+            .footer-links-col ul li a {
+                font-size: 0.78rem;
+            }
+
+            .footer-contact-item {
+                font-size: 0.78rem;
+            }
+
+            .footer-bottom .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+
+        /* --- Mobile phones (portrait) --- */
+        @media (max-width: 540px) {
+            .footer-container {
+                padding: 0 16px;
+            }
+
+            .footer-top {
+                padding: 28px 0 18px;
+            }
+
+            .footer-top .footer-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-brand {
+                grid-column: 1;
+            }
+
+            .footer-brand h2 {
+                font-size: 1.05rem;
+            }
+
+            .footer-brand .tagline {
+                font-size: 0.72rem;
+            }
+
+            .footer-contact-item {
+                font-size: 0.75rem;
+                gap: 8px;
+            }
+
+            .footer-links-col h4,
+            .footer-social h4 {
+                font-size: 0.82rem;
+                margin-bottom: 8px;
+            }
+
+            .footer-links-col h4::after,
+            .footer-social h4::after {
+                width: 18px;
+                height: 2px;
+            }
+
+            .footer-links-col ul li a {
+                font-size: 0.75rem;
+                gap: 5px;
+            }
+
+            .footer-links-col ul {
+                gap: 4px;
+            }
+
+            .social-icons a {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+
+            .footer-bottom {
+                padding: 12px 0;
+            }
+
+            .footer-bottom p {
+                font-size: 0.65rem;
+            }
+
+            .footer-bottom-links a {
+                font-size: 0.65rem;
+            }
+
+            .footer-bottom-links {
+                gap: 2px 10px;
+            }
+
+            .footer-bottom-links .divider {
+                font-size: 0.5rem;
+            }
+
+            .developed-by {
+                font-size: 0.6rem;
+            }
+        }
+
+        /* --- Ultra-small phones (≤ 360px) --- */
+        @media (max-width: 360px) {
+            .footer-container {
+                padding: 0 12px;
+            }
+
+            .footer-top {
+                padding: 20px 0 14px;
+            }
+
+            .footer-brand h2 {
+                font-size: 0.95rem;
+            }
+
+            .footer-brand .brand-line {
+                width: 30px;
+                height: 2.5px;
+            }
+
+            .footer-contact-item {
+                font-size: 0.7rem;
+                gap: 6px;
+            }
+
+            .footer-contact-item i {
+                font-size: 0.7rem;
+                width: 14px;
+            }
+
+            .footer-links-col h4,
+            .footer-social h4 {
+                font-size: 0.75rem;
+            }
+
+            .footer-links-col ul li a {
+                font-size: 0.7rem;
+            }
+
+            .social-icons {
+                gap: 5px;
+            }
+
+            .social-icons a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+
+            .footer-bottom p {
+                font-size: 0.6rem;
+            }
+
+            .footer-bottom-links a {
+                font-size: 0.6rem;
+            }
+
+            .developed-by {
+                font-size: 0.55rem;
+            }
+
+            .footer-bottom-links {
+                gap: 2px 6px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    

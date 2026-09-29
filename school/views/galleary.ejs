@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kids Gallery | Our Best Moments</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/school/css/galleary.css">
+
+</head>
+<body>
+ <%- include("partials/navbar.ejs") %>
+<section class="gallery-section">
+    <div class="gallery-header">
+        <h1>OUR GALLERY</h1>
+        <div class="sub">✨ Our Best Moments <span style="font-weight:400">With Your Kids</span> ✨</div>
+        <p>Capturing joy, creativity, and unforgettable performances — every moment shines through the lens.</p>
+    </div>
+
+    <div class="gallery-grid" id="momentsGrid">
+        <!-- Dynamic cards will be injected via JavaScript to keep maintainability and consistency -->
+        <!-- But we also ensure graceful fallback. All 10 moments per description -->
+    </div>
+    
+    <div class="footer-note">
+        <span><i class="fas fa-camera"></i> Precious memories on stage</span>
+        <span><i class="fas fa-heart" style="color:#e11d48;"></i> every child shines</span>
+        <span><i class="fas fa-music"></i> rhythm & celebration</span>
+    </div>
+</section>
+
+<script>
+    // --------------------------------------------------------------
+    // Data based exactly on the provided screenshot description
+    // 10 rows with precise details & visual placeholder texts (placehold.co)
+    // --------------------------------------------------------------
+    const galleryMoments = [
+        {
+            rowLabel: "TOP ROW",
+            title: "🎭 Colorful Costume Fiesta",
+            description: "A group of children in colorful costumes performing on a stage with balloons and decorations.",
+            placeholderShort: "Colorful Costumes + Balloons",
+            badgeIcon: "fa-star"
+        },
+        {
+            rowLabel: "SECOND ROW",
+            title: "💃 Red & White Rhythms",
+            description: "Children in red and white uniforms dancing on a wooden floor with pure energy.",
+            placeholderShort: "Red & White Dance",
+            badgeIcon: "fa-shoe-prints"
+        },
+        {
+            rowLabel: "THIRD ROW",
+            title: "🪖 Camouflage Squad",
+            description: "Children in camouflage uniforms standing in perfect formation, disciplined & proud.",
+            placeholderShort: "Camouflage Formation",
+            badgeIcon: "fa-flag"
+        },
+        {
+            rowLabel: "FOURTH ROW",
+            title: "🎵 Musical Magic",
+            description: "Children in various colored outfits performing on a stage with musical instruments.",
+            placeholderShort: "Instruments & Colors",
+            badgeIcon: "fa-drumstick-bite"
+        },
+        {
+            rowLabel: "FIFTH ROW",
+            title: "💚 Green & Yellow Harmony",
+            description: "Children in green and yellow costumes performing on a stage with a large screen behind them.",
+            placeholderShort: "Green Yellow Stage",
+            badgeIcon: "fa-leaf"
+        },
+        {
+            rowLabel: "SIXTH ROW",
+            title: "🧡 Orange & Blue Energy",
+            description: "Children in orange and blue costumes performing on a stage with a large screen behind them.",
+            placeholderShort: "Orange Blue Screen",
+            badgeIcon: "fa-sun"
+        },
+        {
+            rowLabel: "SEVENTH ROW",
+            title: "💗 Pink & Purple Dream",
+            description: "Children in pink and purple costumes performing on a stage with a large screen behind them.",
+            placeholderShort: "Pink Purple Magic",
+            badgeIcon: "fa-flower"
+        },
+        {
+            rowLabel: "EIGHTH ROW",
+            title: "⚫⚪ Black & White Elegance",
+            description: "Children in black and white costumes performing on a stage with a large screen behind them.",
+            placeholderShort: "Monochrome Performance",
+            badgeIcon: "fa-circle-half-stroke"
+        },
+        {
+            rowLabel: "NINTH ROW",
+            title: "🤎 Brown & Beige Warmth",
+            description: "Children in brown and beige costumes performing on a stage with a large screen behind them.",
+            placeholderShort: "Earthy Tones Show",
+            badgeIcon: "fa-tree"
+        },
+        {
+            rowLabel: "TENTH ROW",
+            title: "🌈 Rainbow Radiance",
+            description: "Children in various colors performing on a stage with a large screen behind them.",
+            placeholderShort: "Vibrant Colors Finale",
+            badgeIcon: "fa-rainbow"
+        }
+    ];
+
+    // Helper: generate friendly placeholder image URL using placehold.co
+    // High quality, shows dynamic readable text that resembles the theme
+    // Dimensions 600x450, clean background with playful pattern gradient via text
+    // We'll also use subtle background color variants for fun.
+    function getPlaceholderImage(shortText, rowIndex) {
+        // encode text for URL
+        let displayText = shortText.replace(/ /g, '+').substring(0, 28);
+        // Add small playful emoji preview? Not needed but works.
+        // Use placehold.co with soft background and readable text
+        // Background colors based on row index for variety
+        const bgColors = [
+            "FFEAD2", "FFDDC1", "FFD1DC", "C9E4DE", "C9E4C5", 
+            "F9E7C2", "E0BBE4", "B5E3D5", "FFD966", "FADADD"
+        ];
+        const bg = bgColors[rowIndex % bgColors.length];
+        const textColor = "5C3A21";
+        // create catchy description - max 35 chars readable
+        const cleanText = displayText.length > 30 ? displayText.substring(0,27)+".." : displayText;
+        // high quality png placeholder
+        return `https://placehold.co/600x450/${bg}/${textColor}?text=${cleanText}&font=montserrat`;
+        // we also add fallback if needed, but all modern browsers support placehold.co
+    }
+
+    // get grid container
+    const gridContainer = document.getElementById('momentsGrid');
+    
+    // build all 10 cards with full details
+    function buildGallery() {
+        if (!gridContainer) return;
+        let cardsHTML = '';
+        
+        galleryMoments.forEach((moment, idx) => {
+            // row number display text
+            const rowNumber = idx + 1;
+            const rowDisplay = `${moment.rowLabel}`;
+            // get image link
+            const imgSrc = getPlaceholderImage(moment.placeholderShort, idx);
+            
+            // optional extra tags (highlights from description)
+            let extraTags = [];
+            if (moment.description.includes("balloons")) extraTags.push("🎈 Balloons");
+            if (moment.description.includes("musical instruments")) extraTags.push("🎸 Instruments");
+            if (moment.description.includes("large screen")) extraTags.push("📺 LED Screen");
+            if (moment.description.includes("wooden floor")) extraTags.push("🪵 Wooden Floor");
+            if (moment.description.includes("formation")) extraTags.push("🔷 Formation");
+            if (moment.description.includes("costumes")) extraTags.push("👗 Costumes");
+            // custom additions to reflect unique props
+            if (idx === 0) extraTags.push("🎈 Stage Decor");
+            if (idx === 4 || idx === 5 || idx === 6 || idx === 7 || idx === 8 || idx === 9) extraTags.push("🎥 Backdrop Screen");
+            
+            // unique tags limited to 2
+            const tagsToShow = extraTags.slice(0, 2);
+            
+            const tagsMarkup = tagsToShow.length ? 
+                `<div class="moment-tag">
+                    ${tagsToShow.map(tag => `<span>${tag}</span>`).join('')}
+                </div>` : 
+                `<div class="moment-tag"><span>✨ Live moment</span></div>`;
+            
+            cardsHTML += `
+                <div class="moment-card">
+                    <div class="card-img">
+                        <div class="row-badge">
+                            <i class="fas ${moment.badgeIcon}" style="font-size:0.7rem; margin-right:4px;"></i> ${rowDisplay}
+                        </div>
+                        <img 
+                            src="${imgSrc}" 
+                            alt="${moment.title} - ${moment.description}"
+                            loading="lazy"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x450/FDEBD0/8B5A2B?text=Kids+Magic+Moment';"
+                        >
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <i class="fas ${moment.badgeIcon}"></i>
+                            <span>${moment.title}</span>
+                        </div>
+                        <div class="divider-light"></div>
+                        <p class="card-description">${moment.description}</p>
+                        ${tagsMarkup}
+                    </div>
+                </div>
+            `;
+        });
+        
+        gridContainer.innerHTML = cardsHTML;
+    }
+    
+    buildGallery();
+</script>
+
+<!-- 
+    Additional micro-interaction: ensure all images look crisp and themed.
+    The gallery matches the original 'OUR GALLERY' with "Our Best Moments With Your Kids"
+    Each of the 10 rows from the screenshot is represented as a unique card.
+    Fully responsive: Mobile (1 col), Tablet (2 col), Desktop (3 col), Large (4 col)
+    Descriptions are accurate according to the file content:
+    Top Row (colorful costumes balloons) up to Tenth Row (various colors screen)
+    Placeholder images display descriptive text + stage vibe.
+-->
+     <%-include("partials/footer.ejs") %>
+</body>
+</html>

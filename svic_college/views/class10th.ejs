@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Class 10th | SVIC Inter College</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fef9f0 0%, #fff4e8 100%);
+            overflow-x: hidden;
+        }
+
+        /* ========== TOP HEADER ========== */
+        .top-header {
+            background: linear-gradient(135deg, #060241, #050347, #021853);
+            color: #fef9c3;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+            gap: 12px;
+            border-bottom: 2px solid #f59e0b;
+        }
+
+        .web-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .web-text p, .web-text a {
+            color: #fef9c3;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .highlight-link {
+            color: #fcd34d;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .highlight-link:hover {
+            color: #f59e0b;
+            transform: translateX(3px);
+        }
+
+        .right-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .right-text .link {
+            color: #fcd34d;
+            text-decoration: none;
+            font-size: 11px;
+            transition: all 0.3s;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .right-text .link:hover {
+            color: #fff;
+            background: rgba(245,158,11,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ========== MAIN NAVBAR ========== */
+        .main-header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .navbar-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6, #06b6d4, #f59e0b);
+            background-size: 200% 100%;
+            animation: lineMove 3s ease infinite;
+            z-index: 10;
+        }
+
+        @keyframes lineMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 65px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .logo img { height: 50px; max-width: 180px; }
+        }
+
+        .menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .upperNav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+            border: none;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.35);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236,72,153,0.45);
+        }
+
+        .btn-box { display: flex; gap: 12px; }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn:last-child {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .toggle-btn:hover { transform: translateY(-2px); }
+
+        .lowerNav {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: #1f2937;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(120deg, #fef3c7, #fde68a);
+            border-radius: 40px;
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .menu-link:hover::before { width: 100%; }
+        .menu-link:hover { color: #d97706; transform: translateY(-2px); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(245,158,11,0.1);
+            border-radius: 12px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .menu { display: none; }
+            .hamburger { display: flex; }
+            .top-header { flex-direction: column; text-align: center; }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            transition: right 0.3s;
+            padding: 80px 25px 30px;
+            overflow-y: auto;
+        }
+        .mobile-menu-overlay.active { right: 0; }
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #f59e0b;
+        }
+        .mobile-nav-list { list-style: none; }
+        .mobile-nav-list li { margin-bottom: 15px; }
+        .mobile-nav-list li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 12px;
+        }
+        .screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        .screen-overlay.active { display: block; }
+
+        /* ========== PAGE HEADER ========== */
+        .page-header {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e, #4c1d95);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 i {
+            color: #f59e0b;
+            margin-right: 10px;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* ========== CLASS INFO CARDS ========== */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .info-icon i {
+            font-size: 32px;
+            color: #f59e0b;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .info-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ec4899;
+            margin: 10px 0;
+        }
+
+        .info-card p {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        /* ========== SUBJECTS SECTION ========== */
+        .subjects-section {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: linear-gradient(135deg, #fef9f0, #fff4e8);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid #fef3c7;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            background: white;
+        }
+
+        .subject-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f59e0b20, #ec489920);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .subject-icon i {
+            font-size: 28px;
+            color: #f59e0b;
+        }
+
+        .subject-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        /* ========== SYLLABUS SECTION ========== */
+        .syllabus-section {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .syllabus-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .syllabus-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .syllabus-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .syllabus-card h3 i {
+            color: #f59e0b;
+        }
+
+        .syllabus-list {
+            list-style: none;
+        }
+
+        .syllabus-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #4b5563;
+        }
+
+        .syllabus-list li i {
+            color: #ec4899;
+            font-size: 12px;
+        }
+
+        /* ========== FACULTY SECTION ========== */
+        .faculty-section {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .faculty-card {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #fef9f0, #fff4e8);
+            border-radius: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .faculty-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .faculty-avatar i {
+            font-size: 45px;
+            color: white;
+        }
+
+        .faculty-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .faculty-card p {
+            font-size: 0.8rem;
+            color: #f59e0b;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .faculty-card .subject {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* ========== ADMISSION CTA ========== */
+        .admission-cta {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .admission-cta h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .admission-cta p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(245,158,11,0.4);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #e0e7ff;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .footer-col a:hover { color: #f59e0b; transform: translateX(5px); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(245,158,11,0.2);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.5rem; }
+            .container { padding: 40px 15px; }
+            .subjects-section, .syllabus-section, .faculty-section { padding: 25px; }
+            .admission-cta { padding: 30px 20px; }
+            .admission-cta h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+<%-include('partials/header')%>
+
+<div class="screen-overlay" id="screenOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <h1><i class="fas fa-graduation-cap"></i> Class 10th (High School)</h1>
+    <p>Building strong foundations for academic excellence. Comprehensive curriculum with experienced faculty and modern teaching methodology.</p>
+</div>
+
+<div class="container">
+    <!-- Info Cards -->
+    <div class="info-cards">
+        <div class="info-card" onclick="showToast('UP Board Affiliated - Class 10th Curriculum')">
+            <div class="info-icon"><i class="fas fa-certificate"></i></div>
+            <h3>Board</h3>
+            <div class="number">UP Board</div>
+            <p>Affiliated to Uttar Pradesh Madhyamik Shiksha Parishad</p>
+        </div>
+        <div class="info-card" onclick="showToast('Two Year Program - Class 10th')">
+            <div class="info-icon"><i class="fas fa-clock"></i></div>
+            <h3>Duration</h3>
+            <div class="number">2 Years</div>
+            <p>Complete high school education program</p>
+        </div>
+        <div class="info-card" onclick="showToast('Eligibility: Class 9th Pass')">
+            <div class="info-icon"><i class="fas fa-users"></i></div>
+            <h3>Eligibility</h3>
+            <div class="number">Class 9th</div>
+            <p>Passed from recognized board</p>
+        </div>
+        <div class="info-card" onclick="showToast('Affordable Fee Structure Available')">
+            <div class="info-icon"><i class="fas fa-rupee-sign"></i></div>
+            <h3>Annual Fee</h3>
+            <div class="number">₹ 25,000</div>
+            <p>Including tuition & development fees</p>
+        </div>
+    </div>
+
+    <!-- Subjects Section -->
+    <div class="subjects-section">
+        <h2 class="section-title">📚 Subjects Offered</h2>
+        <div class="subjects-grid">
+            <div class="subject-card" onclick="showToast('Hindi - Core Subject')">
+                <div class="subject-icon"><i class="fas fa-language"></i></div>
+                <h4>Hindi</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('English - Core Subject')">
+                <div class="subject-icon"><i class="fas fa-language"></i></div>
+                <h4>English</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Mathematics - Core Subject')">
+                <div class="subject-icon"><i class="fas fa-calculator"></i></div>
+                <h4>Mathematics</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Science - Physics, Chemistry, Biology')">
+                <div class="subject-icon"><i class="fas fa-flask"></i></div>
+                <h4>Science</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Social Science - History, Geography, Civics')">
+                <div class="subject-icon"><i class="fas fa-globe"></i></div>
+                <h4>Social Science</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Computer Science - Optional Subject')">
+                <div class="subject-icon"><i class="fas fa-laptop"></i></div>
+                <h4>Computer Science</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Sanskrit - Optional Subject')">
+                <div class="subject-icon"><i class="fas fa-om"></i></div>
+                <h4>Sanskrit</h4>
+            </div>
+            <div class="subject-card" onclick="showToast('Physical Education - Practical Subject')">
+                <div class="subject-icon"><i class="fas fa-futbol"></i></div>
+                <h4>Physical Education</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Syllabus Section -->
+    <div class="syllabus-section">
+        <h2 class="section-title">📖 Syllabus Overview</h2>
+        <div class="syllabus-grid">
+            <div class="syllabus-card" onclick="showToast('Hindi Syllabus Details')">
+                <h3><i class="fas fa-language"></i> Hindi</h3>
+                <ul class="syllabus-list">
+                    <li><i class="fas fa-book"></i> गद्य खंड - रचनाएँ</li>
+                    <li><i class="fas fa-pen-fancy"></i> पद्य खंड - कविताएँ</li>
+                    <li><i class="fas fa-edit"></i> व्याकरण & निबंध लेखन</li>
+                    <li><i class="fas fa-file-alt"></i> अपठित गद्यांश</li>
+                </ul>
+            </div>
+            <div class="syllabus-card" onclick="showToast('English Syllabus Details')">
+                <h3><i class="fas fa-language"></i> English</h3>
+                <ul class="syllabus-list">
+                    <li><i class="fas fa-book"></i> Prose & Poetry</li>
+                    <li><i class="fas fa-edit"></i> Grammar & Composition</li>
+                    <li><i class="fas fa-pen-fancy"></i> Letter & Essay Writing</li>
+                    <li><i class="fas fa-file-alt"></i> Unseen Passages</li>
+                </ul>
+            </div>
+            <div class="syllabus-card" onclick="showToast('Mathematics Syllabus Details')">
+                <h3><i class="fas fa-calculator"></i> Mathematics</h3>
+                <ul class="syllabus-list">
+                    <li><i class="fas fa-plus-circle"></i> Algebra & Polynomials</li>
+                    <li><i class="fas fa-chart-line"></i> Geometry & Mensuration</li>
+                    <li><i class="fas fa-percent"></i> Trigonometry Basics</li>
+                    <li><i class="fas fa-chart-bar"></i> Statistics & Probability</li>
+                </ul>
+            </div>
+            <div class="syllabus-card" onclick="showToast('Science Syllabus Details')">
+                <h3><i class="fas fa-flask"></i> Science</h3>
+                <ul class="syllabus-list">
+                    <li><i class="fas fa-atom"></i> Physics - Light, Electricity</li>
+                    <li><i class="fas fa-leaf"></i> Biology - Life Processes</li>
+                    <li><i class="fas fa-flask"></i> Chemistry - Chemical Reactions</li>
+                    <li><i class="fas fa-microscope"></i> Practical Experiments</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faculty Section -->
+    <div class="faculty-section">
+        <h2 class="section-title">👨‍🏫 Our Expert Faculty</h2>
+        <div class="faculty-grid">
+            <div class="faculty-card" onclick="showToast('Dr. Suresh Kumar - Mathematics Expert')">
+                <div class="faculty-avatar"><i class="fas fa-chalkboard-user"></i></div>
+                <h4>Dr. Suresh Kumar</h4>
+                <p>Mathematics</p>
+                <div class="subject">15+ Years Experience</div>
+            </div>
+            <div class="faculty-card" onclick="showToast('Ms. Priya Sharma - Science Expert')">
+                <div class="faculty-avatar"><i class="fas fa-chalkboard-user"></i></div>
+                <h4>Ms. Priya Sharma</h4>
+                <p>Science</p>
+                <div class="subject">M.Sc., B.Ed - 12 Years</div>
+            </div>
+            <div class="faculty-card" onclick="showToast('Mr. Rajesh Verma - English Expert')">
+                <div class="faculty-avatar"><i class="fas fa-chalkboard-user"></i></div>
+                <h4>Mr. Rajesh Verma</h4>
+                <p>English</p>
+                <div class="subject">MA English - 10 Years</div>
+            </div>
+            <div class="faculty-card" onclick="showToast('Ms. Neha Gupta - Social Science Expert')">
+                <div class="faculty-avatar"><i class="fas fa-chalkboard-user"></i></div>
+                <h4>Ms. Neha Gupta</h4>
+                <p>Social Science</p>
+                <div class="subject">MA History - 8 Years</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admission CTA -->
+    <div class="admission-cta">
+        <h2>🚀 Enroll for Class 10th 2025-26</h2>
+        <p>Limited seats available. Apply now to secure your admission at SVIC Inter College</p>
+        <button class="cta-btn" onclick="showToast('🎓 Admission Open 2025-26 for Class 10th')"><i class="fas fa-pen-alt"></i> Apply Now</button>
+    </div>
+</div>
+
+
+
+<script>
+    function openMobileMenu() {
+        document.getElementById('mobileMenu').classList.add('active');
+        document.getElementById('screenOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.getElementById('screenOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.innerHTML = `<div style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1b4b;color:white;padding:12px 25px;border-radius:50px;font-size:14px;z-index:10000;box-shadow:0 5px 20px rgba(0,0,0,0.2);animation:fadeInUp 0.3s ease;">${message}</div>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+    
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fadeInUp { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }`;
+    document.head.appendChild(style);
+    
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 992) closeMobileMenu(); });
+    
+    console.log("✅ Class 10th Page Loaded - Fully Responsive & Interactive");
+</script>
+<%-include('partials/footer')%>
+</body>
+</html>

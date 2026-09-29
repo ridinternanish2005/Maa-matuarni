@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>B.Pharm | Bachelor of Pharmacy – Complete Guide</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafcff;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-green: #0d9488;
+            --primary-dark: #0f766e;
+            --accent-teal: #2dd4bf;
+            --soft-bg: #ecfdf5;
+            --gray-light: #f1f5f9;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .logo h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            letter-spacing: -0.3px;
+        }
+        .logo span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #5b6e8c;
+            display: block;
+        }
+        .nav-links a {
+            margin-left: 28px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: 0.2s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+            border-bottom-color: var(--primary-green);
+        }
+
+        /* hero */
+        .hero {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            padding: 3.5rem 0 4rem;
+            border-radius: 0 0 48px 48px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .hero-text h2 {
+            font-size: 2.7rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #1e293b;
+        }
+        .hero-text h2 span {
+            color: var(--primary-green);
+            border-bottom: 4px solid #facc15;
+            display: inline-block;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin: 1.2rem 0 1.8rem;
+            color: #334155;
+        }
+        .btn-hero {
+            background: var(--primary-green);
+            border: none;
+            padding: 12px 28px;
+            font-weight: 600;
+            color: white;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-hero:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            background: #ffffffcc;
+            border-radius: 32px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(2px);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-image i {
+            font-size: 7rem;
+            color: var(--primary-green);
+        }
+        .hero-image p {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* section style */
+        .section {
+            padding: 4rem 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            color: #1e293b;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-green);
+            border-radius: 4px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-green);
+        }
+        .card i {
+            font-size: 2.6rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 6px solid var(--primary-green);
+        }
+        .badge {
+            background: var(--primary-green);
+            color: white;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .stat {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        .stat h4 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-green);
+        }
+
+        footer {
+            background: #0f2c28;
+            color: #cbdcd9;
+            padding: 2.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid, .two-col {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text h2 {
+                font-size: 2rem;
+            }
+            .nav-flex {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-links a {
+                margin: 0 12px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .highlight {
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+        .list-styled {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-styled li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .list-styled li i {
+            color: var(--primary-green);
+            width: 24px;
+        }
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .syllabus-item {
+            background: var(--gray-light);
+            padding: 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/Navbar') %>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <div class="badge" style="background: #facc15; color:#1e293b;">Pharmacy Education</div>
+            <h2>Bachelor of <span>Pharmacy (B.Pharm)</span><br>Career in Drug Discovery & Healthcare</h2>
+            <p>B.Pharm is a 4-year undergraduate degree that equips students with knowledge of pharmaceutical sciences, drug formulation, pharmacology, and patient care. It opens doors to careers in the pharmaceutical industry, clinical research, regulatory affairs, community pharmacy, and higher studies like M.Pharm, Pharm.D, or MBA.</p>
+            <button class="btn-hero" onclick="alert('B.Pharm: A rewarding career in healthcare. Explore PCI-approved colleges.')"><i class="fas fa-graduation-cap"></i> Explore B.Pharm</button>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-capsules"></i>
+            <i class="fas fa-flask" style="font-size: 4rem; margin-left: 10px;"></i>
+            <p>Innovating for Better Health</p>
+        </div>
+    </div>
+</section>
+
+<!-- Overview -->
+<section id="overview" class="container section">
+    <h2 class="section-title">What is B.Pharm?</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <i class="fas fa-university" style="font-size: 2rem; color:var(--primary-green);"></i>
+            <h3 style="margin: 0.8rem 0 0.5rem;">Program Overview</h3>
+            <p>Bachelor of Pharmacy (B.Pharm) is a professional degree approved by the Pharmacy Council of India (PCI). It spans 8 semesters (4 years) and covers pharmaceutical chemistry, pharmaceutics, pharmacology, pharmacognosy, and hospital/clinical pharmacy. Graduates are eligible to work as registered pharmacists, pursue higher education, or appear for licensing exams to practice as a pharmacist.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-briefcase" style="font-size: 2rem; color:var(--primary-green);"></i>
+            <h3 style="margin: 0.8rem 0 0.5rem;">Why Choose B.Pharm?</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-check-circle"></i> High demand in pharmaceutical, biotech, and healthcare sectors</li>
+                <li><i class="fas fa-check-circle"></i> Opportunities in research, manufacturing, quality control, and marketing</li>
+                <li><i class="fas fa-check-circle"></i> Gateway to M.Pharm, Pharm.D, MBA, and Ph.D.</li>
+                <li><i class="fas fa-check-circle"></i> Eligibility to work as a community or hospital pharmacist</li>
+                <li><i class="fas fa-check-circle"></i> Lucrative career with global opportunities</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Eligibility -->
+<section id="eligibility" class="container section" style="background: var(--soft-bg); border-radius: 48px; padding: 3rem 2rem;">
+    <h2 class="section-title">🎓 Eligibility Criteria</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Academic Qualification</h3>
+            <p>10+2 (Higher Secondary) with Physics, Chemistry, and Biology/Mathematics as compulsory subjects. Minimum 50% aggregate marks (45% for reserved categories).</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-clock"></i>
+            <h3>Age Limit</h3>
+            <p>Generally 17 years or above at the time of admission. No upper age limit in most states.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-certificate"></i>
+            <h3>Diploma Holders</h3>
+            <p>Candidates with D.Pharm (Diploma in Pharmacy) can also apply for lateral entry into the second year of B.Pharm.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-globe"></i>
+            <h3>PCI Approval</h3>
+            <p>Must be enrolled in a college approved by the Pharmacy Council of India (PCI).</p>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Process -->
+<section id="admission" class="container section">
+    <h2 class="section-title">📝 Admission Process & Entrance Exams</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <i class="fas fa-file-alt"></i>
+            <h3>Admission Pathways</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-arrow-right"></i> State-level entrance exams (e.g., AP EAMCET, TS EAMCET, KCET, MHT CET, WBJEE, etc.)</li>
+                <li><i class="fas fa-arrow-right"></i> University-specific exams like BITSAT, VITEEE (for integrated courses), etc.</li>
+                <li><i class="fas fa-arrow-right"></i> Direct admission based on 10+2 marks in some private colleges (subject to PCI norms)</li>
+                <li><i class="fas fa-arrow-right"></i> Central counseling (e.g., NEET is not required for B.Pharm except in some states)</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-trophy"></i>
+            <h3>Major B.Pharm Entrance Exams</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-school"></i> <strong>MHT CET</strong> – Maharashtra</li>
+                <li><i class="fas fa-school"></i> <strong>AP EAMCET / TS EAMCET</strong> – Andhra Pradesh, Telangana</li>
+                <li><i class="fas fa-school"></i> <strong>KCET</strong> – Karnataka</li>
+                <li><i class="fas fa-school"></i> <strong>WBJEE</strong> – West Bengal</li>
+                <li><i class="fas fa-school"></i> <strong>UPSEE</strong> – Uttar Pradesh</li>
+                <li><i class="fas fa-school"></i> <strong>BITSAT</strong> – BITS Pilani (B.Pharm)</li>
+                <li><i class="fas fa-school"></i> <strong>GPAT</strong> – For M.Pharm (postgraduate)</li>
+            </ul>
+        </div>
+    </div>
+    <div style="background: #f1f5f9; border-radius: 28px; padding: 1.5rem; margin-top: 1.5rem; text-align: center;">
+        <i class="fas fa-info-circle"></i> <strong>Note:</strong> Some states also accept NEET scores for B.Pharm admissions. Check individual state counselling authority guidelines.
+    </div>
+</section>
+
+<!-- Syllabus -->
+<section id="syllabus" class="container section" style="background: var(--soft-bg); border-radius: 48px; padding: 3rem 2rem;">
+    <h2 class="section-title">📚 B.Pharm Syllabus (Year-wise Core Subjects)</h2>
+    <div class="syllabus-grid">
+        <div class="syllabus-item">Pharmaceutical Analysis</div>
+        <div class="syllabus-item">Human Anatomy & Physiology</div>
+        <div class="syllabus-item">Pharmaceutics I (Dosage Forms)</div>
+        <div class="syllabus-item">Pharmaceutical Inorganic Chemistry</div>
+        <div class="syllabus-item">Pharmaceutical Organic Chemistry</div>
+        <div class="syllabus-item">Physical Pharmaceutics</div>
+        <div class="syllabus-item">Pharmacology I & II</div>
+        <div class="syllabus-item">Pharmacognosy & Phytochemistry</div>
+        <div class="syllabus-item">Medicinal Chemistry</div>
+        <div class="syllabus-item">Pharmaceutical Engineering</div>
+        <div class="syllabus-item">Hospital & Clinical Pharmacy</div>
+        <div class="syllabus-item">Biopharmaceutics & Pharmacokinetics</div>
+        <div class="syllabus-item">Pharmaceutical Biotechnology</div>
+        <div class="syllabus-item">Quality Assurance & Regulatory Affairs</div>
+        <div class="syllabus-item">Pharmaceutical Jurisprudence</div>
+        <div class="syllabus-item">Project Work & Industrial Training</div>
+    </div>
+    <p style="text-align: center; margin-top: 2rem;">The curriculum includes theory, practical labs, and a mandatory internship/hospital training to meet PCI requirements.</p>
+</section>
+
+<!-- Career Opportunities -->
+<section id="career" class="container section">
+    <h2 class="section-title">💼 Career Opportunities After B.Pharm</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-industry"></i>
+            <h3>Pharmaceutical Industry</h3>
+            <p>Roles in R&D, production, quality control, quality assurance, and regulatory affairs. Top recruiters: Sun Pharma, Cipla, Dr. Reddy's, Pfizer, Novartis.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-hospital-user"></i>
+            <h3>Hospital / Clinical Pharmacy</h3>
+            <p>Work as a hospital pharmacist, clinical pharmacist, or drug information specialist in government/private hospitals.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-store"></i>
+            <h3>Community Pharmacy</h3>
+            <p>Own or manage a retail pharmacy store after obtaining a pharmacist license from the state pharmacy council.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Pharmacovigilance & Clinical Research</h3>
+            <p>Join CROs or pharma companies as clinical research associate, drug safety associate, or medical writer.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-gavel"></i>
+            <h3>Regulatory Affairs & IPR</h3>
+            <p>Handle drug approvals, patent filings, and compliance with CDSCO, USFDA, EMA, etc.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-chalkboard"></i>
+            <h3>Academics & Research</h3>
+            <p>Pursue M.Pharm, Ph.D., or become a lecturer/professor in pharmacy colleges.</p>
+        </div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat">
+            <h4>₹3-8 LPA</h4>
+            <p>Average Starting Salary (Industry)</p>
+        </div>
+        <div class="stat">
+            <h4>100%</h4>
+            <p>Placement Assistance in Top Colleges</p>
+        </div>
+        <div class="stat">
+            <h4>M.Pharm</h4>
+            <p>Higher Education Path</p>
+        </div>
+    </div>
+</section>
+
+<!-- Top Colleges & Further Studies -->
+<div class="container section" style="background: #f1f5f9; border-radius: 48px; padding: 2rem 2rem;">
+    <h2 class="section-title">🏛️ Top Pharmacy Colleges in India</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-landmark"></i>
+            <h3>NIRF Top Institutions</h3>
+            <p>NIPER (Mohali, Hyderabad), Jamia Hamdard, BITS Pilani, Manipal College of Pharmaceutical Sciences, Poona College of Pharmacy, etc.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-building"></i>
+            <h3>State Government Colleges</h3>
+            <p>Government College of Pharmacy (Bangalore, Aurangabad), Jadavpur University, etc.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-church"></i>
+            <h3>Private & Deemed Universities</h3>
+            <p>SRM, VIT, LPU, Amity, KIIT, and many PCI-approved private institutions.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-microscope"></i>
+            <h3>Research Institutes</h3>
+            <p>IITs (Pharmaceutical Technology), NIPERs, and central universities offering B.Pharm.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Licensing & Additional Info -->
+<div class="container" style="margin: 2rem auto;">
+    <div style="background: linear-gradient(135deg, #0d948810, #2dd4bf10); border-radius: 32px; padding: 1.8rem; border-left: 5px solid var(--primary-green);">
+        <h3><i class="fas fa-id-card"></i> Pharmacist Licensing & Registration</h3>
+        <p>After completing B.Pharm, graduates must register with the State Pharmacy Council to practice as a pharmacist. The registration requires passing the PCI-approved degree and submitting required documents. Registered pharmacists can work in community pharmacies, hospitals, or open their own drug store.</p>
+        <p style="margin-top: 12px;"><strong>Additional Certifications:</strong> Graduates can also appear for GPAT (Graduate Pharmacy Aptitude Test) for admission to M.Pharm with stipend, or pursue MBA (Pharma) for management roles, or qualify for CDSCO/state drug inspector exams.</p>
+    </div>
+</div>
+
+
+
+
+<script>
+    // smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href && href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,240 @@
+ 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #eef2f7 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2e3f;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+    }
+
+    .page-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* header section */
+    .infra-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .infra-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1f5e6e, #2b8c72);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-shine {
+      display: inline-block;
+      width: 90px;
+      height: 4px;
+      background: #f4a261;
+      border-radius: 4px;
+      margin: 0.75rem auto 0.5rem;
+    }
+
+    .subhead {
+      color: #547a8a;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Hero image carousel / main campus image */
+    .campus-hero {
+      margin: 1.5rem 0 2rem;
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .campus-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 420px;
+      width: 100%;
+    }
+
+    /* facility grid */
+    .facility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 2.5rem;
+    }
+
+    .facility-card {
+      background: #ffffff;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .facility-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img {
+      height: 210px;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .facility-card:hover .card-img img {
+      transform: scale(1.03);
+    }
+
+    .card-content {
+      padding: 1.5rem 1.3rem 1.8rem;
+      flex: 1;
+    }
+
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: #2c5a62;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-content h3 i {
+      color: #f4a261;
+      font-size: 1.4rem;
+    }
+
+    .card-content p {
+      color: #3f5a67;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 0.6rem;
+    }
+
+    .feature-list li {
+      font-size: 0.85rem;
+      margin: 0.4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #4d6e7c;
+    }
+
+    .feature-list li i {
+      color: #f4a261;
+      width: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* highlight banner */
+    .highlight-banner {
+      background: linear-gradient(105deg, #294e5c 0%, #1b6b5e 100%);
+      border-radius: 2rem;
+      padding: 2rem 2rem;
+      margin: 2rem 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      color: white;
+    }
+
+    .highlight-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .highlight-text p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .highlight-icon {
+      font-size: 3.5rem;
+      background: rgba(255,255,240,0.2);
+      padding: 0.8rem;
+      border-radius: 60px;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6f8e9c;
+      border-top: 1px solid #dce4e8;
+      padding-top: 1.8rem;
+    }
+
+    /* responsive */
+    @media (max-width: 750px) {
+      body {
+        padding: 1.2rem;
+      }
+      .infra-header h1 {
+        font-size: 2.2rem;
+      }
+      .facility-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .highlight-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .campus-hero img {
+        max-height: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-content h3 {
+        font-size: 1.3rem;
+      }
+      .highlight-text h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    .stat-badge {
+      background: #ffffffaa;
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+    }

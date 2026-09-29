@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Notice Management</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .header {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+    }
+
+    .form-card,
+    .notice-card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 15px 0;
+    }
+
+    .checkbox input {
+      width: auto;
+    }
+
+    button {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .notice {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .notice.important {
+      border-left: 5px solid #dc2626;
+    }
+
+    .notice h3 {
+      margin-top: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 15px;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+
+    .badge-important {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .badge-category {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-published {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-hidden {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .notice-footer {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 700px) {
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .notice-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+
+    <h1>Notice Management</h1>
+
+    <p>
+      Welcome,
+      <strong>
+        <%= erpUser?.name || "Admin" %>
+      </strong>
+    </p>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- CREATE NOTICE -->
+  <!-- ================================================= -->
+
+  <div class="form-card">
+
+    <h2>Create New Notice</h2>
+
+    <form id="noticeForm">
+
+      <div class="form-group">
+
+        <label>Notice Title</label>
+
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Enter notice title"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Description</label>
+
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Enter notice details"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="form-group">
+
+          <label>Notice Date</label>
+
+          <input
+            type="date"
+            id="noticeDate"
+            name="noticeDate"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Category</label>
+
+          <select
+            id="category"
+            name="category"
+          >
+
+            <option value="General">
+              General
+            </option>
+
+            <option value="Academic">
+              Academic
+            </option>
+
+            <option value="Exam">
+              Exam
+            </option>
+
+            <option value="Fees">
+              Fees
+            </option>
+
+            <option value="Holiday">
+              Holiday
+            </option>
+
+            <option value="Important">
+              Important
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="checkbox">
+
+        <input
+          type="checkbox"
+          id="important"
+          name="important"
+        >
+
+        <label for="important">
+          Mark as Important
+        </label>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn-primary"
+      >
+        Create Notice
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- NOTICE LIST -->
+  <!-- ================================================= -->
+
+  <div class="notice-card">
+
+    <h2>All Notices</h2>
+
+    <div id="noticeList">
+
+      <% if (!notices || notices.length === 0) { %>
+
+        <div class="empty">
+          No notices available.
+        </div>
+
+      <% } %>
+
+
+      <% notices?.forEach(notice => { %>
+
+        <div
+          class="notice <%= notice.important ? 'important' : '' %>"
+        >
+
+          <h3>
+            <%= notice.title %>
+          </h3>
+
+
+          <div>
+
+            <% if (notice.important) { %>
+
+              <span class="badge badge-important">
+                IMPORTANT
+              </span>
+
+            <% } %>
+
+
+            <span class="badge badge-category">
+              <%= notice.category %>
+            </span>
+
+
+            <% if (notice.published) { %>
+
+              <span class="badge badge-published">
+                Published
+              </span>
+
+            <% } else { %>
+
+              <span class="badge badge-hidden">
+                Unpublished
+              </span>
+
+            <% } %>
+
+          </div>
+
+
+          <p>
+            <%= notice.description %>
+          </p>
+
+
+          <small>
+
+            Date:
+            <%= notice.noticeDate
+              ? new Date(notice.noticeDate).toLocaleDateString("en-IN")
+              : "-"
+            %>
+
+          </small>
+
+
+          <div class="notice-footer">
+
+            <button
+              class="<%= notice.published
+                ? 'btn-danger'
+                : 'btn-success'
+              %>"
+              onclick="toggleNotice('<%= notice._id %>')"
+            >
+
+              <%= notice.published
+                ? "Unpublish"
+                : "Publish"
+              %>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const noticeForm =
+    document.getElementById("noticeForm");
+
+
+  noticeForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const data = {
+
+        title:
+          document.getElementById("title").value,
+
+        description:
+          document.getElementById("description").value,
+
+        noticeDate:
+          document.getElementById("noticeDate").value,
+
+        category:
+          document.getElementById("category").value,
+
+        important:
+          document.getElementById("important").checked
+
+      };
+
+
+      try {
+
+        const response = await fetch(
+          "/erp/notices",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(data)
+          }
+        );
+
+
+        const result =
+          await response.json();
+
+
+        if (!result.success) {
+
+          alert(
+            result.message ||
+            "Unable to create notice."
+          );
+
+          return;
+        }
+
+
+        alert(
+          "Notice created successfully."
+        );
+
+
+        location.reload();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Server error. Please try again."
+        );
+
+      }
+
+    }
+  );
+
+
+  async function toggleNotice(id) {
+
+    try {
+
+      const response = await fetch(
+        `/erp/notices/${id}/status`,
+        {
+          method: "PATCH"
+        }
+      );
+
+
+      const result =
+        await response.json();
+
+
+      if (!result.success) {
+
+        alert(
+          result.message ||
+          "Unable to change notice status."
+        );
+
+        return;
+      }
+
+
+      location.reload();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Server error."
+      );
+
+    }
+
+  }
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>User Management - Maa Maturani Devi Pharmacy College</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #123;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .header {
+            background: #0d3550;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #1769aa;
+            color: white;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 7px;
+        }
+
+        .success {
+            background: #e8f7ee;
+            color: #137333;
+        }
+
+        .error {
+            background: #fdecec;
+            color: #b42318;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #f5f7fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .student {
+            background: #e6f4ff;
+            color: #075985;
+        }
+
+        .faculty {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .admin {
+            background: #fff4d6;
+            color: #92400e;
+        }
+
+        .principal {
+            background: #e8f7ee;
+            color: #137333;
+        }
+
+        .active {
+            color: #137333;
+            font-weight: 600;
+        }
+
+        .inactive {
+            color: #b42318;
+            font-weight: 600;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #1769aa;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+
+        <a
+            href="/erp/admin"
+            class="back-link"
+        >
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="header">
+
+        <h1>
+            <i class="fas fa-users"></i>
+            User Management
+        </h1>
+
+        <p>
+            Manage Students, Faculty, Admins and Principals
+        </p>
+
+    </div>
+
+
+    <!-- CREATE USER -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fas fa-user-plus"></i>
+            Create New User
+        </h2>
+
+        <form id="createUserForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        maxlength="100"
+                        placeholder="Enter full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="enrollment">
+                        Enrollment Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="enrollment"
+                        required
+                        maxlength="50"
+                        placeholder="Enter enrollment number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Temporary Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        required
+                        minlength="6"
+                        maxlength="128"
+                        placeholder="Minimum 6 characters"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="role">
+                        Role
+                    </label>
+
+                    <select
+                        id="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select Role
+                        </option>
+
+                        <option value="student">
+                            Student
+                        </option>
+
+                        <option value="faculty">
+                            Faculty
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                        <option value="principal">
+                            Principal
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="session">
+                        Session
+                    </label>
+
+                    <input
+                        type="text"
+                        id="session"
+                        value="2025-26"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="createButton"
+                    >
+
+                        <i class="fas fa-user-plus"></i>
+                        Create User
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </div>
+
+
+    <!-- USERS TABLE -->
+
+    <div class="card">
+
+        <div class="top-bar">
+
+            <h2>
+                <i class="fas fa-users"></i>
+                All Users
+            </h2>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+             <thead>
+    <tr>
+        <th>Name</th>
+        <th>Enrollment</th>
+        <th>Role</th>
+        <th>Session</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+
+
+                <tbody id="usersTableBody">
+
+                    <tr>
+
+                      <td colspan="7">
+                            Loading users...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const form = document.getElementById("createUserForm");
+const button = document.getElementById("createButton");
+const message = document.getElementById("message");
+const tableBody = document.getElementById("usersTableBody");
+
+
+// ==========================================
+// MESSAGE
+// ==========================================
+
+function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className = "message " + type;
+
+    message.style.display = "block";
+}
+
+
+// ==========================================
+// LOAD USERS
+// ==========================================
+
+async function loadUsers() {
+
+    try {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    Loading users...
+                </td>
+            </tr>
+        `;
+
+        const response = await fetch(
+            "/erp/admin/users",
+            {
+                method: "GET",
+                credentials: "same-origin",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message || "Unable to load users."
+            );
+
+        }
+
+        tableBody.innerHTML = "";
+
+        if (!data.users || data.users.length === 0) {
+
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        No users found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        data.users.forEach(user => {
+
+            const row = document.createElement("tr");
+
+            const roleClass = user.role;
+
+            const statusClass =
+                user.active ? "active" : "inactive";
+
+            const statusText =
+                user.active ? "Active" : "Inactive";
+
+            const created =
+                user.createdAt
+                    ? new Date(user.createdAt)
+                        .toLocaleDateString("en-IN")
+                    : "-";
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(user.name)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.enrollment)}
+                </td>
+
+                <td>
+                    <span class="badge ${roleClass}">
+                        ${escapeHtml(user.role)}
+                    </span>
+                </td>
+
+                <td>
+                    ${escapeHtml(user.session)}
+                </td>
+
+                <td>
+                    <span class="${statusClass}">
+                        ${statusText}
+                    </span>
+                </td>
+
+                <td>
+                    ${created}
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="btn btn-edit"
+                        onclick="editUser('${user._id}')"
+                    >
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn ${
+                            user.active
+                                ? "btn-danger"
+                                : "btn-success"
+                        }"
+                        onclick="toggleStatus(
+                            '${user._id}',
+                            ${user.active}
+                        )"
+                    >
+                        <i class="fas ${
+                            user.active
+                                ? "fa-user-slash"
+                                : "fa-user-check"
+                        }"></i>
+
+                        ${
+                            user.active
+                                ? "Deactivate"
+                                : "Activate"
+                        }
+
+                    </button>
+
+                </td>
+
+            `;
+
+            tableBody.appendChild(row);
+
+        });
+
+
+    } catch (error) {
+
+        console.error("Load Users Error:", error);
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="color:#b42318;">
+                    ${escapeHtml(error.message)}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+// ==========================================
+// EDIT USER
+// ==========================================
+
+async function editUser(id) {
+
+    const newName = prompt(
+        "Enter new name:"
+    );
+
+    if (newName === null) {
+        return;
+    }
+
+    const name = newName.trim();
+
+    if (!name) {
+
+        alert("Name cannot be empty.");
+
+        return;
+    }
+
+
+    const newEnrollment = prompt(
+        "Enter new enrollment:"
+    );
+
+    if (newEnrollment === null) {
+        return;
+    }
+
+    const enrollment =
+        newEnrollment.trim().toUpperCase();
+
+    if (!enrollment) {
+
+        alert("Enrollment cannot be empty.");
+
+        return;
+    }
+
+
+    const role = prompt(
+        "Enter role: student / faculty / admin / principal"
+    );
+
+    if (role === null) {
+        return;
+    }
+
+    const normalizedRole =
+        role.trim().toLowerCase();
+
+
+    const allowedRoles = [
+        "student",
+        "faculty",
+        "admin",
+        "principal"
+    ];
+
+
+    if (!allowedRoles.includes(normalizedRole)) {
+
+        alert("Invalid role.");
+
+        return;
+    }
+
+
+    const session = prompt(
+        "Enter session:"
+    );
+
+    if (session === null) {
+        return;
+    }
+
+
+    if (!session.trim()) {
+
+        alert("Session cannot be empty.");
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `/erp/admin/users/${id}`,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "Accept":
+                        "application/json"
+                },
+
+                credentials: "same-origin",
+
+                body: JSON.stringify({
+                    name,
+                    enrollment,
+                    role: normalizedRole,
+                    session: session.trim()
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to update user."
+            );
+
+        }
+
+
+        alert(
+            "User updated successfully."
+        );
+
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error(
+            "Edit User Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to update user."
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// ACTIVATE / DEACTIVATE USER
+// ==========================================
+
+async function toggleStatus(id, currentStatus) {
+
+    const action =
+        currentStatus
+            ? "deactivate"
+            : "activate";
+
+
+    const confirmed = confirm(
+        `Are you sure you want to ${action} this user?`
+    );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `/erp/admin/users/${id}/status`,
+            {
+                method: "PATCH",
+
+                headers: {
+                    "Accept":
+                        "application/json"
+                },
+
+                credentials:
+                    "same-origin"
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to change user status."
+            );
+
+        }
+
+
+        alert(data.message);
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error(
+            "Toggle Status Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to change user status."
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// CREATE USER
+// ==========================================
+
+form.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+        button.disabled = true;
+
+        button.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+
+        try {
+
+            const payload = {
+
+                name:
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim(),
+
+                enrollment:
+                    document
+                        .getElementById("enrollment")
+                        .value
+                        .trim(),
+
+                password:
+                    document
+                        .getElementById("password")
+                        .value,
+
+                role:
+                    document
+                        .getElementById("role")
+                        .value,
+
+                session:
+                    document
+                        .getElementById("session")
+                        .value
+                        .trim()
+
+            };
+
+
+            const response =
+                await fetch(
+                    "/erp/admin/users",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "Accept":
+                                "application/json"
+                        },
+
+                        credentials:
+                            "same-origin",
+
+                        body:
+                            JSON.stringify(payload)
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to create user."
+                );
+
+            }
+
+
+            showMessage(
+                "User created successfully.",
+                "success"
+            );
+
+
+            form.reset();
+
+
+            document
+                .getElementById("session")
+                .value = "2025-26";
+
+
+            await loadUsers();
+
+
+        } catch (error) {
+
+            console.error(
+                "Create User Error:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to create user.",
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                '<i class="fas fa-user-plus"></i> Create User';
+
+        }
+
+    }
+);
+
+
+// ==========================================
+// HTML ESCAPE
+// ==========================================
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+// ==========================================
+// INITIAL LOAD
+// ==========================================
+
+loadUsers();
+
+</script>
+
+</body>
+</html>

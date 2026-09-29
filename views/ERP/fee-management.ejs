@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fee Management</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #message {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+    }
+
+    .success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        margin: 15px auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>💰 Student Fee Management</h2>
+
+    <form id="feeForm">
+
+      <!-- Enrollment -->
+   <!-- Enrollment -->
+<div class="form-group">
+
+  <label for="enrollment">
+    Student Enrollment
+  </label>
+
+  <input
+    type="text"
+    id="enrollment"
+    name="enrollment"
+    placeholder="Example: STU003"
+    required
+  >
+
+</div>
+
+
+<!-- Semester -->
+<div class="form-group">
+
+  <label for="semester">
+    Semester
+  </label>
+
+  <select
+    id="semester"
+    name="semester"
+    required
+  >
+
+    <option value="">
+      Select Semester
+    </option>
+
+    <option value="1st Semester">
+      1st Semester
+    </option>
+
+    <option value="2nd Semester">
+      2nd Semester
+    </option>
+
+    <option value="3rd Semester">
+      3rd Semester
+    </option>
+
+    <option value="4th Semester">
+      4th Semester
+    </option>
+
+  </select>
+
+</div>
+
+
+<div class="row">
+
+  <!-- Total Fees -->
+  <div class="form-group">
+
+    <label for="totalFees">
+      Total Fees
+    </label>
+
+    <input
+      type="number"
+      id="totalFees"
+      name="totalFees"
+      min="0"
+      placeholder="50000"
+      required
+    >
+
+  </div>
+
+
+  <!-- Paid Fees -->
+  <div class="form-group">
+
+    <label for="paidFees">
+      Paid Fees
+    </label>
+
+    <input
+      type="number"
+      id="paidFees"
+      name="paidFees"
+      min="0"
+      placeholder="30000"
+      required
+    >
+
+  </div>
+
+</div>
+
+
+        <!-- Paid Fees -->
+        <div class="form-group">
+
+          <label for="paidFees">
+            Paid Fees
+          </label>
+
+          <input
+            type="number"
+            id="paidFees"
+            name="paidFees"
+            min="0"
+            placeholder="30000"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <!-- Payment Date -->
+        <div class="form-group">
+
+          <label for="paymentDate">
+            Payment Date
+          </label>
+
+          <input
+            type="date"
+            id="paymentDate"
+            name="paymentDate"
+          >
+
+        </div>
+
+
+        <!-- Payment Mode -->
+        <div class="form-group">
+
+          <label for="paymentMode">
+            Payment Mode
+          </label>
+
+          <select
+            id="paymentMode"
+            name="paymentMode"
+          >
+
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Bank Transfer">
+              Bank Transfer
+            </option>
+            <option value="Cheque">Cheque</option>
+            <option value="Online">Online</option>
+            <option value="Other">Other</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- Transaction ID -->
+      <div class="form-group">
+
+        <label for="transactionId">
+          Transaction ID
+        </label>
+
+        <input
+          type="text"
+          id="transactionId"
+          name="transactionId"
+          placeholder="Optional"
+        >
+
+      </div>
+
+
+      <!-- Remarks -->
+      <div class="form-group">
+
+        <label for="remarks">
+          Remarks
+        </label>
+
+        <textarea
+          id="remarks"
+          name="remarks"
+          placeholder="Enter remarks..."
+        ></textarea>
+
+      </div>
+
+
+      <button type="submit">
+        Save Fees
+      </button>
+
+    </form>
+
+
+    <div id="message"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const feeForm = document.getElementById("feeForm");
+  const message = document.getElementById("message");
+
+
+  feeForm.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+
+    const formData = new FormData(feeForm);
+
+    const data = Object.fromEntries(formData.entries());
+
+
+    try {
+
+      const response = await fetch("/erp/fees", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(data)
+
+      });
+
+
+      const result = await response.json();
+
+
+      message.style.display = "block";
+
+
+      if (result.success) {
+
+        message.className = "success";
+
+        message.textContent = result.message;
+
+        feeForm.reset();
+
+      } else {
+
+        message.className = "error";
+
+        message.textContent =
+          result.message || "Unable to save fees.";
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.style.display = "block";
+
+      message.className = "error";
+
+      message.textContent =
+        "Server error. Please try again.";
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>

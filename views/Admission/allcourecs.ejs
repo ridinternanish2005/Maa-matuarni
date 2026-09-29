@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses - HRI Group of Institutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="/css/allcourese.css">
+</head>
+<body>
+    <%- include('partials/Navbar') %>
+ 
+    
+    <div class="container">
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input type="text" id="course-search" placeholder="Search for courses, departments, or specializations...">
+                <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+            </div>
+            
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Programs</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="management">Management</button>
+                <button class="filter-btn" data-filter="science">Science</button>
+                <button class="filter-btn" data-filter="arts">Arts & Humanities</button>
+                <button class="filter-btn" data-filter="diploma">Diploma</button>
+                <button class="filter-btn" data-filter="certificate">Certificate</button>
+            </div>
+        </div>
+        
+        <div class="courses-header">
+            <h2>Our Academic Programs</h2>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Departments</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Faculty Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5000+</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Placement Rate</div>
+            </div>
+        </div>
+        
+        <div class="no-results" id="no-results">
+            <i class="fas fa-search fa-3x" style="margin-bottom: 20px; color: #ccc;"></i>
+            <h3>No courses found</h3>
+            <p>Try adjusting your search or filter to find what you're looking for.</p>
+        </div>
+        
+        <!-- Engineering Department -->
+        <div class="department-section" data-dept="engineering">
+            <div class="department-title">
+                <h3><i class="fas fa-cogs"></i> Faculty of Engineering & Technology</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="engineering">
+                    <div class="course-header">
+                        <div class="course-code">B.TECH-CSE</div>
+                        <h4>B.Tech in Computer Science & Engineering</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 4 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹1,20,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with PCM (60%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> AI, Cybersecurity, Data Science</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Google, Microsoft, Amazon, Infosys</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="engineering">
+                    <div class="course-header">
+                        <div class="course-code">B.TECH-ME</div>
+                        <h4>B.Tech in Mechanical Engineering</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 4 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹1,00,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with PCM (55%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Automotive, Robotics, Thermal</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Tata Motors, L&T, Mahindra, Bosch</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="course-card" data-course="engineering">
+                    <div class="course-header">
+                        <div class="course-code">B.TECH-ECE</div>
+                        <h4>B.Tech in Electronics & Communication</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 4 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹1,10,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with PCM (55%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> VLSI, Embedded Systems, IoT</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Samsung, Intel, Qualcomm, Philips</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div class="course-card" data-course="engineering">
+                    <div class="course-header">
+                        <div class="course-code">B.TECH-CE</div>
+                        <h4>B.Tech in Civil Engineering</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 4 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹95,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with PCM (55%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Structural, Environmental, Transportation</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> L&T, Shapoorji Pallonji, Gammon, HCC</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Management Department -->
+        <div class="department-section" data-dept="management">
+            <div class="department-title">
+                <h3><i class="fas fa-chart-line"></i> Faculty of Management Studies</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="management">
+                    <div class="course-header">
+                        <div class="course-code">MBA</div>
+                        <h4>Master of Business Administration</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 2 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹2,50,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> Graduation (50%+) with CAT/MAT</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Marketing, Finance, HR, Operations</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Deloitte, HDFC, Amazon, ICICI Bank</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="management">
+                    <div class="course-header">
+                        <div class="course-code">BBA</div>
+                        <h4>Bachelor of Business Administration</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹80,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 in any stream (55%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Digital Marketing, Entrepreneurship, Finance</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Accenture, TCS, Wipro, Capgemini</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="course-card" data-course="management">
+                    <div class="course-header">
+                        <div class="course-code">B.COM-H</div>
+                        <h4>B.Com (Hons.)</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹60,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 Commerce (50%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Accounting, Taxation, Banking</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Big 4 Firms, Banks, Financial Institutions</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Science Department -->
+        <div class="department-section" data-dept="science">
+            <div class="department-title">
+                <h3><i class="fas fa-flask"></i> Faculty of Science</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="science">
+                    <div class="course-header">
+                        <div class="course-code">B.SC-CS</div>
+                        <h4>B.Sc in Computer Science</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹50,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with Math (50%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Software Development, Data Analytics</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> IT Companies, Startups, Research Labs</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="science">
+                    <div class="course-header">
+                        <div class="course-code">M.SC-PHY</div>
+                        <h4>M.Sc in Physics</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 2 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹40,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> B.Sc in Physics (55%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Electronics, Material Science</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Research Institutes, Labs, Teaching</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="course-card" data-course="science">
+                    <div class="course-header">
+                        <div class="course-code">B.SC-BIO</div>
+                        <h4>B.Sc in Biotechnology</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹55,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 with Biology (50%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Genetic Engineering, Microbiology</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Pharma Companies, Research Centers</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Arts Department -->
+        <div class="department-section" data-dept="arts">
+            <div class="department-title">
+                <h3><i class="fas fa-paint-brush"></i> Faculty of Arts & Humanities</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="arts">
+                    <div class="course-header">
+                        <div class="course-code">BA-ENG</div>
+                        <h4>BA in English Literature</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹35,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 in any stream (45%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Creative Writing, Journalism</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Media, Publishing, Content Writing</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="arts">
+                    <div class="course-header">
+                        <div class="course-code">BA-PSY</div>
+                        <h4>BA in Psychology</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹40,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 in any stream (45%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Clinical, Counseling, Organizational</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> HR, Counseling Centers, NGOs</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Diploma Programs -->
+        <div class="department-section" data-dept="diploma">
+            <div class="department-title">
+                <h3><i class="fas fa-certificate"></i> Diploma Programs</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="diploma">
+                    <div class="course-header">
+                        <div class="course-code">DIP-CS</div>
+                        <h4>Diploma in Computer Science</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 2 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹30,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10th Pass (50%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Web Development, Software Testing</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> IT Support, Web Development</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="diploma">
+                    <div class="course-header">
+                        <div class="course-code">DIP-MECH</div>
+                        <h4>Diploma in Mechanical Engineering</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 3 Years</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹25,000/year</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10th Pass (45%+)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Specializations:</strong> Automobile, Tool & Die</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Manufacturing, Maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Certificate Programs -->
+        <div class="department-section" data-dept="certificate">
+            <div class="department-title">
+                <h3><i class="fas fa-award"></i> Certificate Programs</h3>
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-course="certificate">
+                    <div class="course-header">
+                        <div class="course-code">CERT-DS</div>
+                        <h4>Certificate in Data Science</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 6 Months</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹25,000</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> Graduation (any stream)</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Topics:</strong> Python, ML, Data Visualization</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Data Analyst Roles</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-course="certificate">
+                    <div class="course-header">
+                        <div class="course-code">CERT-DM</div>
+                        <h4>Certificate in Digital Marketing</h4>
+                    </div>
+                    <div class="course-body">
+                        <ul class="course-details">
+                            <li><i class="fas fa-clock"></i> <strong>Duration:</strong> 4 Months</li>
+                            <li><i class="fas fa-rupee-sign"></i> <strong>Fees:</strong> ₹20,000</li>
+                            <li><i class="fas fa-user-graduate"></i> <strong>Eligibility:</strong> 10+2 Pass</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> <strong>Topics:</strong> SEO, Social Media, Google Ads</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Placements:</strong> Marketing Agencies, Freelancing</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer">
+                        <a href="#" class="view-details">View Details <i class="fas fa-arrow-right"></i></a>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <i class="fas fa-industry"></i>
+                <h4>Industry-Relevant Curriculum</h4>
+                <p>Courses designed in collaboration with industry experts to ensure job-ready skills.</p>
+            </div>
+            
+            <div class="highlight-card">
+                <i class="fas fa-handshake"></i>
+                <h4>Excellent Placement Record</h4>
+                <p>95% placement rate with 500+ recruiters visiting campus annually.</p>
+            </div>
+            
+            <div class="highlight-card">
+                <i class="fas fa-user-tie"></i>
+                <h4>Experienced Faculty</h4>
+                <p>Learn from PhD holders and industry veterans with years of experience.</p>
+            </div>
+            
+            <div class="highlight-card">
+                <i class="fas fa-globe"></i>
+                <h4>Global Exposure</h4>
+                <p>International collaborations, student exchange programs, and global certifications.</p>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <%- include('partials/footer') %>
+</body>
+</html>

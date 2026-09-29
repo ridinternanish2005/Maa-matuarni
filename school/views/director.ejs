@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Director's Desk | Global Vision Academy</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/school/css/director.css">
+  
+</head>
+<body>
+      <%- include("partials/navbar.ejs") %>
+
+<!-- Navigation Bar (consistent with director's tone) -->
+
+<!-- Main Content -->
+<div class="container">
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-landmark"></i> 
+            Director's Desk
+        </h2>
+        <p>“Leadership rooted in wisdom, progress driven by compassion”</p>
+    </div>
+
+    <!-- Director Desk Core Section -->
+    <div class="director-card">
+        <div class="desk-grid">
+            <!-- LEFT SIDE: Director Image, Info, Achievements -->
+            <div class="director-info">
+                <div class="director-img">
+                    <!-- Professional portrait (female director for diversity) -->
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Director Mrs. Meera Nair">
+                </div>
+                <div class="director-name">Mrs. Meera Nair</div>
+                <div class="director-designation">M.A. (Edu), PGDM | Founder & Director</div>
+                
+                <div class="info-details">
+                    <p><i class="fas fa-university"></i> <strong>Qualification:</strong> M.A. Education, Harvard PLD</p>
+                    <p><i class="fas fa-chalkboard"></i> <strong>Experience:</strong> 31+ years in educational leadership</p>
+                    <p><i class="fas fa-medal"></i> <strong>Honors:</strong> "Education Evangelist of the Year 2024"</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> director@gva.edu.in</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Office:</strong> +91 98100 22345</p>
+                </div>
+                <div class="badge-dir">
+                    <i class="fas fa-globe-asia"></i> Global Advisory Board Member - IESA
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: Director's Message & Vision -->
+            <div class="director-message">
+                <div class="message-header">
+                    <i class="fas fa-feather-alt"></i>
+                    <h3>A Visionary's Note</h3>
+                </div>
+                <div class="greeting-text">
+                    <i class="fas fa-dove" style="color:#b6622e; margin-right: 8px;"></i> 
+                    <strong>To the Global Vision Academy Family,</strong>
+                </div>
+                <div class="message-content">
+                    <p>Education is the most powerful catalyst for transforming society. As the Director of <strong>Global Vision Academy</strong>, my unwavering commitment is to build a holistic ecosystem where every child discovers not just academic excellence but also emotional resilience, ethical grounding, and creative fearlessness.</p>
+                    <p>Our institution thrives on a learner-first philosophy — blending contemporary pedagogical tools with timeless Indian values. I personally mentor the leadership team to ensure that each classroom, each co-curricular activity, and each student-teacher interaction reflects <strong>empathy and innovation</strong>. We champion mental well-being, project-based learning, and inclusivity at every step.</p>
+                    <div class="vision-quote">
+                        <i class="fas fa-quote-left" style="margin-right: 6px; color:#b87c4a;"></i> 
+                        "True education ignites curiosity and builds character. Let us raise a generation that questions, cares, and leads with grace." 
+                        <span style="display:block; font-size:0.75rem; margin-top: 8px;">— Mrs. Meera Nair, Director</span>
+                    </div>
+                    <p>I firmly believe that parents and teachers are co-architects of a child's future. Our 'Open-Door Policy' and regular dialogue forums ensure transparency and collective growth. Together, we will create a vibrant campus that celebrates diversity, environmental consciousness, and academic rigour.</p>
+                    <p>As we move forward into a dynamic future, I invite you to partner with us in this journey of excellence, one where every young mind is empowered to dream big and act with purpose.</p>
+                </div>
+                <div class="signature-block">
+                    <div class="signature-name">Meera Nair</div>
+                    <div class="signature-title">Director, Global Vision Academy</div>
+                    <div style="font-size:0.7rem; margin-top: 6px;"><i class="far fa-calendar-check"></i> May 2026 | Academic Session 2026-27</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional pillars / Director's vision highlights -->
+    <div class="vision-stats">
+        <div class="stat-card">
+            <i class="fas fa-seedling"></i>
+            <h4>Nurturing Roots</h4>
+            <p>Value-based education & mindfulness programs integrated in daily curriculum.</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-microchip"></i>
+            <h4>Future-Ready Skills</h4>
+            <p>AI literacy, design thinking & global collaboration labs for every student.</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-hand-holding-heart"></i>
+            <h4>Inclusive Excellence</h4>
+            <p>Scholarships, learning support & equal opportunity for all backgrounds.</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-chalkboard-user"></i>
+            <h4>Teacher Empowerment</h4>
+            <p>Continuous professional development & mentorship programs.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<%-include("partials/footer.ejs") %>
+
+</body>
+</html>

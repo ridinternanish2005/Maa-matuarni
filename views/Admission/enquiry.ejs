@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>📘 Admission Enquiry · Student portal</title>
+  <!-- Google Font & Font Awesome for clean icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- <link rel="stylesheet" href="css/enquiry.css"> -->
+</head>
+<body>
+  <%- include('partials/Navbar') %>
+  <style>
+      
+    /* Modern reset + base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #f6f9fc 0%, #eaf2f8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .enquiry-wrapper {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .enquiry-card {
+      background: white;
+      border-radius: 32px;
+      padding: 2.2rem 2rem;
+      box-shadow: 0 25px 40px -15px rgba(2, 48, 71, 0.12);
+      transition: transform 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    .enquiry-card:hover {
+      transform: scale(1.005);
+    }
+
+    /* header section with icon */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-header i {
+      font-size: 2.2rem;
+      color: #0a4b7a;
+      background: linear-gradient(135deg, #0f67b3, #1e3c72);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(145deg, #0b3d5f, #0b2a42);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+    }
+
+    .subhead {
+      color: #4a5f73;
+      font-size: 0.98rem;
+      margin-bottom: 1.8rem;
+      margin-top: 0.3rem;
+      padding-left: 0.2rem;
+      font-weight: 400;
+      border-left: 4px solid #2a7faa;
+      padding-left: 14px;
+    }
+
+    /* form grid */
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1d3a4e;
+      margin-bottom: 8px;
+    }
+
+    label i {
+      width: 18px;
+      color: #2a7faa;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* input, select, textarea */
+    .form-control {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      font-size: 1rem;
+      border: 1.5px solid #dee7ed;
+      border-radius: 18px;
+      background: #fbfdff;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-control:focus {
+      border-color: #1f7ea3;
+      background: white;
+      box-shadow: 0 6px 14px rgba(28, 113, 151, 0.08);
+      outline: none;
+    }
+
+    /* dropdown custom arrow */
+    select.form-control {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%233b5e7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      background-size: 1.2rem;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    /* error message style */
+    .error-text {
+      color: #c83e4d;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 6px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      display: none;
+    }
+
+    .error-text i {
+      font-size: 0.8rem;
+      color: #c83e4d;
+    }
+
+    .error-border {
+      border-color: #c83e4d !important;
+      background-color: #fff8f7;
+    }
+
+    /* success message */
+    .success-alert {
+      background: #e1f3e8;
+      border-left: 8px solid #1b8c5e;
+      border-radius: 18px;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #0b4635;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      animation: slideIn 0.3s;
+    }
+
+    .success-alert i {
+      font-size: 1.6rem;
+      color: #1b8c5e;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* submit button */
+    .btn-submit {
+      background: linear-gradient(105deg, #11698c, #144e70);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1rem 1.8rem;
+      border: none;
+      border-radius: 40px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: 0.2s;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 18px rgba(17,105,140,0.25);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(105deg, #0f5e7a, #0e405a);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 25px rgba(16, 85, 110, 0.3);
+    }
+
+    .btn-submit i {
+      font-size: 1.2rem;
+    }
+
+    /* responsiveness */
+    @media (max-width: 550px) {
+      .enquiry-card {
+        padding: 1.8rem 1.3rem;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* required asterisk (custom) */
+    .required-asterisk {
+      color: #c83e4d;
+      margin-left: 4px;
+    }
+
+    .inline-flex {
+      display: flex;
+      align-items: center;
+    }
+
+    small.hint {
+      display: block;
+      color: #5a6e7c;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      margin-left: 12px;
+    }
+
+    /* footer note */
+    .footer-note {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 0.8rem;
+      color: #4a6579;
+    }
+    .footer-note i {
+      color: #b33b4c;
+    }
+  
+  </style>
+
+
+  <div class="enquiry-wrapper">
+    <div class="enquiry-card">
+      
+      <!-- Header with icon -->
+      <div class="card-header">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>Admission Enquiry</h2>
+      </div>
+      <div class="subhead">
+        <i class="fas fa-phone-alt" style="margin-right: 8px; color: #1d7a9c;"></i> 
+        Get answers — fill the form, we’ll reach out within 24h
+      </div>
+
+      <!-- Dynamic success message injected via JS will appear here -->
+      <div id="liveSuccessMessage"></div>
+
+      <!-- ===== ENQUIRY FORM ===== -->
+      <form id="admissionEnquiryForm" novalidate>
+        
+        <!-- FULL NAME -->
+        <div class="form-group" id="group-fullname">
+          <label for="fullName">
+            <i class="fas fa-user-graduate"></i> 
+            Full name <span class="required-asterisk">*</span>
+          </label>
+          <input type="text" class="form-control" id="fullName" name="fullName" placeholder="e.g. Priya Sharma" autocomplete="name">
+          <span class="error-text" id="errorFullName">
+            <i class="fas fa-exclamation-circle"></i> Please enter your full name
+          </span>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group" id="group-email">
+          <label for="email">
+            <i class="fas fa-envelope"></i> 
+            Email address <span class="required-asterisk">*</span>
+          </label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="student@example.com" autocomplete="email">
+          <span class="error-text" id="errorEmail">
+            <i class="fas fa-exclamation-circle"></i> Valid email required (e.g., name@domain.com)
+          </span>
+        </div>
+
+        <!-- PHONE NUMBER -->
+        <div class="form-group" id="group-phone">
+          <label for="phone">
+            <i class="fas fa-mobile-alt"></i> 
+            Mobile number <span class="required-asterisk">*</span>
+          </label>
+          <input type="tel" class="form-control" id="phone" name="phone" placeholder="10-digit mobile" maxlength="10" autocomplete="tel">
+          <span class="error-text" id="errorPhone">
+            <i class="fas fa-exclamation-circle"></i> Enter exactly 10 digits (only numbers)
+          </span>
+          <small class="hint"><i class="fas fa-info-circle"></i> We’ll send SMS updates</small>
+        </div>
+
+        <!-- COURSE DROPDOWN -->
+        <div class="form-group" id="group-course">
+          <label for="course">
+            <i class="fas fa-book-open"></i> 
+            Intended course <span class="required-asterisk">*</span>
+          </label>
+        <select class="form-control" id="course" name="course">
+       <option value="" disabled selected>-- Select your preferred program --</option>
+       <option value="Bachelor of Arts">BA</option>
+       <option value="Bachelor of Pharmacy">B.Pharm</option>
+      <option value="Diploma in Pharmacy">D.Pharm</option>
+      <option value="Auxiliary Nurse Midwifery">ANM</option>
+      <option value="General Nursing and Midwifery">GNM</option>
+     <option value="Diploma in Elementary Education">D.El.Ed</option>
+     <option value="Other">Other / Not sure</option>
+</select>
+
+          <span class="error-text" id="errorCourse">
+            <i class="fas fa-exclamation-circle"></i> Please select a course
+          </span>
+        </div>
+
+        <!-- MESSAGE / QUERY -->
+        <div class="form-group" id="group-message">
+          <label for="message">
+            <i class="fas fa-comment-dots"></i> 
+            Your enquiry <span class="required-asterisk">*</span>
+          </label>
+          <textarea class="form-control" id="message" name="message" placeholder="Ask about admission process, deadlines, scholarships, hostel..."></textarea>
+          <span class="error-text" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i> Please write your question / enquiry
+          </span>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-paper-plane"></i> Send enquiry
+        </button>
+        
+        <div class="footer-note">
+          <i class="fas fa-shield-alt"></i> No spam, only admission guidance
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  const form = document.getElementById("admissionEnquiryForm");
+
+  const fullName = document.getElementById("fullName");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const course = document.getElementById("course");
+  const message = document.getElementById("message");
+
+  const errorFullName = document.getElementById("errorFullName");
+  const errorEmail = document.getElementById("errorEmail");
+  const errorPhone = document.getElementById("errorPhone");
+  const errorCourse = document.getElementById("errorCourse");
+  const errorMessage = document.getElementById("errorMessage");
+
+  const groupName = document.getElementById("group-fullname");
+  const groupEmail = document.getElementById("group-email");
+  const groupPhone = document.getElementById("group-phone");
+  const groupCourse = document.getElementById("group-course");
+  const groupMsg = document.getElementById("group-message");
+
+  const successDiv = document.getElementById("liveSuccessMessage");
+
+  // Remove error
+  function removeError(group, error) {
+    group.classList.remove("error-border");
+
+    if (error) {
+      error.style.display = "none";
+    }
+  }
+
+  // Real-time validation
+  fullName.addEventListener("input", function () {
+    removeError(groupName, errorFullName);
+  });
+
+  email.addEventListener("input", function () {
+    removeError(groupEmail, errorEmail);
+  });
+
+  phone.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    removeError(groupPhone, errorPhone);
+  });
+
+  course.addEventListener("change", function () {
+    removeError(groupCourse, errorCourse);
+  });
+
+  message.addEventListener("input", function () {
+    removeError(groupMsg, errorMessage);
+  });
+
+  // Validate form
+  function validateForm() {
+    let isValid = true;
+
+    const nameValue = fullName.value.trim();
+    const emailValue = email.value.trim();
+    const phoneValue = phone.value.trim();
+    const courseValue = course.value;
+    const messageValue = message.value.trim();
+
+    // Full name
+    if (nameValue === "") {
+      errorFullName.style.display = "flex";
+      groupName.classList.add("error-border");
+      isValid = false;
+    }
+
+    // Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(emailValue)) {
+      errorEmail.style.display = "flex";
+      groupEmail.classList.add("error-border");
+      isValid = false;
+    }
+
+    // Phone
+    if (phoneValue.length !== 10) {
+      errorPhone.style.display = "flex";
+      groupPhone.classList.add("error-border");
+      isValid = false;
+    }
+
+    // Course
+    if (!courseValue) {
+      errorCourse.style.display = "flex";
+      groupCourse.classList.add("error-border");
+      isValid = false;
+    }
+
+    // Message
+    if (messageValue === "") {
+      errorMessage.style.display = "flex";
+      groupMsg.classList.add("error-border");
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  // Reset errors
+  function resetErrors() {
+    const errors = [
+      errorFullName,
+      errorEmail,
+      errorPhone,
+      errorCourse,
+      errorMessage
+    ];
+
+    const groups = [
+      groupName,
+      groupEmail,
+      groupPhone,
+      groupCourse,
+      groupMsg
+    ];
+
+    errors.forEach(function (error) {
+      error.style.display = "none";
+    });
+
+    groups.forEach(function (group) {
+      group.classList.remove("error-border");
+    });
+  }
+
+  // Success message
+  function showSuccessMessage() {
+    successDiv.innerHTML = `
+      <div class="success-alert">
+        <i class="fas fa-check-circle"></i>
+
+        <div>
+          <strong>Enquiry submitted successfully!</strong>
+          <br>
+          Thank you for contacting us. Our admission team will reply within 24 hours.
+        </div>
+      </div>
+    `;
+
+    setTimeout(function () {
+      successDiv.innerHTML = "";
+    }, 6000);
+  }
+
+  // ==============================
+  // FORM SUBMIT
+  // ==============================
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    resetErrors();
+
+    // Validate
+    const isValid = validateForm();
+
+    if (!isValid) {
+      const firstError = document.querySelector(".error-border");
+
+      if (firstError) {
+        firstError.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }
+
+      return;
+    }
+
+    // Data
+    const enquiryData = {
+      fullName: fullName.value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      course: course.value,
+      message: message.value.trim()
+    };
+
+    try {
+      // Send data to backend
+      const response = await fetch("/api/admission-enquiry", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(enquiryData)
+      });
+
+      const result = await response.json();
+
+      // Backend success
+      if (response.ok && result.success) {
+
+        showSuccessMessage();
+
+        // Clear form
+        form.reset();
+
+        resetErrors();
+
+      } else {
+
+        alert(result.message || "Failed to submit enquiry.");
+
+      }
+
+    } catch (error) {
+
+      console.error("Enquiry submission error:", error);
+
+      alert(
+        "Server se connection nahi ho raha. Please try again."
+      );
+    }
+  });
+
+  // Phone paste
+  phone.addEventListener("paste", function (e) {
+    e.preventDefault();
+
+    const pastedText =
+      (e.clipboardData || window.clipboardData).getData("text");
+
+    const cleanedNumber =
+      pastedText.replace(/\D/g, "").slice(0, 10);
+
+    this.value = cleanedNumber;
+
+    removeError(groupPhone, errorPhone);
+  });
+
+})();
+</script>
+
+  <!-- tiny extra style for error-text flex (since we use display:flex when active) -->
+  <style>
+    .error-text { display: none; align-items: center; gap: 5px; }
+    .error-border { border-color: #c83e4d !important; background-color: #fff6f5; }
+    /* override form-control focus when error-border + focus */
+    .error-border:focus { box-shadow: 0 0 0 3px rgba(200,62,77,0.12); border-color: #c83e4d; }
+  </style>
+   
+</body>
+</html>

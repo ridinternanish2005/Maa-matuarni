@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Profile</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <style>
+    body {
+      background: #f5f7fb;
+    }
+
+    .profile-container {
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+
+    .profile-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-header {
+      background: #0d6efd;
+      color: white;
+      padding: 25px;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .profile-header h3 {
+      margin: 0;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    .readonly-field {
+      background: #e9ecef;
+    }
+
+    .success-message {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container profile-container">
+
+  <div class="card profile-card">
+
+    <div class="profile-header">
+      <h3>Student Profile</h3>
+      <p class="mb-0">
+        Update your personal and academic information
+      </p>
+    </div>
+
+    <div class="card-body p-4">
+
+      <div
+        id="successMessage"
+        class="alert alert-success success-message">
+      </div>
+
+      <div
+        id="errorMessage"
+        class="alert alert-danger success-message">
+      </div>
+
+      <form id="studentProfileForm">
+
+        <!-- BASIC INFORMATION -->
+        <h5 class="mb-3">Basic Information</h5>
+
+        <div class="row">
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Student Name</label>
+
+            <input
+              type="text"
+              class="form-control readonly-field"
+              value="<%= user?.name || '' %>"
+              readonly
+            >
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Enrollment Number</label>
+
+            <input
+              type="text"
+              class="form-control readonly-field"
+              value="<%= user?.enrollment || '' %>"
+              readonly
+            >
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Session</label>
+
+            <input
+              type="text"
+              class="form-control readonly-field"
+              value="<%= user?.session || '' %>"
+              readonly
+            >
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Course</label>
+
+            <select
+              name="course"
+              class="form-select"
+              required
+            >
+              <option value="D.Pharm"
+                <%= profile?.course === "D.Pharm" ? "selected" : "" %>>
+                D.Pharm
+              </option>
+
+              <option value="B.Pharm"
+                <%= profile?.course === "B.Pharm" ? "selected" : "" %>>
+                B.Pharm
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Semester</label>
+
+            <select
+              name="semester"
+              class="form-select"
+              required
+            >
+              <option value="1st Semester"
+                <%= profile?.semester === "1st Semester" ? "selected" : "" %>>
+                1st Semester
+              </option>
+
+              <option value="2nd Semester"
+                <%= profile?.semester === "2nd Semester" ? "selected" : "" %>>
+                2nd Semester
+              </option>
+
+              <option value="3rd Semester"
+                <%= profile?.semester === "3rd Semester" ? "selected" : "" %>>
+                3rd Semester
+              </option>
+
+              <option value="4th Semester"
+                <%= profile?.semester === "4th Semester" ? "selected" : "" %>>
+                4th Semester
+              </option>
+            </select>
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- CONTACT INFORMATION -->
+
+        <h5 class="mb-3">Contact Information</h5>
+
+        <div class="row">
+
+          <div class="col-md-6 mb-3">
+
+            <label class="form-label">
+              Mobile Number
+            </label>
+
+            <input
+              type="tel"
+              name="mobile"
+              class="form-control"
+              placeholder="Enter mobile number"
+              value="<%= profile?.mobile || '' %>"
+            >
+
+          </div>
+
+          <div class="col-md-6 mb-3">
+
+            <label class="form-label">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter email"
+              value="<%= profile?.email || '' %>"
+            >
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- FAMILY INFORMATION -->
+
+        <h5 class="mb-3">Family Information</h5>
+
+        <div class="row">
+
+          <div class="col-md-6 mb-3">
+
+            <label class="form-label">
+              Father's Name
+            </label>
+
+            <input
+              type="text"
+              name="fatherName"
+              class="form-control"
+              placeholder="Enter father's name"
+              value="<%= profile?.fatherName || '' %>"
+            >
+
+          </div>
+
+          <div class="col-md-6 mb-3">
+
+            <label class="form-label">
+              Mother's Name
+            </label>
+
+            <input
+              type="text"
+              name="motherName"
+              class="form-control"
+              placeholder="Enter mother's name"
+              value="<%= profile?.motherName || '' %>"
+            >
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- ADMISSION INFORMATION -->
+
+        <h5 class="mb-3">Admission Information</h5>
+
+        <div class="row">
+
+          <div class="col-md-6 mb-3">
+
+            <label class="form-label">
+              Admission Date
+            </label>
+
+            <input
+              type="date"
+              name="admissionDate"
+              class="form-control"
+              value="<%= profile?.admissionDate ? new Date(profile.admissionDate).toISOString().split('T')[0] : '' %>"
+            >
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- ADDRESS -->
+
+        <h5 class="mb-3">Address</h5>
+
+        <div class="mb-4">
+
+          <textarea
+            name="address"
+            class="form-control"
+            rows="4"
+            placeholder="Enter complete address"
+          ><%= profile?.address || '' %></textarea>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="d-flex gap-2">
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="saveButton"
+          >
+            Save Profile
+          </button>
+
+          <a
+            href="/erp/student"
+            class="btn btn-secondary"
+          >
+            Back to Dashboard
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form = document.getElementById("studentProfileForm");
+
+const successMessage =
+  document.getElementById("successMessage");
+
+const errorMessage =
+  document.getElementById("errorMessage");
+
+const saveButton =
+  document.getElementById("saveButton");
+
+
+form.addEventListener("submit", async function (event) {
+
+  event.preventDefault();
+
+  successMessage.style.display = "none";
+  errorMessage.style.display = "none";
+
+  saveButton.disabled = true;
+  saveButton.innerText = "Saving...";
+
+
+  const formData = new FormData(form);
+
+  const data = Object.fromEntries(formData.entries());
+
+
+  try {
+
+    const response = await fetch(
+      "/erp/students/profile",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(data)
+      }
+    );
+
+
+    const result = await response.json();
+
+
+    if (!response.ok || !result.success) {
+
+      throw new Error(
+        result.message || "Unable to save profile."
+      );
+
+    }
+
+
+    successMessage.innerText =
+      "Student profile saved successfully.";
+
+    successMessage.style.display = "block";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+
+  } catch (error) {
+
+    errorMessage.innerText =
+      error.message || "Something went wrong.";
+
+    errorMessage.style.display = "block";
+
+  } finally {
+
+    saveButton.disabled = false;
+    saveButton.innerText = "Save Profile";
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BA Nexus | Business Analysis Hub — Strategy, Insights & Transformation</title>
+    <!-- Google Fonts + modern reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #fefefe;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            gap: 24px;
+            border-bottom: 1px solid #e9eef3;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0B2B40, #2C6E8F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            background: none;
+            color: #2C6E8F;
+            font-weight: 600;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 600;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2C6E8F;
+        }
+        .btn-outline {
+            border: 1.5px solid #2C6E8F;
+            background: transparent;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #2C6E8F;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #2C6E8F;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            margin: 50px 0 70px 0;
+        }
+        .hero-content {
+            flex: 1.2;
+        }
+        .hero-badge {
+            background: #E9F2F9;
+            color: #1E6A8A;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: #0A2F42;
+        }
+        .highlight {
+            color: #2C6E8F;
+            border-bottom: 3px solid #FFC857;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4a627a;
+            max-width: 580px;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #2C6E8F;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 14px rgba(44,110,143,0.2);
+        }
+        .btn-primary:hover {
+            background: #1f5570;
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            flex: 0.9;
+            background: linear-gradient(145deg, #f8fcff, #eef4fa);
+            border-radius: 48px;
+            padding: 32px 28px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
+        }
+        .stat-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2C6E8F;
+        }
+        .hero-stats p:last-child {
+            margin-top: 20px;
+            font-weight: 500;
+            border-top: 1px solid #cde0ec;
+            padding-top: 20px;
+        }
+
+        /* section common */
+        section {
+            margin: 85px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0e3448;
+        }
+        .section-sub {
+            text-align: center;
+            color: #5b6f89;
+            max-width: 700px;
+            margin: 0 auto 48px auto;
+            font-size: 1.1rem;
+        }
+
+        /* Core competencies */
+        .competency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+        .comp-card {
+            background: white;
+            padding: 32px 26px;
+            border-radius: 32px;
+            border: 1px solid #e2edf5;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+        .comp-card:hover {
+            transform: translateY(-6px);
+            border-color: #bdd8e9;
+            box-shadow: 0 20px 30px -15px rgba(44,110,143,0.1);
+        }
+        .comp-icon {
+            background: #EFF7FC;
+            width: 56px;
+            height: 56px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+        .comp-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* Methodology / BA lifecycle */
+        .methodology {
+            background: #F6FAFE;
+            border-radius: 48px;
+            padding: 56px 48px;
+        }
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            margin-top: 28px;
+        }
+        .step {
+            background: white;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 28px 20px;
+            border-radius: 28px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.03);
+        }
+        .step-number {
+            background: #2C6E8F;
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            font-weight: 800;
+            margin: 0 auto 18px;
+        }
+
+        /* tools & expertise */
+        .tools-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .tool-badge {
+            background: white;
+            border: 1px solid #cfe1ed;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e5777;
+            transition: 0.2s;
+        }
+
+        /* about BA section */
+        .about-ba {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            align-items: center;
+        }
+        .ba-text {
+            flex: 1.2;
+        }
+        .ba-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .ba-list {
+            margin: 24px 0;
+            list-style: none;
+        }
+        .ba-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quote {
+            background: #ECF5FA;
+            padding: 28px;
+            border-radius: 28px;
+            margin-top: 24px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* projects / case studies */
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .case-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 22px -10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+        .case-img {
+            background: #DAE9F2;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #2C6E8F;
+        }
+        .case-info {
+            padding: 24px;
+        }
+        .metric {
+            font-weight: 800;
+            color: #2C6E8F;
+            margin-top: 12px;
+        }
+
+        /* contact & cta */
+        .contact-cta {
+            background: #0e2f40;
+            border-radius: 48px;
+            padding: 56px 48px;
+            color: white;
+            text-align: center;
+        }
+        .contact-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+            text-align: left;
+            background: #1b445b;
+            border-radius: 32px;
+            padding: 32px;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 14px 18px;
+            border-radius: 32px;
+            border: none;
+            font-family: inherit;
+            background: #fefefe;
+        }
+        .contact-form button {
+            background: #FFC857;
+            color: #0e2f40;
+            font-weight: 800;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            color: #6c869e;
+            border-top: 1px solid #e2eaf0;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 780px) {
+            .container { padding: 0 24px; }
+            .hero-content h1 { font-size: 2.4rem; }
+            .methodology { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/Navbar') %>
+
+    <!-- Hero / Home -->
+    <div id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">📊 Business Analysis Excellence</div>
+                <h1>Bridge the gap between <span class="highlight">strategy</span> and <span class="highlight">execution</span></h1>
+                <p>Data-driven insights, agile transformation, and stakeholder alignment. We deliver clarity, reduce risks, and maximize ROI through expert business analysis.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="exploreMethod">Explore framework →</button>
+                    <button class="btn-outline" id="downloadBriefBtn">Download BA brief</button>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-grid">
+                    <div><span class="stat-number">89%</span><br>faster time-to-value</div>
+                    <div><span class="stat-number">$2.4M</span><br>avg. cost savings</div>
+                    <div><span class="stat-number">450+</span><br>projects delivered</div>
+                </div>
+                <p>🏆 Certified CBAP® & PMI-PBA® practitioners — global standards, tailored solutions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Competencies Section -->
+    <section id="competencies">
+        <h2 class="section-title">Core competencies</h2>
+        <p class="section-sub">End-to-end business analysis expertise — from discovery to value realization.</p>
+        <div class="competency-grid">
+            <div class="comp-card">
+                <div class="comp-icon">📈</div>
+                <h3>Strategic advisory</h3>
+                <p>Enterprise architecture, capability mapping, and investment roadmaps aligned with business goals.</p>
+            </div>
+            <div class="comp-card">
+                <div class="comp-icon">⚙️</div>
+                <h3>Requirements engineering</h3>
+                <p>Elicitation, traceability, user stories, and acceptance criteria that eliminate ambiguity.</p>
+            </div>
+            <div class="comp-card">
+                <div class="comp-icon">🔄</div>
+                <h3>Process optimization</h3>
+                <p>Lean Six Sigma, value stream mapping, and workflow automation for operational excellence.</p>
+            </div>
+            <div class="comp-card">
+                <div class="comp-icon">📊</div>
+                <h3>Data & analytics</h3>
+                <p>Business intelligence, KPI frameworks, and data-driven decision support systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BA Methodology Lifecycle -->
+    <section id="methodology">
+        <div class="methodology">
+            <h2 class="section-title" style="color: #0e3448;">BA lifecycle framework</h2>
+            <p class="section-sub">Proven, scalable methodology that ensures alignment and measurable outcomes.</p>
+            <div class="steps">
+                <div class="step"><div class="step-number">01</div><h4>Discovery</h4><p>Stakeholder mapping, current state analysis & problem framing</p></div>
+                <div class="step"><div class="step-number">02</div><h4>Elicitation</h4><p>Workshops, interviews, document analysis & prototyping</p></div>
+                <div class="step"><div class="step-number">03</div><h4>Analysis & Design</h4><p>Use cases, process modeling, data dictionaries & MVP scope</p></div>
+                <div class="step"><div class="step-number">04</div><h4>Validation</h4><p>Reviews, sign-offs, traceability & acceptance testing</p></div>
+                <div class="step"><div class="step-number">05</div><h4>Transition & Value</h4><p>Change management, benefits realization & continuous improvement</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools & Techniques showcase -->
+    <div style="margin: -40px 0 30px 0;">
+        <div class="tools-cloud">
+            <span class="tool-badge">📋 JIRA / Confluence</span>
+            <span class="tool-badge">📊 Tableau / Power BI</span>
+            <span class="tool-badge">🖍️ BPMN 2.0 / UML</span>
+            <span class="tool-badge">📝 Agile & Waterfall</span>
+            <span class="tool-badge">🧠 SWOT / PESTLE</span>
+            <span class="tool-badge">✅ User Story Mapping</span>
+        </div>
+    </div>
+
+    <!-- About BA: Modern Business Analysis -->
+    <section>
+        <div class="about-ba">
+            <div class="ba-text">
+                <h2>Why modern BA drives transformation</h2>
+                <p>Today's business analysts are strategic catalysts. We combine analytical rigor with business empathy to uncover hidden opportunities and mitigate risks before they emerge. Our BA practice bridges technical teams and C-suite stakeholders, ensuring every initiative delivers tangible business value.</p>
+                <ul class="ba-list">
+                    <li>✔️ 360° stakeholder alignment & governance</li>
+                    <li>✔️ AI-augmented analysis & predictive modeling</li>
+                    <li>✔️ Scalable frameworks for enterprise & startups</li>
+                </ul>
+                <div class="quote">
+                    “JNAM’s BA practice helped us reduce requirement defects by 63% and accelerated our digital transformation by 4 months.” — CTO, FinScale
+                </div>
+            </div>
+            <div style="flex:0.9; background:#E8F0F7; border-radius: 42px; padding: 28px; text-align:center;">
+                <svg width="200" height="180" viewBox="0 0 240 200" fill="none">
+                    <rect x="30" y="40" width="180" height="120" rx="24" fill="#CDE2EF" stroke="#2C6E8F" stroke-width="2.5"/>
+                    <path d="M80 100 L160 100 M120 60 L120 140" stroke="#2C6E8F" stroke-width="3"/>
+                    <circle cx="120" cy="100" r="28" fill="#FDF5E6" stroke="#FFC857" stroke-width="2"/>
+                    <text x="112" y="108" fill="#2C6E8F" font-weight="bold" font-size="20">BA</text>
+                </svg>
+                <p style="font-weight:600; margin-top:16px;">📈 Certified excellence | IIBA® endorsed</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case studies / success stories -->
+    <section id="cases">
+        <h2 class="section-title">Impact stories</h2>
+        <p class="section-sub">Real-world results: how our BA approach delivered measurable ROI.</p>
+        <div class="case-grid">
+            <div class="case-card">
+                <div class="case-img">🏦 Global Bank</div>
+                <div class="case-info">
+                    <h3>Core banking modernization</h3>
+                    <p>Re-engineered requirements for legacy migration, unified 23 stakeholder groups, reduced post-launch defects by 54%.</p>
+                    <div class="metric">📉 32% faster time-to-market</div>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-img">🏥 HealthTech Scale-up</div>
+                <div class="case-info">
+                    <h3>AI-driven patient platform</h3>
+                    <p>End-to-end business analysis, compliance mapping, and user journey redesign → 2.8x user adoption.</p>
+                    <div class="metric">💰 $4.2M operational savings</div>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-img">🛒 Retail Giant</div>
+                <div class="case-info">
+                    <h3>Omnichannel inventory</h3>
+                    <p>Process mining & requirements blueprint eliminated stock discrepancies by 78% across 400+ stores.</p>
+                    <div class="metric">⭐ 98% stakeholder satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expert BA Team -->
+    <section>
+        <h2 class="section-title">Meet the analysis architects</h2>
+        <p class="section-sub">Senior business analysts, product owners, and strategy leads.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; justify-content: center;">
+            <div style="background:#fff; border-radius: 32px; padding: 24px; text-align:center; width:220px;">
+                <div style="background:#DAE9F2; width:90px; height:90px; border-radius: 100px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:2rem;">EM</div>
+                <h4 style="margin-top:16px;">Elena M.</h4>
+                <p>Lead BA, CBAP®<br>15yrs in finance & insurance</p>
+            </div>
+            <div style="background:#fff; border-radius: 32px; padding: 24px; text-align:center; width:220px;">
+                <div style="background:#DAE9F2; width:90px; height:90px; border-radius: 100px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:2rem;">DR</div>
+                <h4 style="margin-top:16px;">David R.</h4>
+                <p>Sr. Product Analyst<br>Agile transformation expert</p>
+            </div>
+            <div style="background:#fff; border-radius: 32px; padding: 24px; text-align:center; width:220px;">
+                <div style="background:#DAE9F2; width:90px; height:90px; border-radius: 100px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:2rem;">SJ</div>
+                <h4 style="margin-top:16px;">Sofia J.</h4>
+                <p>Data & Analytics BA<br>Machine learning specialist</p>
+            </div>
+        </div>
+    </section>
+
+ 
+</div>
+
+<script>
+    // smooth scrolling for navigation and interactive alerts
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+        });
+    });
+
+    document.getElementById('contactNavBtn')?.addEventListener('click', () => scrollToSection('contact'));
+    document.getElementById('exploreMethod')?.addEventListener('click', () => scrollToSection('methodology'));
+    document.getElementById('downloadBriefBtn')?.addEventListener('click', () => {
+        alert("📄 BA brief PDF is ready for download. Check your email or contact us to receive the full BA capability deck.");
+    });
+
+    // contact form handling
+    const submitBtn = document.getElementById('baSubmitBtn');
+    const feedbackPara = document.getElementById('baFormFeedback');
+    if(submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('baName')?.value.trim();
+            const email = document.getElementById('baEmail')?.value.trim();
+            const msg = document.getElementById('baMsg')?.value.trim();
+            if(!name || !email || !msg) {
+                feedbackPara.innerText = "❌ Please fill in all fields to request a consultation.";
+                feedbackPara.style.color = "#FFB347";
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')) {
+                feedbackPara.innerText = "📧 Please enter a valid email address.";
+                return;
+            }
+            feedbackPara.innerText = `✅ Thank you ${name}! A senior BA specialist will contact you within 24h.`;
+            feedbackPara.style.color = "#FFC857";
+            document.getElementById('baName').value = '';
+            document.getElementById('baEmail').value = '';
+            document.getElementById('baMsg').value = '';
+            setTimeout(() => { feedbackPara.innerText = ''; }, 5000);
+        });
+    }
+
+    // optional animation on scroll / console greeting
+    window.addEventListener('load', () => {
+        console.log("BA Nexus page loaded — comprehensive business analysis details, frameworks, and success stories ready.");
+    });
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

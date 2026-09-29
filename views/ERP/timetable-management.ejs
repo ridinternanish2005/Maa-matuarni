@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Timetable Management</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1,
+    h2 {
+      margin-top: 0;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    button {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 700px) {
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+  <div class="card">
+
+    <h1>Timetable Management</h1>
+
+    <p>
+      Admin:
+      <strong>
+        <%= erpUser?.name || "Admin" %>
+      </strong>
+    </p>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- CREATE TIMETABLE -->
+  <!-- ================================================= -->
+
+  <div class="card">
+
+    <h2>Create Timetable</h2>
+
+    <form id="timetableForm">
+
+
+      <div class="row">
+
+        <div class="form-group">
+
+          <label>Course</label>
+
+          <input
+            type="text"
+            id="course"
+            value="D.Pharm"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Semester</label>
+
+          <select id="semester" required>
+
+            <option value="">
+              Select Semester
+            </option>
+
+            <option value="1st Semester">
+              1st Semester
+            </option>
+
+            <option value="2nd Semester">
+              2nd Semester
+            </option>
+
+            <option value="3rd Semester">
+              3rd Semester
+            </option>
+
+            <option value="4th Semester">
+              4th Semester
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Day</label>
+
+          <select id="day" required>
+
+            <option value="">
+              Select Day
+            </option>
+
+            <option value="Monday">
+              Monday
+            </option>
+
+            <option value="Tuesday">
+              Tuesday
+            </option>
+
+            <option value="Wednesday">
+              Wednesday
+            </option>
+
+            <option value="Thursday">
+              Thursday
+            </option>
+
+            <option value="Friday">
+              Friday
+            </option>
+
+            <option value="Saturday">
+              Saturday
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Subject</label>
+
+          <input
+            type="text"
+            id="subject"
+            placeholder="Pharmaceutics"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Faculty</label>
+
+          <input
+            type="text"
+            id="faculty"
+            placeholder="Faculty Name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Session</label>
+
+          <input
+            type="text"
+            id="session"
+            value="2025-26"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Start Time</label>
+
+          <input
+            type="time"
+            id="startTime"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>End Time</label>
+
+          <input
+            type="time"
+            id="endTime"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Room Number</label>
+
+          <input
+            type="text"
+            id="roomNumber"
+            placeholder="Room 101"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn-primary"
+      >
+        Add Timetable
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- TIMETABLE LIST -->
+  <!-- ================================================= -->
+
+  <div class="card">
+
+    <h2>Current Timetable</h2>
+
+    <div class="table-wrapper">
+
+      <% if (!timetable || timetable.length === 0) { %>
+
+        <div class="empty">
+          No timetable available.
+        </div>
+
+      <% } else { %>
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Course</th>
+              <th>Semester</th>
+              <th>Day</th>
+              <th>Subject</th>
+              <th>Faculty</th>
+              <th>Time</th>
+              <th>Room</th>
+              <th>Session</th>
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <% timetable.forEach(item => { %>
+
+              <tr>
+
+                <td>
+                  <%= item.course %>
+                </td>
+
+                <td>
+                  <%= item.semester %>
+                </td>
+
+                <td>
+                  <%= item.day %>
+                </td>
+
+                <td>
+                  <%= item.subject %>
+                </td>
+
+                <td>
+                  <%= item.faculty %>
+                </td>
+
+                <td>
+                  <%= item.startTime %>
+                  -
+                  <%= item.endTime %>
+                </td>
+
+                <td>
+                  <%= item.roomNumber || "-" %>
+                </td>
+
+                <td>
+                  <%= item.session %>
+                </td>
+
+                <td>
+
+                  <button
+                    class="btn-danger"
+                    onclick="removeTimetable('<%= item._id %>')"
+                  >
+                    Remove
+                  </button>
+
+                </td>
+
+              </tr>
+
+            <% }) %>
+
+          </tbody>
+
+        </table>
+
+      <% } %>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const form =
+    document.getElementById("timetableForm");
+
+
+  form.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const data = {
+
+        course:
+          document.getElementById("course").value,
+
+        semester:
+          document.getElementById("semester").value,
+
+        day:
+          document.getElementById("day").value,
+
+        subject:
+          document.getElementById("subject").value,
+
+        faculty:
+          document.getElementById("faculty").value,
+
+        startTime:
+          document.getElementById("startTime").value,
+
+        endTime:
+          document.getElementById("endTime").value,
+
+        roomNumber:
+          document.getElementById("roomNumber").value,
+
+        session:
+          document.getElementById("session").value
+
+      };
+
+
+      try {
+
+        const response = await fetch(
+          "/erp/timetable",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(data)
+          }
+        );
+
+
+        const result =
+          await response.json();
+
+
+        if (!result.success) {
+
+          alert(
+            result.message ||
+            "Unable to create timetable."
+          );
+
+          return;
+        }
+
+
+        alert(
+          "Timetable created successfully."
+        );
+
+
+        location.reload();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Server error. Please try again."
+        );
+
+      }
+
+    }
+  );
+
+
+  async function removeTimetable(id) {
+
+    const confirmDelete =
+      confirm(
+        "Are you sure you want to remove this timetable?"
+      );
+
+
+    if (!confirmDelete) {
+      return;
+    }
+
+
+    try {
+
+      const response = await fetch(
+        `/erp/timetable/${id}/deactivate`,
+        {
+          method: "PATCH"
+        }
+      );
+
+
+      const result =
+        await response.json();
+
+
+      if (!result.success) {
+
+        alert(
+          result.message ||
+          "Unable to remove timetable."
+        );
+
+        return;
+      }
+
+
+      location.reload();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Server error."
+      );
+
+    }
+
+  }
+
+</script>
+
+</body>
+
+</html>

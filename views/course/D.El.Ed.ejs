@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>D.El.Ed | Diploma in Elementary Education – Complete Guide</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefaf5;
+            color: #2d2a24;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-orange: #ea580c;
+            --primary-dark: #c2410c;
+            --accent-amber: #f59e0b;
+            --soft-bg: #fff7ed;
+            --gray-light: #f5f3f0;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-orange);
+        }
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .logo h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            letter-spacing: -0.3px;
+        }
+        .logo span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #7c6e5e;
+            display: block;
+        }
+        .nav-links a {
+            margin-left: 28px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #4b3b2c;
+            transition: 0.2s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-orange);
+            border-bottom-color: var(--primary-orange);
+        }
+
+        /* hero */
+        .hero {
+            background: linear-gradient(135deg, #fff3e8 0%, #ffe6d5 100%);
+            padding: 3.5rem 0 4rem;
+            border-radius: 0 0 48px 48px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .hero-text h2 {
+            font-size: 2.7rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #3c2a1f;
+        }
+        .hero-text h2 span {
+            color: var(--primary-orange);
+            border-bottom: 4px solid var(--accent-amber);
+            display: inline-block;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin: 1.2rem 0 1.8rem;
+            color: #5c4a36;
+        }
+        .btn-hero {
+            background: var(--primary-orange);
+            border: none;
+            padding: 12px 28px;
+            font-weight: 600;
+            color: white;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-hero:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            background: #ffffffcc;
+            border-radius: 32px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(2px);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-image i {
+            font-size: 7rem;
+            color: var(--primary-orange);
+        }
+        .hero-image p {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* section style */
+        .section {
+            padding: 4rem 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            color: #3c2a1f;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: 4px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+            border: 1px solid #f0e4d8;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-orange);
+        }
+        .card i {
+            font-size: 2.6rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 6px solid var(--primary-orange);
+        }
+        .badge {
+            background: var(--primary-orange);
+            color: white;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .stat {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        .stat h4 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+        }
+
+        footer {
+            background: #2d241c;
+            color: #e2cfb5;
+            padding: 2.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid, .two-col {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text h2 {
+                font-size: 2rem;
+            }
+            .nav-flex {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-links a {
+                margin: 0 12px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .highlight {
+            color: var(--primary-orange);
+            font-weight: 700;
+        }
+        .list-styled {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-styled li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .list-styled li i {
+            color: var(--primary-orange);
+            width: 24px;
+        }
+        .syllabus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .syllabus-item {
+            background: var(--gray-light);
+            padding: 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/Navbar') %>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <div class="badge" style="background: #f59e0b; color:#2d2a24;">NCTE Approved</div>
+            <h2>Diploma in <span>Elementary Education (D.El.Ed)</span><br>Your Gateway to Teaching at Primary Level</h2>
+            <p>D.El.Ed (formerly known as JBT / D.Ed) is a 2-year professional teacher training program designed to prepare teachers for classes 1 to 8. It focuses on child psychology, pedagogy, and practical teaching skills. After completion, candidates become eligible to teach in government and private elementary schools.</p>
+            <button class="btn-hero" onclick="alert('D.El.Ed: A rewarding career in primary education. Enroll in NCTE-approved institutions.')"><i class="fas fa-graduation-cap"></i> Explore D.El.Ed</button>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-child"></i>
+            <i class="fas fa-chalkboard-user" style="font-size: 4rem; margin-left: 10px;"></i>
+            <p>Shaping Young Minds</p>
+        </div>
+    </div>
+</section>
+
+<!-- Overview -->
+<section id="overview" class="container section">
+    <h2 class="section-title">What is D.El.Ed?</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <i class="fas fa-university" style="font-size: 2rem; color:var(--primary-orange);"></i>
+            <h3 style="margin: 0.8rem 0 0.5rem;">Program Overview</h3>
+            <p>Diploma in Elementary Education (D.El.Ed) is a 2-year (4 semesters) professional program approved by the National Council for Teacher Education (NCTE). It is mandatory for teaching at the primary level (Classes I–V) and upper primary level (Classes VI–VIII) in many states. The course includes theoretical study, practical training, school internship, and child development studies.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-briefcase" style="font-size: 2rem; color:var(--primary-orange);"></i>
+            <h3 style="margin: 0.8rem 0 0.5rem;">Why Choose D.El.Ed?</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-check-circle"></i> Direct eligibility for teaching positions in primary schools (government & private)</li>
+                <li><i class="fas fa-check-circle"></i> Pathway to appear for Teacher Eligibility Tests (TET) like CTET, UPTET, REET, etc.</li>
+                <li><i class="fas fa-check-circle"></i> Opportunity to work with children and contribute to foundational education</li>
+                <li><i class="fas fa-check-circle"></i> Can pursue B.Ed after D.El.Ed for teaching at secondary level</li>
+                <li><i class="fas fa-check-circle"></i> Stable government job with social respect</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Eligibility -->
+<section id="eligibility" class="container section" style="background: var(--soft-bg); border-radius: 48px; padding: 3rem 2rem;">
+    <h2 class="section-title">🎓 Eligibility Criteria</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Academic Qualification</h3>
+            <p>10+2 (Higher Secondary) with minimum 50% aggregate marks (45% for reserved categories). Some states require specific subjects like Science or Arts.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-clock"></i>
+            <h3>Age Limit</h3>
+            <p>Minimum 17 years at the time of admission. Upper age limit varies by state (usually no upper limit for general in many states).</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-certificate"></i>
+            <h3>NCTE Approval</h3>
+            <p>Must enroll in a D.El.Ed college approved by NCTE and affiliated with a recognized board/university.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-language"></i>
+            <h3>Medium of Instruction</h3>
+            <p>Courses available in English, Hindi, and regional languages as per state norms.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Process -->
+<section id="admission" class="container section">
+    <h2 class="section-title">📝 Admission Process & Entrance Exams</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <i class="fas fa-file-alt"></i>
+            <h3>Admission Pathways</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-arrow-right"></i> State-level D.El.Ed entrance exams (e.g., UP D.El.Ed JEE, Bihar D.El.Ed CET, etc.)</li>
+                <li><i class="fas fa-arrow-right"></i> Direct admission based on 10+2 marks in some private colleges (subject to NCTE approval)</li>
+                <li><i class="fas fa-arrow-right"></i> Centralized counseling conducted by state education boards</li>
+                <li><i class="fas fa-arrow-right"></i> Online application, document verification, and seat allotment</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-trophy"></i>
+            <h3>Major D.El.Ed Entrance Exams</h3>
+            <ul class="list-styled">
+                <li><i class="fas fa-school"></i> <strong>UP D.El.Ed JEE</strong> – Uttar Pradesh (large-scale)</li>
+                <li><i class="fas fa-school"></i> <strong>Bihar D.El.Ed CET</strong> – Bihar</li>
+                <li><i class="fas fa-school"></i> <strong>Rajasthan PTET</strong> – For B.Ed/D.El.Ed combined</li>
+                <li><i class="fas fa-school"></i> <strong>MP D.El.Ed Entrance</strong> – Madhya Pradesh</li>
+                <li><i class="fas fa-school"></i> <strong>Delhi D.El.Ed</strong> – D.El.Ed (JBT) entrance by SCERT Delhi</li>
+                <li><i class="fas fa-school"></i> <strong>State-specific tests</strong> (Haryana, Punjab, West Bengal, etc.)</li>
+            </ul>
+        </div>
+    </div>
+    <div style="background: #f1f5f9; border-radius: 28px; padding: 1.5rem; margin-top: 1.5rem; text-align: center;">
+        <i class="fas fa-info-circle"></i> <strong>Note:</strong> Some states also offer distance D.El.Ed (through NIOS or state open schools), but full-time regular programs are preferred for government teacher recruitment.
+    </div>
+</section>
+
+<!-- Syllabus -->
+<section id="syllabus" class="container section" style="background: var(--soft-bg); border-radius: 48px; padding: 3rem 2rem;">
+    <h2 class="section-title">📚 D.El.Ed Syllabus (Core Subjects)</h2>
+    <div class="syllabus-grid">
+        <div class="syllabus-item">Child Development & Learning</div>
+        <div class="syllabus-item">Principles of Education</div>
+        <div class="syllabus-item">Educational Psychology</div>
+        <div class="syllabus-item">School Organization & Management</div>
+        <div class="syllabus-item">Pedagogy of Language (Mother tongue/English)</div>
+        <div class="syllabus-item">Pedagogy of Mathematics</div>
+        <div class="syllabus-item">Pedagogy of Environmental Studies (EVS)</div>
+        <div class="syllabus-item">Pedagogy of Social Studies / Science</div>
+        <div class="syllabus-item">Educational Technology & ICT</div>
+        <div class="syllabus-item">Art & Craft Education</div>
+        <div class="syllabus-item">Physical Education & Health</div>
+        <div class="syllabus-item">Guidance & Counselling</div>
+        <div class="syllabus-item">Inclusive Education</div>
+        <div class="syllabus-item">School Internship (4-6 months)</div>
+        <div class="syllabus-item">Practicum & Teaching Practice</div>
+        <div class="syllabus-item">Creative Drama & Storytelling</div>
+    </div>
+    <p style="text-align: center; margin-top: 2rem;">The curriculum includes theory papers, practical lessons, and a mandatory school internship where students gain hands-on teaching experience.</p>
+</section>
+
+<!-- Career Opportunities -->
+<section id="career" class="container section">
+    <h2 class="section-title">💼 Career Opportunities After D.El.Ed</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-chalkboard"></i>
+            <h3>Primary School Teacher</h3>
+            <p>Teach classes 1 to 5 in government schools (after qualifying TET) or private schools. Eligible for PRT posts.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-school"></i>
+            <h3>Upper Primary Teacher</h3>
+            <p>In many states, D.El.Ed qualifies for classes 6 to 8 as well, subject to state policies and TET.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-chalkboard-user"></i>
+            <h3>Private Schools</h3>
+            <p>Large demand in CBSE, ICSE, and state board schools for trained elementary teachers.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-certificate"></i>
+            <h3>Teacher Eligibility Tests (TET)</h3>
+            <p>Appear for CTET (Central TET) or State TET to become eligible for government teaching jobs.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Further Studies</h3>
+            <p>Pursue B.Ed (Bachelor of Education) for secondary-level teaching, or M.Ed for higher studies.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-hand-sparkles"></i>
+            <h3>Education Consultant / Tutor</h3>
+            <p>Start private tutoring, educational content development, or work with NGOs in elementary education.</p>
+        </div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat">
+            <h4>₹25K-45K/mo</h4>
+            <p>Government School Salary (starting)</p>
+        </div>
+        <div class="stat">
+            <h4>2 Years</h4>
+            <p>Course Duration</p>
+        </div>
+        <div class="stat">
+            <h4>State TET</h4>
+            <p>Mandatory for govt jobs</p>
+        </div>
+    </div>
+</section>
+
+<!-- Top Institutions & Further Info -->
+<div class="container section" style="background: #f1f5f9; border-radius: 48px; padding: 2rem 2rem;">
+    <h2 class="section-title">🏛️ Top D.El.Ed Colleges / Institutes in India</h2>
+    <div class="card-grid">
+        <div class="card">
+            <i class="fas fa-landmark"></i>
+            <h3>SCERT / DIETs (District Institutes)</h3>
+            <p>District Institutes of Education and Training (DIETs) across India are government-run premier institutions for D.El.Ed.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-building"></i>
+            <h3>State Boards of Education</h3>
+            <p>Uttar Pradesh Basic Education Board, Bihar School Examination Board, Rajasthan Board, etc., have affiliated colleges.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-church"></i>
+            <h3>Private NCTE-approved Colleges</h3>
+            <p>Many private teacher training institutes offer D.El.Ed with proper recognition.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-laptop"></i>
+            <h3>Open & Distance Learning</h3>
+            <p>NIOS (National Institute of Open Schooling) offers D.El.Ed through ODL mode for in-service teachers, but regular mode is preferred for fresh candidates.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Special Notes -->
+<div class="container" style="margin: 2rem auto;">
+    <div style="background: linear-gradient(135deg, #ea580c10, #f59e0b10); border-radius: 32px; padding: 1.8rem; border-left: 5px solid var(--primary-orange);">
+        <h3><i class="fas fa-clipboard-list"></i> Important Notes for Aspirants</h3>
+        <ul class="list-styled" style="margin-top: 10px;">
+            <li><i class="fas fa-check"></i> D.El.Ed is mandatory for primary teacher recruitment in most states (PRT).</li>
+            <li><i class="fas fa-check"></i> After D.El.Ed, passing the respective TET (Teacher Eligibility Test) is necessary for government jobs.</li>
+            <li><i class="fas fa-check"></i> Some states have specific requirements like domicile, language proficiency, and qualifying marks.</li>
+            <li><i class="fas fa-check"></i> The program includes a compulsory school internship (usually 20–24 weeks) for hands-on training.</li>
+            <li><i class="fas fa-check"></i> D.El.Ed graduates are eligible to apply for the CTET (Paper I) for central schools like KVS, NVS.</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script>
+    // smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href && href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

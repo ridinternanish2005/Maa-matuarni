@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Fee Receipt - Maa Maturani Devi Pharmacy College</title>
+
+  <style>
+
+    body {
+      margin: 0;
+      padding: 30px;
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    .receipt {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border: 1px solid #ddd;
+    }
+
+    .college-header {
+      text-align: center;
+      border-bottom: 2px solid #222;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    .college-header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    .college-header p {
+      margin: 4px 0;
+      color: #555;
+    }
+
+    .receipt-title {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .receipt-title h2 {
+      display: inline-block;
+      border: 2px solid #222;
+      padding: 8px 25px;
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 30px;
+      margin-bottom: 25px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f5f5f5;
+    }
+
+    .amount {
+      font-weight: bold;
+    }
+
+    .status {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .pending {
+      color: orange;
+    }
+
+    .failed {
+      color: red;
+    }
+
+    .footer {
+      margin-top: 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .authorized {
+      text-align: center;
+    }
+
+    .print-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 25px;
+      border: none;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    @media print {
+
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .receipt {
+        border: none;
+        max-width: 100%;
+      }
+
+      .print-button {
+        display: none;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px;
+      }
+
+      .receipt {
+        padding: 20px;
+      }
+
+      .student-info {
+        grid-template-columns: 1fr;
+      }
+
+      .college-header h1 {
+        font-size: 21px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="receipt">
+
+
+  <!-- COLLEGE HEADER -->
+
+  <div class="college-header">
+
+    <h1>
+      Maa Maturani Devi Pharmacy College
+    </h1>
+
+    <p>
+      College Management System
+    </p>
+
+    <p>
+      Official Fee Payment Receipt
+    </p>
+
+  </div>
+
+
+
+  <!-- RECEIPT TITLE -->
+
+  <div class="receipt-title">
+
+    <h2>
+      FEE RECEIPT
+    </h2>
+
+  </div>
+
+
+
+  <!-- STUDENT INFORMATION -->
+
+  <div class="student-info">
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Receipt No.
+      </span>
+
+      <span>
+        <%= payment?.receiptNo || "-" %>
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Payment Date
+      </span>
+
+      <span>
+
+        <%= payment?.paymentDate
+          ? new Date(payment.paymentDate)
+              .toLocaleDateString("en-IN")
+          : "-"
+        %>
+
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Student Name
+      </span>
+
+      <span>
+        <%= fee?.studentName || "-" %>
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Enrollment No.
+      </span>
+
+      <span>
+        <%= fee?.enrollment || "-" %>
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Course
+      </span>
+
+      <span>
+        <%= fee?.course || "D.Pharm" %>
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Semester
+      </span>
+
+      <span>
+        <%= fee?.semester || "-" %>
+      </span>
+
+    </div>
+
+
+    <div class="info-row">
+
+      <span class="label">
+        Session
+      </span>
+
+      <span>
+        <%= fee?.session || "-" %>
+      </span>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- PAYMENT DETAILS -->
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Amount
+        </th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      <tr>
+
+        <td>
+          Total Semester Fee
+        </td>
+
+        <td class="amount">
+
+          ₹<%= Number(
+            fee?.totalFees || 0
+          ).toLocaleString("en-IN") %>
+
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <td>
+          Previous Paid Amount
+        </td>
+
+        <td class="amount">
+
+          ₹<%= Number(
+            (fee?.paidFees || 0) -
+            (payment?.amount || 0)
+          ).toLocaleString("en-IN") %>
+
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <td>
+          Current Payment
+        </td>
+
+        <td class="amount">
+
+          ₹<%= Number(
+            payment?.amount || 0
+          ).toLocaleString("en-IN") %>
+
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <td>
+          Remaining Fee
+        </td>
+
+        <td class="amount">
+
+          ₹<%= Number(
+            fee?.pendingFees || 0
+          ).toLocaleString("en-IN") %>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+
+  <!-- PAYMENT INFORMATION -->
+
+  <table>
+
+    <tbody>
+
+      <tr>
+
+        <th>
+          Payment Mode
+        </th>
+
+        <td>
+          <%= payment?.paymentMode || "-" %>
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <th>
+          Transaction ID
+        </th>
+
+        <td>
+          <%= payment?.transactionId || "-" %>
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <th>
+          Payment Status
+        </th>
+
+        <td>
+
+          <% if (payment?.status === "SUCCESS") { %>
+
+            <span class="status success">
+              SUCCESS
+            </span>
+
+          <% } else if (payment?.status === "PENDING") { %>
+
+            <span class="status pending">
+              PENDING
+            </span>
+
+          <% } else { %>
+
+            <span class="status failed">
+              FAILED
+            </span>
+
+          <% } %>
+
+        </td>
+
+      </tr>
+
+
+      <tr>
+
+        <th>
+          Remarks
+        </th>
+
+        <td>
+          <%= payment?.remarks || "-" %>
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+
+  <!-- FOOTER -->
+
+  <div class="footer">
+
+    <div>
+
+      <strong>
+        Payment Received
+      </strong>
+
+      <p>
+        This is a computer-generated receipt.
+      </p>
+
+    </div>
+
+
+    <div class="authorized">
+
+      <strong>
+        Authorized by College
+      </strong>
+
+      <br><br>
+
+      ______________________
+
+      <br>
+
+      Authorized Signature
+
+    </div>
+
+  </div>
+
+
+
+  <!-- PRINT BUTTON -->
+
+  <div class="print-button">
+
+    <button onclick="window.print()">
+      🖨 Print / Save Receipt
+    </button>
+
+  </div>
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+    
+    <!-- Swiper CSS CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="/school/css/slid.css">
+
+
+
+<!-- Slider Section HTML -->
+<section id="home" style="padding:0;">
+    <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                <div class="slide-content">
+                    <h2>Welcome to MSD Public School</h2>
+                    <p>Innovative Child Centered Approach – Discover the Child</p>
+                    <button class="btn" onclick="openAdmissionForm()"><i class="fas fa-pen-alt"></i> Apply Now</button>
+                </div>
+            </div>
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/5428483/pexels-photo-5428483.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                <div class="slide-content">
+                    <h2>Best Learning Environment</h2>
+                    <p>Qualified Teachers & Smart Classes</p>
+                    <button class="btn" onclick="openAdmissionForm()"><i class="fas fa-graduation-cap"></i> Enroll Now</button>
+                </div>
+            </div>
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+                <div class="slide-content">
+                    <h2>15+ Years of Excellence</h2>
+                    <p>Shaping Future Leaders Since 2010</p>
+                    <button class="btn" onclick="openAdmissionForm()"><i class="fas fa-calendar-alt"></i> Admission Open</button>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+
+<!-- Swiper JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="/school/js/slide.js"></script>
+    
+     <%-include("partials/footer.ejs") %>
+</body>
+</html>

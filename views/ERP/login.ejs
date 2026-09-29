@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maa Maturani Devi Pharmacy College - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="container">
+    <div class="college-info">
+        <h1>Maa Maturani Devi Pharmacy College</h1>
+        <p>College Management System</p>
+        <p>Student | Faculty | Admin Portal</p>
+    </div>
+
+    <div class="login-section">
+        <h2>Login</h2>
+
+        <form id="loginForm" novalidate>
+            <label for="session">Session</label>
+            <select id="session" class="form-control" required>
+                <option value="2024-25">2024-25</option>
+                <option value="2025-26" selected>2025-26</option>
+            </select>
+
+            <label for="enrollment">Enrollment Number</label>
+            <input
+                type="text"
+                id="enrollment"
+                class="form-control"
+                placeholder="Enter enrollment number"
+                autocomplete="username"
+                maxlength="50"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                maxlength="128"
+                required
+            >
+
+            <p id="loginMessage" role="alert" aria-live="polite" style="display:none;margin:10px 0;color:#b42318;"></p>
+
+            <button type="submit" class="btn-login" id="loginButton">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const button = document.getElementById("loginButton");
+const message = document.getElementById("loginMessage");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const enrollment = document.getElementById("enrollment").value.trim();
+    const password = document.getElementById("password").value;
+    const session = document.getElementById("session").value;
+
+    message.style.display = "none";
+
+    if (!enrollment || !password || !session) {
+        message.textContent = "Please fill all fields.";
+        message.style.display = "block";
+        return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+    try {
+        const response = await fetch("/erp/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({ enrollment, password, session })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success || !data.redirect) {
+            throw new Error(data.message || "Invalid enrollment or password.");
+        }
+
+        // Redirect comes from the server after MongoDB authentication.
+        window.location.replace(data.redirect);
+    } catch (error) {
+        message.textContent = error.message || "Login failed.";
+        message.style.display = "block";
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+    }
+});
+</script>
+</body>
+</html>

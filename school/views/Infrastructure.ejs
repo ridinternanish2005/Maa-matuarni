@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Infrastructure | World-Class Campus Facilities</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/school/css/infrastructure.css">
+
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+<div class="page-container">
+  <div class="infra-header">
+    <h1>🏛️ Our Infrastructure</h1>
+    <div class="header-shine"></div>
+    <div class="subhead">State-of-the-art facilities that inspire learning, creativity, and holistic growth</div>
+  </div>
+
+  <!-- Hero image: School Building (main campus) -->
+
+  <!-- Facilities Grid -->
+  <div class="facility-grid">
+    
+    <!-- Smart Classrooms (with classroom image) -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/5212695/pexels-photo-5212695.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="Smart classroom interior"
+             onerror="this.src='https://picsum.photos/id/20/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-chalkboard-user"></i> Smart Classrooms</h3>
+        <p>Digitally equipped, ergonomic classrooms with interactive smart boards, projectors, and climate control.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> 40+ ICT-enabled rooms</li>
+          <li><i class="fas fa-check-circle"></i> Audio-visual learning tools</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Science Labs -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="Science laboratory"
+             onerror="this.src='https://picsum.photos/id/135/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-microscope"></i> Science Laboratories</h3>
+        <p>Fully equipped Physics, Chemistry, Biology labs with advanced apparatus and safety measures.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Separate wet & instrument rooms</li>
+          <li><i class="fas fa-check-circle"></i> Dedicated lab assistants</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Computer Lab & AI Hub -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="Computer lab"
+             onerror="this.src='https://picsum.photos/id/26/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-microchip"></i> Computer & AI Hub</h3>
+        <p>High-speed computing labs with latest software, robotics kits, and artificial intelligence workstations.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> 100+ terminals, 1:1 ratio</li>
+          <li><i class="fas fa-check-circle"></i> Coding & 3D printing zone</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Library & Resource Centre -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/290595/pexels-photo-290595.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="School library"
+             onerror="this.src='https://picsum.photos/id/28/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-book-open"></i> Central Library</h3>
+        <p>Vast collection of books, e-resources, journals, and quiet reading zones for research and leisure.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> 15,000+ titles & digital archives</li>
+          <li><i class="fas fa-check-circle"></i> E-library with remote access</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sports Complex -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/207361/pexels-photo-207361.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="Sports ground"
+             onerror="this.src='https://picsum.photos/id/96/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-futbol"></i> Sports Academy</h3>
+        <p>Multipurpose courts, cricket ground, indoor sports hall, and professional coaches for athletics.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Basketball, tennis, football</li>
+          <li><i class="fas fa-check-circle"></i> Yoga & fitness studio</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Auditorium & Performing Arts -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/761351/pexels-photo-761351.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="Auditorium"
+             onerror="this.src='https://picsum.photos/id/66/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-chalkboard"></i> Auditorium & PAC</h3>
+        <p>Air-conditioned 800-seater auditorium with acoustic design, stage lighting, and green rooms.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Digital sound & projection</li>
+          <li><i class="fas fa-check-circle"></i> Drama, dance & music rooms</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Transport & Safety (School Bus image added) -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/163016/stopped-school-bus-school-bus-bus-163016.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="School bus fleet"
+             onerror="this.src='https://picsum.photos/id/169/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-bus"></i> Fleet Management</h3>
+        <p>GPS-enabled, CCTV-fitted school buses with trained drivers and female attendants for safety.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Door-to-door pickup routes</li>
+          <li><i class="fas fa-check-circle"></i> Real-time tracking app</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cafeteria & Wellness -->
+    <div class="facility-card">
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/4551832/pexels-photo-4551832.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+             alt="School canteen"
+             onerror="this.src='https://picsum.photos/id/127/400/220'">
+      </div>
+      <div class="card-content">
+        <h3><i class="fas fa-utensils"></i> Canteen & Wellness</h3>
+        <p>Hygienic, multi-cuisine cafeteria serving nutritious meals, plus medical room with resident nurse.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Weekly menu by nutritionist</li>
+          <li><i class="fas fa-check-circle"></i> First-aid & health checkups</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Highlight Banner: Eco-friendly & Smart Campus -->
+  <div class="highlight-banner">
+    <div class="highlight-text">
+      <h3><i class="fas fa-tree"></i> Eco-friendly & smart campus</h3>
+      <p>Solar panels, rainwater harvesting, lush green gardens, and Wi-Fi enabled zones across 12 acres.</p>
+      <p style="margin-top: 5px; font-size: 0.85rem;">✔ 24/7 security ✔ RO water purifiers ✔ Disability-friendly ramps & elevators</p>
+    </div>
+    <div class="highlight-icon">
+      <i class="fas fa-leaf"></i>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin: 1rem 0 0.5rem;">
+    <div class="stat-badge"><i class="fas fa-building"></i> 3 Academic Blocks</div>
+    <div class="stat-badge"><i class="fas fa-chalkboard"></i> 6 Specialized Labs</div>
+    <div class="stat-badge"><i class="fas fa-dumbbell"></i> 4 Sports Zones</div>
+    <div class="stat-badge"><i class="fas fa-bus"></i> 25+ GPS Buses</div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-school-circle-check"></i> Our infrastructure is designed to nurture future-ready leaders.  
+    Visit our campus for a guided tour <i class="fas fa-smile-wink"></i> — admission office open Mon–Fri 9 AM – 3 PM.
+  </div>
+</div>
+  <%-include("partials/footer.ejs") %>
+</body>
+</html>

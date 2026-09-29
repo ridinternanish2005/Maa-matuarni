@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Program-wise Admission | Maa Matuarni - D.Pharm, B.Pharm, BA, ANM, GNM, B.Ed, D.El.Ed</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefaf5;
+      color: #2c2823;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header styling with heritage touch */
+    .hero {
+      background: linear-gradient(125deg, #8b2c1d 0%, #b24332 100%);
+      color: white;
+      padding: 2.8rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "📖";
+      font-size: 200px;
+      opacity: 0.06;
+      position: absolute;
+      bottom: -30px;
+      right: 0;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: -0.3px;
+    }
+
+    .hero .tagline {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 0.8rem;
+      border-left: 4px solid #f9b572;
+      padding-left: 1rem;
+      max-width: 650px;
+    }
+
+    .badge-program {
+      background: rgba(255,245,225,0.2);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    /* section titles */
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      color: #8b2c1d;
+      margin: 2.5rem 0 1.8rem 0;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: '';
+      width: 65px;
+      height: 3px;
+      background: #e67e22;
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      border-radius: 3px;
+    }
+
+    /* course grid */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border: 1px solid #f2e2d4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(139, 44, 29, 0.15);
+      border-color: #f3cfb5;
+    }
+
+    .card-header {
+      background: #fef3ea;
+      padding: 1.3rem 1.5rem;
+      border-bottom: 1px solid #f5e2d2;
+    }
+
+    .card-header h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      color: #9b3b2a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-header h2 i {
+      font-size: 1.7rem;
+      color: #e67e22;
+    }
+
+    .duration {
+      display: inline-block;
+      background: #fff0e4;
+      padding: 0.2rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #b45a3a;
+      margin-top: 8px;
+    }
+
+    .card-body {
+      padding: 1.4rem 1.5rem 1.8rem;
+      flex: 1;
+    }
+
+    .info-block {
+      margin-bottom: 1.2rem;
+    }
+
+    .info-label {
+      font-weight: 700;
+      color: #5c3e2e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+
+    .info-label i {
+      color: #e67e22;
+      width: 20px;
+    }
+
+    .info-text {
+      color: #3f332a;
+      padding-left: 28px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .fee-range {
+      background: #fef7e8;
+      border-radius: 16px;
+      padding: 0.6rem 1rem;
+      margin-top: 1rem;
+      font-weight: 500;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #c26446;
+      color: #9b2c1d;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      background: #9b2c1d;
+      color: white;
+      border-color: #9b2c1d;
+    }
+
+    /* common steps section */
+    .steps-common {
+      background: #fff9f2;
+      border-radius: 32px;
+      padding: 2rem;
+      margin: 2rem 0 2rem;
+      border: 1px solid #f7e7db;
+    }
+
+    .steps-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: space-between;
+      margin-top: 1.2rem;
+    }
+
+    .step-item {
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+      background: white;
+      border-radius: 28px;
+      padding: 1rem 0.8rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    .step-num {
+      background: #f1d9ce;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40px;
+      font-weight: 800;
+      color: #a23f2c;
+      margin-bottom: 0.7rem;
+    }
+
+    /* important dates table style */
+    .dates-simple {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .dates-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .date-chip {
+      background: #fef3ea;
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 500;
+    }
+
+    footer {
+      background: #2d241e;
+      color: #e2cfbc;
+      padding: 2rem 0;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    @media (max-width: 750px) {
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .section-title {
+        font-size: 1.6rem;
+      }
+      .steps-flex {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/Navbar') %>
+
+
+
+<main class="container">
+  <!-- Course Grid: All requested programs -->
+  <div class="section-title"><i class="fas fa-graduation-cap"></i> पाठ्यक्रम अनुसार प्रवेश विवरण</div>
+  <div class="course-grid">
+    
+    <!-- D.Pharmacy Card -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-capsules"></i> D.Pharmacy</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 2 Years (Full-time)</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 (PCB / PCM) with minimum 50% marks (45% for SC/ST). Physics, Chemistry, Biology/Mathematics compulsory.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-file-signature"></i> Admission Criteria</div><div class="info-text">Merit based on qualifying exam + counselling conducted by university / institute. Direct admission subject to vacancy.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Annual Fee (approx)</div><div class="info-text">₹ 38,000 – ₹ 45,000 (including tuition & lab charges)</div></div>
+        <div class="fee-range"><i class="fas fa-tag"></i> Scholarship: UP Govt. & merit scholarships available</div>
+        <a href="#" class="btn-outline apply-course" data-course="D.Pharmacy"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- B.Pharmacy Card -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-flask"></i> B.Pharmacy</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 4 Years</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 with Physics, Chemistry, Biology/Mathematics, minimum 50% aggregate. Qualified UPSEE / NEET (as per PCI norms) or institute entrance.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-clipboard-list"></i> Selection</div><div class="info-text">State entrance exam rank + counselling. Lateral entry (D.Pharm graduates) available in 2nd year.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Annual Fee</div><div class="info-text">₹ 72,000 – ₹ 85,000 (includes lab & library)</div></div>
+        <div class="fee-range"><i class="fas fa-award"></i> Industry-oriented training & placement assistance</div>
+        <a href="#" class="btn-outline apply-course" data-course="B.Pharmacy"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- Bachelor of Arts (BA) -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-landmark"></i> Bachelor of Arts (BA)</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 3 Years</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 in any stream from recognized board. Minimum 45% marks (general) / 40% (reserved).</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-book-open"></i> Specializations</div><div class="info-text">Economics, Political Science, Sociology, English, History, Psychology (subject to availability).</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Annual Fee</div><div class="info-text">₹ 18,500 – ₹ 24,000 (depending on subjects & college affiliation)</div></div>
+        <div class="fee-range"><i class="fas fa-chart-line"></i> Excellent faculty & smart classrooms</div>
+        <a href="#" class="btn-outline apply-course" data-course="BA"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- ANM (Auxiliary Nursing & Midwifery) -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-hand-holding-heart"></i> ANM</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 2 Years</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 with any stream (Science preferred), age 17–35 years. Must be medically fit.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-stethoscope"></i> Admission Process</div><div class="info-text">Merit list based on qualifying marks + personal interview. INC norms followed.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Total Fee (approx)</div><div class="info-text">₹ 32,000 – ₹ 40,000 per year (scholarship for reserved categories)</div></div>
+        <div class="fee-range"><i class="fas fa-hospital-user"></i> Clinical training at associated hospitals</div>
+        <a href="#" class="btn-outline apply-course" data-course="ANM"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- GNM (General Nursing & Midwifery) - jnam assumed GNM -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-heartbeat"></i> GNM</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 3 Years</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 with PCB (Physics, Chemistry, Biology) & English, minimum 45% marks. Registered ANM can apply for lateral entry.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-clinic-medical"></i> Selection</div><div class="info-text">Merit + entrance test conducted by state nursing council. Counseling for seat allotment.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Annual Fee</div><div class="info-text">₹ 45,000 – ₹ 55,000 (includes uniform & clinical material)</div></div>
+        <div class="fee-range"><i class="fas fa-briefcase-medical"></i> 100% placement assistance in reputed hospitals</div>
+        <a href="#" class="btn-outline apply-course" data-course="GNM"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- B.Ed (Bachelor of Education) -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chalkboard"></i> B.Ed</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 2 Years (Regular)</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">Graduation (any discipline) with minimum 50% marks (45% for reserved). Final year students can apply.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-university"></i> Admission Mode</div><div class="info-text">Based on state B.Ed entrance exam (JEE / UP B.Ed JEE) merit followed by counselling. Direct admission for management quota.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Fee Structure</div><div class="info-text">₹ 45,000 – ₹ 60,000 per annum (NCTE approved institute)</div></div>
+        <div class="fee-range"><i class="fas fa-school"></i> Practice teaching & internships in partner schools</div>
+        <a href="#" class="btn-outline apply-course" data-course="B.Ed"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+    
+    <!-- D.El.Ed (Diploma in Elementary Education) -->
+    <div class="course-card">
+      <div class="card-header">
+        <h2><i class="fas fa-child"></i> D.El.Ed</h2>
+        <div class="duration"><i class="far fa-clock"></i> Duration: 2 Years</div>
+      </div>
+      <div class="card-body">
+        <div class="info-block"><div class="info-label"><i class="fas fa-user-graduate"></i> Eligibility</div><div class="info-text">10+2 with minimum 50% marks (45% SC/ST) from recognized board. Age: 17–35 years.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-edit"></i> Selection Procedure</div><div class="info-text">State-level D.El.Ed entrance exam (UP D.El.Ed JET) merit list. Document verification and counselling.</div></div>
+        <div class="info-block"><div class="info-label"><i class="fas fa-rupee-sign"></i> Annual Fee</div><div class="info-text">₹ 28,000 – ₹ 35,000 (including academic resources & practicum)</div></div>
+        <div class="fee-range"><i class="fas fa-hands-helping"></i> Govt. recognized diploma, eligible for primary teacher recruitment</div>
+        <a href="#" class="btn-outline apply-course" data-course="D.El.Ed"><i class="fas fa-arrow-right"></i> Apply Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Common Admission Procedure & Important Dates -->
+  <div class="steps-common">
+    <h3 style="font-size: 1.6rem; color: #8b2c1d; margin-bottom: 0.5rem;"><i class="fas fa-tasks"></i> सामान्य प्रवेश प्रक्रिया (Common Admission Steps)</h3>
+    <p style="margin-bottom: 1rem;">All above courses follow a streamlined admission workflow at Maa Matuarni Campus. Kindly refer to steps below:</p>
+    <div class="steps-flex">
+      <div class="step-item"><div class="step-num">1</div><strong>Online/Offline Registration</strong><br>Fill application + pay ₹300 registration fee</div>
+      <div class="step-item"><div class="step-num">2</div><strong>Document Submission</strong><br>Marksheets, ID, caste (if any), photos</div>
+      <div class="step-item"><div class="step-num">3</div><strong>Merit / Entrance List</strong><br>Based on eligibility & entrance scores</div>
+      <div class="step-item"><div class="step-num">4</div><strong>Counseling & Fee Payment</strong><br>Seat confirmation & provisional admission</div>
+    </div>
+  </div>
+
+  <!-- Important dates (tentative) -->
+  <div class="dates-simple">
+    <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem; display: flex; gap: 10px;"><i class="fas fa-calendar-alt" style="color:#c26446;"></i> महत्वपूर्ण तिथियाँ (प्रवेश सत्र 2025-26)</h3>
+    <div class="dates-row">
+      <div class="date-chip"><i class="fas fa-play"></i> Application start: 1 April 2025</div>
+      <div class="date-chip"><i class="fas fa-stopwatch"></i> Last date (without fine): 30 May 2025</div>
+      <div class="date-chip"><i class="fas fa-list-ol"></i> Merit list: 12–15 June 2025</div>
+      <div class="date-chip"><i class="fas fa-calendar-check"></i> Counselling rounds: 20–28 June 2025</div>
+      <div class="date-chip"><i class="fas fa-book"></i> Session begins: 1 July 2025</div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.85rem;"><i class="fas fa-info-circle"></i> Dates are tentative & may vary for specific courses (especially Nursing & Pharmacy entrance-based). Keep checking institute notice board.</p>
+  </div>
+
+  <!-- contact and helpdesk for each program -->
+  <div style="background: #fdf2e8; border-radius: 32px; padding: 1.8rem; margin: 1.8rem 0; text-align: center;">
+    <h3 style="font-size: 1.4rem; margin-bottom: 0.6rem;"><i class="fas fa-headset"></i> प्रवेश सहायता हेल्पडेस्क (Program-wise Support)</h3>
+    <p>For D.Pharm / B.Pharm queries: <strong>+91-8882 111 222</strong> &nbsp;|&nbsp; For BA / Education (B.Ed/D.El.Ed): <strong>+91-8882 333 444</strong><br>
+    For ANM / GNM Nursing: <strong>+91-8882 555 666</strong> &nbsp;|&nbsp; Email: admission@maamatuarni.edu.in</p>
+    <div style="margin-top: 1rem;">
+      <a href="#" id="generalEnquiryBtn" class="btn-outline" style="background: #9b2c1d; color:white; border:none;"><i class="fas fa-envelope"></i> General Enquiry</a>
+    </div>
+  </div>
+</main>
+
+
+
+<script>
+  // Interactive alerts for "Apply Now" buttons (demo purpose)
+  document.querySelectorAll('.apply-course').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const course = btn.getAttribute('data-course') || 'selected course';
+      alert(`📢 आवेदन प्रक्रिया शुरू: ${course}\nकृपया हेल्पडेस्क पर संपर्क करें या 1 अप्रैल 2025 से ऑनलाइन पोर्टल पर आवेदन करें।\nFor ${course}, registration will open soon.`);
+    });
+  });
+
+  document.getElementById('generalEnquiryBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert("📞 हमारी admission team आपकी सहायता के लिए तत्पर है। कृपया कॉल करें: +91-9876543210 या ईमेल करें: admission@maamatuarni.edu.in");
+  });
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

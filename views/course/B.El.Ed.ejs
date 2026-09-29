@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>B.El.Ed - Bachelor of Elementary Education | Complete Course Guide 2025</title>
+    <!-- Google Fonts + modern styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf7;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 2px solid #f0e8da;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #2b5e2f, #4a7c5a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            background: none;
+            color: #e67e22;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3e2b;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #e67e22;
+        }
+        .btn-outline {
+            border: 1.5px solid #4a7c5a;
+            background: transparent;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #2b5e2f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-outline:hover {
+            background: #4a7c5a;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin: 50px 0 60px 0;
+        }
+        .hero-content {
+            flex: 1.2;
+        }
+        .hero-badge {
+            background: #eef2e6;
+            color: #2b5e2f;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: #1e3a2f;
+        }
+        .highlight {
+            color: #e67e22;
+            border-bottom: 3px solid #f3c26b;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #2b5e2f;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(43,94,47,0.2);
+        }
+        .btn-primary:hover {
+            background: #1f4621;
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            flex: 0.9;
+            background: #eef2e0;
+            border-radius: 48px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Section styles */
+        section {
+            margin: 85px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1e3a2f;
+        }
+        .section-sub {
+            text-align: center;
+            color: #5b6e5c;
+            max-width: 720px;
+            margin: 0 auto 48px auto;
+            font-size: 1.05rem;
+        }
+
+        /* Info cards grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .info-card {
+            background: white;
+            padding: 32px 28px;
+            border-radius: 32px;
+            border: 1px solid #e8e0cc;
+            transition: 0.25s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #cbd5b5;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+        }
+        .info-icon {
+            background: #eff3e8;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 22px;
+        }
+        .info-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* curriculum timeline */
+        .curriculum {
+            background: #faf7ef;
+            border-radius: 48px;
+            padding: 52px 44px;
+        }
+        .year-block {
+            margin-bottom: 38px;
+        }
+        .year-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2b5e2f;
+            margin-bottom: 20px;
+            border-left: 5px solid #e67e22;
+            padding-left: 20px;
+        }
+        .subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .subject-tag {
+            background: white;
+            border-radius: 40px;
+            padding: 8px 22px;
+            font-weight: 500;
+            border: 1px solid #e2dccd;
+            color: #2d3e2b;
+            transition: 0.2s;
+        }
+        .subject-tag:hover {
+            background: #eef2e6;
+            border-color: #4a7c5a;
+        }
+
+        /* eligibility & admission */
+        .elig-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 44px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            border: 1px solid #ece3d4;
+        }
+        .elig-col {
+            flex: 1;
+        }
+        .elig-col ul {
+            list-style: none;
+            line-height: 2;
+        }
+        .elig-col li {
+            margin-bottom: 8px;
+        }
+
+        /* career prospects */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+        .career-item {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid #e9e2d0;
+            transition: 0.2s;
+        }
+        .career-item:hover {
+            transform: translateY(-4px);
+            border-color: #c2cfb0;
+        }
+
+        /* top colleges */
+        .college-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .college-badge {
+            background: #eef3e6;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #2b5e2f;
+            font-size: 0.9rem;
+        }
+
+        /* contact / enquiry */
+        .enquiry-section {
+            background: linear-gradient(135deg, #1e3a2f, #2a5a3a);
+            border-radius: 48px;
+            padding: 56px 48px;
+            color: white;
+        }
+        .enquiry-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            margin-top: 40px;
+        }
+        .enquiry-info {
+            flex: 1;
+        }
+        .enquiry-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .enquiry-form input, .enquiry-form select, .enquiry-form textarea {
+            padding: 14px 20px;
+            border-radius: 40px;
+            border: none;
+            font-family: inherit;
+            background: #fff;
+            font-size: 0.95rem;
+        }
+        .enquiry-form button {
+            background: #f5b042;
+            color: #1e3a2f;
+            font-weight: 800;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .enquiry-form button:hover {
+            background: #e69a2e;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-top: 1px solid #e4dbc8;
+            color: #5f6c5a;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 780px) {
+            .container { padding: 0 24px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .curriculum { padding: 32px 24px; }
+            .enquiry-section { padding: 36px 24px; }
+            .elig-box { padding: 28px; }
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/Navbar') %>
+<div class="container">
+    <!-- Navigation -->
+   
+    <!-- Hero Section -->
+    <div id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🎓 NCTE Approved | 4-Year Professional Degree</div>
+                <h1>Bachelor of <span class="highlight">Elementary Education</span> (B.El.Ed)</h1>
+                <p>A comprehensive professional program designed to create expert educators for primary & upper primary levels (Grades 1–8). Blend of theory, practice, research, and hands-on training.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="knowMoreBtn">Explore Full Details →</button>
+                    <button class="btn-outline" id="brochureBtn">📘 Download Brochure</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg width="280" height="220" viewBox="0 0 320 260" fill="none">
+                    <rect x="40" y="40" width="240" height="160" rx="28" fill="#E3EED5" stroke="#4a7c59" stroke-width="3"/>
+                    <circle cx="110" cy="100" r="20" fill="#FDE5B4"/>
+                    <circle cx="210" cy="100" r="20" fill="#FDE5B4"/>
+                    <path d="M130 140 Q160 170 190 140" stroke="#2b5e2f" stroke-width="3" fill="none"/>
+                    <rect x="80" y="180" width="160" height="30" rx="12" fill="#FFE0A3"/>
+                    <text x="125" y="202" fill="#7b3f00" font-size="12" font-weight="bold">Education • Empathy • Leadership</text>
+                </svg>
+                <p style="margin-top: 16px; font-weight: 500;">✨ School-Ready Teachers | Inclusive Education Experts</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About B.El.Ed Section -->
+    <section id="about">
+        <h2 class="section-title">What is B.El.Ed? (Complete Overview)</h2>
+        <p class="section-sub">Bachelor of Elementary Education (B.El.Ed) is a 4-year integrated professional degree program recognized by NCTE, specifically designed to prepare highly skilled teachers for elementary schools.</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">📚</div>
+                <h3>Duration & Structure</h3>
+                <p>4 years (8 semesters) • Full-time • NCTE-regulated curriculum. Includes theoretical courses, practical training, school internships, and a research project.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎯</div>
+                <h3>Program Objectives</h3>
+                <p>Develop expertise in child-centered pedagogy, inclusive classroom management, educational assessment, and community engagement for holistic development.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🏫</div>
+                <h3>Eligibility & Career Scope</h3>
+                <p>Government/private school teacher, curriculum designer, educational consultant, school administrator, or pursue higher studies (M.A. Education, B.Ed, Ph.D).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Full Details -->
+    <section id="curriculum">
+        <div class="curriculum">
+            <h2 class="section-title" style="color:#1e3a2f;">Detailed Curriculum Structure (Syllabus)</h2>
+            <p class="section-sub">B.El.Ed offers a unique blend of educational theory, liberal arts, subject knowledge, and intensive practicum.</p>
+            
+            <div class="year-block">
+                <div class="year-title">📘 Year I</div>
+                <div class="subjects">
+                    <span class="subject-tag">Child Development</span>
+                    <span class="subject-tag">Philosophy of Education</span>
+                    <span class="subject-tag">Introduction to Elementary Education</span>
+                    <span class="subject-tag">Language Skills (English/Hindi)</span>
+                    <span class="subject-tag">Educational Technology</span>
+                </div>
+            </div>
+            <div class="year-block">
+                <div class="year-title">📗 Year II</div>
+                <div class="subjects">
+                    <span class="subject-tag">Sociology of Education</span>
+                    <span class="subject-tag">Psychology of Learning</span>
+                    <span class="subject-tag">Mathematics Teaching</span>
+                    <span class="subject-tag">Environmental Studies (EVS)</span>
+                    <span class="subject-tag">School Internship - I</span>
+                </div>
+            </div>
+            <div class="year-block">
+                <div class="year-title">📙 Year III</div>
+                <div class="subjects">
+                    <span class="subject-tag">Language Teaching (English/Hindi)</span>
+                    <span class="subject-tag">Science Teaching</span>
+                    <span class="subject-tag">Social Science Teaching</span>
+                    <span class="subject-tag">Inclusive Education</span>
+                    <span class="subject-tag">Assessment & Evaluation</span>
+                </div>
+            </div>
+            <div class="year-block">
+                <div class="year-title">📕 Year IV</div>
+                <div class="subjects">
+                    <span class="subject-tag">Educational Research</span>
+                    <span class="subject-tag">Curriculum Development</span>
+                    <span class="subject-tag">School Internship - II (Intensive Practicum)</span>
+                    <span class="subject-tag">Education Management</span>
+                    <span class="subject-tag">Project Work / Digital Portfolio</span>
+                </div>
+            </div>
+            <p style="margin-top: 32px; background: #fff3e0; padding: 16px; border-radius: 28px; text-align:center; font-weight: 500;">⭐ Practical Training: Two long-term internships, action research projects, and school-based fieldwork are mandatory components.</p>
+        </div>
+    </section>
+
+    <!-- Eligibility & Admission Process -->
+    <section id="admission">
+        <h2 class="section-title">Admission Process & Eligibility</h2>
+        <p class="section-sub">Complete details about eligibility criteria, entrance exams, and selection procedure for B.El.Ed.</p>
+        <div class="elig-box">
+            <div class="elig-col">
+                <h3>🎯 Eligibility Criteria</h3>
+                <ul style="margin-top: 18px;">
+                    <li>✔️ 10+2 (from any recognized board) with minimum 50% aggregate marks (45% for SC/ST/OBC)</li>
+                    <li>✔️ Age Limit: Usually 17–22 years (relaxation for reserved categories)</li>
+                    <li>✔️ Some universities require entrance exam (DU B.El.Ed, JMI, AMU, BHU, UP B.Ed JEE, etc.)</li>
+                </ul>
+            </div>
+            <div class="elig-col">
+                <h3>📝 Admission Steps</h3>
+                <ul style="margin-top: 18px;">
+                    <li>1. Online application (based on entrance exam or merit)</li>
+                    <li>2. Appear for entrance exam (subjects: Language, Education Aptitude, Mental Ability)</li>
+                    <li>3. Counseling & document verification</li>
+                    <li>4. Seat allotment & fee submission</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 48px; text-align: center;">
+            <h3>🏛️ Top B.El.Ed Colleges & Universities</h3>
+            <div class="college-list">
+                <span class="college-badge">University of Delhi (DU)</span>
+                <span class="college-badge">Jamia Millia Islamia</span>
+                <span class="college-badge">Aligarh Muslim University</span>
+                <span class="college-badge">Banaras Hindu University (BHU)</span>
+                <span class="college-badge">Lucknow University</span>
+                <span class="college-badge">Allahabad University</span>
+                <span class="college-badge">IGNOU (Distance Mode)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Prospects -->
+    <section id="career">
+        <h2 class="section-title">Career Opportunities After B.El.Ed</h2>
+        <p class="section-sub">Diverse career paths in education, ed-tech, government sector, and higher studies.</p>
+        <div class="career-grid">
+            <div class="career-item">🏫 <strong>Primary Teacher</strong><br>Government/Private Schools (PRT, TGT)</div>
+            <div class="career-item">📖 <strong>Educational Consultant</strong><br>EdTech companies, NGOs, Education Policy</div>
+            <div class="career-item">✍️ <strong>Curriculum Designer</strong><br>CBSE, State Boards, Publishing Houses</div>
+            <div class="career-item">🎓 <strong>Higher Education</strong><br>M.A. Education, B.Ed, Ph.D, NET/JRF</div>
+            <div class="career-item">🧑‍🏫 <strong>School Administration</strong><br>Coordinator, Academic Supervisor, Leadership Roles</div>
+            <div class="career-item">🌍 <strong>International Schools</strong><br>IB/IGCSE Educator, Global Teaching Opportunities</div>
+        </div>
+        <p style="text-align: center; margin-top: 40px; background: #f0f4ea; padding: 18px; border-radius: 48px; font-weight: 500;">💼 Average Starting Salary: ₹3.5 LPA - ₹6.5 LPA (depends on institution & experience). Government teacher salary as per 7th CPC: ₹45,000+</p>
+    </section>
+
+    <!-- Contact & Free Counselling -->
+  
+
+
+</div>
+
+<script>
+    // Smooth scrolling and interactive functions
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('href').substring(1);
+            scrollToSection(target);
+        });
+    });
+
+    document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
+    document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));
+    document.getElementById('brochureBtn')?.addEventListener('click', () => {
+        alert("📥 B.El.Ed Digital Brochure will be sent to your email. Please fill the counselling form or contact us for direct download link.");
+    });
+
+    // Counselling form handler
+    const submitBtn = document.getElementById('submitCounselling');
+    const feedbackSpan = document.getElementById('formFeedbackMsg');
+    
+    if(submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('studentName')?.value.trim();
+            const email = document.getElementById('studentEmail')?.value.trim();
+            const phone = document.getElementById('studentPhone')?.value.trim();
+            const state = document.getElementById('studentState')?.value;
+            const query = document.getElementById('studentQuery')?.value.trim();
+
+            if(!name || !email || !phone) {
+                feedbackSpan.innerText = "❌ Please fill in Name, Email, and Mobile Number (required fields).";
+                feedbackSpan.style.color = "#f9b84a";
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')) {
+                feedbackSpan.innerText = "📧 Please enter a valid email address.";
+                return;
+            }
+            if(phone.length < 10) {
+                feedbackSpan.innerText = "📞 Please enter a valid 10-digit mobile number.";
+                return;
+            }
+            
+            feedbackSpan.innerText = `✅ Thank you ${name}! Our counselling team will contact you shortly with complete B.El.Ed guidance.`;
+            feedbackSpan.style.color = "#ffe0a3";
+            
+            // Clear form
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('studentState').value = '';
+            document.getElementById('studentQuery').value = '';
+            
+            setTimeout(() => { feedbackSpan.innerText = ''; }, 6000);
+        });
+    }
+    
+    console.log("B.El.Ed comprehensive page loaded — all details in English, ready for prospective students.");
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

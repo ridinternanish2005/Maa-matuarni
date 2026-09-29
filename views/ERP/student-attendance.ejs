@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Attendance</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+
+    .header {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .header h2 {
+      margin: 0 0 8px;
+    }
+
+    .header p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: #666;
+    }
+
+    .card strong {
+      font-size: 28px;
+    }
+
+    .table-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f3f7;
+    }
+
+    .present {
+      font-weight: bold;
+    }
+
+    .absent {
+      font-weight: bold;
+    }
+
+    .leave {
+      font-weight: bold;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: #333;
+      color: white;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <a href="/erp/students/dashboard" class="back-btn">
+      ← Back to Dashboard
+    </a>
+
+    <!-- Student Information -->
+    <div class="header">
+
+      <h2>Student Attendance</h2>
+
+      <p>
+        <strong>Name:</strong>
+        <%= user?.name || erpUser?.name || "N/A" %>
+      </p>
+
+      <p>
+        <strong>Enrollment:</strong>
+        <%= user?.enrollment || erpUser?.enrollment || "N/A" %>
+      </p>
+
+      <p>
+        <strong>Session:</strong>
+        <%= user?.session || erpUser?.session || "N/A" %>
+      </p>
+
+    </div>
+
+
+    <!-- Attendance Statistics -->
+    <div class="stats">
+
+      <div class="card">
+        <h3>Total Classes</h3>
+        <strong>
+          <%= stats?.totalClasses || 0 %>
+        </strong>
+      </div>
+
+      <div class="card">
+        <h3>Present</h3>
+        <strong>
+          <%= stats?.presentClasses || 0 %>
+        </strong>
+      </div>
+
+      <div class="card">
+        <h3>Absent</h3>
+        <strong>
+          <%= stats?.absentClasses || 0 %>
+        </strong>
+      </div>
+
+      <div class="card">
+        <h3>Attendance %</h3>
+        <strong>
+          <%= stats?.attendancePercentage || "0.00" %>%
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- Attendance Table -->
+    <div class="table-box">
+
+      <h3>Attendance History</h3>
+
+      <% if (attendance && attendance.length > 0) { %>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Subject</th>
+              <th>Status</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% attendance.forEach(item => { %>
+
+              <tr>
+
+                <td>
+                  <%= new Date(item.date).toLocaleDateString("en-IN") %>
+                </td>
+
+                <td>
+                  <%= item.subject || "-" %>
+                </td>
+
+                <td>
+
+                  <% if (item.status === "Present") { %>
+
+                    <span class="present">
+                      Present
+                    </span>
+
+                  <% } else if (item.status === "Absent") { %>
+
+                    <span class="absent">
+                      Absent
+                    </span>
+
+                  <% } else { %>
+
+                    <span class="leave">
+                      Leave
+                    </span>
+
+                  <% } %>
+
+                </td>
+
+                <td>
+                  <%= item.remarks || "-" %>
+                </td>
+
+              </tr>
+
+            <% }) %>
+
+          </tbody>
+
+        </table>
+
+      <% } else { %>
+
+        <p>
+          No attendance records found.
+        </p>
+
+      <% } %>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

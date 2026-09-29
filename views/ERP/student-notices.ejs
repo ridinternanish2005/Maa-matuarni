@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>College Notices</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .header {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .header h1 {
+      margin-top: 0;
+    }
+
+    .notice {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-left: 5px solid #2563eb;
+    }
+
+    .notice.important {
+      border-left-color: #dc2626;
+    }
+
+    .notice h2 {
+      margin-top: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+
+    .important-badge {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .category-badge {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .date {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .empty {
+      background: white;
+      text-align: center;
+      padding: 50px;
+      border-radius: 12px;
+      color: #777;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+
+    <h1>College Notices</h1>
+
+    <p>
+      Welcome,
+      <strong>
+        <%= erpUser?.name || "Student" %>
+      </strong>
+    </p>
+
+    <p>
+      Enrollment:
+      <strong>
+        <%= erpUser?.enrollment || "-" %>
+      </strong>
+    </p>
+
+  </div>
+
+
+  <% if (!notices || notices.length === 0) { %>
+
+    <div class="empty">
+
+      <h2>No Notices Available</h2>
+
+      <p>
+        There are currently no published notices.
+      </p>
+
+    </div>
+
+  <% } %>
+
+
+  <% notices?.forEach(notice => { %>
+
+    <div
+      class="notice <%= notice.important ? 'important' : '' %>"
+    >
+
+      <h2>
+        <%= notice.title %>
+      </h2>
+
+
+      <div>
+
+        <% if (notice.important) { %>
+
+          <span class="badge important-badge">
+            IMPORTANT
+          </span>
+
+        <% } %>
+
+
+        <span class="badge category-badge">
+          <%= notice.category %>
+        </span>
+
+      </div>
+
+
+      <p>
+        <%= notice.description %>
+      </p>
+
+
+      <div class="date">
+
+        Notice Date:
+
+        <%= notice.noticeDate
+          ? new Date(notice.noticeDate).toLocaleDateString("en-IN")
+          : "-"
+        %>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+</div>
+
+</body>
+
+</html>

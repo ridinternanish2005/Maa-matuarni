@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ANM - Auxiliary Nursing Midwifery | Complete Course Guide 2025</title>
+    <!-- Google Fonts + modern styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf9;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 2px solid #ffe0d4;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #b3413a, #d96c5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            background: none;
+            color: #c95348;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4a3b3a;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #c95348;
+        }
+        .btn-outline {
+            border: 1.5px solid #c95348;
+            background: transparent;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #c95348;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-outline:hover {
+            background: #c95348;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin: 50px 0 60px 0;
+        }
+        .hero-content {
+            flex: 1.2;
+        }
+        .hero-badge {
+            background: #ffe6e0;
+            color: #c95348;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: #8b3c34;
+        }
+        .highlight {
+            color: #c95348;
+            border-bottom: 3px solid #fbc4b8;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #5b4c4a;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #c95348;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(201,83,72,0.2);
+        }
+        .btn-primary:hover {
+            background: #a53e34;
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            flex: 0.9;
+            background: #ffe6e0;
+            border-radius: 48px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Section styles */
+        section {
+            margin: 85px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #8b3c34;
+        }
+        .section-sub {
+            text-align: center;
+            color: #7a615e;
+            max-width: 720px;
+            margin: 0 auto 48px auto;
+            font-size: 1.05rem;
+        }
+
+        /* Info cards grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .info-card {
+            background: white;
+            padding: 32px 28px;
+            border-radius: 32px;
+            border: 1px solid #ffe0d4;
+            transition: 0.25s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #fbc4b8;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+        }
+        .info-icon {
+            background: #ffe6e0;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 22px;
+        }
+        .info-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* curriculum semester grid */
+        .curriculum {
+            background: #fffaf7;
+            border-radius: 48px;
+            padding: 52px 44px;
+        }
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+            margin-top: 20px;
+        }
+        .year-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid #ffe0d4;
+        }
+        .year-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #c95348;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ffe0d4;
+        }
+        .subject-list {
+            list-style: none;
+        }
+        .subject-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #f7e4dc;
+            font-size: 0.95rem;
+        }
+
+        /* eligibility & admission */
+        .elig-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 44px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            border: 1px solid #ffe0d4;
+        }
+        .elig-col {
+            flex: 1;
+        }
+        .elig-col ul {
+            list-style: none;
+            line-height: 2;
+        }
+        .elig-col li {
+            margin-bottom: 10px;
+        }
+
+        /* career prospects */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .career-item {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid #ffe0d4;
+            transition: 0.2s;
+        }
+        .career-item:hover {
+            transform: translateY(-4px);
+            border-color: #fbc4b8;
+        }
+        .career-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* top colleges */
+        .college-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .college-badge {
+            background: #ffe6e0;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #a53e34;
+            font-size: 0.9rem;
+        }
+
+        /* salary highlight */
+        .salary-card {
+            background: linear-gradient(135deg, #8b3c34, #c95348);
+            color: white;
+            border-radius: 32px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* contact / enquiry */
+        .enquiry-section {
+            background: linear-gradient(135deg, #8b3c34, #c95348);
+            border-radius: 48px;
+            padding: 56px 48px;
+            color: white;
+        }
+        .enquiry-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            margin-top: 40px;
+        }
+        .enquiry-info {
+            flex: 1;
+        }
+        .enquiry-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .enquiry-form input, .enquiry-form select, .enquiry-form textarea {
+            padding: 14px 20px;
+            border-radius: 40px;
+            border: none;
+            font-family: inherit;
+            background: #fff;
+            font-size: 0.95rem;
+        }
+        .enquiry-form button {
+            background: #ffb347;
+            color: #8b3c34;
+            font-weight: 800;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .enquiry-form button:hover {
+            background: #ff9f1a;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-top: 1px solid #ffe0d4;
+            color: #7a615e;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 780px) {
+            .container { padding: 0 24px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .curriculum { padding: 32px 24px; }
+            .enquiry-section { padding: 36px 24px; }
+            .elig-box { padding: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/Navbar') %>
+
+
+    <!-- Hero Section -->
+    <div id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">👩‍⚕️ INC Approved | 2-Year Diploma Program</div>
+                <h1>Auxiliary Nursing <span class="highlight">Midwifery</span> (ANM)</h1>
+                <p>The foundation of community healthcare. Become a skilled nurse-midwife, work in rural & urban health centers, hospitals, and contribute to maternal & child health. Complete course guide with syllabus, eligibility, career scope 2025.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="knowMoreBtn">Explore Full Details →</button>
+                    <button class="btn-outline" id="brochureBtn">📘 Download Brochure</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg width="260" height="220" viewBox="0 0 300 240" fill="none">
+                    <rect x="50" y="40" width="200" height="150" rx="24" fill="#FFD9D0" stroke="#c95348" stroke-width="3"/>
+                    <circle cx="110" cy="90" r="18" fill="#FFFFFF" stroke="#c95348" stroke-width="2"/>
+                    <circle cx="190" cy="90" r="18" fill="#FFFFFF" stroke="#c95348" stroke-width="2"/>
+                    <path d="M80 130 L150 160 L220 130" stroke="#c95348" stroke-width="3" fill="none"/>
+                    <rect x="140" y="170" width="20" height="20" fill="#FFB347" rx="4"/>
+                    <text x="95" y="210" fill="#a53e34" font-size="11" font-weight="bold">👶 Maternal & Child Care</text>
+                </svg>
+                <p style="margin-top: 16px; font-weight: 500;">✨ Community Health Worker | Rural Healthcare Expert</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About ANM Section -->
+    <section id="about">
+        <h2 class="section-title">What is ANM? (Complete Overview)</h2>
+        <p class="section-sub">Auxiliary Nursing Midwifery (ANM) is a 2-year diploma program approved by the Indian Nursing Council (INC). It focuses on community health, maternal care, child health, and basic nursing skills.</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">📚</div>
+                <h3>Duration & Structure</h3>
+                <p>2 years (4 semesters) • Full-time • INC-approved curriculum. Includes theory, practical nursing skills, and mandatory clinical training in hospitals & community health centers.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎯</div>
+                <h3>Program Objectives</h3>
+                <p>Train healthcare professionals to provide primary healthcare, maternal & child health services, family planning, and health education in rural and urban communities.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🏛️</div>
+                <h3>Regulatory Body</h3>
+                <p>Indian Nursing Council (INC) and respective State Nursing Councils. After completion, eligible for registration as ANM nurse with State Nursing Council.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Curriculum -->
+    <section id="curriculum">
+        <div class="curriculum">
+            <h2 class="section-title" style="color:#8b3c34;">ANM Syllabus (Year-wise)</h2>
+            <p class="section-sub">INC prescribed curriculum covering nursing fundamentals, community health, midwifery, and practical training.</p>
+            <div class="year-grid">
+                <div class="year-card">
+                    <div class="year-title">📘 Year I</div>
+                    <ul class="subject-list">
+                        <li>🏥 Community Health Nursing I</li>
+                        <li>🧬 Health Promotion & Education</li>
+                        <li>⚕️ Fundamentals of Nursing</li>
+                        <li>🧪 Anatomy & Physiology</li>
+                        <li>💊 Pharmacology & First Aid</li>
+                        <li>🍎 Nutrition & Dietetics</li>
+                        <li>📊 Psychology & Sociology</li>
+                    </ul>
+                </div>
+                <div class="year-card">
+                    <div class="year-title">📗 Year II</div>
+                    <ul class="subject-list">
+                        <li>🤰 Midwifery & Gynecology</li>
+                        <li>👶 Child Health Nursing</li>
+                        <li>🏘️ Community Health Nursing II</li>
+                        <li>💉 Immunization & Family Welfare</li>
+                        <li>🩺 Medical-Surgical Nursing</li>
+                        <li>📝 Administration & Leadership</li>
+                        <li>🏥 Clinical Internship (Hospital & CHC)</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 32px; text-align: center;">
+                <p style="background: #ffe6e0; padding: 14px; border-radius: 40px; font-weight: 500;">⭐ Clinical Training: Mandatory 6-9 months of practical training in hospitals, primary health centers (PHCs), and community field visits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility & Admission Process -->
+    <section id="admission">
+        <h2 class="section-title">Admission Process & Eligibility</h2>
+        <p class="section-sub">Complete details about eligibility criteria, entrance exams, and admission procedure for ANM course.</p>
+        <div class="elig-box">
+            <div class="elig-col">
+                <h3>🎯 Eligibility Criteria</h3>
+                <ul style="margin-top: 18px;">
+                    <li>✔️ 10+2 (any stream) from recognized board</li>
+                    <li>✔️ Minimum 40-45% aggregate marks (varies by state, relaxation for reserved categories)</li>
+                    <li>✔️ Age: Minimum 17 years at the time of admission</li>
+                    <li>✔️ Some states require entrance exam (ANM/GNM entrance)</li>
+                    <li>✔️ Female candidates preferred (as per traditional ANM scope, though some states allow male candidates for specific roles)</li>
+                </ul>
+            </div>
+            <div class="elig-col">
+                <h3>📝 Admission Steps</h3>
+                <ul style="margin-top: 18px;">
+                    <li>1. Online/offline application based on state nursing council guidelines</li>
+                    <li>2. Appear for state-level nursing entrance (if applicable)</li>
+                    <li>3. Merit list or counseling round</li>
+                    <li>4. Document verification & fee submission</li>
+                    <li>5. Registration with State Nursing Council after course completion</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 48px; text-align: center;">
+            <h3>🏛️ Top ANM Colleges in India</h3>
+            <div class="college-list">
+                <span class="college-badge">Ramaiah Institute of Nursing, Bangalore</span>
+                <span class="college-badge">College of Nursing, AIIMS Delhi</span>
+                <span class="college-badge">CMC Vellore</span>
+                <span class="college-badge">Government College of Nursing, Thiruvananthapuram</span>
+                <span class="college-badge">Seth GS Medical College, Mumbai</span>
+                <span class="college-badge">Institute of Nursing Education, Kolkata</span>
+                <span class="college-badge">PGIMER Chandigarh (Nursing School)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Prospects -->
+    <section id="career">
+        <h2 class="section-title">Career Opportunities After ANM</h2>
+        <p class="section-sub">Diverse career paths in healthcare, government sector, community health, and higher studies.</p>
+        <div class="career-grid">
+            <div class="career-item">
+                <div class="career-icon">🏥</div>
+                <strong>Community Health Worker</strong><br>PHC, CHC, rural health centers
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🤰</div>
+                <strong>Midwife</strong><br>Maternal & child health specialist
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🏛️</div>
+                <strong>Government Jobs</strong><br>ASHA supervisor, NHM, State health departments
+            </div>
+            <div class="career-item">
+                <div class="career-icon">📚</div>
+                <strong>Higher Education</strong><br>GNM (General Nursing & Midwifery), B.Sc Nursing
+                <br><span style="font-size:0.85rem;">(Lateral entry options available)</span>
+            </div>
+            <div class="career-item">
+                <div class="career-icon">💊</div>
+                <strong>Private Hospitals</strong><br>Nursing assistant, clinic nurse
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🌍</div>
+                <strong>NGO/International</strong><br>WHO, UNICEF, Red Cross, health projects
+            </div>
+        </div>
+        
+        <!-- Salary Highlight -->
+        <div class="salary-card">
+            <h3 style="font-size: 1.6rem; margin-bottom: 12px;">💰 Salary Range After ANM</h3>
+            <p style="font-size: 1.1rem;">Fresher: ₹1.5 LPA – ₹2.8 LPA | Experienced: ₹3 LPA – ₹4.5 LPA</p>
+            <p style="margin-top: 12px; opacity: 0.9;">Government ANM salary (as per NHM & state health dept): ₹18,000 – ₹35,000 per month + allowances</p>
+            <p style="margin-top: 16px; font-weight: 500;">📌 Further studies: GNM (2 years) or B.Sc Nursing (3-4 years) for career advancement and higher salary prospects.</p>
+        </div>
+    </section>
+
+ 
+   
+</div>
+
+<script>
+    // Smooth scrolling and interactive functions
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('href').substring(1);
+            scrollToSection(target);
+        });
+    });
+
+    document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
+    document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));
+    document.getElementById('brochureBtn')?.addEventListener('click', () => {
+        alert("📥 ANM Digital Brochure will be sent to your email. Please fill the counselling form or contact us for direct download link.");
+    });
+
+    // Counselling form handler
+    const submitBtn = document.getElementById('submitCounselling');
+    const feedbackSpan = document.getElementById('formFeedbackMsg');
+    
+    if(submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('studentName')?.value.trim();
+            const email = document.getElementById('studentEmail')?.value.trim();
+            const phone = document.getElementById('studentPhone')?.value.trim();
+            const state = document.getElementById('studentState')?.value;
+            const query = document.getElementById('studentQuery')?.value.trim();
+
+            if(!name || !email || !phone) {
+                feedbackSpan.innerText = "❌ Please fill in Name, Email, and Mobile Number (required fields).";
+                feedbackSpan.style.color = "#ffb347";
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')) {
+                feedbackSpan.innerText = "📧 Please enter a valid email address.";
+                return;
+            }
+            if(phone.length < 10) {
+                feedbackSpan.innerText = "📞 Please enter a valid 10-digit mobile number.";
+                return;
+            }
+            
+            feedbackSpan.innerText = `✅ Thank you ${name}! Our counselling team will contact you shortly with complete ANM guidance, college options, and career roadmap.`;
+            feedbackSpan.style.color = "#ffb347";
+            
+            // Clear form
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('studentState').value = '';
+            document.getElementById('studentQuery').value = '';
+            
+            setTimeout(() => { feedbackSpan.innerText = ''; }, 6000);
+        });
+    }
+    
+    console.log("ANM comprehensive page loaded — all details including curriculum, career, admission, and INC guidelines.");
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

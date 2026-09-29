@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admission Procedure | SVIC Inter College</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fef9f0 0%, #fff4e8 100%);
+            overflow-x: hidden;
+        }
+
+        /* ========== TOP HEADER ========== */
+        .top-header {
+            background: linear-gradient(135deg, #060241, #050347, #021853);
+            color: #fef9c3;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+            gap: 12px;
+            border-bottom: 2px solid #f59e0b;
+        }
+
+        .web-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .web-text p, .web-text a {
+            color: #fef9c3;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .highlight-link {
+            color: #fcd34d;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .highlight-link:hover {
+            color: #f59e0b;
+            transform: translateX(3px);
+        }
+
+        .right-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .right-text .link {
+            color: #fcd34d;
+            text-decoration: none;
+            font-size: 11px;
+            transition: all 0.3s;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .right-text .link:hover {
+            color: #fff;
+            background: rgba(245,158,11,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ========== MAIN NAVBAR ========== */
+        .main-header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .navbar-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6, #06b6d4, #f59e0b);
+            background-size: 200% 100%;
+            animation: lineMove 3s ease infinite;
+            z-index: 10;
+        }
+
+        @keyframes lineMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 65px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .logo img { height: 50px; max-width: 180px; }
+        }
+
+        .menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .upperNav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+            border: none;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.35);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236,72,153,0.45);
+        }
+
+        .btn-box { display: flex; gap: 12px; }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn:last-child {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .toggle-btn:hover { transform: translateY(-2px); }
+
+        .lowerNav {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: #1f2937;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(120deg, #fef3c7, #fde68a);
+            border-radius: 40px;
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .menu-link:hover::before { width: 100%; }
+        .menu-link:hover { color: #d97706; transform: translateY(-2px); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(245,158,11,0.1);
+            border-radius: 12px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #ec4899);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .menu { display: none; }
+            .hamburger { display: flex; }
+            .top-header { flex-direction: column; text-align: center; }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            transition: right 0.3s;
+            padding: 80px 25px 30px;
+            overflow-y: auto;
+        }
+        .mobile-menu-overlay.active { right: 0; }
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #f59e0b;
+        }
+        .mobile-nav-list { list-style: none; }
+        .mobile-nav-list li { margin-bottom: 15px; }
+        .mobile-nav-list li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 12px;
+        }
+        .screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        .screen-overlay.active { display: block; }
+
+        /* ========== ADMISSION PROCEDURE PAGE ========== */
+        .page-header {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e, #4c1d95);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Steps Grid */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(245,158,11,0.5);
+        }
+
+        .step-icon {
+            font-size: 48px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .step-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Important Dates */
+        .dates-section {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .date-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .date-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .date-card i {
+            font-size: 35px;
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .date-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .date-card .date {
+            font-size: 1rem;
+            color: #ec4899;
+            font-weight: 600;
+        }
+
+        /* Documents */
+        .docs-section {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .doc-item:hover {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            transform: translateX(5px);
+        }
+
+        .doc-item i {
+            font-size: 24px;
+            color: #f59e0b;
+        }
+
+        .doc-item span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #1e1b4b, #2d1b4e);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(245,158,11,0.4);
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin-bottom: 60px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #fef3c7;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .faq-question i {
+            color: #f59e0b;
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #6b7280;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 150px;
+            margin-top: 12px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #e0e7ff;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .footer-col a:hover { color: #f59e0b; transform: translateX(5px); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(245,158,11,0.2);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.5rem; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .dates-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .container { padding: 40px 15px; }
+            .cta-section { padding: 30px 20px; }
+            .cta-section h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+<%-include('partials/header')%>
+<!-- TOP HEADER -->
+<div class="top-header">
+    <div class="web-text">
+        <p>📚 UP Board Affiliated</p>
+        <p>📞 Helpline: +91-9876543210</p>
+        <p>✉️ info@sovicintercollege.edu</p>
+        <a href="#"><span class="highlight-link">📖 ERP Login</span></a>
+        <a href="#"><span class="highlight-link">📞 Admission Enquiry</span></a>
+    </div>
+    <div class="right-text">
+        <a class="link" href="#">🏆 NAAC Grade A</a>
+        <a class="link" href="#">📜 Reg.No: 938</a>
+        <a class="link" href="#">🎓 ESTD: 1995</a>
+        <a class="link" href="#">⭐ Best College Award</a>
+    </div>
+</div>
+
+<!-- MAIN NAVBAR -->
+<div class="main-header">
+    <div class="navbar-line"></div>
+    <div class="nav">
+        <div class="logo">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23fff8ed' stroke='%23f59e0b' stroke-width='5'/%3E%3Ctext x='100' y='115' text-anchor='middle' font-size='28' fill='%23f59e0b' font-weight='800'%3ESVIC%3C/text%3E%3Ctext x='100' y='145' text-anchor='middle' font-size='12' fill='%238b5cf6'%3EINTER COLLEGE%3C/text%3E%3C/svg%3E" alt="SVIC Inter College Logo">
+        </div>
+        <div class="menu">
+            <div class="upperNav">
+                <button class="nav-button" onclick="showToast('🎓 Apply Now - Admission Open 2025-26')"><i class="fas fa-pen-alt"></i> Apply Now</button>
+                <div class="btn-box">
+                    <button class="toggle-btn" onclick="showToast('🔐 Student Login Portal Coming Soon')"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button class="toggle-btn" onclick="showToast('📝 Register for Admission 2025-26')"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+            </div>
+            <ul class="lowerNav">
+                <li><a class="menu-link" href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a class="menu-link" href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a class="menu-link" href="#" style="color:#f59e0b;"><i class="fas fa-door-open"></i> Admission</a></li>
+                <li><a class="menu-link" href="#"><i class="fas fa-book-open"></i> Courses</a></li>
+                <li><a class="menu-link" href="#"><i class="fas fa-bell"></i> Notice</a></li>
+                <li><a class="menu-link" href="#"><i class="fas fa-headset"></i> Contact</a></li>
+            </ul>
+        </div>
+        <div class="hamburger" onclick="openMobileMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="close-menu" onclick="closeMobileMenu()"><i class="fas fa-times"></i></div>
+    <ul class="mobile-nav-list">
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-door-open"></i> Admission</a></li>
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-book-open"></i> Courses</a></li>
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-bell"></i> Notice</a></li>
+        <li><a href="#" onclick="closeMobileMenu()"><i class="fas fa-headset"></i> Contact</a></li>
+        <li><button class="nav-button" style="width:100%;" onclick="showToast('Apply Now'); closeMobileMenu();"><i class="fas fa-pen-alt"></i> Apply Now</button></li>
+    </ul>
+</div>
+<div class="screen-overlay" id="screenOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- ADMISSION PROCEDURE PAGE CONTENT -->
+<div class="page-header">
+    <h1>📋 Admission Procedure 2025-26</h1>
+    <p>Your journey to excellence begins here. Follow these simple steps to secure your admission at SVIC Inter College</p>
+</div>
+
+<div class="container">
+    <!-- Steps Section -->
+    <div class="steps-grid">
+        <div class="step-card" onclick="showToast('Step 1: Registration')">
+            <div class="step-number">1</div>
+            <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+            <h3>Online Registration</h3>
+            <p>Fill the online registration form with your basic details, academic information, and personal information.</p>
+        </div>
+        <div class="step-card" onclick="showToast('Step 2: Document Upload')">
+            <div class="step-number">2</div>
+            <div class="step-icon"><i class="fas fa-file-upload"></i></div>
+            <h3>Upload Documents</h3>
+            <p>Upload scanned copies of required documents including photograph, signature, and academic certificates.</p>
+        </div>
+        <div class="step-card" onclick="showToast('Step 3: Application Fee')">
+            <div class="step-number">3</div>
+            <div class="step-icon"><i class="fas fa-rupee-sign"></i></div>
+            <h3>Pay Application Fee</h3>
+            <p>Pay the application fee online through net banking, credit card, debit card, or UPI.</p>
+        </div>
+        <div class="step-card" onclick="showToast('Step 4: Entrance Test')">
+            <div class="step-number">4</div>
+            <div class="step-icon"><i class="fas fa-pen-fancy"></i></div>
+            <h3>Entrance Test / Interview</h3>
+            <p>Appear for the entrance test and personal interview as per scheduled date.</p>
+        </div>
+        <div class="step-card" onclick="showToast('Step 5: Merit List')">
+            <div class="step-number">5</div>
+            <div class="step-icon"><i class="fas fa-trophy"></i></div>
+            <h3>Merit List Declaration</h3>
+            <p>Check the merit list on our website. Selected candidates will receive admission offer.</p>
+        </div>
+        <div class="step-card" onclick="showToast('Step 6: Final Admission')">
+            <div class="step-number">6</div>
+            <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Final Admission</h3>
+            <p>Complete the admission formalities, pay the fees, and confirm your seat.</p>
+        </div>
+    </div>
+
+    <!-- Important Dates -->
+    <div class="dates-section">
+        <h2 class="section-title">📅 Important Dates</h2>
+        <div class="dates-grid">
+            <div class="date-card"><i class="fas fa-calendar-alt"></i><h4>Application Start</h4><div class="date">15 January 2025</div></div>
+            <div class="date-card"><i class="fas fa-calendar-check"></i><h4>Last Date to Apply</h4><div class="date">30 April 2025</div></div>
+            <div class="date-card"><i class="fas fa-edit"></i><h4>Entrance Test Date</h4><div class="date">15 May 2025</div></div>
+            <div class="date-card"><i class="fas fa-list-ol"></i><h4>Merit List Release</h4><div class="date">25 May 2025</div></div>
+            <div class="date-card"><i class="fas fa-user-graduate"></i><h4>Counseling Starts</h4><div class="date">01 June 2025</div></div>
+            <div class="date-card"><i class="fas fa-chalkboard"></i><h4>Session Begins</h4><div class="date">01 July 2025</div></div>
+        </div>
+    </div>
+
+    <!-- Required Documents -->
+    <div class="docs-section">
+        <h2 class="section-title">📄 Required Documents</h2>
+        <div class="docs-grid">
+            <div class="doc-item"><i class="fas fa-id-card"></i><span>10th Marksheet & Certificate</span></div>
+            <div class="doc-item"><i class="fas fa-id-card"></i><span>12th Marksheet (if applicable)</span></div>
+            <div class="doc-item"><i class="fas fa-user-circle"></i><span>Passport Size Photographs (4 copies)</span></div>
+            <div class="doc-item"><i class="fas fa-signature"></i><span>Signature (scanned)</span></div>
+            <div class="doc-item"><i class="fas fa-address-card"></i><span>Aadhar Card (Student & Parent)</span></div>
+            <div class="doc-item"><i class="fas fa-tint"></i><span>Blood Group Certificate</span></div>
+            <div class="doc-item"><i class="fas fa-hospital-user"></i><span>Medical Certificate</span></div>
+            <div class="doc-item"><i class="fas fa-home"></i><span>Residence Proof</span></div>
+            <div class="doc-item"><i class="fas fa-caste"></i><span>Caste Certificate (if applicable)</span></div>
+            <div class="doc-item"><i class="fas fa-income"></i><span>Income Certificate (for scholarship)</span></div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>What is the eligibility criteria for admission?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">For Class 11th, candidate must have passed Class 10th from a recognized board with minimum 45% marks. For Class 12th, candidate must have passed Class 11th from a recognized institution.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>Is there any entrance exam?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Yes, there is a written entrance test followed by a personal interview for all courses. The test assesses basic knowledge in core subjects.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>What is the application fee?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">The application fee is ₹500 for General/OBC category and ₹300 for SC/ST category. The fee can be paid online through various payment methods.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>Is there any scholarship available?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Yes, scholarships are available for meritorious students, economically weaker sections, and reserved categories. Apply through the scholarship portal after admission.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>Can I get a refund of the application fee?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">The application fee is non-refundable under any circumstances. However, the tuition fee can be refunded as per college policy if cancellation is done within the stipulated time.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question"><span>What are the documents required for admission?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">You need 10th/12th marksheets, photographs, Aadhar card, caste certificate (if applicable), income certificate, and other relevant documents as listed above.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>🚀 Ready to Begin Your Journey?</h2>
+        <p>Apply online now and take the first step towards a bright future at SVIC Inter College</p>
+        <button class="cta-btn" onclick="showToast('🎓 Apply Now - Admission Open 2025-26! Visit our admission portal.')"><i class="fas fa-pen-alt"></i> Apply Now</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col"><h4>SVIC College</h4><a href="#">About Us</a><a href="#">Mission & Vision</a><a href="#">Infrastructure</a><a href="#">Awards</a></div>
+        <div class="footer-col"><h4>Quick Links</h4><a href="#">Admission 2025-26</a><a href="#">Fee Structure</a><a href="#">Scholarships</a><a href="#">Download Brochure</a></div>
+        <div class="footer-col"><h4>Resources</h4><a href="#">Student Portal</a><a href="#">Faculty Portal</a><a href="#">Library</a><a href="#">Exam Schedule</a></div>
+        <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-map-marker-alt"></i> SVIC Campus, Knowledge Park, Greater Noida</p><p><i class="fas fa-phone"></i> +91-9876543210</p><p><i class="fas fa-envelope"></i> info@svic.edu.in</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SVIC Inter College. All rights reserved. | Designed with <i class="fas fa-heart" style="color:#f59e0b;"></i> for excellence</p></div>
+</footer>
+
+<script>
+    function openMobileMenu() {
+        document.getElementById('mobileMenu').classList.add('active');
+        document.getElementById('screenOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.getElementById('screenOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function toggleFAQ(element) {
+        element.classList.toggle('active');
+    }
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.innerHTML = `<div style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e1b4b;color:white;padding:12px 25px;border-radius:50px;font-size:14px;z-index:10000;box-shadow:0 5px 20px rgba(0,0,0,0.2);animation:fadeInUp 0.3s ease;">${message}</div>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+    
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fadeInUp { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }`;
+    document.head.appendChild(style);
+    
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 992) closeMobileMenu(); });
+    
+    console.log("✅ Admission Procedure Page Loaded - Fully Responsive & Interactive");
+</script>
+<%-include('partials/footer')%>
+</body>
+</html>

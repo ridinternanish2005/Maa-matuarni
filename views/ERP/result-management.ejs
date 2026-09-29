@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Result Management</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #123c5a;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #1267d6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d55b2;
+    }
+
+    #message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .success {
+      background: #dff6e5;
+      color: #126b2d;
+    }
+
+    .error {
+      background: #ffe0e0;
+      color: #a00000;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #1267d6;
+    }
+
+    @media (max-width: 700px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <a
+    href="/erp/admin"
+    class="back"
+  >
+    ← Back to Admin Dashboard
+  </a>
+
+
+  <div class="card">
+
+    <h1>Exam & Result Management</h1>
+
+    <p>
+      Enter student subject-wise examination result.
+    </p>
+
+
+    <form id="resultForm">
+
+
+      <!-- ENROLLMENT -->
+
+      <div class="form-group">
+
+        <label>
+          Student Enrollment
+        </label>
+
+        <input
+          type="text"
+          id="enrollment"
+          name="enrollment"
+          placeholder="Example: STU003"
+          required
+        >
+
+      </div>
+
+
+      <!-- SEMESTER -->
+
+      <div class="form-group">
+
+        <label>
+          Semester
+        </label>
+
+        <select
+          id="semester"
+          name="semester"
+          required
+        >
+
+          <option value="">
+            Select Semester
+          </option>
+
+          <option value="1st Semester">
+            1st Semester
+          </option>
+
+          <option value="2nd Semester">
+            2nd Semester
+          </option>
+
+          <option value="3rd Semester">
+            3rd Semester
+          </option>
+
+          <option value="4th Semester">
+            4th Semester
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- EXAM -->
+
+      <div class="form-group">
+
+        <label>
+          Exam Name
+        </label>
+
+        <select
+          id="examName"
+          name="examName"
+          required
+        >
+
+          <option value="">
+            Select Exam
+          </option>
+
+          <option value="Internal Examination">
+            Internal Examination
+          </option>
+
+          <option value="Mid Term Examination">
+            Mid Term Examination
+          </option>
+
+          <option value="Final Examination">
+            Final Examination
+          </option>
+
+          <option value="Practical Examination">
+            Practical Examination
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- SUBJECT -->
+
+      <div class="form-group">
+
+        <label>
+          Subject
+        </label>
+
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          placeholder="Example: Pharmaceutics"
+          required
+        >
+
+      </div>
+
+
+      <!-- MARKS -->
+
+      <div class="row">
+
+        <div class="form-group">
+
+          <label>
+            Maximum Marks
+          </label>
+
+          <input
+            type="number"
+            id="maxMarks"
+            name="maxMarks"
+            min="1"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Obtained Marks
+          </label>
+
+          <input
+            type="number"
+            id="obtainedMarks"
+            name="obtainedMarks"
+            min="0"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- REMARKS -->
+
+      <div class="form-group">
+
+        <label>
+          Remarks
+        </label>
+
+        <textarea
+          id="remarks"
+          name="remarks"
+          placeholder="Optional remarks"
+        ></textarea>
+
+      </div>
+
+
+      <button type="submit">
+        Save Result
+      </button>
+
+
+      <div id="message"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById("resultForm");
+
+const message =
+  document.getElementById("message");
+
+
+form.addEventListener(
+  "submit",
+  async function (event) {
+
+    event.preventDefault();
+
+
+    const data = {
+
+      enrollment:
+        document.getElementById(
+          "enrollment"
+        ).value,
+
+      semester:
+        document.getElementById(
+          "semester"
+        ).value,
+
+      examName:
+        document.getElementById(
+          "examName"
+        ).value,
+
+      subject:
+        document.getElementById(
+          "subject"
+        ).value,
+
+      maxMarks:
+        document.getElementById(
+          "maxMarks"
+        ).value,
+
+      obtainedMarks:
+        document.getElementById(
+          "obtainedMarks"
+        ).value,
+
+      remarks:
+        document.getElementById(
+          "remarks"
+        ).value
+    };
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/results",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(data)
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      message.style.display =
+        "block";
+
+
+      if (result.success) {
+
+        message.className =
+          "success";
+
+        message.innerText =
+          result.message;
+
+        form.reset();
+
+      } else {
+
+        message.className =
+          "error";
+
+        message.innerText =
+          result.message;
+      }
+
+
+    } catch (error) {
+
+      message.style.display =
+        "block";
+
+      message.className =
+        "error";
+
+      message.innerText =
+        "Server error. Please try again.";
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

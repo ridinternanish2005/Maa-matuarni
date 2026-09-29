@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>My Documents</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #123c5a;
+    }
+
+    .back {
+      background: #1267d6;
+      color: white;
+      text-decoration: none;
+      padding: 10px 17px;
+      border-radius: 6px;
+    }
+
+    .student-card {
+      background: white;
+      padding: 22px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .label {
+      display: block;
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+
+    .table-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #123c5a;
+      color: white;
+    }
+
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: #c47b00;
+      font-weight: bold;
+    }
+
+    .rejected {
+      color: red;
+      font-weight: bold;
+    }
+
+    .empty {
+      padding: 50px;
+      text-align: center;
+      color: #777;
+    }
+
+    @media(max-width: 800px) {
+
+      .student-info {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .table-card {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 800px;
+      }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+  <div class="header">
+
+    <div>
+
+      <h1>
+        My Documents
+      </h1>
+
+      <p>
+        Student Documents & Certificates
+      </p>
+
+    </div>
+
+
+    <a
+      href="/erp/student"
+      class="back"
+    >
+      ← Dashboard
+    </a>
+
+  </div>
+
+
+  <!-- STUDENT INFO -->
+
+  <div class="student-card">
+
+    <div class="student-info">
+
+      <div>
+
+        <span class="label">
+          Student Name
+        </span>
+
+        <span class="value">
+          <%= user?.name || "N/A" %>
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <span class="label">
+          Enrollment
+        </span>
+
+        <span class="value">
+          <%= user?.enrollment || "N/A" %>
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <span class="label">
+          Course
+        </span>
+
+        <span class="value">
+          D.Pharm
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <span class="label">
+          Session
+        </span>
+
+        <span class="value">
+          <%= user?.session || "N/A" %>
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- DOCUMENTS -->
+
+  <div class="table-card">
+
+    <% if (!documents || documents.length === 0) { %>
+
+      <div class="empty">
+
+        <h2>
+          No Documents Available
+        </h2>
+
+        <p>
+          Your documents have not been issued yet.
+        </p>
+
+      </div>
+
+    <% } else { %>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Document
+            </th>
+
+            <th>
+              Document Number
+            </th>
+
+            <th>
+              Issue Date
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              Remarks
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <% documents.forEach((document) => { %>
+
+            <tr>
+
+              <td>
+                <strong>
+                  <%= document.documentType %>
+                </strong>
+              </td>
+
+
+              <td>
+                <%= document.documentNumber || "N/A" %>
+              </td>
+
+
+              <td>
+
+                <% if (document.issueDate) { %>
+
+                  <%= new Date(
+                    document.issueDate
+                  ).toLocaleDateString("en-IN") %>
+
+                <% } else { %>
+
+                  N/A
+
+                <% } %>
+
+              </td>
+
+
+              <td>
+
+                <% if (
+                  document.status === "Available"
+                ) { %>
+
+                  <span class="available">
+                    Available
+                  </span>
+
+                <% } else if (
+                  document.status === "Pending"
+                ) { %>
+
+                  <span class="pending">
+                    Pending
+                  </span>
+
+                <% } else { %>
+
+                  <span class="rejected">
+                    Rejected
+                  </span>
+
+                <% } %>
+
+              </td>
+
+
+              <td>
+                <%= document.remarks || "-" %>
+              </td>
+
+            </tr>
+
+          <% }); %>
+
+        </tbody>
+
+      </table>
+
+    <% } %>
+
+  </div>
+
+
+</div>
+
+</body>
+
+</html>

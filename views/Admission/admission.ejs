@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admission Open | Maa Matuarani Devi Pharmacy College</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="stylesheet" href="css/footer.css">
+
+    <!-- Admission CSS -->
+    <link
+        rel="stylesheet"
+        href="/css/admission.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
+    <%- include('partials/Navbar') %>
+
+
+    <!-- ==========================================
+         MAIN CONTAINER
+    =========================================== -->
+
+    <main class="container">
+
+
+        <!-- ======================================
+             ADMISSION HEADER
+        ======================================= -->
+
+        <section class="form-section">
+
+            <div class="form-title">
+
+                <h2>
+                    ADMISSION APPLICATION FORM
+                </h2>
+
+                <p>
+                    Fill the form below to apply for admission
+                </p>
+
+            </div>
+
+
+            <!-- ==================================
+                 ADMISSION FORM
+            =================================== -->
+
+            <form
+                id="admissionForm"
+                method="POST"
+            >
+
+
+                <div class="form-container">
+
+
+                    <!-- ==================================
+                         FULL NAME
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            <i class="fas fa-user"></i>
+                            Full Name *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-user-circle"></i>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         FATHER NAME
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="fatherName">
+                            <i class="fas fa-user-friends"></i>
+                            Father's Name *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-user-tie"></i>
+
+                            <input
+                                type="text"
+                                id="fatherName"
+                                name="fatherName"
+                                placeholder="Enter father's name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         MOBILE
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            <i class="fas fa-phone"></i>
+                            Mobile Number *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-mobile-alt"></i>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                placeholder="10-digit mobile number"
+                                maxlength="10"
+                                minlength="10"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         EMAIL
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-at"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="example@gmail.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         DATE OF BIRTH
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="dob">
+                            <i class="fas fa-calendar"></i>
+                            Date of Birth *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-birthday-cake"></i>
+
+                            <input
+                                type="date"
+                                id="dob"
+                                name="dob"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         GENDER
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="gender">
+                            <i class="fas fa-venus-mars"></i>
+                            Gender *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-user"></i>
+
+                            <select
+                                id="gender"
+                                name="gender"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Gender
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         ADDRESS
+                    =================================== -->
+
+                    <div class="form-group full-width">
+
+                        <label for="address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Address *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-home"></i>
+
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                placeholder="Complete address with city and pincode"
+                                autocomplete="street-address"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         COURSE
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="course">
+                            <i class="fas fa-book"></i>
+                            Course Interested *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-graduation-cap"></i>
+
+                            <select
+                                id="course"
+                                name="course"
+                                required
+                            >
+
+                                <option
+                                    value=""
+                                    disabled
+                                    selected
+                                >
+                                    -- Select your preferred program --
+                                </option>
+
+                                <option value="Bachelor of Arts">
+                                    BA
+                                </option>
+
+                                <option value="Bachelor of Pharmacy">
+                                    B.Pharm
+                                </option>
+
+                                <option value="Diploma in Pharmacy">
+                                    D.Pharm
+                                </option>
+
+                                <option value="Auxiliary Nurse Midwifery">
+                                    ANM
+                                </option>
+
+                                <option value="General Nursing and Midwifery">
+                                    GNM
+                                </option>
+
+                                <option value="Diploma in Elementary Education">
+                                    D.El.Ed
+                                </option>
+
+                                <option value="Other">
+                                    Other / Not sure
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         12TH PERCENTAGE
+                    =================================== -->
+
+                    <div class="form-group">
+
+                        <label for="percentage">
+                            <i class="fas fa-school"></i>
+                            12th Percentage *
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="input-icon fas fa-percentage"></i>
+
+                            <input
+                                type="number"
+                                id="percentage"
+                                name="percentage"
+                                step="0.01"
+                                min="0"
+                                max="100"
+                                placeholder="Enter percentage"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- ======================================
+                     SUBMIT BUTTON
+                ======================================= -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+
+                    <i class="fas fa-paper-plane"></i>
+
+                    <span>
+                        SUBMIT ADMISSION FORM
+                    </span>
+
+                </button>
+
+
+                <!-- ======================================
+                     SUCCESS MESSAGE
+                ======================================= -->
+
+                <div
+                    class="success-message"
+                    id="successMsg"
+                >
+
+                    <i class="fas fa-check-circle"></i>
+
+                    <h3>
+                        ADMISSION FORM SUBMITTED SUCCESSFULLY!
+                    </h3>
+
+                    <p>
+                        Our team will contact you within 24 hours.
+                    </p>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+  
+
+
+
+
+
+    <script src="/js/admission.js"></script>
+ <%- include('partials/footer') %>
+
+</body>
+
+</html>

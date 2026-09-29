@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>JNAM | Visionary Dynamics & Creative Nexus</title>
+    <!-- Google Fonts + simple reset & smooth scroll -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafcff;
+            color: #111827;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* custom container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* header / navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0F2B3D, #1B4F6E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            background: none;
+            color: #1E4A6E;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #1f2937;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #1E6F9F;
+        }
+        .btn-outline {
+            border: 1.5px solid #1E6F9F;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1E6F9F;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-outline:hover {
+            background: #1E6F9F;
+            color: white;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin: 40px 0 60px 0;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-badge {
+            background: #E9F2F9;
+            color: #1E6F9F;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: #0A2A3B;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 550px;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #1E6F9F;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+        }
+        .btn-primary:hover {
+            background: #0e557f;
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            flex: 1;
+            background: linear-gradient(145deg, #d9e9f5, #c2dfef);
+            border-radius: 48px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+        }
+        .hero-image svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* section styles */
+        section {
+            margin: 90px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f2f40;
+        }
+        .section-sub {
+            text-align: center;
+            color: #5c6f87;
+            max-width: 680px;
+            margin: 0 auto 48px auto;
+            font-size: 1.1rem;
+        }
+
+        /* services grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+        .service-card {
+            background: white;
+            padding: 32px 28px;
+            border-radius: 32px;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(30, 111, 159, 0.1);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 40px -16px rgba(30, 111, 159, 0.2);
+            border-color: rgba(30, 111, 159, 0.3);
+        }
+        .service-icon {
+            background: #EFF7FC;
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .service-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            color: #5b6e8c;
+        }
+
+        /* about section (split) */
+        .about-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            align-items: center;
+        }
+        .about-text {
+            flex: 1.2;
+        }
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .about-text p {
+            margin-bottom: 18px;
+            color: #334155;
+        }
+        .stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .stat-item h4 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1E6F9F;
+        }
+        .about-visual {
+            flex: 1;
+            background: #eef3fa;
+            border-radius: 48px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+        .team-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f8;
+            transition: 0.2s;
+        }
+        .team-img {
+            background: #CDE4F0;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 500;
+            color: #1e4e6e;
+        }
+        .team-card h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .role {
+            color: #1E6F9F;
+            font-weight: 500;
+            margin: 8px 0 12px;
+        }
+
+        /* portfolio / projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-item {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 22px -10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+        .project-img {
+            background: #cbe0ed;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #2c5a77;
+        }
+        .project-info {
+            padding: 24px;
+        }
+        .project-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        /* contact + cta */
+        .contact-section {
+            background: linear-gradient(120deg, #EFF7FC, #E3F0F7);
+            border-radius: 48px;
+            padding: 56px 48px;
+            text-align: center;
+        }
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+            text-align: left;
+            justify-content: space-between;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1px solid #cfdfea;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+        }
+        .contact-form button {
+            align-self: flex-start;
+            background: #1E6F9F;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            border-top: 1px solid #e2edf5;
+            padding: 40px 0;
+            margin-top: 40px;
+            text-align: center;
+            color: #5c6f87;
+        }
+
+        @media (max-width: 780px) {
+            .navbar {
+                flex-direction: column;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .container {
+                padding: 0 24px;
+            }
+            .contact-section {
+                padding: 36px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<%- include('partials/Navbar') %>
+
+
+    <!-- Hero Section (home) -->
+    <div id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">✨ Future-forward collective since 2024</div>
+                <h1>Building digital realms <br> with JNAM core.</h1>
+                <p>We craft immersive brands, intelligent platforms, and visionary strategies. Unleash your next evolution with our creative engineering.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="exploreBtn">Explore universe →</button>
+                    <button class="btn-outline" id="watchBtn">Watch showreel</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg width="320" height="260" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M80 120 L200 40 L320 120 L280 220 L120 220 L80 120Z" fill="#B8D6E8" stroke="#1E6F9F" stroke-width="3"/>
+                    <circle cx="200" cy="130" r="28" fill="#FDF6E3" stroke="#1E6F9F" stroke-width="2.5"/>
+                    <path d="M185 125 L200 115 L215 125 L210 145 L190 145 L185 125Z" fill="#F7C59F"/>
+                    <rect x="172" y="100" width="56" height="12" rx="6" fill="#E2B87A"/>
+                    <path d="M140 190 L260 190 L245 230 L155 230 L140 190Z" fill="#AAC7DC" stroke="#1E6F9F" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Core offerings</h2>
+        <p class="section-sub">End-to-end solutions that merge design, technology, and brand velocity.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Digital strategy</h3>
+                <p>Data-driven roadmaps, audience intelligence, and growth acceleration for modern enterprises.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Immersive identity</h3>
+                <p>Brand architecture, visual systems, and narrative design that resonates across all touchpoints.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧠</div>
+                <h3>AI-native platforms</h3>
+                <p>Generative experiences, custom LLM integration, and future-ready product development.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web3 & metaverse</h3>
+                <p>Decentralized ecosystems, interactive 3D spaces, and next-gen digital ownership.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with stats -->
+    <section id="about">
+        <div class="about-wrap">
+            <div class="about-text">
+                <h2>More than an agency — a creative engine</h2>
+                <p>JNAM was founded by designers, engineers, and futurists who believe in the alchemy of bold ideas and precise execution. We combine human-centered design with emerging technology to build iconic digital experiences.</p>
+                <p>With studios in NYC, Berlin, and Tokyo, our cross-disciplinary team delivers global impact while maintaining boutique attention.</p>
+                <div class="stats">
+                    <div class="stat-item"><h4>150+</h4><p>projects shipped</p></div>
+                    <div class="stat-item"><h4>24</h4><p>industry awards</p></div>
+                    <div class="stat-item"><h4>98%</h4><p>client retention</p></div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <svg width="240" height="200" viewBox="0 0 300 240" fill="none">
+                    <rect x="40" y="60" width="220" height="120" rx="20" fill="#C4DFF0" stroke="#1E6F9F" stroke-width="2.5"/>
+                    <circle cx="100" cy="110" r="16" fill="#F7E4C2"/>
+                    <circle cx="200" cy="110" r="16" fill="#F7E4C2"/>
+                    <path d="M130 150 Q150 170 170 150" stroke="#1E6F9F" stroke-width="3" fill="none"/>
+                    <path d="M80 40 L220 40" stroke="#1E6F9F" stroke-width="3" stroke-dasharray="6 6"/>
+                </svg>
+                <p style="margin-top: 18px; font-weight:500;">✨ Human + machine harmony</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Portfolio -->
+    <section id="projects">
+        <h2 class="section-title">Selected works</h2>
+        <p class="section-sub">Bold ideas, real-world impact — explore our latest collaborations.</p>
+        <div class="project-grid">
+            <div class="project-item">
+                <div class="project-img">🌿 NEURA</div>
+                <div class="project-info">
+                    <h3>NEURA Wellness</h3>
+                    <p>Rebrand + immersive health platform — increased user engagement by 210%.</p>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-img">⚙️ INFINITY LABS</div>
+                <div class="project-info">
+                    <h3>Infinity AI</h3>
+                    <p>Generative workflow suite used by 500+ creative studios worldwide.</p>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-img">🌀 METAMORPH</div>
+                <div class="project-info">
+                    <h3>Metamorph XR</h3>
+                    <p>Immersive retail experience blending AR/VR with physical pop-ups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section>
+        <h2 class="section-title">Visionaries behind JNAM</h2>
+        <p class="section-sub">Creative minds, technical wizards, and strategic leaders.</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img">JD</div>
+                <h4>Jordan Nam</h4>
+                <div class="role">Founder & Creative Director</div>
+                <p>15+ years shaping digital culture, ex-Google Creative Lab.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-img">AW</div>
+                <h4>Aisha Wei</h4>
+                <div class="role">CTO, AI & Engineering</div>
+                <p>PhD in ML, built scalable platforms for Fortune 500s.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-img">SR</div>
+                <h4>Sam Rivera</h4>
+                <div class="role">Head of Strategy</div>
+                <p>Brand architect with 3x Webby awards & global campaigns.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-img">MC</div>
+                <h4>Maya Cruz</h4>
+                <div class="role">Lead Product Designer</div>
+                <p>Design systems expert, previously at IDEO.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</div>
+
+<script>
+    // interactive UI: smooth alerts and demo form with simulated submit
+    const exploreBtn = document.getElementById('exploreBtn');
+    const watchBtn = document.getElementById('watchBtn');
+    const demoNavBtn = document.getElementById('demoBtn');
+    const sendMsg = document.getElementById('sendMsgBtn');
+    const feedback = document.getElementById('formFeedback');
+
+    // smooth scroll helper
+    function scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if(element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // hero button actions
+    if(exploreBtn) {
+        exploreBtn.addEventListener('click', () => {
+            scrollToSection('services');
+        });
+    }
+    if(watchBtn) {
+        watchBtn.addEventListener('click', () => {
+            alert("🎬 JNAM Showreel 2025: Immerse in creativity — full reel available upon request.");
+        });
+    }
+    if(demoNavBtn) {
+        demoNavBtn.addEventListener('click', () => {
+            scrollToSection('contact');
+        });
+    }
+
+    // contact form simulation
+    if(sendMsg) {
+        sendMsg.addEventListener('click', (e) => {
+            e.preventDefault();
+            const nameInput = document.getElementById('contactName');
+            const emailInput = document.getElementById('contactEmail');
+            const msgInput = document.getElementById('contactMsg');
+            
+            let nameVal = nameInput ? nameInput.value.trim() : '';
+            let emailVal = emailInput ? emailInput.value.trim() : '';
+            let msgVal = msgInput ? msgInput.value.trim() : '';
+            
+            if(!nameVal || !emailVal || !msgVal) {
+                feedback.textContent = "❌ Please fill in all fields before sending.";
+                feedback.style.color = "#c2410c";
+                return;
+            }
+            if(!emailVal.includes('@') || !emailVal.includes('.')) {
+                feedback.textContent = "📧 Please enter a valid email address.";
+                feedback.style.color = "#c2410c";
+                return;
+            }
+            // simulate success
+            feedback.textContent = `✨ Thanks ${nameVal}! Your message has been received. Our team will reply within 24h.`;
+            feedback.style.color = "#1E6F9F";
+            // optional reset
+            nameInput.value = '';
+            emailInput.value = '';
+            msgInput.value = '';
+            setTimeout(() => {
+                if(feedback) feedback.textContent = '';
+            }, 5000);
+        });
+    }
+
+    // additional details: add some console presence & dynamic year in footer if needed
+    const yearSpan = document.querySelector('footer p:first-child');
+    if(yearSpan) {
+        const currentYear = new Date().getFullYear();
+        if(yearSpan.innerHTML.includes('2025')) {
+            yearSpan.innerHTML = `© ${currentYear} JNAM — Visionary Dynamics. All ideas are seeds. All rights reserved.`;
+        }
+    }
+
+    // simple interactive effect on service cards (just for delight)
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const serviceName = card.querySelector('h3')?.innerText || 'service';
+            console.log(`[JNAM] interest in ${serviceName}`);
+            // subtle visual pulse (optional)
+            card.style.transform = 'scale(0.99)';
+            setTimeout(() => { card.style.transform = ''; }, 150);
+        });
+    });
+
+    // extra: after page load, show tiny welcome toast style (non-intrusive console welcome)
+    window.addEventListener('load', () => {
+        console.log('JNAM page fully loaded — all details, sections, and interactive components ready.');
+        // optional prefill demo effect? none intrusive
+    });
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

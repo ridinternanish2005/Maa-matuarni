@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Document Management</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      color: #123c5a;
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #1267d6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0d55b2;
+    }
+
+    #message {
+      margin-top: 20px;
+      padding: 12px;
+      display: none;
+      border-radius: 6px;
+    }
+
+    .success {
+      background: #dff6e5;
+      color: #126b2d;
+    }
+
+    .error {
+      background: #ffe0e0;
+      color: #a00000;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #1267d6;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+  <a
+    href="/erp/admin"
+    class="back"
+  >
+    ← Back to Admin Dashboard
+  </a>
+
+
+  <div class="card">
+
+    <h1>
+      Document & Certificate Management
+    </h1>
+
+    <p>
+      Create and manage student documents.
+    </p>
+
+
+    <form id="documentForm">
+
+
+      <div class="form-group">
+
+        <label>
+          Student Enrollment
+        </label>
+
+        <input
+          type="text"
+          id="enrollment"
+          placeholder="Example: STU003"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Document Type
+        </label>
+
+        <select
+          id="documentType"
+          required
+        >
+
+          <option value="">
+            Select Document
+          </option>
+
+          <option value="Admission Letter">
+            Admission Letter
+          </option>
+
+          <option value="Bonafide Certificate">
+            Bonafide Certificate
+          </option>
+
+          <option value="Character Certificate">
+            Character Certificate
+          </option>
+
+          <option value="Transfer Certificate">
+            Transfer Certificate
+          </option>
+
+          <option value="Migration Certificate">
+            Migration Certificate
+          </option>
+
+          <option value="Marksheet">
+            Marksheet
+          </option>
+
+          <option value="ID Card">
+            ID Card
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Document Number
+        </label>
+
+        <input
+          type="text"
+          id="documentNumber"
+          placeholder="Example: CERT-2026-001"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Issue Date
+        </label>
+
+        <input
+          type="date"
+          id="issueDate"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Status
+        </label>
+
+        <select id="status">
+
+          <option value="Available">
+            Available
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Rejected">
+            Rejected
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Remarks
+        </label>
+
+        <textarea
+          id="remarks"
+          placeholder="Optional remarks"
+        ></textarea>
+
+      </div>
+
+
+      <button type="submit">
+        Save Document
+      </button>
+
+
+      <div id="message"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById("documentForm");
+
+const message =
+  document.getElementById("message");
+
+
+form.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+
+    const data = {
+
+      enrollment:
+        document.getElementById(
+          "enrollment"
+        ).value,
+
+      documentType:
+        document.getElementById(
+          "documentType"
+        ).value,
+
+      documentNumber:
+        document.getElementById(
+          "documentNumber"
+        ).value,
+
+      issueDate:
+        document.getElementById(
+          "issueDate"
+        ).value,
+
+      status:
+        document.getElementById(
+          "status"
+        ).value,
+
+      remarks:
+        document.getElementById(
+          "remarks"
+        ).value
+    };
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/documents",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(data)
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      message.style.display =
+        "block";
+
+
+      if (result.success) {
+
+        message.className =
+          "success";
+
+        message.innerText =
+          result.message;
+
+        form.reset();
+
+      } else {
+
+        message.className =
+          "error";
+
+        message.innerText =
+          result.message;
+      }
+
+
+    } catch (error) {
+
+      message.style.display =
+        "block";
+
+      message.className =
+        "error";
+
+      message.innerText =
+        "Server error. Please try again.";
+    }
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

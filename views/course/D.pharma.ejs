@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>D.Pharma - Diploma in Pharmacy | Complete Course Guide 2025</title>
+    <!-- Google Fonts + modern styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefefe;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 2px solid #e6e9f0;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #0f4c5c, #1b7e6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            background: none;
+            color: #1e7e6c;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #1b7e6b;
+        }
+        .btn-outline {
+            border: 1.5px solid #1b7e6b;
+            background: transparent;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1b7e6b;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-outline:hover {
+            background: #1b7e6b;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin: 50px 0 60px 0;
+        }
+        .hero-content {
+            flex: 1.2;
+        }
+        .hero-badge {
+            background: #e0f2f1;
+            color: #1b7e6b;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: #0f4c5c;
+        }
+        .highlight {
+            color: #1b7e6b;
+            border-bottom: 3px solid #6abf98;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #1b7e6b;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(27,126,107,0.2);
+        }
+        .btn-primary:hover {
+            background: #0f5c4e;
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            flex: 0.9;
+            background: #e0f2f1;
+            border-radius: 48px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Section styles */
+        section {
+            margin: 85px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f4c5c;
+        }
+        .section-sub {
+            text-align: center;
+            color: #5c6e6a;
+            max-width: 720px;
+            margin: 0 auto 48px auto;
+            font-size: 1.05rem;
+        }
+
+        /* Info cards grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .info-card {
+            background: white;
+            padding: 32px 28px;
+            border-radius: 32px;
+            border: 1px solid #e2e8f0;
+            transition: 0.25s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #b9d8d0;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+        }
+        .info-icon {
+            background: #e0f2f1;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 22px;
+        }
+        .info-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* curriculum semester grid */
+        .curriculum {
+            background: #f8fafc;
+            border-radius: 48px;
+            padding: 52px 44px;
+        }
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 20px;
+        }
+        .sem-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        .sem-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1b7e6b;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0f2f1;
+        }
+        .subject-list {
+            list-style: none;
+        }
+        .subject-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #edf2f7;
+            font-size: 0.95rem;
+        }
+
+        /* eligibility & admission */
+        .elig-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 44px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+        .elig-col {
+            flex: 1;
+        }
+        .elig-col ul {
+            list-style: none;
+            line-height: 2;
+        }
+        .elig-col li {
+            margin-bottom: 10px;
+        }
+
+        /* career prospects */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .career-item {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+        }
+        .career-item:hover {
+            transform: translateY(-4px);
+            border-color: #b9d8d0;
+            background: #fefefe;
+        }
+        .career-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* top colleges */
+        .college-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .college-badge {
+            background: #e0f2f1;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #0f5c4e;
+            font-size: 0.9rem;
+        }
+
+        /* salary highlight */
+        .salary-card {
+            background: linear-gradient(135deg, #0f4c5c, #1b7e6b);
+            color: white;
+            border-radius: 32px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* contact / enquiry */
+        .enquiry-section {
+            background: linear-gradient(135deg, #0f4c5c, #1b7e6b);
+            border-radius: 48px;
+            padding: 56px 48px;
+            color: white;
+        }
+        .enquiry-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            margin-top: 40px;
+        }
+        .enquiry-info {
+            flex: 1;
+        }
+        .enquiry-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .enquiry-form input, .enquiry-form select, .enquiry-form textarea {
+            padding: 14px 20px;
+            border-radius: 40px;
+            border: none;
+            font-family: inherit;
+            background: #fff;
+            font-size: 0.95rem;
+        }
+        .enquiry-form button {
+            background: #ffb347;
+            color: #0f4c5c;
+            font-weight: 800;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .enquiry-form button:hover {
+            background: #ff9f1a;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-top: 1px solid #e2e8f0;
+            color: #5c6e6a;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 780px) {
+            .container { padding: 0 24px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .curriculum { padding: 32px 24px; }
+            .enquiry-section { padding: 36px 24px; }
+            .elig-box { padding: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/Navbar') %>
+
+    <!-- Hero Section -->
+    <div id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">💊 PCI Approved | 2-Year Professional Program</div>
+                <h1>Diploma in <span class="highlight">Pharmacy</span> (D.Pharma)</h1>
+                <p>Entry-level gateway to the pharmaceutical industry. Become a registered pharmacist, work in hospitals, retail pharmacies, or pursue B.Pharma. Complete course guide with syllabus, fees, career scope & admission 2025.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="knowMoreBtn">Explore Full Details →</button>
+                    <button class="btn-outline" id="brochureBtn">📘 Download Brochure</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg width="260" height="220" viewBox="0 0 300 240" fill="none">
+                    <rect x="50" y="40" width="200" height="150" rx="24" fill="#C8E6E0" stroke="#1b7e6b" stroke-width="3"/>
+                    <circle cx="110" cy="90" r="18" fill="#FFFFFF" stroke="#1b7e6b" stroke-width="2"/>
+                    <circle cx="190" cy="90" r="18" fill="#FFFFFF" stroke="#1b7e6b" stroke-width="2"/>
+                    <path d="M80 130 L150 160 L220 130" stroke="#1b7e6b" stroke-width="3" fill="none"/>
+                    <rect x="135" y="170" width="30" height="25" fill="#FFB347" rx="5"/>
+                    <text x="100" y="210" fill="#0f5c4e" font-size="12" font-weight="bold">💊 Pharmacy Technician</text>
+                </svg>
+                <p style="margin-top: 16px; font-weight: 500;">✨ Registered Pharmacist | Hospital & Retail Career</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About D.Pharma Section -->
+    <section id="about">
+        <h2 class="section-title">What is D.Pharma? (Complete Overview)</h2>
+        <p class="section-sub">Diploma in Pharmacy (D.Pharma) is a 2-year professional program approved by the Pharmacy Council of India (PCI). It is the minimum qualification required to practice as a pharmacist in India.</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">📚</div>
+                <h3>Duration & Structure</h3>
+                <p>2 years (4 semesters) • Full-time • PCI-approved curriculum. Includes theory, practical labs, and hospital/industry training.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎯</div>
+                <h3>Program Objectives</h3>
+                <p>Train students in pharmaceutical sciences, dispensing, pharmacology, drug store management, and patient counseling for community healthcare.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🏛️</div>
+                <h3>Regulatory Body</h3>
+                <p>Pharmacy Council of India (PCI) and AICTE approved. After completion, eligible for pharmacist registration with State Pharmacy Council.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Curriculum -->
+    <section id="curriculum">
+        <div class="curriculum">
+            <h2 class="section-title" style="color:#0f4c5c;">D.Pharma Syllabus (Semester-wise)</h2>
+            <p class="section-sub">PCI prescribed curriculum covering pharmaceutical theory, practicals, and clinical training.</p>
+            <div class="semester-grid">
+                <div class="sem-card">
+                    <div class="sem-title">📘 Semester I</div>
+                    <ul class="subject-list">
+                        <li>🔬 Pharmaceutics I (Theory & Practical)</li>
+                        <li>⚗️ Pharmaceutical Chemistry I</li>
+                        <li>🌿 Pharmacognosy</li>
+                        <li>🧬 Biochemistry & Clinical Pathology</li>
+                        <li>📊 Human Anatomy & Physiology</li>
+                        <li>💊 Health Education & Community Pharmacy</li>
+                    </ul>
+                </div>
+                <div class="sem-card">
+                    <div class="sem-title">📗 Semester II</div>
+                    <ul class="subject-list">
+                        <li>💊 Pharmaceutics II (Dispensing)</li>
+                        <li>⚛️ Pharmaceutical Chemistry II</li>
+                        <li>🧪 Pharmacology & Toxicology</li>
+                        <li>📈 Pharmaceutical Jurisprudence</li>
+                        <li>🏥 Drug Store & Business Management</li>
+                        <li>🩺 Hospital & Clinical Pharmacy</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 32px; text-align: center;">
+                <p style="background: #e0f2f1; padding: 14px; border-radius: 40px; font-weight: 500;">⭐ Practical Training: Mandatory 500 hours of practical training in hospital/community pharmacy during the course.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility & Admission Process -->
+    <section id="admission">
+        <h2 class="section-title">Admission Process & Eligibility</h2>
+        <p class="section-sub">Complete details about eligibility criteria, entrance exams, and admission procedure for D.Pharma.</p>
+        <div class="elig-box">
+            <div class="elig-col">
+                <h3>🎯 Eligibility Criteria</h3>
+                <ul style="margin-top: 18px;">
+                    <li>✔️ 10+2 (Science stream) with Physics, Chemistry, Biology/Mathematics</li>
+                    <li>✔️ Minimum 45% aggregate marks (40% for SC/ST/OBC categories)</li>
+                    <li>✔️ Age: Minimum 17 years at the time of admission</li>
+                    <li>✔️ Some states require entrance exam (UPJEE, etc.)</li>
+                </ul>
+            </div>
+            <div class="elig-col">
+                <h3>📝 Admission Steps</h3>
+                <ul style="margin-top: 18px;">
+                    <li>1. Online application (based on merit or entrance exam)</li>
+                    <li>2. Appear for state-level pharmacy entrance (if applicable)</li>
+                    <li>3. Counseling & document verification</li>
+                    <li>4. Seat allotment & fee submission</li>
+                    <li>5. Registration with State Pharmacy Council after completion</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 48px; text-align: center;">
+            <h3>🏛️ Top D.Pharma Colleges in India</h3>
+            <div class="college-list">
+                <span class="college-badge">Jamia Hamdard, New Delhi</span>
+                <span class="college-badge">Government Pharmacy College, Bangalore</span>
+                <span class="college-badge">Bombay College of Pharmacy, Mumbai</span>
+                <span class="college-badge">Poona College of Pharmacy, Pune</span>
+                <span class="college-badge">NIPER (Various)</span>
+                <span class="college-badge">Delhi Institute of Pharmaceutical Sciences</span>
+                <span class="college-badge">BIT Mesra (Pharmacy Dept.)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Prospects -->
+    <section id="career">
+        <h2 class="section-title">Career Opportunities After D.Pharma</h2>
+        <p class="section-sub">Diverse career paths in pharmacy, healthcare, and pharmaceutical industry.</p>
+        <div class="career-grid">
+            <div class="career-item">
+                <div class="career-icon">🏥</div>
+                <strong>Registered Pharmacist</strong><br>Work in hospitals, retail pharmacies, clinics
+            </div>
+            <div class="career-item">
+                <div class="career-icon">💊</div>
+                <strong>Pharmaceutical Sales</strong><br>Medical representative, sales executive
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🏭</div>
+                <strong>Pharma Manufacturing</strong><br>Production, quality control, warehouse
+            </div>
+            <div class="career-item">
+                <div class="career-icon">📚</div>
+                <strong>Higher Education</strong><br>Lateral entry to B.Pharma (2nd year)
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🔬</div>
+                <strong>Clinical Research</strong><br>Clinical coordinator, research assistant
+            </div>
+            <div class="career-item">
+                <div class="career-icon">🏛️</div>
+                <strong>Government Jobs</strong><br>Drug inspector, pharmacist in govt hospitals
+            </div>
+        </div>
+        
+        <!-- Salary Highlight -->
+        <div class="salary-card">
+            <h3 style="font-size: 1.6rem; margin-bottom: 12px;">💰 Salary Range After D.Pharma</h3>
+            <p style="font-size: 1.1rem;">Fresher: ₹1.8 LPA – ₹3.5 LPA | Experienced Pharmacist: ₹4 LPA – ₹6 LPA+</p>
+            <p style="margin-top: 12px; opacity: 0.9;">Government pharmacist salary (as per 7th CPC): ₹35,000 – ₹45,000 per month + allowances</p>
+            <p style="margin-top: 16px; font-weight: 500;">📌 Further studies: B.Pharma (lateral entry), MBA in Pharma Management, M.Pharma</p>
+        </div>
+    </section>
+
+
+
+
+</div>
+
+<script>
+    // Smooth scrolling and interactive functions
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('href').substring(1);
+            scrollToSection(target);
+        });
+    });
+
+    document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
+    document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));
+    document.getElementById('brochureBtn')?.addEventListener('click', () => {
+        alert("📥 D.Pharma Digital Brochure will be sent to your email. Please fill the counselling form or contact us for direct download link.");
+    });
+
+    // Counselling form handler
+    const submitBtn = document.getElementById('submitCounselling');
+    const feedbackSpan = document.getElementById('formFeedbackMsg');
+    
+    if(submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('studentName')?.value.trim();
+            const email = document.getElementById('studentEmail')?.value.trim();
+            const phone = document.getElementById('studentPhone')?.value.trim();
+            const state = document.getElementById('studentState')?.value;
+            const query = document.getElementById('studentQuery')?.value.trim();
+
+            if(!name || !email || !phone) {
+                feedbackSpan.innerText = "❌ Please fill in Name, Email, and Mobile Number (required fields).";
+                feedbackSpan.style.color = "#ffb347";
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')) {
+                feedbackSpan.innerText = "📧 Please enter a valid email address.";
+                return;
+            }
+            if(phone.length < 10) {
+                feedbackSpan.innerText = "📞 Please enter a valid 10-digit mobile number.";
+                return;
+            }
+            
+            feedbackSpan.innerText = `✅ Thank you ${name}! Our counselling team will contact you shortly with complete D.Pharma guidance, college options, and career roadmap.`;
+            feedbackSpan.style.color = "#ffb347";
+            
+            // Clear form
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('studentState').value = '';
+            document.getElementById('studentQuery').value = '';
+            
+            setTimeout(() => { feedbackSpan.innerText = ''; }, 6000);
+        });
+    }
+    
+    console.log("D.Pharma comprehensive page loaded — all details including curriculum, career, admission, and PCI guidelines.");
+</script>
+  <%- include('partials/footer') %>
+</body>
+</html>

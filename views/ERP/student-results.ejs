@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>My Results - College ERP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .top-bar h1 {
+      margin: 0;
+      color: #123c5a;
+    }
+
+    .top-bar p {
+      margin-top: 6px;
+      color: #666;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      background: #1267d6;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+    }
+
+    .student-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 25px;
+    }
+
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .info-label {
+      display: block;
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .info-value {
+      font-weight: bold;
+      color: #222;
+    }
+
+    .no-result {
+      background: white;
+      padding: 50px 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .no-result h2 {
+      color: #555;
+    }
+
+    .result-card {
+      background: white;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .result-header {
+      background: #123c5a;
+      color: white;
+      padding: 18px 22px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .semester {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .exam-name {
+      margin-top: 5px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .pass-badge {
+      background: #198754;
+      color: white;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .fail-badge {
+      background: #dc3545;
+      color: white;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f3f5;
+      font-weight: bold;
+    }
+
+    .pass {
+      color: #198754;
+      font-weight: bold;
+    }
+
+    .fail {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .summary-box {
+      background: #f5f7fa;
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .summary-box small {
+      display: block;
+      color: #777;
+      margin-bottom: 7px;
+    }
+
+    .summary-box strong {
+      font-size: 22px;
+      color: #123c5a;
+    }
+
+    .print-btn {
+      margin: 0 20px 20px;
+      padding: 10px 18px;
+      background: #1267d6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 800px) {
+
+      .student-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .top-bar {
+        display: block;
+      }
+
+      .back-btn {
+        display: inline-block;
+        margin-top: 15px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .student-grid,
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      .result-header {
+        display: block;
+      }
+
+      .result-header .status {
+        margin-top: 12px;
+      }
+    }
+
+    @media print {
+
+      body {
+        background: white;
+      }
+
+      .back-btn,
+      .print-btn {
+        display: none;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .result-card,
+      .student-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TOP -->
+
+  <div class="top-bar">
+
+    <div>
+      <h1>My Results</h1>
+
+      <p>
+        Examination Result & Marksheet
+      </p>
+    </div>
+
+    <a
+      href="/erp/student"
+      class="back-btn"
+    >
+      ← Back to Dashboard
+    </a>
+
+  </div>
+
+
+  <!-- STUDENT INFORMATION -->
+
+  <div class="student-card">
+
+    <div class="student-grid">
+
+      <div>
+        <span class="info-label">
+          Student Name
+        </span>
+
+        <span class="info-value">
+          <%= user?.name || "N/A" %>
+        </span>
+      </div>
+
+
+      <div>
+        <span class="info-label">
+          Enrollment No.
+        </span>
+
+        <span class="info-value">
+          <%= user?.enrollment || "N/A" %>
+        </span>
+      </div>
+
+
+      <div>
+        <span class="info-label">
+          Course
+        </span>
+
+        <span class="info-value">
+          <%= user?.course || "D.Pharm" %>
+        </span>
+      </div>
+
+
+      <div>
+        <span class="info-label">
+          Session
+        </span>
+
+        <span class="info-value">
+          <%= user?.session || "N/A" %>
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- NO RESULT -->
+
+  <% if (!results || results.length === 0) { %>
+
+    <div class="no-result">
+
+      <h2>
+        No Result Available
+      </h2>
+
+      <p>
+        Your examination result has not been published yet.
+      </p>
+
+    </div>
+
+  <% } %>
+
+
+  <!-- RESULTS -->
+
+  <% if (results && results.length > 0) { %>
+
+    <% results.forEach((group) => { %>
+
+      <div class="result-card">
+
+
+        <!-- HEADER -->
+
+        <div class="result-header">
+
+          <div>
+
+            <div class="semester">
+              <%= group.semester %>
+            </div>
+
+            <div class="exam-name">
+              <%= group.examName %>
+            </div>
+
+          </div>
+
+
+          <div class="status">
+
+            <% if (group.status === "Pass") { %>
+
+              <span class="pass-badge">
+                PASS
+              </span>
+
+            <% } else { %>
+
+              <span class="fail-badge">
+                FAIL
+              </span>
+
+            <% } %>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUBJECT TABLE -->
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Subject
+                </th>
+
+                <th>
+                  Maximum Marks
+                </th>
+
+                <th>
+                  Obtained Marks
+                </th>
+
+                <th>
+                  Grade
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <% group.results.forEach((result) => { %>
+
+                <tr>
+
+                  <td>
+                    <%= result.subject %>
+                  </td>
+
+                  <td>
+                    <%= result.maxMarks %>
+                  </td>
+
+                  <td>
+                    <%= result.obtainedMarks %>
+                  </td>
+
+                  <td>
+                    <%= result.grade || "N/A" %>
+                  </td>
+
+                  <td>
+
+                    <% if (result.status === "Pass") { %>
+
+                      <span class="pass">
+                        PASS
+                      </span>
+
+                    <% } else { %>
+
+                      <span class="fail">
+                        FAIL
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+                </tr>
+
+              <% }); %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+          <div class="summary-box">
+
+            <small>
+              Total Marks
+            </small>
+
+            <strong>
+              <%= group.totalMarks || 0 %>
+            </strong>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <small>
+              Obtained Marks
+            </small>
+
+            <strong>
+              <%= group.obtainedMarks || 0 %>
+            </strong>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <small>
+              Percentage
+            </small>
+
+            <strong>
+              <%= group.percentage || "0.00" %>%
+            </strong>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <small>
+              Grade
+            </small>
+
+            <strong>
+              <%= group.grade || "N/A" %>
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="print-btn"
+          onclick="window.print()"
+        >
+          🖨 Print Result
+        </button>
+
+      </div>
+
+    <% }); %>
+
+  <% } %>
+
+</div>
+
+</body>
+
+</html>

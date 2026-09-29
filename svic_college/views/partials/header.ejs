@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SVIC Inter College | Teacher Apply Option</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+  <link rel="stylesheet" href="/svic_college/css/header.css">
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<div class="top-header">
+    <div class="web-text">
+        <p><span>📚 UP Board Affiliated</span></p>
+        <p>Helpline: <span>+91-9876543210</span></p>
+        <p>Email: <span>info@sovicintercollege.edu</span></p>
+        <a href="#"><span class="highlight-link">📖 ERP Login</span></a>
+        <a href="/svic_college/admission"><span class="highlight-link">📞 Admission Enquiry</span></a>
+    </div>
+    <div class="right-text">
+        <a class="link" href="#">🏆 NAAC Grade A</a>
+        <a class="link" href="#">📜 Reg.No: 938</a>
+        <a class="link" href="#">🎓 ESTD: 1995</a>
+        <a class="link" href="#">⭐ Best College Award</a>
+    </div>
+</div>
+
+<!-- MAIN NAVBAR - LOGO + BUTTON INLINE (NO WRAP) -->
+<div class="main-header">
+    <div class="navbar-line"></div>
+    <div class="nav">
+        <div class="logo">
+            <img src="images/image copy.png" alt="SVIC Inter College Logo">
+        </div>
+        
+        <!-- Desktop Menu: All items including ERP button are inline, no wrap -->
+        <div class="menu">
+            <ul class="lowerNav">
+                <li><a class="menu-link" data-color="home" href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a class="menu-link" data-color="about" href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li class="dropdown">
+                    <a class="menu-link dropdown-toggle" data-color="admission" href="#"><i class="fas fa-door-open"></i> Admission <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-graduation-cap"></i> Why SVIC</a></li>
+                            <li><a href="#"><i class="fas fa-file-alt"></i> Admission Procedure</a></li>
+                            <li><a href="#"><i class="fas fa-rupee-sign"></i> Fee Structure</a></li>
+                            <li><a href="/svic_college/admission"><i class="fas fa-pen-alt"></i> Admission Form</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="menu-link dropdown-toggle" data-color="courses" href="#"><i class="fas fa-book-open"></i> Courses <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-graduation-cap"></i> Class 10th</a></li>
+                            <li><a href="#"><i class="fas fa-flask"></i> Class 12th Science</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Class 12th Commerce</a></li>
+                            <li><a href="#"><i class="fas fa-palette"></i> Class 12th Arts</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="menu-link" data-color="notice" href="#notice"><i class="fas fa-bell"></i> Notice</a></li>
+                <li><a class="menu-link" data-color="contact" href="#contact"><i class="fas fa-headset"></i> Contact</a></li>
+                <li><a class="menu-link" data-color="teacher" href="/svic_college/teacher"><i class="fas fa-chalkboard-user"></i> Teacher Apply</a></li>
+                <li>
+                    <button class="erp-btn" onclick="alert('🔐 Welcome to ERP Portal! Student & Faculty login interface.')">
+                        <i class=""></i> ERP Login
+                    </button>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Hamburger Button (visible on mobile) -->
+        <div class="hamburger" onclick="openMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="close-menu" onclick="closeMobileMenu()"><i class="fas fa-times"></i></div>
+    <ul class="mobile-nav-list">
+        <li><a href="/svic_college" onclick="closeMobileMenu()"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="/svic_college/about" onclick="closeMobileMenu()"><i class="fas fa-info-circle"></i> About</a></li>
+        <li class="mobile-dropdown">
+            <div class="dropdown-toggle-mobile" onclick="toggleMobileDropdown(this)">
+                <a href="#"><i class="fas fa-door-open"></i> Admission <i class="fas fa-chevron-down"></i></a>
+            </div>
+            <div class="mobile-dropdown-menu">
+                <a href="/svic_college/why-svic" onclick="closeMobileMenu()">Why SVIC</a>
+                <a href="/svic_college/admission-procedure" onclick="closeMobileMenu()">Admission Procedure</a>
+                <a href="/svic_college/fee-structure" onclick="closeMobileMenu()">Fee Structure</a>
+                <a href="/svic_college/admission" onclick="closeMobileMenu()">Admission Form</a>
+            </div>
+        </li>
+        <li class="mobile-dropdown">
+            <div class="dropdown-toggle-mobile" onclick="toggleMobileDropdown(this)">
+                <a href="#"><i class="fas fa-book-open"></i> Courses <i class="fas fa-chevron-down"></i></a>
+            </div>
+            <div class="mobile-dropdown-menu">
+                <a href="/svic_college/courses/10th" onclick="closeMobileMenu()">Class 10th</a>
+                <a href="/svic_college/courses/12th-science" onclick="closeMobileMenu()">Class 12th Science</a>
+                <a href="/svic_college/courses/12th-commerce" onclick="closeMobileMenu()">Class 12th Commerce</a>
+                <a href="/svic_college/courses/12th-arts" onclick="closeMobileMenu()">Class 12th Arts</a>
+            </div>
+        </li>
+        <li><a href="/svic_college/contact" onclick="closeMobileMenu()"><i class="fas fa-headset"></i> Contact</a></li>
+        <li><a href="/svic_college/teacher" onclick="closeMobileMenu()"><i class="fas fa-chalkboard-user"></i> Teacher Apply</a></li>
+        <li>
+            <button class="mobile-erp-btn" onclick="alert('🔐 ERP Portal: Access student/staff dashboard'); closeMobileMenu();">
+                <i class="fas fa-laptop"></i> ERP Login
+            </button>
+        </li>
+    </ul>
+</div>
+<div class="screen-overlay" id="screenOverlay" onclick="closeMobileMenu()"></div>
+<script src="/svic_college/js/header.js"></script>
+
+
+</body>
+</html>

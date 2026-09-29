@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<%- include('partials/Navbar') %>
+
+    
+  <!-- Hero Slider -->
+  <section class="hero">
+    <div class="hero-slide active">
+        <img src="images/bn2.webp" alt="Slide 1" onerror="this.src='https://via.placeholder.com/1200x600/083d5d/FFFFFF?text=Slide+1'">    
+    </div>
+    <div class="hero-slide">
+        <img src="images/bn1.webp" alt="Slide 2" onerror="this.src='https://via.placeholder.com/1200x600/4da8da/FFFFFF?text=Slide+2'">
+    </div>
+    <div class="hero-slide">
+        <img src="images/bn3.webp" alt="Slide 3" onerror="this.src='https://via.placeholder.com/1200x600/ff6b35/FFFFFF?text=Slide+3'">
+    </div>
+    <div class="hero-slide">
+        <img src="images/bn4.png" alt="Slide 4" onerror="this.src='https://via.placeholder.com/1200x600/085d0f/FFFFFF?text=Slide+4'">
+    </div>
+    
+    <button class="hero-nav hero-nav-prev">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="hero-nav hero-nav-next">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    
+    <div class="hero-controls">
+        <button class="control-btn play-pause-btn active" title="Pause Auto-Play">
+            <i class="fas fa-pause"></i>
+        </button>
+        <div class="slide-counter">
+            <span class="current-slide"></span>  <span class="total-slides"></span>
+        </div>
+    </div>
+    
+    <div class="hero-dots">
+        <span class="hero-dot active" data-slide="0">
+            <span class="hero-dot-progress"></span>
+        </span>
+        <span class="hero-dot" data-slide="1">
+            <span class="hero-dot-progress"></span>
+        </span>
+        <span class="hero-dot" data-slide="2">
+            <span class="hero-dot-progress"></span>
+        </span>
+        <span class="hero-dot" data-slide="3">
+            <span class="hero-dot-progress"></span>
+        </span>
+    </div>
+  </section>
+
+  <!-- NEW MIDDLE SECTION - EXCELLENCE SECTION -->
+  <section class="excellence-section">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-header">
+        <span class="subtitle">Excellence in Pharmacy Education</span><br>
+        <h2>Beyond the Classroom</h2>
+        <p>At Maa Maturani Devi Pharmacy College, we believe in nurturing well-rounded professionals through academic excellence, holistic development, and industry-ready training.</p>
+      </div>
+
+      <!-- Feature Cards with Images -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&h=400&fit=crop" alt="Pharmacy Lab">
+            <div class="card-overlay">
+              <i class="fas fa-microscope"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>Academic Excellence</h3>
+            <p>State-of-the-art laboratories and digital library with experienced faculty ensuring outstanding university results.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Well-equipped Pharma Labs</li>
+              <li><i class="fas fa-check-circle"></i> Digital Library with 5000+ Journals</li>
+              <li><i class="fas fa-check-circle"></i> Research & Innovation Center</li>
+              <li><i class="fas fa-check-circle"></i> 95% University Exam Success Rate</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop" alt="Students Playing Sports">
+            <div class="card-overlay">
+              <i class="fas fa-futbol"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>Holistic Development</h3>
+            <p>Beyond academics, we nurture well-rounded personalities through sports, cultural activities, and a supportive campus environment.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Annual Sports Meet & Tournaments</li>
+              <li><i class="fas fa-check-circle"></i> Cultural & Technical Fests</li>
+              <li><i class="fas fa-check-circle"></i> Ragging-Free Campus Environment</li>
+              <li><i class="fas fa-check-circle"></i> Student Clubs & Associations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=400&fit=crop" alt="Placement Session">
+            <div class="card-overlay">
+              <i class="fas fa-briefcase"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>Career & Placement Support</h3>
+            <p>Dedicated training and placement cell to bridge the gap between academia and industry requirements.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> 100% Placement Assistance</li>
+              <li><i class="fas fa-check-circle"></i> Industrial Visits & Internships</li>
+              <li><i class="fas fa-check-circle"></i> Job Counseling & Resume Building</li>
+              <li><i class="fas fa-check-circle"></i> Mock Interviews & Soft Skills Training</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Section -->
+      <div class="gallery-section">
+        <h3>Campus Life & Moments</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop" alt="Lab Session">
+            <div class="gallery-caption">Hands-on Lab Training</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop" alt="Sports Day">
+            <div class="gallery-caption">Annual Sports Meet 2024</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1564069114553-7215e1ff1890?w=600&h=400&fit=crop" alt="Industrial Visit">
+            <div class="gallery-caption">Industrial Visit to Pharma Company</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop" alt="Cultural Event">
+            <div class="gallery-caption">Cultural Celebration - Freshers 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials Section -->
+      <div class="testimonials-section">
+        <h3>Student Voices</h3>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student">
+            </div>
+            <i class="fas fa-quote-left"></i>
+            <p>"The supportive faculty and excellent lab facilities at MMD Pharmacy College helped me build a strong foundation in pharmaceutical sciences. The placement assistance was invaluable."</p>
+            <h4>Priya Sharma</h4>
+            <span>B.Pharma Final Year | Placed at Sun Pharma</span>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student">
+            </div>
+            <i class="fas fa-quote-left"></i>
+            <p>"Beyond academics, the sports events and cultural fests made my college life memorable. The ragging-free environment made me feel safe and focused on learning."</p>
+            <h4>Rahul Verma</h4>
+            <span>D.Pharma Graduate 2024</span>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Student">
+            </div>
+            <i class="fas fa-quote-left"></i>
+            <p>"The industry visits and guest lectures from pharma experts gave us real-world exposure. The placement cell's support helped me crack interviews with top companies."</p>
+            <h4>Anjali Singh</h4>
+            <span>B.Pharma 2023 | Research Associate</span>
+          </div>
+        </div>
+      </div>
+
+     
+  </section>
+
+  <script src="js/slide.js"></script>
+
+
+  <%- include('partials/footer') %>
+</body>
+</html>

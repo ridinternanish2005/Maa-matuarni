@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Principal's Desk | Globe Academy</title>
+    <!-- Google Fonts & Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/school/css/principal.css">
+
+</head>
+<body>
+
+    <%- include("partials/navbar.ejs") %>
+<!-- Top Navigation Bar -->
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-chalkboard-user"></i> 
+            Principal's Desk
+        </h2>
+        <p>“Where vision meets values — a word from our leader”</p>
+    </div>
+
+    <!-- Principal Desk Core Section -->
+    <div class="principal-card">
+        <div class="desk-grid">
+            <!-- LEFT PANEL : Photo + Bio + Contact -->
+            <div class="principal-info">
+                <div class="principal-img">
+                    <!-- Professional portrait via RandomUser (stable & realistic) -->
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Principal Dr. Vikram Singh Rathore">
+                </div>
+                <div class="principal-name">Dr. Vikram S. Rathore</div>
+                <div class="principal-designation">M.Sc., M.Ed., Ph.D. | Principal</div>
+                
+                <div class="info-details">
+                    <p><i class="fas fa-graduation-cap"></i> <strong>Qualification:</strong> Ph.D. (Educational Leadership)</p>
+                    <p><i class="fas fa-chart-line"></i> <strong>Experience:</strong> 26+ years in academia</p>
+                    <p><i class="fas fa-trophy"></i> <strong>Achievements:</strong> National Excellence in Education Award 2022</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> principal@globeacademy.edu.in</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Connect:</strong> +91 98765 43210</p>
+                </div>
+                <div class="award-badge">
+                    <i class="fas fa-award"></i> Distinguished Fellow - Indian School Leadership Forum
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL : Principal's Message, Vision, Signature -->
+            <div class="principal-message">
+                <div class="message-header">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>From the Principal’s Desk</h3>
+                </div>
+                <div class="greeting-text">
+                    <i class="fas fa-hand-peace" style="color:#c98a2e; margin-right: 6px;"></i> 
+                    <strong>Dear Students, Parents, and Esteemed Staff,</strong>
+                </div>
+                <div class="message-content">
+                    <p>Welcome to <strong>Globe Academy</strong> — a place where curiosity meets purpose, and every child discovers their unique brilliance. As Principal, I firmly believe that education is not merely about academic excellence; it is about shaping compassionate, resilient, and creative thinkers who will lead tomorrow’s world with integrity.</p>
+                    <p>Our institution blends a future-ready curriculum with strong moral foundations. We are committed to providing a stimulating environment where innovation, sports, arts, and technology walk hand in hand. Every policy, every classroom initiative reflects our dedication to <strong>holistic development</strong>.</p>
+                    <div class="vision-quote">
+                        <i class="fas fa-quote-left" style="margin-right: 8px; color:#c98a2e;"></i> 
+                        "Empower a child with the wings of knowledge and roots of values — they will soar beyond boundaries." 
+                        <span style="display:block; font-size:0.8rem; margin-top: 0.5rem;">— Dr. Vikram S. Rathore</span>
+                    </div>
+                    <p>I invite parents to be active partners in this journey. Together, we shall nurture responsible global citizens who embrace challenges with courage and kindness. My digital desk is always open for constructive dialogue — feel free to reach out through official channels.</p>
+                    <p>Let’s strive for excellence, celebrate every small win, and make each day a meaningful step toward a brighter future.</p>
+                </div>
+                <div class="signature-block">
+                    <div class="signature-name">Dr. Vikram S. Rathore</div>
+                    <div class="signature-title">Principal, Globe Academy</div>
+                    <div class="signature-title" style="font-size:0.75rem; margin-top: 6px;"><i class="far fa-calendar-alt"></i> May 2026 | Academic Year 2026-27</div>
+                </div>
+                <!-- Additional inspirational element -->
+                <div style="margin-top: 1rem; font-size: 0.8rem; background: #f1f5f9; border-radius: 2rem; padding: 0.6rem 1rem; display: inline-block;">
+                    <i class="fas fa-heart" style="color:#c98a2e;"></i> Office Hours: Mon-Fri | 9:00 AM – 2:00 PM (Prior appointment)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional "Principal's Vision Highlights" Section - Like a mini feature -->
+    <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+        <div style="background: white; border-radius: 1.8rem; padding: 1.3rem 1.5rem; flex: 1; min-width: 220px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;">
+            <i class="fas fa-eye" style="font-size: 2rem; color: #c98a2e;"></i>
+            <h3 style="margin: 0.6rem 0; font-size: 1.2rem;">Vision 2030</h3>
+            <p style="font-size: 0.9rem; color: #334155;">To be a global benchmark in value-driven, technology-empowered education.</p>
+        </div>
+        <div style="background: white; border-radius: 1.8rem; padding: 1.3rem 1.5rem; flex: 1; min-width: 220px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;">
+            <i class="fas fa-bullhorn" style="font-size: 2rem; color: #c98a2e;"></i>
+            <h3 style="margin: 0.6rem 0; font-size: 1.2rem;">Core Focus</h3>
+            <p style="font-size: 0.9rem; color: #334155;">Mental wellbeing, experiential learning & inclusive excellence.</p>
+        </div>
+        <div style="background: white; border-radius: 1.8rem; padding: 1.3rem 1.5rem; flex: 1; min-width: 220px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;">
+            <i class="fas fa-handshake" style="font-size: 2rem; color: #c98a2e;"></i>
+            <h3 style="margin: 0.6rem 0; font-size: 1.2rem;">Parents' Partnership</h3>
+            <p style="font-size: 0.9rem; color: #334155;">Open-door policy, regular PTMs, and shared growth journey.</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- subtle hover & smoothness optional (no extra JS needed) -->
+   <%-include("partials/footer.ejs") %>
+</body>
+</html>

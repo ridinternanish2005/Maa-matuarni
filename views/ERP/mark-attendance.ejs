@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Mark Attendance</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #222;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #222;
+    }
+
+    #message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <div class="container">
+
+    <a
+      href="/erp/admin"
+      class="back"
+    >
+      ← Back to Admin Dashboard
+    </a>
+
+
+    <div class="box">
+
+      <h2>Mark Student Attendance</h2>
+
+
+      <form id="attendanceForm">
+
+
+        <!-- STUDENT -->
+
+        <div class="form-group">
+
+          <label>
+            Select Student
+          </label>
+
+          <select
+            name="enrollment"
+            required
+          >
+
+            <option value="">
+              -- Select Student --
+            </option>
+
+            <% students.forEach(student => { %>
+
+              <option value="<%= student.enrollment %>">
+
+                <%= student.name %>
+                -
+                <%= student.enrollment %>
+
+              </option>
+
+            <% }) %>
+
+          </select>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div class="form-group">
+
+          <label>
+            Date
+          </label>
+
+          <input
+            type="date"
+            name="date"
+            required
+          >
+
+        </div>
+
+
+        <!-- SUBJECT -->
+
+        <div class="form-group">
+
+          <label>
+            Subject
+          </label>
+
+          <input
+            type="text"
+            name="subject"
+            placeholder="Example: Pharmaceutics"
+            required
+          >
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+          <label>
+            Attendance Status
+          </label>
+
+          <select
+            name="status"
+            required
+          >
+
+            <option value="">
+              -- Select Status --
+            </option>
+
+            <option value="Present">
+              Present
+            </option>
+
+            <option value="Absent">
+              Absent
+            </option>
+
+            <option value="Leave">
+              Leave
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- REMARKS -->
+
+        <div class="form-group">
+
+          <label>
+            Remarks
+          </label>
+
+          <textarea
+            name="remarks"
+            placeholder="Optional remarks"
+          ></textarea>
+
+        </div>
+
+
+        <button type="submit">
+          Save Attendance
+        </button>
+
+
+        <div id="message"></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+<script>
+
+const form = document.getElementById("attendanceForm");
+const message = document.getElementById("message");
+
+
+form.addEventListener("submit", async (event) => {
+
+  event.preventDefault();
+
+
+  const formData = new FormData(form);
+
+  const data = Object.fromEntries(formData.entries());
+
+
+  try {
+
+    const response = await fetch(
+      "/erp/mark-attendance",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(data)
+      }
+    );
+
+
+    const result = await response.json();
+
+
+    message.style.display = "block";
+    message.textContent = result.message;
+
+
+    if (result.success) {
+
+      form.reset();
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    message.style.display = "block";
+
+    message.textContent =
+      "Something went wrong.";
+
+  }
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+    <link rel="stylesheet" href="/school/css/admission.css">
+    <script src="/school/js/Admission.js" defer></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<%- include("partials/navbar.ejs") %>
+
+<div class="container">
+    <div class="form-card">
+
+        <div class="form-header">
+            <h2><i class="fas fa-pen-alt"></i> Admission Form</h2>
+
+            <p>
+                Fill the details below to secure your child's seat.
+                Our counsellor will contact you within 24 hours.
+            </p>
+
+            <div class="badge">
+                <i class="fas fa-star-of-life"></i>
+                Limited seats | Early bird discount available
+            </div>
+        </div>
+
+        <div class="form-body">
+
+            <!-- FORM START -->
+            <form 
+                id="admissionForm"
+                action="/admission"
+                method="POST"
+                novalidate
+            >
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-user-graduate"></i>
+                            Student's Full Name *
+                        </label>
+
+                        <input 
+                            type="text"
+                            id="studentName"
+                            name="studentName"
+                            placeholder="e.g., Aarav Sharma"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-calendar-alt"></i>
+                            Date of Birth *
+                        </label>
+
+                        <input 
+                            type="date"
+                            id="dob"
+                            name="dob"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-chalkboard"></i>
+                            Applying for Class *
+                        </label>
+
+                        <select 
+                            id="classSelect"
+                            name="classSelect"
+                            required
+                        >
+                            <option value="" disabled selected>
+                                -- Select Class --
+                            </option>
+
+                            <option>Nursery</option>
+                            <option>KG</option>
+                            <option>Class 1</option>
+                            <option>Class 2</option>
+                            <option>Class 3</option>
+                            <option>Class 4</option>
+                            <option>Class 5</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-user-friends"></i>
+                            Parent / Guardian Name *
+                        </label>
+
+                        <input 
+                            type="text"
+                            id="parentName"
+                            name="parentName"
+                            placeholder="Full name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-phone-alt"></i>
+                            Mobile Number *
+                        </label>
+
+                        <input 
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="10-digit mobile number"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            Email Address *
+                        </label>
+
+                        <input 
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@domain.com"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-group full-width">
+
+                    <label>
+                        <i class="fas fa-home"></i>
+                        Residential Address (Optional)
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="2"
+                        placeholder="Street, city, pin code"
+                    ></textarea>
+
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Application
+                </button>
+
+                <div 
+                    id="formStatus"
+                    class="status-message"
+                    style="display: none;"
+                ></div>
+
+            </form>
+            <!-- FORM END -->
+
+            <div class="info-footer">
+                <i class="fas fa-shield-alt"></i>
+                Your information is secure. We respect privacy.
+
+                <i class="fas fa-clock" style="margin-left: 12px;"></i>
+                Response within 24 hours
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
+
+</body>
+</html>

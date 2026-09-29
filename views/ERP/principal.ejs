@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <title>Principal Dashboard · Maa Maturani Devi Pharmacy College</title>
+  <!-- Google Font & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- GLOBAL ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #e9ecf1;
+      color: #1a2639;
+      line-height: 1.5;
+    }
+
+    /* ----- DASHBOARD LAYOUT: SIDEBAR + MAIN ----- */
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1600px;
+      margin: 0 auto;
+      background: #f8fafd;
+      box-shadow: 0 0 30px rgba(0,0,0,0.03);
+    }
+
+    /* ---------- SIDEBAR – PRINCIPAL NAVIGATION (Maa Maturani Devi) ---------- */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #0a2a3f 0%, #0d344b 100%);
+      color: #e7f0f9;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 28px 18px;
+      box-shadow: 4px 0 18px rgba(0,20,40,0.08);
+    }
+
+    .sidebar-header {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #2e4e64;
+      margin-bottom: 20px;
+    }
+
+    .erp-code-big {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .erp-session-badge {
+      display: inline-block;
+      background: #1e4f6b;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: white;
+      margin-top: 8px;
+      border: 1px solid #3d7e9a;
+    }
+
+    .nav-caption {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: #9bbad0;
+      margin-bottom: 16px;
+    }
+
+    .principal-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 500;
+      color: #cbdbe8;
+      transition: all 0.18s;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .nav-item i {
+      width: 24px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #aac7db;
+    }
+
+    .nav-item.active {
+      background: #1e4f6b;
+      color: white;
+      box-shadow: 0 6px 12px rgba(0,30,50,0.25);
+    }
+
+    .nav-item.active i {
+      color: white;
+    }
+
+    .nav-item:not(.active):hover {
+      background: #1f4459;
+      color: white;
+    }
+
+    .sidebar-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #2e4e64;
+      font-size: 0.8rem;
+      color: #adc4d6;
+    }
+
+    /* ---------- MAIN CONTENT (persistent header + dynamic view) ---------- */
+    .main-content {
+      flex: 1;
+      padding: 28px 32px;
+      background: #f4f7fc;
+      overflow-x: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Persistent header */
+    .erp-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .erp-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #0b2f4e;
+    }
+
+    .erp-code-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      background: #f0f4fa;
+      padding: 8px 18px;
+      border-radius: 40px;
+    }
+
+    .erp-code {
+      font-weight: 600;
+      color: #1e3b5a;
+    }
+
+    .erp-session {
+      background: #2c3e50;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #goBtn {
+      background: #0066cc;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 4px 18px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid #ffffff30;
+      letter-spacing: 0.5px;
+    }
+
+    #goBtn:hover {
+      background: #004c99;
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,80,150,0.2);
+    }
+
+    /* Dynamic content views */
+    .view {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .view.active-view {
+      display: block;
+    }
+
+    /* ----- PRINCIPAL DASHBOARD STYLES (cards, stats, charts) ----- */
+    .page-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin: 20px 0 12px 0;
+      color: #0b2f4e;
+      border-left: 8px solid #2a7faa;
+      padding-left: 18px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin: 28px 0 32px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px 16px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+      border: 1px solid #e9edf4;
+      transition: 0.1s;
+    }
+
+    .stat-card:hover {
+      border-color: #b0c8da;
+      background: #fbfdff;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      color: #4a657d;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0e3b5c;
+      line-height: 1;
+      margin-top: 8px;
+    }
+
+    .stat-sub {
+      font-size: 0.9rem;
+      color: #3f6983;
+      margin-top: 6px;
+    }
+
+    .row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid #e2eaf1;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.02);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1e3b5a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fee-progress {
+      background: #eaeef3;
+      height: 12px;
+      border-radius: 20px;
+      margin: 12px 0;
+    }
+
+    .fee-progress-bar {
+      width: 78%;
+      height: 12px;
+      background: #1e4f6b;
+      border-radius: 20px;
+    }
+
+    .attendance-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .chart-placeholder {
+      background: #f1f5f9;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      color: #4b6b83;
+      font-style: italic;
+      border: 1px dashed #9fb8cc;
+    }
+
+    .badge {
+      background: #eef3f9;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #004d7c;
+    }
+
+    .notice-item {
+      padding: 14px 0;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .notice-item:last-child {
+      border-bottom: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e4a6b;
+      color: #1e4a6b;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-outline:hover {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin: 18px 0 10px;
+      border-radius: 16px;
+      border: 1px solid #dfe6ed;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #eef3f9;
+      font-weight: 600;
+      color: #1f3a57;
+      padding: 14px 12px;
+      white-space: nowrap;
+      border-bottom: 2px solid #cbd6e2;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e3eaf0;
+    }
+
+    .footer-copy {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 2px solid #dce3ec;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #4e627c;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .status-active {
+      color: #1e7a44;
+      background: #e2f3e2;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-wrapper { flex-direction: column; }
+      .sidebar { width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .row-2col { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 550px) {
+      .main-content { padding: 20px 16px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .erp-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard-wrapper">
+  <!-- ========== SIDEBAR – PRINCIPAL NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="erp-code-big">34987 (2023-24)</div>
+      <span class="erp-session-badge">2023-24</span>
+    </div>
+    <div class="nav-caption">MAIN NAVIGATION · PRINCIPAL</div>
+    <div class="principal-nav">
+      <div class="nav-item active" data-view="dashboardView">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-view="studentsView">
+        <i class="fas fa-user-graduate"></i>
+        <span>Students</span>
+      </div>
+      <div class="nav-item" data-view="facultyView">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>Faculty</span>
+      </div>
+      <div class="nav-item" data-view="attendanceView">
+        <i class="fas fa-calendar-check"></i>
+        <span>Attendance</span>
+      </div>
+      <div class="nav-item" data-view="feeView">
+        <i class="fas fa-coins"></i>
+        <span>Fee Management</span>
+      </div>
+      <div class="nav-item" data-view="noticesView">
+        <i class="fas fa-bullhorn"></i>
+        <span>Notices</span>
+      </div>
+      <div class="nav-item" data-view="reportsView">
+        <i class="fas fa-chart-pie"></i>
+        <span>Reports</span>
+      </div>
+      <div class="nav-item" data-view="changePwdView">
+        <i class="fas fa-key"></i>
+        <span>Change Password</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+        <i class="fas fa-user-tie" style="font-size:1.2rem;"></i>
+        <span style="font-weight:500;">Principal • Maa Maturani Devi</span>
+      </div>
+      <div style="font-size:0.75rem; opacity:0.8;">
+        <i class="far fa-copyright"></i> Maa Maturani Devi Pharmacy College
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main-content">
+    <!-- Persistent Header (always visible) -->
+    <div class="erp-header">
+      <div class="erp-title">CollegeERP</div>
+      <div class="erp-code-area">
+        <span class="erp-code">34987 (2023-24)</span>
+        <span class="erp-session">
+          2023-24
+          <button id="goBtn">GO</button>
+        </span>
+      </div>
+    </div>
+
+    <!-- ===== PRINCIPAL DYNAMIC VIEWS ===== -->
+    <!-- 1. DASHBOARD VIEW (overview) -->
+    <div id="dashboardView" class="view active-view">
+      <div class="page-title">Principal Dashboard</div>
+      
+      <!-- Key Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Students</div>
+          <div class="stat-number">1,284</div>
+          <div class="stat-sub">↑ 6% from last sem</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Faculty</div>
+          <div class="stat-number">86</div>
+          <div class="stat-sub">Professors: 24, Asst: 62</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Courses</div>
+          <div class="stat-number">14</div>
+          <div class="stat-sub">UG: 8, PG: 6</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Today's Attendance</div>
+          <div class="stat-number">87%</div>
+          <div class="stat-sub">↑ 2% vs yesterday</div>
+        </div>
+      </div>
+
+      <!-- Two column layout: Fee & Attendance Summary + Recent Notices -->
+      <div class="row-2col">
+        <!-- Fee Collection & Pending Dues -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-rupee-sign" style="color:#1e4f6b;"></i> Fee Collection (Feb 2026)
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span>Collected: ₹48,72,000</span>
+            <span><strong>78%</strong></span>
+          </div>
+          <div class="fee-progress">
+            <div class="fee-progress-bar"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span>Target: ₹62,50,000</span>
+            <span>Pending: ₹13,78,000</span>
+          </div>
+          <div style="margin-top:24px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span><i class="fas fa-circle" style="color:#1e4f6b; font-size:0.7rem;"></i> Hostel Fee</span>
+              <span>₹8,42,000</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span><i class="fas fa-circle" style="color:#2a7faa; font-size:0.7rem;"></i> Tuition Fee</span>
+              <span>₹32,18,000</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span><i class="fas fa-circle" style="color:#4f9e8a; font-size:0.7rem;"></i> Transport</span>
+              <span>₹8,12,000</span>
+            </div>
+          </div>
+          <button class="btn-outline" style="margin-top:20px; width:100%;" onclick="alert('Detailed fee report (demo)')">
+            View Full Report <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Recent Notices & Announcements -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-bullhorn" style="color:#1e4f6b;"></i> Recent Notices
+          </div>
+          <div class="notice-item">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Exam schedule for even sem</strong>
+              <span class="badge">New</span>
+            </div>
+            <div style="font-size:0.85rem; color:#3e5c70;">14 Feb 2026 · Exams from 20 Mar</div>
+          </div>
+          <div class="notice-item">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Faculty meeting</strong>
+              <span class="badge">Today</span>
+            </div>
+            <div style="font-size:0.85rem; color:#3e5c70;">16 Feb 2026 · 11:00 AM, Conference Hall</div>
+          </div>
+          <div class="notice-item">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Pharmacy week celebrations</strong>
+              <span class="badge">Upcoming</span>
+            </div>
+            <div style="font-size:0.85rem; color:#3e5c70;">22-26 Feb 2026 · Register by 20 Feb</div>
+          </div>
+          <div class="notice-item">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Hostel fee last date</strong>
+              <span></span>
+            </div>
+            <div style="font-size:0.85rem; color:#3e5c70;">28 Feb 2026 · Late fee ₹100/day</div>
+          </div>
+          <button class="btn-outline" style="margin-top:16px; width:100%;" onclick="alert('All notices (demo)')">
+            Manage Notices <i class="fas fa-edit"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Attendance Overview & Chart Placeholder -->
+      <div style="margin-top:30px;">
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-chart-line" style="color:#1e4f6b;"></i> Attendance Trend (Last 7 Days)
+          </div>
+          <div class="chart-placeholder">
+            <i class="fas fa-chart-bar" style="font-size:2rem; color:#4b7a9c; margin-bottom:8px;"></i>
+            <div style="display:flex; justify-content:space-around; margin-top:16px;">
+              <div>Mon <br> <strong>84%</strong></div>
+              <div>Tue <br> <strong>86%</strong></div>
+              <div>Wed <br> <strong>89%</strong></div>
+              <div>Thu <br> <strong>87%</strong></div>
+              <div>Fri <br> <strong>85%</strong></div>
+              <div>Sat <br> <strong>72%</strong></div>
+              <div>Sun <br> <strong>-</strong></div>
+            </div>
+            <div style="margin-top:16px; color:#1e3b5a;">Weekly average: 83.8%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions / Fee collection table -->
+      <div style="margin-top:30px;">
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-file-invoice"></i> Latest Fee Transactions
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Student ID</th><th>Name</th><th>Receipt No.</th><th>Amount</th><th>Mode</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>15-02-2026</td><td>PHT2024001</td><td>Anjali Sharma</td><td>202245112</td><td>₹12,500</td><td>Online</td></tr>
+                <tr><td>14-02-2026</td><td>PHT2023087</td><td>Ravi Gupta</td><td>202244998</td><td>₹8,200</td><td>Card</td></tr>
+                <tr><td>14-02-2026</td><td>PHT2024122</td><td>Priya Singh</td><td>202244889</td><td>₹15,000</td><td>Online</td></tr>
+                <tr><td>13-02-2026</td><td>PHT2023105</td><td>Amit Patel</td><td>202244776</td><td>₹6,750</td><td>Cash</td></tr>
+                <tr><td>12-02-2026</td><td>PHT2024210</td><td>Neha Verma</td><td>202244612</td><td>₹10,000</td><td>Online</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. STUDENTS VIEW -->
+    <div id="studentsView" class="view">
+      <div class="page-title">Student Management</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">B.Pharm</div><div class="stat-number">612</div></div>
+        <div class="stat-card"><div class="stat-label">M.Pharm</div><div class="stat-number">224</div></div>
+        <div class="stat-card"><div class="stat-label">Pharm.D</div><div class="stat-number">148</div></div>
+        <div class="stat-card"><div class="stat-label">D.Pharm</div><div class="stat-number">300</div></div>
+      </div>
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="card-title">Student List (Recent Enrollments)</div>
+          <button class="btn-outline" onclick="alert('Add new student (demo)')"><i class="fas fa-plus"></i> Add Student</button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>Course</th><th>Semester</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>PHT2026001</td><td>Kavya Mishra</td><td>B.Pharm</td><td>II</td><td><span class="status-active">Active</span></td></tr>
+              <tr><td>PHT2026002</td><td>Rohit Sahu</td><td>Pharm.D</td><td>I</td><td><span class="status-active">Active</span></td></tr>
+              <tr><td>PHT2025110</td><td>Simran Kaur</td><td>M.Pharm</td><td>IV</td><td><span class="status-active">Active</span></td></tr>
+              <tr><td>PHT2024899</td><td>Arjun Yadav</td><td>D.Pharm</td><td>II</td><td><span class="status-active">Active</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FACULTY VIEW -->
+    <div id="facultyView" class="view">
+      <div class="page-title">Faculty Management</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Professors</div><div class="stat-number">24</div></div>
+        <div class="stat-card"><div class="stat-label">Associate Prof</div><div class="stat-number">31</div></div>
+        <div class="stat-card"><div class="stat-label">Assistant Prof</div><div class="stat-number">28</div></div>
+        <div class="stat-card"><div class="stat-label">Adjunct</div><div class="stat-number">3</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Faculty Directory</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>Department</th><th>Designation</th><th>Qualification</th></tr></thead>
+            <tbody>
+              <tr><td>FAC001</td><td>Dr. Alka Verma</td><td>Pharmaceutics</td><td>Professor</td><td>Ph.D</td></tr>
+              <tr><td>FAC015</td><td>Dr. Sanjay Gupta</td><td>Pharmacology</td><td>Associate Prof</td><td>Ph.D</td></tr>
+              <tr><td>FAC032</td><td>Mrs. Neha Rathore</td><td>Pharmacy Practice</td><td>Assistant Prof</td><td>M.Pharm</td></tr>
+              <tr><td>FAC078</td><td>Mr. Vikas Yadav</td><td>Pharmacognosy</td><td>Assistant Prof</td><td>M.Pharm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ATTENDANCE VIEW -->
+    <div id="attendanceView" class="view">
+      <div class="page-title">Attendance Overview</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Today's %</div><div class="stat-number">87%</div></div>
+        <div class="stat-card"><div class="stat-label">Weekly Avg</div><div class="stat-number">83.8%</div></div>
+        <div class="stat-card"><div class="stat-label">Monthly Avg</div><div class="stat-number">81.2%</div></div>
+        <div class="stat-card"><div class="stat-label">Below 75%</div><div class="stat-number">42</div></div>
+      </div>
+      <div class="row-2col">
+        <div class="card">
+          <div class="card-title">Department-wise Attendance</div>
+          <div>B.Pharm: 86%</div><div class="fee-progress" style="margin-bottom:8px;"><div style="width:86%; height:12px; background:#1e4f6b; border-radius:20px;"></div></div>
+          <div>M.Pharm: 79%</div><div class="fee-progress" style="margin-bottom:8px;"><div style="width:79%; height:12px; background:#1e4f6b; border-radius:20px;"></div></div>
+          <div>Pharm.D: 91%</div><div class="fee-progress" style="margin-bottom:8px;"><div style="width:91%; height:12px; background:#1e4f6b; border-radius:20px;"></div></div>
+          <div>D.Pharm: 82%</div><div class="fee-progress"><div style="width:82%; height:12px; background:#1e4f6b; border-radius:20px;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Low Attendance Alert ( <75% )</div>
+          <div style="color:#a94442;">B.Pharm III Sem: 12 students</div>
+          <div style="color:#a94442;">M.Pharm II Sem: 8 students</div>
+          <div style="color:#a94442;">Pharm.D IV Sem: 5 students</div>
+          <button class="btn-outline" style="margin-top:20px;" onclick="alert('Send notification to defaulters (demo)')">Send Reminder</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. FEE MANAGEMENT VIEW -->
+    <div id="feeView" class="view">
+      <div class="page-title">Fee Management</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total Collection</div><div class="stat-number">₹1.28Cr</div></div>
+        <div class="stat-card"><div class="stat-label">Pending Dues</div><div class="stat-number">₹18.2L</div></div>
+        <div class="stat-card"><div class="stat-label">Scholarships</div><div class="stat-number">₹4.5L</div></div>
+        <div class="stat-card"><div class="stat-label">Defaulters</div><div class="stat-number">23</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Due List (Top 5)</div>
+        <table>
+          <tr><td>PHT2023102</td><td>Rahul Jain</td><td>B.Pharm IV</td><td>₹24,500</td><td>Due since Jan</td></tr>
+          <tr><td>PHT2024099</td><td>Swati Dubey</td><td>M.Pharm II</td><td>₹18,200</td><td>Due since Feb</td></tr>
+          <tr><td>PHT2025112</td><td>Manish Soni</td><td>Pharm.D III</td><td>₹32,000</td><td>Due since Dec</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. NOTICES VIEW -->
+    <div id="noticesView" class="view">
+      <div class="page-title">Notices & Announcements</div>
+      <div class="card">
+        <div style="display:flex; justify-content:space-between;">
+          <div class="card-title">All Notices</div>
+          <button class="btn-outline" onclick="alert('Create new notice (demo)')"><i class="fas fa-plus"></i> New Notice</button>
+        </div>
+        <div class="notice-item"><strong>Holiday on 26 Feb (Mahashivratri)</strong> <span style="float:right;">16 Feb 2026</span></div>
+        <div class="notice-item"><strong>Mid Sem Exam timetable released</strong> <span style="float:right;">15 Feb 2026</span></div>
+        <div class="notice-item"><strong>Guest lecture on Clinical Research</strong> <span style="float:right;">14 Feb 2026</span></div>
+        <div class="notice-item"><strong>Library remains open till 8pm</strong> <span style="float:right;">12 Feb 2026</span></div>
+      </div>
+    </div>
+
+    <!-- 7. REPORTS VIEW -->
+    <div id="reportsView" class="view">
+      <div class="page-title">Reports & Analytics</div>
+      <div class="row-2col">
+        <div class="card"><div class="card-title">Enrollment Trend</div><div class="chart-placeholder"><i class="fas fa-chart-area"></i> Enrollment +12% vs last year</div></div>
+        <div class="card"><div class="card-title">Gender Ratio</div><div class="chart-placeholder">👩 58%  👨 42%</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Generate Reports</div>
+        <button class="btn-outline" onclick="alert('Download student report (demo)')">Student Report</button>
+        <button class="btn-outline" style="margin-left:16px;" onclick="alert('Download fee report (demo)')">Fee Report</button>
+        <button class="btn-outline" style="margin-left:16px;" onclick="alert('Download attendance report (demo)')">Attendance Report</button>
+      </div>
+    </div>
+
+    <!-- 8. CHANGE PASSWORD VIEW -->
+    <div id="changePwdView" class="view">
+      <div class="page-title">Change Password</div>
+      <div class="card" style="max-width:500px;">
+        <div class="form-group">
+          <label>Current Password</label>
+          <input type="password" class="form-control" placeholder="Enter current password" style="width:100%; padding:14px; border-radius:30px; border:1px solid #cbd6e2;">
+        </div>
+        <div class="form-group" style="margin-top:16px;">
+          <label>New Password</label>
+          <input type="password" class="form-control" placeholder="Enter new password">
+        </div>
+        <div class="form-group" style="margin-top:16px;">
+          <label>Confirm Password</label>
+          <input type="password" class="form-control" placeholder="Re-enter new password">
+        </div>
+        <button class="btn-primary" style="margin-top:20px; padding:14px 30px; background:#1e4a6b; color:white; border:none; border-radius:40px; font-weight:600; cursor:pointer;" onclick="alert('Password changed (demo)')">Update Password</button>
+      </div>
+    </div>
+
+    <!-- Persistent Copyright Footer -->
+    <div class="footer-copy">
+      <span>© 2023-24 CollegeERP · Maa Maturani Devi Pharmacy College</span>
+      <span style="display:flex; gap:16px;">👤 Principal Dashboard | ERP v2.1</span>
+    </div>
+  </main>
+</div>
+
+<!-- ========== SCRIPT: SIDEBAR NAVIGATION + GO BUTTON ========== -->
+<script>
+  (function() {
+    "use strict";
+
+    // Sidebar navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const views = document.querySelectorAll('.view');
+
+    function activateView(viewId) {
+      views.forEach(v => v.classList.remove('active-view'));
+      const activeView = document.getElementById(viewId);
+      if (activeView) activeView.classList.add('active-view');
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        navItems.forEach(nav => nav.classList.remove('active'));
+        this.classList.add('active');
+        const viewId = this.getAttribute('data-view');
+        if (viewId) activateView(viewId);
+      });
+    });
+
+    // GO button functionality
+    const goBtn = document.getElementById('goBtn');
+    if (goBtn) {
+      goBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('🚀 GO clicked · Principal dashboard · Session 2023-24');
+      });
+    }
+
+  })();
+</script>
+
+<!-- additional style for form controls (if missing) -->
+<style>
+  .form-control {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #cbd6e2;
+    border-radius: 30px;
+    font-size: 1rem;
+    background: white;
+  }
+  .btn-primary {
+    background: #1e4a6b;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  .btn-primary:hover {
+    background: #0e3d5e;
+  }
+</style>
+
+<!-- 
+  ===== COMPLETE PRINCIPAL DASHBOARD =====
+  - Sidebar with principal-specific navigation (Dashboard, Students, Faculty, etc.)
+  - Main dashboard shows stats, fee collection, attendance trend, recent notices, transactions
+  - All sidebar views are functional and display relevant dummy content
+  - College name "Maa Maturani Devi Pharmacy College" used throughout
+  - GO button interactive, all demo buttons show alerts
+  - Fully responsive and polished
+-->
+
+</body>
+</html>

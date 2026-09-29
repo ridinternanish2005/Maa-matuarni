@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <title>Faculty Dashboard · Maa Maturani Devi Pharmacy College</title>
+  <!-- Google Font & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- GLOBAL ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #e9ecf1;
+      color: #1a2639;
+      line-height: 1.5;
+    }
+
+    /* ----- DASHBOARD LAYOUT: SIDEBAR + MAIN ----- */
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1600px;
+      margin: 0 auto;
+      background: #f8fafd;
+      box-shadow: 0 0 30px rgba(0,0,0,0.03);
+    }
+
+    /* ---------- SIDEBAR – FACULTY NAVIGATION (Maa Maturani Devi) ---------- */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #0a2a3f 0%, #0d344b 100%);
+      color: #e7f0f9;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 28px 18px;
+      box-shadow: 4px 0 18px rgba(0,20,40,0.08);
+    }
+
+    .sidebar-header {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #2e4e64;
+      margin-bottom: 20px;
+    }
+
+    .erp-code-big {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .erp-session-badge {
+      display: inline-block;
+      background: #1e4f6b;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: white;
+      margin-top: 8px;
+      border: 1px solid #3d7e9a;
+    }
+
+    .nav-caption {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: #9bbad0;
+      margin-bottom: 16px;
+    }
+
+    .faculty-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 500;
+      color: #cbdbe8;
+      transition: all 0.18s;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .nav-item i {
+      width: 24px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #aac7db;
+    }
+
+    .nav-item.active {
+      background: #1e4f6b;
+      color: white;
+      box-shadow: 0 6px 12px rgba(0,30,50,0.25);
+    }
+
+    .nav-item.active i {
+      color: white;
+    }
+
+    .nav-item:not(.active):hover {
+      background: #1f4459;
+      color: white;
+    }
+
+    .sidebar-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #2e4e64;
+      font-size: 0.8rem;
+      color: #adc4d6;
+    }
+
+    /* ---------- MAIN CONTENT (persistent header + dynamic view) ---------- */
+    .main-content {
+      flex: 1;
+      padding: 28px 32px;
+      background: #f4f7fc;
+      overflow-x: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Persistent header */
+    .erp-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .erp-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #0b2f4e;
+    }
+
+    .erp-code-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      background: #f0f4fa;
+      padding: 8px 18px;
+      border-radius: 40px;
+    }
+
+    .erp-code {
+      font-weight: 600;
+      color: #1e3b5a;
+    }
+
+    .erp-session {
+      background: #2c3e50;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #goBtn {
+      background: #0066cc;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 4px 18px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid #ffffff30;
+      letter-spacing: 0.5px;
+    }
+
+    #goBtn:hover {
+      background: #004c99;
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,80,150,0.2);
+    }
+
+    /* Dynamic content views */
+    .view {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .view.active-view {
+      display: block;
+    }
+
+    /* ----- FACULTY DASHBOARD STYLES ----- */
+    .page-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin: 20px 0 12px 0;
+      color: #0b2f4e;
+      border-left: 8px solid #2a7faa;
+      padding-left: 18px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin: 28px 0 32px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px 16px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+      border: 1px solid #e9edf4;
+      transition: 0.1s;
+    }
+
+    .stat-card:hover {
+      border-color: #b0c8da;
+      background: #fbfdff;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      color: #4a657d;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0e3b5c;
+      line-height: 1;
+      margin-top: 8px;
+    }
+
+    .stat-sub {
+      font-size: 0.9rem;
+      color: #3f6983;
+      margin-top: 6px;
+    }
+
+    .row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .row-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid #e2eaf1;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.02);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1e3b5a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      background: #eef3f9;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #004d7c;
+    }
+
+    .badge-success {
+      background: #dff0d8;
+      color: #2e6b3e;
+    }
+
+    .course-item {
+      padding: 14px 0;
+      border-bottom: 1px solid #edf2f7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-item:last-child {
+      border-bottom: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e4a6b;
+      color: #1e4a6b;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-outline:hover {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .btn-primary {
+      background: #1e4a6b;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #0e3d5e;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin: 18px 0 10px;
+      border-radius: 16px;
+      border: 1px solid #dfe6ed;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #eef3f9;
+      font-weight: 600;
+      color: #1f3a57;
+      padding: 14px 12px;
+      white-space: nowrap;
+      border-bottom: 2px solid #cbd6e2;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e3eaf0;
+    }
+
+    .footer-copy {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 2px solid #dce3ec;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #4e627c;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #cbd6e2;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      background: white;
+    }
+
+    .attendance-select {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid #b0c8da;
+      background: white;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-wrapper { flex-direction: column; }
+      .sidebar { width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .row-2col, .row-3col { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 550px) {
+      .main-content { padding: 20px 16px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .erp-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard-wrapper">
+  <!-- ========== SIDEBAR – FACULTY NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="erp-code-big">34987 (2023-24)</div>
+      <span class="erp-session-badge">2023-24</span>
+    </div>
+    <div class="nav-caption">FACULTY PANEL</div>
+    <div class="faculty-nav">
+      <div class="nav-item active" data-view="dashboardView">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-view="myCoursesView">
+        <i class="fas fa-book-open"></i>
+        <span>My Courses</span>
+      </div>
+      <div class="nav-item" data-view="markAttendanceView">
+        <i class="fas fa-calendar-check"></i>
+        <span>Mark Attendance</span>
+      </div>
+      <div class="nav-item" data-view="uploadMarksView">
+        <i class="fas fa-edit"></i>
+        <span>Upload Marks</span>
+      </div>
+      <div class="nav-item" data-view="studentListView">
+        <i class="fas fa-users"></i>
+        <span>Student List</span>
+      </div>
+      <div class="nav-item" data-view="timetableView">
+        <i class="fas fa-clock"></i>
+        <span>Time Table</span>
+      </div>
+      <div class="nav-item" data-view="leaveView">
+        <i class="fas fa-umbrella-beach"></i>
+        <span>Leave Application</span>
+      </div>
+      <div class="nav-item" data-view="noticesView">
+        <i class="fas fa-bullhorn"></i>
+        <span>Notices</span>
+      </div>
+      <div class="nav-item" data-view="changePwdView">
+        <i class="fas fa-key"></i>
+        <span>Change Password</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+        <i class="fas fa-chalkboard-teacher" style="font-size:1.2rem;"></i>
+        <span style="font-weight:500;">Dr. Alka Verma • Faculty</span>
+      </div>
+      <div style="font-size:0.75rem; opacity:0.8;">
+        <i class="far fa-copyright"></i> Maa Maturani Devi Pharmacy College
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main-content">
+    <!-- Persistent Header -->
+    <div class="erp-header">
+      <div class="erp-title">CollegeERP</div>
+      <div class="erp-code-area">
+        <span class="erp-code">34987 (2023-24)</span>
+        <span class="erp-session">
+          2023-24
+          <button id="goBtn">GO</button>
+        </span>
+      </div>
+    </div>
+
+    <!-- ===== FACULTY DYNAMIC VIEWS ===== -->
+    <!-- 1. DASHBOARD VIEW (faculty overview) -->
+    <div id="dashboardView" class="view active-view">
+      <div class="page-title">Faculty Dashboard</div>
+      
+      <!-- Key Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">My Courses</div>
+          <div class="stat-number">4</div>
+          <div class="stat-sub">This semester</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Students</div>
+          <div class="stat-number">187</div>
+          <div class="stat-sub">Across all courses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Today's Classes</div>
+          <div class="stat-number">3</div>
+          <div class="stat-sub">Next: Pharmaceutics (10AM)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pending Tasks</div>
+          <div class="stat-number">2</div>
+          <div class="stat-sub">Marks upload, leave request</div>
+        </div>
+      </div>
+
+      <!-- Two column: My Courses & Upcoming Schedule -->
+      <div class="row-2col">
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-book-open" style="color:#1e4f6b;"></i> My Assigned Courses
+          </div>
+          <div class="course-item">
+            <div><strong>Pharmaceutics I</strong> (BPH 301)</div>
+            <div><span class="badge">B.Pharm III Sem</span> <span style="margin-left:10px;">56 students</span></div>
+          </div>
+          <div class="course-item">
+            <div><strong>Pharmacology</strong> (BPH 402)</div>
+            <div><span class="badge">B.Pharm IV Sem</span> <span style="margin-left:10px;">48 students</span></div>
+          </div>
+          <div class="course-item">
+            <div><strong>Hospital Pharmacy</strong> (PHD 201)</div>
+            <div><span class="badge">Pharm.D II Sem</span> <span style="margin-left:10px;">32 students</span></div>
+          </div>
+          <div class="course-item">
+            <div><strong>Pharmaceutical Analysis</strong> (MPH 104)</div>
+            <div><span class="badge">M.Pharm I Sem</span> <span style="margin-left:10px;">21 students</span></div>
+          </div>
+          <button class="btn-outline" style="margin-top:16px; width:100%;" onclick="alert('View all courses (demo)')">
+            View Details <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-calendar-alt" style="color:#1e4f6b;"></i> Today's Schedule
+          </div>
+          <div style="background:#eef6fb; padding:14px; border-radius:14px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span><i class="fas fa-clock"></i> 10:00 - 11:00</span>
+              <span class="badge badge-success">Pharmaceutics I</span>
+            </div>
+            <div style="margin-top:6px;">Room 203, B.Pharm III Sem</div>
+          </div>
+          <div style="background:#eef6fb; padding:14px; border-radius:14px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span><i class="fas fa-clock"></i> 11:30 - 12:30</span>
+              <span class="badge">Pharmacology</span>
+            </div>
+            <div style="margin-top:6px;">Room 105, B.Pharm IV Sem</div>
+          </div>
+          <div style="background:#eef6fb; padding:14px; border-radius:14px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span><i class="fas fa-clock"></i> 02:00 - 03:00</span>
+              <span class="badge">Hospital Pharmacy</span>
+            </div>
+            <div style="margin-top:6px;">Lab 1, Pharm.D II Sem</div>
+          </div>
+          <div style="margin-top:20px;">
+            <span class="badge">Next: Pharmaceutics in 45 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity & Pending -->
+      <div class="row-2col" style="margin-top:20px;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-history"></i> Recent Activity</div>
+          <div class="course-item">✅ Attendance marked for Pharmaceutics (15 Feb)</div>
+          <div class="course-item">✅ Uploaded internal marks - Pharmacology (14 Feb)</div>
+          <div class="course-item">⏳ Leave application pending approval (13 Feb)</div>
+          <div class="course-item">📌 Noticed: Faculty meeting on 18 Feb</div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-bell"></i> Quick Actions</div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <button class="btn-primary" onclick="alert('Mark attendance (demo)')"><i class="fas fa-calendar-check"></i> Mark Attendance</button>
+            <button class="btn-outline" onclick="alert('Upload marks (demo)')"><i class="fas fa-upload"></i> Upload Marks</button>
+            <button class="btn-outline" onclick="alert('View student list (demo)')"><i class="fas fa-users"></i> Student List</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. MY COURSES VIEW -->
+    <div id="myCoursesView" class="view">
+      <div class="page-title">My Courses (2023-24)</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">B.Pharm</div><div class="stat-number">2</div></div>
+        <div class="stat-card"><div class="stat-label">M.Pharm</div><div class="stat-number">1</div></div>
+        <div class="stat-card"><div class="stat-label">Pharm.D</div><div class="stat-number">1</div></div>
+        <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-number">157</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Course Details & Syllabus</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Course Code</th><th>Course Name</th><th>Program</th><th>Semester</th><th>Students</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>BPH301</td><td>Pharmaceutics I</td><td>B.Pharm</td><td>III</td><td>56</td><td><button class="btn-outline" style="padding:4px 14px;" onclick="alert('View syllabus (demo)')">Syllabus</button></td></tr>
+              <tr><td>BPH402</td><td>Pharmacology</td><td>B.Pharm</td><td>IV</td><td>48</td><td><button class="btn-outline" style="padding:4px 14px;" onclick="alert('View syllabus (demo)')">Syllabus</button></td></tr>
+              <tr><td>PHD201</td><td>Hospital Pharmacy</td><td>Pharm.D</td><td>II</td><td>32</td><td><button class="btn-outline" style="padding:4px 14px;" onclick="alert('View syllabus (demo)')">Syllabus</button></td></tr>
+              <tr><td>MPH104</td><td>Pharmaceutical Analysis</td><td>M.Pharm</td><td>I</td><td>21</td><td><button class="btn-outline" style="padding:4px 14px;" onclick="alert('View syllabus (demo)')">Syllabus</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. MARK ATTENDANCE VIEW -->
+    <div id="markAttendanceView" class="view">
+      <div class="page-title">Mark Attendance</div>
+      <div class="row-2col">
+        <div class="card">
+          <div class="card-title">Select Course & Date</div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600; display:block; margin-bottom:6px;">Course</label>
+            <select class="form-control">
+              <option>Pharmaceutics I (BPH301) - B.Pharm III</option>
+              <option>Pharmacology (BPH402) - B.Pharm IV</option>
+              <option>Hospital Pharmacy (PHD201) - Pharm.D II</option>
+              <option>Pharmaceutical Analysis (MPH104) - M.Pharm I</option>
+            </select>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600; display:block; margin-bottom:6px;">Date</label>
+            <input type="date" class="form-control" value="2026-02-16">
+          </div>
+          <button class="btn-primary" onclick="alert('Load student list (demo)')">Load Students</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Today's Attendance Summary</div>
+          <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span>Total Students:</span>
+              <span><strong>56</strong></span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span>Present:</span>
+              <span><strong>48</strong> (85.7%)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span>Absent:</span>
+              <span><strong>8</strong> (14.3%)</span>
+            </div>
+          </div>
+          <div class="fee-progress" style="background:#eaeef3; height:12px; border-radius:20px; margin:8px 0;">
+            <div style="width:85.7%; height:12px; background:#1e4f6b; border-radius:20px;"></div>
+          </div>
+          <button class="btn-outline" style="margin-top:16px;" onclick="alert('Save attendance (demo)')">Save Attendance</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:24px;">
+        <div class="card-title">Student Attendance List</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Roll No</th><th>Student Name</th><th>Status</th><th>Mark</th></tr></thead>
+            <tbody>
+              <tr><td>PHT30101</td><td>Aarav Sharma</td><td>Present</td><td><select class="attendance-select"><option selected>Present</option><option>Absent</option><option>Leave</option></select></td></tr>
+              <tr><td>PHT30102</td><td>Isha Patel</td><td>Present</td><td><select class="attendance-select"><option selected>Present</option><option>Absent</option></select></td></tr>
+              <tr><td>PHT30103</td><td>Rohan Verma</td><td>Absent</td><td><select class="attendance-select"><option>Present</option><option selected>Absent</option></select></td></tr>
+              <tr><td>PHT30104</td><td>Priya Singh</td><td>Present</td><td><select class="attendance-select"><option selected>Present</option><option>Absent</option></select></td></tr>
+              <tr><td>PHT30105</td><td>Ankit Yadav</td><td>Leave</td><td><select class="attendance-select"><option>Present</option><option>Absent</option><option selected>Leave</option></select></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:20px; text-align:right;">
+          <button class="btn-primary" onclick="alert('Attendance submitted (demo)')">Submit Attendance</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. UPLOAD MARKS VIEW -->
+    <div id="uploadMarksView" class="view">
+      <div class="page-title">Upload Marks / Grades</div>
+      <div class="row-2col">
+        <div class="card">
+          <div class="card-title">Select Assessment</div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">Course</label>
+            <select class="form-control">
+              <option>Pharmacology (BPH402) - Internal I</option>
+              <option>Pharmaceutics I (BPH301) - Internal II</option>
+              <option>Hospital Pharmacy (PHD201) - Assignment</option>
+            </select>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">Max Marks</label>
+            <input type="number" class="form-control" value="30">
+          </div>
+          <button class="btn-primary" onclick="alert('Load students for marks entry (demo)')">Load Students</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Upload Instructions</div>
+          <p style="margin-bottom:12px;">• Enter marks for each student.</p>
+          <p style="margin-bottom:12px;">• You can also upload a CSV file.</p>
+          <button class="btn-outline" onclick="alert('Download CSV template (demo)')"><i class="fas fa-download"></i> Download Template</button>
+          <button class="btn-outline" style="margin-left:12px;" onclick="alert('Upload CSV (demo)')"><i class="fas fa-upload"></i> Upload CSV</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:24px;">
+        <div class="card-title">Marks Entry</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Roll No</th><th>Student Name</th><th>Marks (0-30)</th><th>Remarks</th></tr></thead>
+            <tbody>
+              <tr><td>PHT40221</td><td>Neha Gupta</td><td><input type="number" class="form-control" value="27" style="width:80px;"></td><td><input type="text" class="form-control" placeholder="Optional" style="width:140px;"></td></tr>
+              <tr><td>PHT40222</td><td>Rahul Jain</td><td><input type="number" class="form-control" value="24" style="width:80px;"></td><td><input type="text" class="form-control" placeholder="Optional" style="width:140px;"></td></tr>
+              <tr><td>PHT40223</td><td>Simran Kaur</td><td><input type="number" class="form-control" value="29" style="width:80px;"></td><td><input type="text" class="form-control" placeholder="Optional" style="width:140px;"></td></tr>
+              <tr><td>PHT40224</td><td>Anjali Mishra</td><td><input type="number" class="form-control" value="18" style="width:80px;"></td><td><input type="text" class="form-control" placeholder="Optional" style="width:140px;"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:20px; display:flex; gap:16px; justify-content:flex-end;">
+          <button class="btn-outline" onclick="alert('Save as draft (demo)')">Save Draft</button>
+          <button class="btn-primary" onclick="alert('Marks published (demo)')">Publish Marks</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. STUDENT LIST VIEW -->
+    <div id="studentListView" class="view">
+      <div class="page-title">Student List (Course-wise)</div>
+      <div class="card">
+        <div class="card-title">Filter by Course</div>
+        <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+          <select class="form-control" style="width:auto; min-width:200px;">
+            <option>Pharmaceutics I (BPH301) - 56 students</option>
+            <option>Pharmacology (BPH402) - 48 students</option>
+            <option>Hospital Pharmacy (PHD201) - 32 students</option>
+            <option>Pharmaceutical Analysis (MPH104) - 21 students</option>
+          </select>
+          <button class="btn-primary" onclick="alert('Export list (demo)')"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Roll No</th><th>Name</th><th>Program</th><th>Semester</th><th>Email</th><th>Contact</th></tr></thead>
+            <tbody>
+              <tr><td>PHT30101</td><td>Aarav Sharma</td><td>B.Pharm</td><td>III</td><td>aarav.s@mmdpharma.edu</td><td>9876543210</td></tr>
+              <tr><td>PHT30102</td><td>Isha Patel</td><td>B.Pharm</td><td>III</td><td>isha.p@mmdpharma.edu</td><td>9876543211</td></tr>
+              <tr><td>PHT30103</td><td>Rohan Verma</td><td>B.Pharm</td><td>III</td><td>rohan.v@mmdpharma.edu</td><td>9876543212</td></tr>
+              <tr><td>PHT30104</td><td>Priya Singh</td><td>B.Pharm</td><td>III</td><td>priya.s@mmdpharma.edu</td><td>9876543213</td></tr>
+              <tr><td>PHT30105</td><td>Ankit Yadav</td><td>B.Pharm</td><td>III</td><td>ankit.y@mmdpharma.edu</td><td>9876543214</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TIME TABLE VIEW -->
+    <div id="timetableView" class="view">
+      <div class="page-title">Faculty Time Table</div>
+      <div class="card">
+        <div class="card-title">Weekly Schedule</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Day</th><th>08-09</th><th>09-10</th><th>10-11</th><th>11-12</th><th>12-01</th><th>02-03</th><th>03-04</th></tr></thead>
+            <tbody>
+              <tr><td>Monday</td><td>-</td><td>-</td><td>Pharmaceutics</td><td>Pharmacology</td><td>Break</td><td>Hospital Pharmacy</td><td>-</td></tr>
+              <tr><td>Tuesday</td><td>Pharm Analysis</td><td>-</td><td>Pharmaceutics</td><td>-</td><td>Break</td><td>Pharmacology</td><td>-</td></tr>
+              <tr><td>Wednesday</td><td>-</td><td>Pharm Analysis</td><td>-</td><td>Pharmacology</td><td>Break</td><td>Hospital Pharmacy</td><td>-</td></tr>
+              <tr><td>Thursday</td><td>Pharmaceutics</td><td>-</td><td>Pharm Analysis</td><td>-</td><td>Break</td><td>Pharmacology</td><td>-</td></tr>
+              <tr><td>Friday</td><td>-</td><td>Hospital Pharmacy</td><td>-</td><td>Pharmaceutics</td><td>Break</td><td>-</td><td>Pharm Analysis</td></tr>
+              <tr><td>Saturday</td><td colspan="7" style="text-align:center;">Self Study / Lab work</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. LEAVE APPLICATION VIEW -->
+    <div id="leaveView" class="view">
+      <div class="page-title">Leave Application</div>
+      <div class="row-2col">
+        <div class="card">
+          <div class="card-title">Apply for Leave</div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">Leave Type</label>
+            <select class="form-control">
+              <option>Casual Leave</option>
+              <option>Sick Leave</option>
+              <option>Earned Leave</option>
+              <option>On Duty</option>
+            </select>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">From Date</label>
+            <input type="date" class="form-control" value="2026-02-20">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">To Date</label>
+            <input type="date" class="form-control" value="2026-02-21">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-weight:600;">Reason</label>
+            <textarea class="form-control" rows="3" placeholder="Enter reason..."></textarea>
+          </div>
+          <button class="btn-primary" onclick="alert('Leave application submitted (demo)')">Submit Application</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Leave Balance & History</div>
+          <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between;">
+              <span>Casual Leave:</span>
+              <span><strong>6/12</strong> remaining</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span>Sick Leave:</span>
+              <span><strong>4/8</strong> remaining</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px;">
+              <span>Earned Leave:</span>
+              <span><strong>10/15</strong> remaining</span>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <div style="font-weight:600; margin-bottom:8px;">Recent Applications</div>
+            <div style="background:#f8fbfe; padding:12px; border-radius:12px; margin-bottom:8px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span>14 Feb 2026</span>
+                <span class="badge badge-success">Approved</span>
+              </div>
+              <div style="font-size:0.85rem;">Casual Leave (1 day)</div>
+            </div>
+            <div style="background:#f8fbfe; padding:12px; border-radius:12px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span>02 Feb 2026</span>
+                <span class="badge">Pending</span>
+              </div>
+              <div style="font-size:0.85rem;">Sick Leave (2 days)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. NOTICES VIEW -->
+    <div id="noticesView" class="view">
+      <div class="page-title">Institute Notices</div>
+      <div class="card">
+        <div class="card-title">All Announcements</div>
+        <div class="notice-item" style="padding:16px; border-bottom:1px solid #edf2f7;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>📢 Faculty meeting on 18 Feb at 11 AM</strong>
+            <span class="badge">16 Feb 2026</span>
+          </div>
+          <div>Conference Hall - Agenda: Exam duty allocation</div>
+        </div>
+        <div class="notice-item" style="padding:16px; border-bottom:1px solid #edf2f7;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>📢 Internal assessment submission deadline</strong>
+            <span class="badge">15 Feb 2026</span>
+          </div>
+          <div>All faculty must upload internal marks by 20 Feb</div>
+        </div>
+        <div class="notice-item" style="padding:16px; border-bottom:1px solid #edf2f7;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>📢 Guest lecture on Clinical Trials</strong>
+            <span class="badge">14 Feb 2026</span>
+          </div>
+          <div>21 Feb 2026, 10 AM, Auditorium</div>
+        </div>
+        <div class="notice-item" style="padding:16px;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>📢 Holiday on 26 Feb (Mahashivratri)</strong>
+            <span class="badge">12 Feb 2026</span>
+          </div>
+          <div>College will remain closed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. CHANGE PASSWORD VIEW -->
+    <div id="changePwdView" class="view">
+      <div class="page-title">Change Password</div>
+      <div class="card" style="max-width:500px;">
+        <div class="form-group" style="margin-bottom:16px;">
+          <label style="font-weight:600;">Current Password</label>
+          <input type="password" class="form-control" placeholder="Enter current password">
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label style="font-weight:600;">New Password</label>
+          <input type="password" class="form-control" placeholder="Enter new password">
+        </div>
+        <div class="form-group" style="margin-bottom:24px;">
+          <label style="font-weight:600;">Confirm Password</label>
+          <input type="password" class="form-control" placeholder="Re-enter new password">
+        </div>
+        <button class="btn-primary" onclick="alert('Password changed successfully (demo)')">Update Password</button>
+      </div>
+    </div>
+
+   
+  </main>
+</div>
+
+<!-- ========== SCRIPT: SIDEBAR NAVIGATION + GO BUTTON ========== -->
+<script>
+  (function() {
+    "use strict";
+
+    // Sidebar navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const views = document.querySelectorAll('.view');
+
+    function activateView(viewId) {
+      views.forEach(v => v.classList.remove('active-view'));
+      const activeView = document.getElementById(viewId);
+      if (activeView) activeView.classList.add('active-view');
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        navItems.forEach(nav => nav.classList.remove('active'));
+        this.classList.add('active');
+        const viewId = this.getAttribute('data-view');
+        if (viewId) activateView(viewId);
+      });
+    });
+
+    // GO button functionality
+    const goBtn = document.getElementById('goBtn');
+    if (goBtn) {
+      goBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('🚀 GO clicked · Faculty dashboard · Session 2023-24');
+      });
+    }
+
+  })();
+</script>
+
+<!-- 
+  ===== COMPLETE FACULTY DASHBOARD =====
+  - Sidebar with faculty-specific navigation (My Courses, Mark Attendance, Upload Marks, etc.)
+  - Main dashboard shows courses, schedule, stats, quick actions
+  - All sidebar views are functional and display relevant dummy data for faculty
+  - College name "Maa Maturani Devi Pharmacy College" used throughout
+  - GO button interactive, all buttons show demo alerts
+  - Fully responsive, clean, and professional
+-->
+  
+</body>
+</html>

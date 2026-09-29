@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MSD Public School</title>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- <link rel="stylesheet" href="/school/css/contactschool.css"> -->
+     <link rel="stylesheet" href="/school/css/contactschool.css">
+    
+</head>
+<body>
+<%- include("partials/navbar.ejs") %>
+<!-- Contact Header -->
+<section class="contact-header">
+    <div class="container">
+        <h1><i class="fas fa-envelope-open-text"></i> Contact Us</h1>
+        <p>We'd love to hear from you! Get in touch with us for any queries or feedback.</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Contact Info Cards -->
+    <div class="contact-info-section">
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Phone Number</h3>
+                <p>+91-8005993415</p>
+                <p>+91-9876543210</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Address</h3>
+                <p>info@msdpublicschool.com</p>
+                <p>admission@msdpublicschool.com</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Our Location</h3>
+                <p>MSD Public School, Main Road, New Delhi - 110001</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contact Form & Map -->
+    <div class="contact-wrapper">
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2><i class="fas fa-paper-plane"></i> Send us a Message</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+            
+            <form id="contactForm" onsubmit="return submitContactForm(event)">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Full Name *" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email Address *" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Your Phone Number">
+                </div>
+                
+                <div class="form-group">
+                    <select id="subject">
+                        <option value="">Select Subject *</option>
+                        <option>Admission Inquiry</option>
+                        <option>Fee Related</option>
+                        <option>General Query</option>
+                        <option>Feedback/Suggestion</option>
+                        <option>Complaint</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="message" rows="5" placeholder="Your Message *" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+        
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2><i class="fas fa-map-marked-alt"></i> Find Us Here</h2>
+            <div class="map-container">
+               <iframe 
+    src="https://www.google.com/maps?q=Chandadih,Ballia,221715&output=embed"
+    width="100%" 
+    height="300" 
+    style="border:0;"
+    allowfullscreen="" 
+    loading="lazy">
+</iframe>
+            </div>
+            <div class="address-details">
+                <div class="address-item">
+                    <i class="fas fa-location-dot"></i>
+                    <p><strong>MSD Public School</strong><br>chandadih road, Near City Center, chandadih - 221715</p>
+                </div>
+                <div class="address-item">
+                    <i class="fas fa-bus"></i>
+                    <p><strong>Nearest  chati</strong> maldha (4km)</p>
+                </div>
+                <div class="address-item">
+                    <i class="fas fa-taxi"></i>
+                    <p><strong>Landmark:</strong> Near City Belthara Road</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Office Hours -->
+    <div class="office-hours">
+        <h2><i class="fas fa-clock"></i> Office Hours</h2>
+        <div class="hours-grid">
+            <div class="hour-item">
+                <i class="fas fa-calendar-day"></i>
+                <h4>Monday - Friday</h4>
+                <p>8:00 AM - 4:00 PM</p>
+            </div>
+            <div class="hour-item">
+                <i class="fas fa-calendar-week"></i>
+                <h4>Saturday</h4>
+                <p>9:00 AM - 2:00 PM</p>
+            </div>
+            <div class="hour-item">
+                <i class="fas fa-calendar-times"></i>
+                <h4>Sunday</h4>
+                <p>Closed</p>
+            </div>
+            <div class="hour-item">
+                <i class="fas fa-phone-alt"></i>
+                <h4>Helpline</h4>
+                <p>24/7 Available</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/contact"></script>
+
+
+<%-include("partials/footer.ejs") %>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>MSD Public School | Responsive Navbar with Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/school/css/nav.css">
+    
+   
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="container flex">
+        <div class="contact-info">
+            <span><i class="fas fa-phone-alt"></i> +91-8005993415</span>
+            <span><i class="fas fa-envelope"></i> info@msdpublicschool.com</span>
+        </div>
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </div>
+</div>
+
+<nav id="navbar">
+    <div class="container nav-flex">
+        <div class="logo">
+            <img class="school-logo" src="image.png" alt="MSD Public School Logo" 
+                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'95\' fill=\'%23fff8ed\' stroke=\'%23f97316\' stroke-width=\'5\'/%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'85\' fill=\'%23fef3c7\' stroke=\'%23f97316\' stroke-width=\'2\'/%3E%3Cpath fill=\'%23ea580c\' d=\'M100 45L65 70v40l35 20 35-20V70L100 45z\'/%3E%3Ctext x=\'100\' y=\'118\' font-size=\'52\' text-anchor=\'middle\' fill=\'%23ffffff\' font-weight=\'800\' font-family=\'Arial\'%3EMS%3C/text%3E%3Ctext x=\'100\' y=\'155\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23f97316\' font-weight=\'700\'%3ED%3C/text%3E%3C/svg%3E';">
+        </div>
+        
+        <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <div class="close-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-times"></i>
+            </div>
+          
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle">
+                    <i class="fas fa-info-circle"></i> About 
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/school/about"><i class="fas fa-building"></i> About School</a></li>
+                    <li><a href="/school/director"><i class="fas fa-user-tie"></i> Director's Desk</a></li>
+                    <li><a href="/school/principal"><i class="fas fa-chalkboard-user"></i> Principal's Desk</a></li>
+                    <li><a href="/school/infrastructure"><i class="fas fa-dharmachakra"></i> Infrastructure</a></li>
+                </ul>
+            </li>
+            <li><a href="/school/admission"><i class="fas fa-graduation-cap"></i> Admission</a></li>
+            <li><a href="/school/galleary"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="/school/activities"><i class="fas fa-futbol"></i> Activities</a></li>
+            <li><a href="/school/feedback"><i class="fas fa-comment-dots"></i> Feedback</a></li>
+            <li><a href="/school/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="/school/admission"><i class="fas fa-pen-alt"></i> Apply Now</a></li>
+        
+        </ul>
+    </div>
+</nav>
+
+<div id="menuOverlay" class="nav-overlay" onclick="toggleMenu()"></div>
+
+
+
+<script>
+    (function() {
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('menuOverlay');
+        
+        window.toggleMenu = function() {
+            if (!navLinks) return;
+            const isActive = navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            if (!isActive) {
+                document.querySelectorAll('.dropdown.active-drop').forEach(d => d.classList.remove('active-drop'));
+            }
+        };
+
+        // When a menu link is clicked (except dropdown toggles on mobile), close menu and navigate
+        document.querySelectorAll('#navLinks li a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const parentDrop = link.closest('.dropdown');
+                const isMobile = window.innerWidth <= 980;
+                // If it's a dropdown toggle on mobile, just toggle the submenu
+                if (parentDrop && isMobile && link.classList.contains('dropdown-toggle')) {
+                    e.preventDefault();
+                    parentDrop.classList.toggle('active-drop');
+                    return;
+                }
+                // For normal links: allow navigation (href will work)
+                // If menu is open on mobile, close it
+              if (navLinks.classList.contains('active')) {
+    setTimeout(() => {
+        window.toggleMenu();
+    }, 100);
+}
+                // The link will navigate naturally because we didn't call preventDefault()
+                // (except for dropdown-toggle which we handled)
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 980 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            handleMobileDropdowns();
+        });
+
+        function handleMobileDropdowns() {
+            const isMobile = window.innerWidth <= 980;
+            document.querySelectorAll('.dropdown').forEach(drop => {
+                const toggle = drop.querySelector('.dropdown-toggle');
+                if (!toggle) return;
+                const newToggle = toggle.cloneNode(true);
+                toggle.parentNode.replaceChild(newToggle, toggle);
+                const updatedDrop = newToggle.closest('.dropdown');
+                if (isMobile) {
+                    newToggle.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        document.querySelectorAll('.dropdown.active-drop').forEach(d => {
+                            if (d !== updatedDrop) d.classList.remove('active-drop');
+                        });
+                        updatedDrop.classList.toggle('active-drop');
+                    });
+                } else {
+                    updatedDrop.classList.remove('active-drop');
+                    newToggle.addEventListener('click', (e) => e.preventDefault());
+                }
+            });
+        }
+
+        // Scroll shadow effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Close menu on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) window.toggleMenu();
+        });
+
+        handleMobileDropdowns();
+        console.log("✅ Navbar ready – toggle button has no blue/black effect, and menu items navigate to other pages.");
+    })();
+    window.toggleMenu = function () {
+    const isActive = navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+
+    document.body.style.overflow = isActive ? 'hidden' : '';
+
+    const swiper = document.querySelector('.swiper');
+    if (swiper) {
+        swiper.style.pointerEvents = isActive ? 'none' : 'auto';
+    }
+};
+</script>
+
+</body>
+</html>
