@@ -44,6 +44,8 @@ import erpStudentNoticeRoutes from "./routes/erpStudentNoticeRoutes.js";
 import erpTimetableAdminRoutes from "./routes/erpTimetableAdminRoutes.js";
 import erpStudentTimetableRoutes from "./routes/erpStudentTimetableRoutes.js";
 
+
+
 // DNS
 dns.setServers([
   "8.8.8.8",
@@ -99,13 +101,21 @@ app.use(
 
 
 // Session Store
+// Session Store
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI is missing");
+}
+
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET is missing");
+}
+
 const sessionStore = MongoStore.create({
   mongoUrl: process.env.MONGO_URI,
   collectionName: "erp_sessions",
   ttl: 60 * 60 * 8,
   autoRemove: "native"
 });
-
 
 // Session
 app.use(
@@ -156,7 +166,7 @@ app.use("/api/admissions", admissionRoutes);
 app.use("/admin", adminRoutes);  //admin routes
 app.use("/admin/users", adminUserRoutes);
 app.use("/erp", erpRoutes);
-app.use("/erp/students", erpStudentRoutes);
+
 
 app.use("/erp/students", erpStudentRoutes);
 app.use("/erp/students", erpStudentAttendanceRoutes);
