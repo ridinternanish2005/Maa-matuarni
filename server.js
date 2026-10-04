@@ -44,8 +44,28 @@ import erpStudentNoticeRoutes from "./routes/erpStudentNoticeRoutes.js";
 import erpTimetableAdminRoutes from "./routes/erpTimetableAdminRoutes.js";
 import erpStudentTimetableRoutes from "./routes/erpStudentTimetableRoutes.js";
 
+import erpAssignmentAdminRoutes from "./routes/erpAssignmentAdminRoutes.js";
+import erpStudentAssignmentRoutes from "./routes/erpStudentAssignmentRoutes.js";
 
 
+
+import erpFacultyAttendanceRoutes
+  from "./routes/erpFacultyAttendanceRoutes.js";
+import erpFacultyAdminRoutes
+  from "./routes/erpFacultyAdminRoutes.js";
+
+import erpFacultyRoutes
+  from "./routes/erpFacultyRoutes.js";
+
+import erpFacultyMarksRoutes
+  from "./routes/erpFacultyMarksRoutes.js";
+
+import questionPaperRoutes
+  from "./routes/questionPaperRoutes.js";
+
+  import libraryRoutes
+  from "./routes/libraryRoutes.js";
+  ///////////////////////////////////////////////////////////
 // DNS
 dns.setServers([
   "8.8.8.8",
@@ -183,6 +203,10 @@ app.use("/erp/students", erpStudentNoticeRoutes);
 app.use("/erp", erpTimetableAdminRoutes);
 app.use("/erp/students", erpStudentTimetableRoutes);
 
+app.use("/erp", erpAssignmentAdminRoutes);
+
+app.use("/erp/students", erpStudentAssignmentRoutes);
+
 app.use(
   "/erp",
   erpResultAdminRoutes
@@ -193,6 +217,46 @@ app.use(
   erpStudentResultRoutes
 );
 
+
+
+app.use(
+  "/erp",
+  erpFacultyAdminRoutes
+);
+
+app.use(
+  "/erp/faculty",
+  erpFacultyRoutes
+);
+
+
+app.use(
+  "/erp/faculty",
+  erpFacultyAttendanceRoutes
+);
+
+
+app.use(
+  "/erp/faculty",
+  erpFacultyMarksRoutes
+);
+
+app.use(
+  "/erp",
+  questionPaperRoutes
+);
+
+
+app.use(
+  "/erp",
+  questionPaperRoutes
+);
+
+app.use(
+  "/erp",
+  libraryRoutes
+);
+///////////////////////////////////////////////////////////////////
 // Health Check
 app.get("/health", (req, res) => {
   res.json({

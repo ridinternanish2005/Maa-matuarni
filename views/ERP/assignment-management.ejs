@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Assignment Management</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      margin-top: 6px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    .delete-btn {
+      background: #dc2626;
+      padding: 8px 12px;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+  <h1>Assignment & Study Material Management</h1>
+
+
+  <!-- CREATE -->
+
+  <div class="card">
+
+    <h2>Add Assignment / Study Material</h2>
+
+    <form id="assignmentForm">
+
+      <div class="grid">
+
+        <div>
+          <label>Course</label>
+
+          <input
+            type="text"
+            name="course"
+            value="D.Pharm"
+            required
+          >
+        </div>
+
+
+        <div>
+
+          <label>Semester</label>
+
+          <select name="semester" required>
+
+            <option value="">
+              Select Semester
+            </option>
+
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>Subject</label>
+
+          <input
+            type="text"
+            name="subject"
+            placeholder="Pharmaceutics"
+            required
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>Material Type</label>
+
+          <select name="materialType">
+
+            <option value="Assignment">
+              Assignment
+            </option>
+
+            <option value="Study Material">
+              Study Material
+            </option>
+
+            <option value="Notes">
+              Notes
+            </option>
+
+            <option value="Question Paper">
+              Question Paper
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="full">
+
+          <label>Title</label>
+
+          <input
+            type="text"
+            name="title"
+            placeholder="Unit 1 Assignment"
+            required
+          >
+
+        </div>
+
+
+        <div class="full">
+
+          <label>Description</label>
+
+          <textarea
+            name="description"
+            placeholder="Assignment details..."
+          ></textarea>
+
+        </div>
+
+
+        <div>
+
+          <label>Due Date</label>
+
+          <input
+            type="date"
+            name="dueDate"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>Session</label>
+
+          <input
+            type="text"
+            name="session"
+            value="2025-26"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <button type="submit">
+        Save Assignment
+      </button>
+
+    </form>
+
+    <p id="message"></p>
+
+  </div>
+
+
+  <!-- LIST -->
+
+  <div class="card">
+
+    <h2>Assignments</h2>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Title</th>
+          <th>Subject</th>
+          <th>Semester</th>
+          <th>Type</th>
+          <th>Due Date</th>
+          <th>Action</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="assignmentTable">
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<script>
+
+async function loadAssignments() {
+
+  const response =
+    await fetch("/erp/assignments");
+
+  const data =
+    await response.json();
+
+  const table =
+    document.getElementById(
+      "assignmentTable"
+    );
+
+  table.innerHTML = "";
+
+
+  if (!data.success) {
+
+    table.innerHTML =
+      `<tr>
+        <td colspan="6">
+          Unable to load assignments
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  data.assignments.forEach(
+    (assignment) => {
+
+      const row =
+        document.createElement("tr");
+
+
+      const dueDate =
+        assignment.dueDate
+          ? new Date(
+              assignment.dueDate
+            ).toLocaleDateString("en-IN")
+          : "-";
+
+
+      row.innerHTML = `
+
+        <td>${assignment.title}</td>
+
+        <td>${assignment.subject}</td>
+
+        <td>${assignment.semester}</td>
+
+        <td>${assignment.materialType}</td>
+
+        <td>${dueDate}</td>
+
+        <td>
+
+          <button
+            class="delete-btn"
+            onclick="removeAssignment('${assignment._id}')"
+          >
+            Remove
+          </button>
+
+        </td>
+
+      `;
+
+
+      table.appendChild(row);
+
+    }
+  );
+
+}
+
+
+document
+  .getElementById("assignmentForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const formData =
+        new FormData(this);
+
+
+      const body =
+        Object.fromEntries(
+          formData.entries()
+        );
+
+
+      const response =
+        await fetch(
+          "/erp/assignments",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(body)
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      document.getElementById(
+        "message"
+      ).textContent =
+        data.message;
+
+
+      if (data.success) {
+
+        this.reset();
+
+        loadAssignments();
+
+      }
+
+    }
+  );
+
+
+async function removeAssignment(id) {
+
+  const response =
+    await fetch(
+      `/erp/assignments/${id}/deactivate`,
+      {
+        method: "PATCH"
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  alert(data.message);
+
+
+  if (data.success) {
+
+    loadAssignments();
+
+  }
+
+}
+
+
+loadAssignments();
+
+</script>
+
+</body>
+
+</html>

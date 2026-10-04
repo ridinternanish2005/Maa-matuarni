@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Question Paper</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .card {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #123f63;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #1268a3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d527f;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h2>Upload Question Paper</h2>
+
+  <form
+    id="questionPaperForm"
+    enctype="multipart/form-data"
+  >
+
+    <label>Question Paper Title</label>
+
+    <input
+      type="text"
+      name="title"
+      placeholder="Example: D.Pharm Internal I"
+      required
+    >
+
+
+    <label>Subject</label>
+
+    <input
+      type="text"
+      name="subject"
+      placeholder="Example: Pharmacology"
+      required
+    >
+
+
+    <label>Exam Type</label>
+
+    <select name="examType" required>
+
+      <option value="">
+        Select Exam Type
+      </option>
+
+      <option value="Internal I">
+        Internal I
+      </option>
+
+      <option value="Internal II">
+        Internal II
+      </option>
+
+      <option value="Assignment">
+        Assignment
+      </option>
+
+      <option value="Practical">
+        Practical
+      </option>
+
+      <option value="Final Exam">
+        Final Exam
+      </option>
+
+    </select>
+
+
+    <label>Session</label>
+
+    <input
+      type="text"
+      name="session"
+      value="2025-26"
+      required
+    >
+
+
+    <label>PDF Question Paper</label>
+
+    <input
+      type="file"
+      name="questionPaper"
+      accept="application/pdf"
+      required
+    >
+
+
+    <button type="submit">
+      Upload Question Paper
+    </button>
+
+  </form>
+
+  <div id="message"></div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById(
+    "questionPaperForm"
+  );
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+form.addEventListener(
+  "submit",
+  async (e) => {
+
+    e.preventDefault();
+
+    const formData =
+      new FormData(form);
+
+    message.innerText =
+      "Uploading...";
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/faculty/question-papers/upload",
+          {
+            method: "POST",
+            body: formData
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (data.success) {
+
+        message.innerText =
+          data.message;
+
+        form.reset();
+
+      } else {
+
+        message.innerText =
+          data.message ||
+          "Upload failed.";
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.innerText =
+        "Something went wrong.";
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

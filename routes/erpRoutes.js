@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   getAdminDashboard,
   getUsers,
@@ -6,30 +7,44 @@ import {
   updateUser,
   toggleUserStatus
 } from "../controllers/adminController.js";
+
 import {
   requireAdmin
 } from "../middleware/adminAuth.js";
+
 import {
   showLogin,
   login,
   logout
 } from "../controllers/erpAuthController.js";
-import { requireERPRole } from "../middleware/erpAuth.js";
+
+import {
+  requireERPRole
+} from "../middleware/erpAuth.js";
+
+import {
+  getStudentDashboard
+} from "../controllers/erpStudentController.js";
 
 
 const router = express.Router();
+
+
+// ==========================================
+// ADMIN DASHBOARD
+// ==========================================
+
 router.get(
   "/admin",
   requireERPRole("admin"),
   getAdminDashboard
 );
 
-// ==========================================
-// ADMIN USER MANAGEMENT
-// ==========================================
+
 // ==========================================
 // ADMIN USER MANAGEMENT PAGE
 // ==========================================
+
 router.get(
   "/admin/user-management",
   requireERPRole("admin"),
@@ -39,6 +54,11 @@ router.get(
     });
   }
 );
+
+
+// ==========================================
+// ADMIN USER MANAGEMENT API
+// ==========================================
 
 router.get(
   "/admin/users",
@@ -51,6 +71,7 @@ router.post(
   requireAdmin,
   createUser
 );
+
 router.put(
   "/admin/users/:id",
   requireAdmin,
@@ -64,29 +85,70 @@ router.patch(
 );
 
 
-// Authentication
-router.get("/", showLogin);
-router.post("/login", login);
-router.post("/logout", logout);
-router.get("/logout", logout); // convenient browser fallback
+// ==========================================
+// AUTHENTICATION
+// ==========================================
 
-// Protected role-based dashboards.
-// The role is read from the server-side session, never from the URL/user input alone.
-router.get("/student", requireERPRole("student"), (req, res) => {
-  res.render("ERP/student", { erpUser: req.session.erpUser });
-});
+router.get(
+  "/",
+  showLogin
+);
 
-router.get("/faculty", requireERPRole("faculty"), (req, res) => {
-  res.render("ERP/faculty", { erpUser: req.session.erpUser });
-});
+router.post(
+  "/login",
+  login
+);
+
+router.post(
+  "/logout",
+  logout
+);
+
+router.get(
+  "/logout",
+  logout
+);
 
 
-router.get("/principal", requireERPRole("principal"), (req, res) => {
-  res.render("ERP/principal", { erpUser: req.session.erpUser });
-});
+// ==========================================
+// STUDENT DASHBOARD
+// ==========================================
+
+router.get(
+  "/student",
+  requireERPRole("student"),
+  getStudentDashboard
+);
 
 
+// ==========================================
+// FACULTY DASHBOARD
+// ==========================================
 
+router.get(
+  "/faculty",
+  requireERPRole("faculty"),
+  (req, res) => {
+    res.render("ERP/faculty", {
+      erpUser: req.session.erpUser
+    });
+  }
+);
+
+
+// ==========================================
+// PRINCIPAL DASHBOARD
+// ==========================================
+
+router.get(
+  "/principal",
+  requireERPRole("principal"),
+  (req, res) => {
+    res.render("ERP/principal", {
+      erpUser: req.session.erpUser
+    });
+  }
+);
 
 
 export default router;

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Library - Book Search</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #123f63;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .search-box button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      background: #1268a3;
+      color: white;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #123f63;
+      color: white;
+    }
+
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+
+    .unavailable {
+      color: red;
+      font-weight: bold;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+      📚 Library Book Search
+    </h2>
+
+    <form
+      method="GET"
+      action="/erp/students/library"
+      class="search-box"
+    >
+
+      <input
+        type="text"
+        name="search"
+        value="<%= search || '' %>"
+        placeholder="Search by book name, author or category..."
+      >
+
+      <button type="submit">
+        Search
+      </button>
+
+    </form>
+
+
+    <% if (!books || books.length === 0) { %>
+
+      <p>
+        No books found.
+      </p>
+
+    <% } else { %>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Total</th>
+            <th>Available</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% books.forEach((book) => { %>
+
+            <tr>
+
+              <td>
+                <%= book.bookName %>
+              </td>
+
+              <td>
+                <%= book.author %>
+              </td>
+
+              <td>
+                <%= book.category || "-" %>
+              </td>
+
+              <td>
+                <%= book.publisher || "-" %>
+              </td>
+
+              <td>
+                <%= book.quantity %>
+              </td>
+
+              <td>
+
+                <% if (book.availableCopies > 0) { %>
+
+                  <span class="available">
+                    <%= book.availableCopies %>
+                    Available
+                  </span>
+
+                <% } else { %>
+
+                  <span class="unavailable">
+                    Not Available
+                  </span>
+
+                <% } %>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

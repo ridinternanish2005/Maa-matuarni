@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Upload Marks - Faculty</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .header {
+      background: #0d344b;
+      color: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccd6e0;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th {
+      background: #eef3f8;
+      padding: 13px;
+      text-align: left;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .marks-input {
+      width: 100px;
+    }
+
+    .remarks-input {
+      min-width: 180px;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: #0d344b;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #092638;
+    }
+
+    .back-btn {
+      display: inline-block;
+      text-decoration: none;
+      margin-bottom: 18px;
+      color: #0d344b;
+      font-weight: 600;
+    }
+
+    .empty {
+      padding: 20px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    @media(max-width: 800px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .table-wrapper {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 800px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="/erp/faculty" class="back-btn">
+    ← Back to Faculty Dashboard
+  </a>
+
+  <div class="header">
+    <h1>Upload Marks</h1>
+
+    <div>
+      Faculty:
+      <strong><%= faculty.name %></strong>
+    </div>
+
+    <div>
+      Enrollment:
+      <strong><%= faculty.enrollment %></strong>
+    </div>
+
+    <div>
+      Session:
+      <strong><%= faculty.session %></strong>
+    </div>
+  </div>
+
+
+  <form action="/erp/faculty/marks"
+        method="POST">
+
+    <div class="card">
+
+      <h2>Assessment Details</h2>
+
+      <div class="form-row">
+
+        <div>
+          <label>Subject</label>
+
+          <select name="subject" required>
+
+            <option value="">
+              Select Subject
+            </option>
+
+            <% profile.subjects.forEach(subject => { %>
+
+              <option value="<%= subject %>">
+                <%= subject %>
+              </option>
+
+            <% }) %>
+
+          </select>
+        </div>
+
+
+        <div>
+          <label>Exam / Assessment</label>
+
+          <select name="examType" required>
+
+            <option value="">
+              Select Assessment
+            </option>
+
+            <option value="Internal I">
+              Internal I
+            </option>
+
+            <option value="Internal II">
+              Internal II
+            </option>
+
+            <option value="Assignment">
+              Assignment
+            </option>
+
+            <option value="Practical">
+              Practical
+            </option>
+
+            <option value="Final Exam">
+              Final Exam
+            </option>
+
+          </select>
+        </div>
+
+
+        <div>
+          <label>Maximum Marks</label>
+
+          <input
+            type="number"
+            name="maxMarks"
+            min="1"
+            required
+            placeholder="Example: 30"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Student Marks</h2>
+
+      <% if (students.length === 0) { %>
+
+        <div class="empty">
+          No active students found for this session.
+        </div>
+
+      <% } else { %>
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Enrollment</th>
+                <th>Student Name</th>
+                <th>Marks</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <% students.forEach((student, index) => { %>
+
+                <tr>
+
+                  <td>
+                    <%= index + 1 %>
+                  </td>
+
+                  <td>
+                    <strong>
+                      <%= student.enrollment %>
+                    </strong>
+                  </td>
+
+                  <td>
+                    <%= student.name %>
+                  </td>
+
+                  <td>
+
+                    <input
+                      type="number"
+                      class="marks-input"
+                      name="students[<%= index %>][marks]"
+                      min="0"
+                      placeholder="Marks"
+                    >
+
+                    <input
+                      type="hidden"
+                      name="students[<%= index %>][enrollment]"
+                      value="<%= student.enrollment %>"
+                    >
+
+                  </td>
+
+                  <td>
+
+                    <input
+                      type="text"
+                      class="remarks-input"
+                      name="students[<%= index %>][remarks]"
+                      placeholder="Optional"
+                    >
+
+                  </td>
+
+                </tr>
+
+              <% }) %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <br>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Save Marks
+        </button>
+
+      <% } %>
+
+    </div>
+
+  </form>
+
+</div>
+
+</body>
+</html>

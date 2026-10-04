@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Return Book</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e4a6b;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .return-btn {
+      background: #198754;
+      color: white;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .return-btn:hover {
+      background: #146c43;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
+
+    #message {
+      margin-bottom: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+
+      <i class="fas fa-undo"></i>
+
+      Return Book
+
+    </h2>
+
+
+    <div id="message"></div>
+
+
+    <% if (!issues || issues.length === 0) { %>
+
+      <div class="empty">
+
+        <i class="fas fa-book-open"></i>
+
+        <p>
+          No books are currently issued.
+        </p>
+
+      </div>
+
+    <% } else { %>
+
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Student</th>
+
+              <th>Enrollment</th>
+
+              <th>Book</th>
+
+              <th>Issue Date</th>
+
+              <th>Due Date</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <% issues.forEach(issue => { %>
+
+              <tr>
+
+                <td>
+                  <%= issue.studentName %>
+                </td>
+
+                <td>
+                  <%= issue.enrollment %>
+                </td>
+
+                <td>
+                  <%= issue.bookName %>
+                </td>
+
+                <td>
+                  <%= new Date(
+                    issue.issueDate
+                  ).toLocaleDateString("en-IN") %>
+                </td>
+
+                <td>
+                  <%= new Date(
+                    issue.dueDate
+                  ).toLocaleDateString("en-IN") %>
+                </td>
+
+                <td>
+
+                  <button
+                    type="button"
+                    class="return-btn"
+                    onclick="returnBook('<%= issue._id %>')"
+                  >
+
+                    <i class="fas fa-undo"></i>
+
+                    Return
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            <% }) %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+    <% } %>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+async function returnBook(issueId) {
+
+  const confirmReturn =
+    confirm(
+      "Are you sure you want to return this book?"
+    );
+
+
+  if (!confirmReturn) {
+    return;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/erp/library/return-book",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            issueId
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    message.style.display =
+      "block";
+
+
+    if (data.success) {
+
+      message.style.background =
+        "#d4edda";
+
+      message.style.color =
+        "#155724";
+
+      message.textContent =
+        data.message;
+
+
+      setTimeout(
+        function() {
+          location.reload();
+        },
+        1000
+      );
+
+
+    } else {
+
+      message.style.background =
+        "#f8d7da";
+
+      message.style.color =
+        "#721c24";
+
+      message.textContent =
+        data.message ||
+        "Unable to return book.";
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Return Book Error:",
+      error
+    );
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    message.style.display =
+      "block";
+
+    message.style.background =
+      "#f8d7da";
+
+    message.style.color =
+      "#721c24";
+
+    message.textContent =
+      "Unable to return book.";
+
+  }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

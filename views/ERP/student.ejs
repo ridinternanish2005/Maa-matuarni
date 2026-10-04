@@ -1,34 +1,88 @@
 <%
-  const safeAttendanceStats =
-    typeof attendanceStats !== "undefined" && attendanceStats
-      ? attendanceStats
-      : {
-          totalClasses: 0,
-          presentClasses: 0,
-          absentClasses: 0,
-          leaveClasses: 0,
-          attendancePercentage: "0.00"
-        };
-%>
+/* =========================================================
+   SAFE DATA
+   ========================================================= */
 
-<%
-  const studentProfile =
-    typeof profile !== "undefined" && profile
-      ? profile
-      : {};
+const studentTotalFees =
+  typeof totalFees !== "undefined"
+    ? Number(totalFees || 0)
+    : 0;
+
+const studentPaidFees =
+  typeof paidFees !== "undefined"
+    ? Number(paidFees || 0)
+    : 0;
+
+const studentPendingFees =
+  typeof pendingFees !== "undefined"
+    ? Number(pendingFees || 0)
+    : 0;
+
+const studentFees =
+  typeof fees !== "undefined" &&
+  Array.isArray(fees)
+    ? fees
+    : [];
+
+const studentTransactions =
+  typeof lastFiveTransactions !== "undefined" &&
+  Array.isArray(lastFiveTransactions)
+    ? lastFiveTransactions
+    : [];
+
+const safeAttendanceStats =
+  typeof attendanceStats !== "undefined" &&
+  attendanceStats
+    ? attendanceStats
+    : {
+        totalClasses: 0,
+        presentClasses: 0,
+        absentClasses: 0,
+        leaveClasses: 0,
+        attendancePercentage: "0.00"
+      };
+
+const studentProfile =
+  typeof profile !== "undefined" &&
+  profile
+    ? profile
+    : {};
 %>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
-  <title>CollegeERP · Maa Maturani Devi Pharmacy College</title>
-  <!-- Google Font & Font Awesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=2.0"
+  >
+
+  <title>
+    CollegeERP · Maa Maturani Devi Pharmacy College
+  </title>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  >
+
   <style>
-    /* ----- GLOBAL ----- */
+
+    /* =========================================================
+       GLOBAL
+       ========================================================= */
+
     * {
       margin: 0;
       padding: 0;
@@ -42,7 +96,10 @@
       line-height: 1.5;
     }
 
-    /* ----- DASHBOARD LAYOUT: SIDEBAR + MAIN ----- */
+    /* =========================================================
+       DASHBOARD LAYOUT
+       ========================================================= */
+
     .dashboard-wrapper {
       display: flex;
       min-height: 100vh;
@@ -52,10 +109,17 @@
       box-shadow: 0 0 30px rgba(0,0,0,0.03);
     }
 
-    /* ---------- SIDEBAR – EXACT STUDENT LOGIN NAVIGATION (NRI replaced) ---------- */
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
     .sidebar {
       width: 280px;
-      background: linear-gradient(180deg, #0a2a3f 0%, #0d344b 100%);
+      background: linear-gradient(
+        180deg,
+        #0a2a3f 0%,
+        #0d344b 100%
+      );
       color: #e7f0f9;
       display: flex;
       flex-direction: column;
@@ -149,7 +213,10 @@
       color: #adc4d6;
     }
 
-    /* ---------- MAIN CONTENT (persistent header + dynamic view) ---------- */
+    /* =========================================================
+       MAIN CONTENT
+       ========================================================= */
+
     .main-content {
       flex: 1;
       padding: 28px 32px;
@@ -159,7 +226,6 @@
       flex-direction: column;
     }
 
-    /* Persistent header */
     .erp-header {
       display: flex;
       flex-wrap: wrap;
@@ -222,7 +288,10 @@
       box-shadow: 0 4px 8px rgba(0,80,150,0.2);
     }
 
-    /* Dynamic content views */
+    /* =========================================================
+       VIEWS
+       ========================================================= */
+
     .view {
       display: none;
       margin-top: 20px;
@@ -232,7 +301,10 @@
       display: block;
     }
 
-    /* ----- STYLES FOR DASHBOARD VIEW (original) ----- */
+    /* =========================================================
+       HEADINGS
+       ========================================================= */
+
     h2 {
       font-size: 1.9rem;
       font-weight: 600;
@@ -241,6 +313,10 @@
       border-left: 8px solid #2a7faa;
       padding-left: 18px;
     }
+
+    /* =========================================================
+       STATS
+       ========================================================= */
 
     .stats-grid {
       display: grid;
@@ -279,6 +355,10 @@
       margin-top: 8px;
     }
 
+    /* =========================================================
+       SECTION
+       ========================================================= */
+
     .section-title {
       font-size: 1.4rem;
       font-weight: 600;
@@ -288,6 +368,10 @@
       align-items: center;
       gap: 10px;
     }
+
+    /* =========================================================
+       TABLE
+       ========================================================= */
 
     .table-responsive {
       overflow-x: auto;
@@ -319,9 +403,9 @@
       vertical-align: top;
     }
 
-    .attendance-note-row {
-      background: #f7faff;
-    }
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
 
     .next-btn {
       background: #1e4a6b;
@@ -343,54 +427,56 @@
       box-shadow: 0 6px 12px rgba(20,80,120,0.15);
     }
 
-    .note-highlight {
-      background-color: #fff9e0 !important;
-      border-left: 6px solid #ffb74d;
-      transition: 0.2s;
-    }
-
-    .change-password-table td:first-child {
-      font-weight: 500;
-      color: #0a3144;
-      white-space: nowrap;
-    }
-
-    a {
-      color: #1e6bb8;
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px dotted #7ba5c7;
-    }
-
-    a:hover {
-      color: #0a3e62;
-      border-bottom: 1px solid;
-    }
-
-    .footer-copy {
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 2px solid #dce3ec;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #4e627c;
-      font-size: 0.9rem;
-      flex-wrap: wrap;
-    }
-
-    .current-notice-badge {
-      background: #e3eef9;
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
+    .btn-primary {
+      background: #1e4a6b;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 40px;
       font-weight: 600;
-      color: #004d7c;
-      display: inline-block;
-      margin-left: 12px;
+      cursor: pointer;
+      transition: 0.15s;
     }
 
-    /* ----- Placeholder cards for other views (functional & matching theme) ----- */
+    .btn-primary:hover {
+      background: #0e3d5e;
+    }
+
+    /* =========================================================
+       ATTENDANCE
+       ========================================================= */
+
+    .attendance-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin: 20px 0;
+    }
+
+    .attendance-card {
+      background: white;
+      border: 1px solid #e2eaf1;
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+    }
+
+    .attendance-card h4 {
+      color: #4a657d;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .attendance-card strong {
+      color: #0e3b5c;
+      font-size: 2rem;
+    }
+
+    /* =========================================================
+       PLACEHOLDER
+       ========================================================= */
+
     .placeholder-card {
       background: white;
       border-radius: 24px;
@@ -424,7 +510,10 @@
       border-left: 6px solid #2a7faa;
     }
 
-    /* change password form */
+    /* =========================================================
+       FORM
+       ========================================================= */
+
     .change-pwd-form {
       max-width: 500px;
     }
@@ -449,534 +538,2411 @@
       background: white;
     }
 
-    .btn-primary {
-      background: #1e4a6b;
-      color: white;
-      border: none;
-      padding: 14px 30px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.15s;
+    /* =========================================================
+       NOTICE
+       ========================================================= */
+
+    .note-highlight {
+      background-color: #fff9e0 !important;
+      border-left: 6px solid #ffb74d;
+      transition: 0.2s;
     }
 
-    .btn-primary:hover {
-      background: #0e3d5e;
+    .change-password-table td:first-child {
+      font-weight: 500;
+      color: #0a3144;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       LINKS
+       ========================================================= */
+
+    a {
+      color: #1e6bb8;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #7ba5c7;
+    }
+
+    a:hover {
+      color: #0a3e62;
+      border-bottom: 1px solid;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    .footer-copy {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 2px solid #dce3ec;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #4e627c;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 1100px) {
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .attendance-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
     }
 
     @media (max-width: 900px) {
-      .dashboard-wrapper { flex-direction: column; }
-      .sidebar { width: 100%; }
-      .stats-grid { grid-template-columns: repeat(2,1fr); }
+
+      .dashboard-wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .attendance-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
     }
 
     @media (max-width: 550px) {
-      .main-content { padding: 20px 16px; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .erp-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-    }
-  </style>
-</head>
-<body>
-<div class="dashboard-wrapper">
-  <!-- ========== SIDEBAR – EXACT STUDENT LOGIN NAVIGATION (NRI replaced with Maa Maturani Devi) ========== -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-  <div class="erp-code-big">
-<%= erpUser?.enrollment || "Student" %>
-</div>
 
-<span class="erp-session-badge">
-  <%= erpUser?.session || erpUser?.session || "N/A" %>
-</span>
+      .main-content {
+        padding: 20px 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .attendance-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .erp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .placeholder-card {
+        padding: 22px 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+  <!-- =======================================================
+       SIDEBAR
+       ======================================================= -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-header">
+
+      <div class="erp-code-big">
+        <%= erpUser?.enrollment || "Student" %>
+      </div>
+
+      <span class="erp-session-badge">
+        <%= erpUser?.session || "N/A" %>
+      </span>
+
     </div>
-    <div class="nav-caption">MAIN NAVIGATION</div>
+
+    <div class="nav-caption">
+      MAIN NAVIGATION
+    </div>
+
     <div class="student-nav">
-      <div class="nav-item active" data-view="dashboardView">
+
+      <div
+        class="nav-item active"
+        data-view="dashboardView"
+      >
         <i class="fas fa-tachometer-alt"></i>
         <span>Dashboard</span>
       </div>
-      <div class="nav-item" data-view="studentDueView">
+
+      <div
+        class="nav-item"
+        data-view="studentDueView"
+      >
         <i class="fas fa-wallet"></i>
         <span>Student Due</span>
       </div>
-      <div class="nav-item" data-view="busHostelView">
+
+      <div
+        class="nav-item"
+        data-view="busHostelView"
+      >
         <i class="fas fa-bus"></i>
         <span>Bus/Hostel Opt</span>
       </div>
-      <div class="nav-item" data-view="studentProfileView">
+
+      <div
+        class="nav-item"
+        data-view="studentProfileView"
+      >
         <i class="fas fa-id-card"></i>
         <span>Student Profile</span>
       </div>
-      <div class="nav-item" data-view="questionPaperView">
+
+      <div
+        class="nav-item"
+        data-view="questionPaperView"
+      >
         <i class="fas fa-file-alt"></i>
         <span>Question Paper</span>
       </div>
-      <div class="nav-item" data-view="testResultView">
+
+      <div
+        class="nav-item"
+        data-view="testResultView"
+      >
         <i class="fas fa-chart-line"></i>
         <span>Test Result</span>
       </div>
-      <div class="nav-item" data-view="bookSearchView">
-        <i class="fas fa-book-search"></i>
+
+      <div
+        class="nav-item"
+        data-view="bookSearchView"
+      >
+        <i class="fas fa-book"></i>
         <span>Book Search</span>
       </div>
-      <div class="nav-item" data-view="softSkillsView">
+
+      <div
+        class="nav-item"
+        data-view="softSkillsView"
+      >
         <i class="fas fa-lightbulb"></i>
         <span>Soft Skills</span>
       </div>
-      <div class="nav-item" data-view="technicalStuffView">
+
+      <div
+        class="nav-item"
+        data-view="technicalStuffView"
+      >
         <i class="fas fa-cogs"></i>
         <span>Technical Stuff</span>
       </div>
-      <div class="nav-item" data-view="changePasswordView">
+
+      <div
+        class="nav-item"
+        data-view="changePasswordView"
+      >
         <i class="fas fa-key"></i>
         <span>Change Password</span>
       </div>
+
     </div>
+
     <div class="sidebar-footer">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-        <i class="fas fa-user-graduate" style="font-size:1.2rem;"></i>
-        <span style="font-weight:500;">Student Login • Maa Maturani Devi</span>
+
+      <div
+        style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"
+      >
+
+        <i
+          class="fas fa-user-graduate"
+          style="font-size:1.2rem;"
+        ></i>
+
+        <span style="font-weight:500;">
+          Student Login • Maa Maturani Devi
+        </span>
+
       </div>
+
       <div style="font-size:0.75rem; opacity:0.8;">
-        <i class="far fa-copyright"></i> Maa Maturani Devi Pharmacy College
+
+        <i class="far fa-copyright"></i>
+
+        Maa Maturani Devi Pharmacy College
+
       </div>
+
     </div>
+
   </aside>
 
-  <!-- ========== MAIN CONTENT ========== -->
+
+  <!-- =======================================================
+       MAIN CONTENT
+       ======================================================= -->
+
   <main class="main-content">
-    <!-- Persistent Header (always visible) -->
+
+    <!-- HEADER -->
+
     <div class="erp-header">
-      <div class="erp-title">CollegeERP</div>
+
+      <div class="erp-title">
+        CollegeERP
+      </div>
+
       <div class="erp-code-area">
 
-       <span class="erp-code">
-  <%= erpUser?.enrollment || erpUser?.enrollment || "Student" %>
-</span>
+        <span class="erp-code">
+          <%= erpUser?.enrollment || "Student" %>
+        </span>
 
-<span class="erp-session">
-<%= erpUser?.session || "N/A" %>
-  <button id="goBtn">GO</button>
-</span>
+        <span class="erp-session">
+
+          <%= erpUser?.session || "N/A" %>
+
+          <button id="goBtn">
+            GO
+          </button>
+
+        </span>
 
       </div>
+
     </div>
 
-    <!-- ===== DYNAMIC VIEWS ===== -->
-    <!-- 1. DASHBOARD VIEW (original, complete) -->
-    <div id="dashboardView" class="view active-view">
-      <h2>Student Dashboard</h2>
-      <!-- stats -->
+
+    <!-- =====================================================
+         1. DASHBOARD
+         ===================================================== -->
+
+    <div
+      id="dashboardView"
+      class="view active-view"
+    >
+
+      <h2>
+        Student Dashboard
+      </h2>
+
+
+      <!-- LIBRARY STATS -->
+
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-label">TOTALS BOOKS</div><div class="stat-number">0</div></div>
-        <div class="stat-card"><div class="stat-label">TOTAL BOOK ISSUED</div><div class="stat-number">0</div></div>
-        <div class="stat-card"><div class="stat-label">TOTAL MEMBERS</div><div class="stat-number">0</div></div>
-        <div class="stat-card"><div class="stat-label">TOTAL BOOK RETURNED</div><div class="stat-number">0</div></div>
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            TOTAL BOOKS
+          </div>
+
+          <div class="stat-number">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            TOTAL BOOK ISSUED
+          </div>
+
+          <div class="stat-number">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            TOTAL MEMBERS
+          </div>
+
+          <div class="stat-number">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            TOTAL BOOK RETURNED
+          </div>
+
+          <div class="stat-number">
+            0
+          </div>
+
+        </div>
+
       </div>
-      <!-- Attendance table with Note Board -->
-<!-- ================= ATTENDANCE ================= -->
 
-<div class="attendance-section">
 
-  <h2>📋 Display of Attendance</h2>
+      <!-- ===================================================
+           ATTENDANCE
+           =================================================== -->
 
-  <div class="attendance-cards">
+      <div class="attendance-section">
 
-    <!-- Total Classes -->
-    <div class="attendance-card">
+        <h2>
+          📋 Display of Attendance
+        </h2>
 
-      <h4>Total Classes</h4>
+        <div class="attendance-cards">
 
-      <strong>
-     <%= safeAttendanceStats.totalClasses || 0 %>
-      </strong>
+
+          <!-- TOTAL -->
+
+          <div class="attendance-card">
+
+            <h4>
+              Total Classes
+            </h4>
+
+            <strong>
+              <%= safeAttendanceStats.totalClasses || 0 %>
+            </strong>
+
+          </div>
+
+
+          <!-- PRESENT -->
+
+          <div class="attendance-card">
+
+            <h4>
+              Present
+            </h4>
+
+            <strong>
+              <%= safeAttendanceStats.presentClasses || 0 %>
+            </strong>
+
+          </div>
+
+
+          <!-- ABSENT -->
+
+          <div class="attendance-card">
+
+            <h4>
+              Absent
+            </h4>
+
+            <strong>
+              <%= safeAttendanceStats.absentClasses || 0 %>
+            </strong>
+
+          </div>
+
+
+          <!-- LEAVE -->
+
+          <div class="attendance-card">
+
+            <h4>
+              Leave
+            </h4>
+
+            <strong>
+              <%= safeAttendanceStats.leaveClasses || 0 %>
+            </strong>
+
+          </div>
+
+
+          <!-- PERCENTAGE -->
+
+          <div class="attendance-card">
+
+            <h4>
+              Attendance
+            </h4>
+
+            <strong>
+              <%= safeAttendanceStats.attendancePercentage || "0.00" %>%
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="/erp/students/attendance"
+          class="next-btn"
+          style="display:inline-block; margin-top:15px;"
+        >
+
+          <i class="fas fa-calendar-check"></i>
+
+          View Attendance Details
+
+        </a>
+
+      </div>
+
+
+      <!-- ===================================================
+           LAST FIVE TRANSACTIONS
+           =================================================== -->
+
+      <div class="section-title">
+        💰 Last Five Transactions
+      </div>
+
+      <div class="table-responsive">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Date</th>
+              <th>Receipt No.</th>
+              <th>Amount</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <% if (studentTransactions.length > 0) { %>
+
+              <% studentTransactions.forEach(transaction => { %>
+
+                <tr>
+
+                  <td>
+
+                    <%= transaction.paymentDate
+                      ? new Date(
+                          transaction.paymentDate
+                        ).toLocaleDateString("en-IN")
+                      : "N/A"
+                    %>
+
+                  </td>
+
+                  <td>
+                    <%= transaction.receiptNo || "N/A" %>
+                  </td>
+
+                  <td>
+
+                    ₹<%= Number(
+                      transaction.amount || 0
+                    ).toLocaleString("en-IN") %>
+
+                  </td>
+
+                </tr>
+
+              <% }) %>
+
+            <% } else { %>
+
+              <tr>
+
+                <td
+                  colspan="3"
+                  style="text-align:center;"
+                >
+                  No transactions found.
+                </td>
+
+              </tr>
+
+            <% } %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- ===================================================
+           NOTICES
+           =================================================== -->
+
+      <div class="section-title">
+        🔐 Notices
+      </div>
+
+      <div class="table-responsive">
+
+        <table
+          class="change-password-table"
+          id="noticeTable"
+        >
+
+          <thead>
+
+            <tr>
+              <th>Date</th>
+              <th>Note</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="noticeTableBody">
+
+            <tr data-notice-index="0">
+
+              <td>
+                25-07-25
+              </td>
+
+              <td>
+                Sub: Beginning of New Semester.
+                Dear Parents. You are hereby informed
+                that as per the university ordinance,
+                it is mandatory to have 75% attendance.
+                Students with less than 75% attendance
+                will be debarred from appearing in
+                the upcoming university examination.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="1">
+
+              <td>
+                09-07-24
+              </td>
+
+              <td>
+                Dear Students and Parents, Greeting
+                from Maa Maturani Devi Pharmacy College
+                Bhopal. For the new session, kindly
+                ensure all outstanding fees are submitted
+                before the deadline.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="2">
+
+              <td>
+                26-06-24
+              </td>
+
+              <td>
+                Dear Students and Parents, this is to
+                inform all students that the new
+                academic session will commence soon.
+                Please ensure all fees are paid on time.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="3">
+
+              <td>
+                01-04-24
+              </td>
+
+              <td>
+                All students are instructed to visit
+                the college portal for Mid Sem Time Table.
+                It is mandatory for all students to enter
+                the examination hall on time.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="4">
+
+              <td>
+                14-03-24
+              </td>
+
+              <td>
+                All students are strictly instructed
+                to follow campus timings.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="5">
+
+              <td>
+                19-02-24
+              </td>
+
+              <td>
+                Students promoted to the next semester
+                must clear their dues and maintain
+                minimum attendance as per university
+                guidelines.
+              </td>
+
+            </tr>
+
+
+            <tr data-notice-index="6">
+
+              <td>
+                19-02-24
+              </td>
+
+              <td>
+                Tuition fee and other fees should be
+                deposited through the approved online
+                ERP payment mode.
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
 
-    <!-- Present -->
-    <div class="attendance-card">
+    <!-- =====================================================
+         2. STUDENT DUE
+         ===================================================== -->
 
-      <h4>Present</h4>
+    <div
+      id="studentDueView"
+      class="view"
+    >
 
-      <!-- ///////////////////////////// -->
-      <strong>
-        <%= safeAttendanceStats.presentClasses || 0 %>
-      </strong>
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-wallet"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Student Due
+
+        </div>
+
+
+        <div class="placeholder-text">
+
+          Current semester fee details
+
+        </div>
+
+
+        <!-- FEE SUMMARY -->
+
+        <div class="stats-grid">
+
+
+          <!-- TOTAL -->
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              TOTAL FEE
+            </div>
+
+            <div class="stat-number">
+
+              ₹<%= studentTotalFees.toLocaleString("en-IN") %>
+
+            </div>
+
+          </div>
+
+
+          <!-- PAID -->
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              PAID FEE
+            </div>
+
+            <div class="stat-number">
+
+              ₹<%= studentPaidFees.toLocaleString("en-IN") %>
+
+            </div>
+
+          </div>
+
+
+          <!-- PENDING -->
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              PENDING FEE
+            </div>
+
+            <div class="stat-number">
+
+              ₹<%= studentPendingFees.toLocaleString("en-IN") %>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- FEE STATUS -->
+
+        <div class="info-message">
+
+          <% if (studentPendingFees > 0) { %>
+
+            <strong>
+              Fee Pending
+            </strong>
+
+            <br>
+
+            Your pending fee is
+
+            <strong>
+              ₹<%= studentPendingFees.toLocaleString("en-IN") %>
+            </strong>.
+
+          <% } else { %>
+
+            <strong>
+              No dues pending
+            </strong>
+
+            <br>
+
+            All fees have been paid.
+
+          <% } %>
+
+        </div>
+
+
+        <!-- SEMESTER WISE FEES -->
+
+        <div class="section-title">
+          💰 Semester Wise Fees
+        </div>
+
+        <div class="table-responsive">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Semester</th>
+                <th>Total Fee</th>
+                <th>Paid</th>
+                <th>Pending</th>
+                <th>Status</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <% if (studentFees.length > 0) { %>
+
+                <% studentFees.forEach(fee => { %>
+
+                  <tr>
+
+                    <td>
+                      <%= fee.semester || "N/A" %>
+                    </td>
+
+                    <td>
+                      ₹<%= Number(
+                        fee.totalFees || 0
+                      ).toLocaleString("en-IN") %>
+                    </td>
+
+                    <td>
+                      ₹<%= Number(
+                        fee.paidFees || 0
+                      ).toLocaleString("en-IN") %>
+                    </td>
+
+                    <td>
+                      ₹<%= Number(
+                        fee.pendingFees || 0
+                      ).toLocaleString("en-IN") %>
+                    </td>
+
+                    <td>
+
+                      <% if (
+                        Number(fee.pendingFees || 0) > 0
+                      ) { %>
+
+                        <span
+                          style="color:#c62828;font-weight:600;"
+                        >
+                          Pending
+                        </span>
+
+                      <% } else { %>
+
+                        <span
+                          style="color:#2e7d32;font-weight:600;"
+                        >
+                          Paid
+                        </span>
+
+                      <% } %>
+
+                    </td>
+
+                  </tr>
+
+                <% }) %>
+
+              <% } else { %>
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    style="text-align:center;"
+                  >
+                    No fee records found.
+                  </td>
+
+                </tr>
+
+              <% } %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
 
     </div>
 
 
-    <!-- Absent -->
-    <div class="attendance-card">
+    <!-- =====================================================
+         3. BUS / HOSTEL
+         ===================================================== -->
 
-      <h4>Absent</h4>
+    <div
+      id="busHostelView"
+      class="view"
+    >
 
-      <strong>
-        <%= safeAttendanceStats.absentClasses || 0 %>
-      </strong>
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-bus"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Bus / Hostel Options
+
+        </div>
+
+        <div class="placeholder-text">
+
+          Select your accommodation and
+          transport preferences.
+
+        </div>
+
+
+        <div
+          style="
+            display:flex;
+            gap:30px;
+            flex-wrap:wrap;
+          "
+        >
+
+          <div
+            style="
+              background:#eef3f9;
+              padding:20px;
+              border-radius:20px;
+              flex:1;
+            "
+          >
+
+            <i
+              class="fas fa-hotel"
+              style="font-size:1.8rem;"
+            ></i>
+
+            <h3 style="margin:10px 0;">
+              Hostel
+            </h3>
+
+            <p>
+              Boys Hostel · Seat available: 12
+              <br>
+              Girls Hostel · Seat available: 8
+            </p>
+
+            <button
+              class="next-btn"
+              style="margin-top:10px;"
+            >
+              Opt for Hostel
+            </button>
+
+          </div>
+
+
+          <div
+            style="
+              background:#eef3f9;
+              padding:20px;
+              border-radius:20px;
+              flex:1;
+            "
+          >
+
+            <i
+              class="fas fa-bus"
+              style="font-size:1.8rem;"
+            ></i>
+
+            <h3 style="margin:10px 0;">
+              Bus Transport
+            </h3>
+
+            <p>
+              5 routes available · Bhopal city
+              <br>
+              Monthly pass: ₹850
+            </p>
+
+            <button
+              class="next-btn"
+              style="margin-top:10px;"
+            >
+              Opt for Bus
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
 
-    <!-- Leave -->
-    <div class="attendance-card">
+    <!-- =====================================================
+         4. STUDENT PROFILE
+         ===================================================== -->
 
-      <h4>Leave</h4>
+    <div
+      id="studentProfileView"
+      class="view"
+    >
 
-      <strong>
-        <%= safeAttendanceStats.leaveClasses || 0 %>
-      </strong>
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-id-card"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Student Profile
+
+        </div>
+
+
+        <div
+          style="
+            display:flex;
+            gap:30px;
+            align-items:flex-start;
+            flex-wrap:wrap;
+          "
+        >
+
+          <div
+            style="
+              font-size:4rem;
+              color:#1e4a6b;
+            "
+          >
+            <i class="fas fa-user-circle"></i>
+          </div>
+
+
+          <div>
+
+            <p>
+              <strong>Name:</strong>
+              <%= erpUser?.name || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Enrollment:</strong>
+              <%= erpUser?.enrollment || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Course:</strong>
+              <%= studentProfile?.course || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Semester:</strong>
+              <%= studentProfile?.semester || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Father's Name:</strong>
+              <%= studentProfile?.fatherName || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Mother's Name:</strong>
+              <%= studentProfile?.motherName || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Mobile:</strong>
+              <%= studentProfile?.mobile || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Email:</strong>
+              <%= studentProfile?.email || "N/A" %>
+            </p>
+
+            <p>
+              <strong>Address:</strong>
+              <%= studentProfile?.address || "N/A" %>
+            </p>
+
+
+            <a
+              href="/erp/students/profile"
+              class="next-btn"
+              style="
+                display:inline-block;
+                margin-top:15px;
+              "
+            >
+
+              <i class="fas fa-edit"></i>
+
+              Edit Profile
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
 
-    <!-- Percentage -->
-    <div class="attendance-card">
+    <!-- =====================================================
+         5. QUESTION PAPER
+         ===================================================== -->
 
-      <h4>Attendance</h4>
+  <!-- =====================================================
+     5. QUESTION PAPER
+     ===================================================== -->
 
-      <strong>
-        <%= safeAttendanceStats.attendancePercentage || "0.00" %>%
-      </strong>
+<div
+  id="questionPaperView"
+  class="view"
+>
+
+  <div class="placeholder-card">
+
+    <div class="placeholder-title">
+
+      <i
+        class="fas fa-file-alt"
+        style="color:#1e4a6b;"
+      ></i>
+
+      Previous Question Papers
+
+    </div>
+
+
+    <div
+      style="
+        margin-top:20px;
+        text-align:center;
+      "
+    >
+
+      <p
+        style="
+          color:#666;
+          margin-bottom:20px;
+        "
+      >
+        View and download previous question papers.
+      </p>
+
+
+      <button
+        type="button"
+        onclick="openQuestionPapers()"
+        style="
+          background:#1e4a6b;
+          color:white;
+          border:none;
+          padding:12px 25px;
+          border-radius:6px;
+          cursor:pointer;
+          font-size:15px;
+        "
+      >
+
+        <i class="fas fa-file-pdf"></i>
+
+        View Question Papers
+
+      </button>
 
     </div>
 
   </div>
 
-
-  <!-- View Details Button -->
-
-  <a
-    href="/erp/students/attendance"
-    class="next-btn"
-    style="display:inline-block; margin-top:15px;"
-  >
-    <i class="fas fa-calendar-check"></i>
-    View Attendance Details
-  </a>
-
 </div>
 
-<!-- ================= END ATTENDANCE ================= -->
-      <!-- Last Five Transactions -->
-      <div class="section-title">💰 Last Five Transactions</div>
-      <div class="table-responsive">
-        <table>
-          <thead><tr><th>Date</th><th>Receipt No.</th><th>Amount</th></tr></thead>
-          <tbody>
-            <tr><td>30-09-2023</td><td>202233979</td><td>500</td></tr>
-            <tr><td>03-10-2023</td><td>202234140</td><td>3000</td></tr>
-            <tr><td>11-10-2023</td><td>202234934</td><td>250</td></tr>
-            <tr><td>25-10-2023</td><td>202235596</td><td>10</td></tr>
-            <tr><td>06-11-2023</td><td>202236244</td><td>11850</td></tr>
-          </tbody>
-        </table>
+
+    <!-- =====================================================
+         6. TEST RESULT
+         ===================================================== -->
+
+    <div
+      id="testResultView"
+      class="view"
+    >
+
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-chart-line"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Test Results
+
+        </div>
+
+
+        <div id="resultLoading">
+
+          Loading results...
+
+        </div>
+
+
+        <div
+          id="resultError"
+          style="
+            display:none;
+            color:#b00020;
+            margin-top:15px;
+          "
+        ></div>
+
+
+        <div
+          id="resultContent"
+          style="
+            display:none;
+            margin-top:20px;
+          "
+        ></div>
+
       </div>
-      <!-- Change Password Table (Notices) - ALL NRI REFERENCES REPLACED -->
-      <div class="section-title">🔐 Table: Change Password</div>
-      <div class="table-responsive">
-        <table class="change-password-table" id="noticeTable">
-          <thead><tr><th>Date</th><th>Note</th></tr></thead>
-          <tbody id="noticeTableBody">
-            <tr data-notice-index="0"><td>25-07-25</td><td>Sub: Beginning of New Semester. Dear Parents. You are hereby informed that I. As per the university ordinance, it is mandatory to have 75% attendance. Student with less than 75 % attendance will be debarred from appearing in the upcoming university examination. 2. Students are required to register themselves with the department after deposition of fee only. Students without registration may be debarred from attending classes. 3. The last date for fee deposition without late fee is 20th July</td></tr>
-            <tr data-notice-index="1"><td>09-07-24</td><td>Dear Students and Parents, Greeting from Maa Maturani Devi Pharmacy College Bhopal. For the new session, we kindly request that all outstanding fees be submitted before 20/07/2024. Please ensure that all fees are paid by the deadline to avoid any disruption.</td></tr>
-            <tr data-notice-index="2"><td>26-06-24</td><td>Dear Students and Parents, Greeting from Maa Maturani Devi Pharmacy College Bhopal. This is to inform all Seventh Semester students that the new academic session will commence on 18/07/2023. In preparation for the new session, we kindly request that all outstanding fees be submitted before 20/07/2024. Important Dates: - New Session Starts: 18/07/2024 - Fee Submission Deadline: 20/07/2024 Please ensure that all fees are paid by the deadline to avoid any disruption in your</td></tr>
-            <tr data-notice-index="3"><td>01-04-24</td><td>All students are instructed to visit this link for Mid Sem Time Table and view the time table <a href="https://www.nrigroupindia.com/niiit/mid-sem-timetable-on-01-04-24" target="_blank">https://www.nrigroupindia.com/niiit/mid-sem-timetable-on-01-04-24</a> It is mandatory for all students to enter the examination hall at 9:30 am.</td></tr>
-            <tr data-notice-index="4"><td>14-03-24</td><td>All students are strictly instructed to not allowed in the campus 9:30am and exit time 3:00 pm</td></tr>
-            <tr data-notice-index="5"><td>19-02-24</td><td>All the Students those who are going to be promoted in II & V Semester and MCA II Semester in academic Year 2024-25 are hereby informed that the session will be start from 19/02/2023 and the last date of Fee submission & Registration is 20th Jan 2024. The students must clear their dues before the declared date and the attendance minimum 75% as per university guidelines otherwise action will be taken against them as per the institute norms. As per the Guidelines of the regulating Authorities</td></tr>
-            <tr data-notice-index="6"><td>19-02-24</td><td>Tuition fee and other fees in Cash Deposit in any case will not be entertained. The fee will only be accepted through online mode i.e through Students Registration ID (ERP). In case any assistance is required for online payment of fee, feel free to contact your Tutor Guardian/HOD or Mr. Neelesh</td></tr>
-          </tbody>
-        </table>
-      </div>
+
     </div>
 
-    <!-- 2. STUDENT DUE VIEW -->
-    <div id="studentDueView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-wallet" style="color:#1e4a6b;"></i> Student Due</div>
-        <div class="placeholder-text">Outstanding fee details for current semester.</div>
-        <div class="info-message">
-          <strong>No dues pending</strong> · All payments cleared up to 06-11-2023.<br>
-          Last payment: ₹11,850 (Receipt: 202236244)
-        </div>
-        <div style="margin-top:30px;">
-          <table style="width:100%; border:0; background:transparent;">
-            <tr><td>Tuition Fee:</td><td><strong>₹0</strong></td><td>Status: Paid</td></tr>
-            <tr><td>Hostel Fee:</td><td><strong>₹0</strong></td><td>Status: N/A</td></tr>
-            <tr><td>Transport Fee:</td><td><strong>₹0</strong></td><td>Status: N/A</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
 
-    <!-- 3. BUS/HOSTEL OPT VIEW -->
-    <div id="busHostelView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-bus" style="color:#1e4a6b;"></i> Bus / Hostel Options</div>
-        <div class="placeholder-text">Select your accommodation and transport preferences.</div>
-        <div style="display:flex; gap:30px; flex-wrap:wrap;">
-          <div style="background:#eef3f9; padding:20px; border-radius:20px; flex:1;">
-            <i class="fas fa-hotel" style="font-size:1.8rem;"></i>
-            <h3 style="margin:10px 0;">Hostel</h3>
-            <p>Boys Hostel · Seat available: 12<br>Girls Hostel · Seat available: 8</p>
-            <button class="next-btn" style="margin-top:10px;">Opt for Hostel</button>
-          </div>
-          <div style="background:#eef3f9; padding:20px; border-radius:20px; flex:1;">
-            <i class="fas fa-bus" style="font-size:1.8rem;"></i>
-            <h3 style="margin:10px 0;">Bus Transport</h3>
-            <p>5 routes available · Bhopal city<br>Monthly pass: ₹850</p>
-            <button class="next-btn" style="margin-top:10px;">Opt for Bus</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- =====================================================
+     7. BOOK SEARCH
+     ===================================================== -->
 
-    <!-- 4. STUDENT PROFILE VIEW -->
-    <div id="studentProfileView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-id-card" style="color:#1e4a6b;"></i> Student Profile</div>
-        <div style="display:flex; gap:30px; align-items:center;">
-          <div style="font-size:4rem; color:#1e4a6b;"><i class="fas fa-user-circle"></i></div>
-          <div>
-         <p>
-  <p>
-  <strong>Name:</strong>
- <%= erpUser?.name || "N/A" %>
-</p>
-
-<p>
-  <strong>Enrollment:</strong>
-<%= erpUser?.enrollment || "N/A" %>
-</p>
-
-<p>
-  <strong>Course:</strong>
-  <%= studentProfile?.course || "N/A" %>
-</p>
-<p>
-  <strong>Semester:</strong>
-  <%= studentProfile?.semester || "N/A" %>
-</p>
-
-<p>
-  <strong>Father's Name:</strong>
-  <%= studentProfile?.fatherName || "N/A" %>
-</p>
-
-<p>
-  <strong>Mother's Name:</strong>
-  <%= studentProfile?.motherName || "N/A" %>
-</p>
-
-<p>
-  <strong>Mobile:</strong>
-  <%= studentProfile?.mobile || "N/A" %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= studentProfile?.email || "N/A" %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= studentProfile?.address || "N/A" %>
-</p>
-
-
-<!-- EDIT PROFILE BUTTON -->
-<a 
-  href="/erp/students/profile" 
-  class="next-btn" 
-  style="display:inline-block; margin-top:15px;"
+<div
+  id="bookSearchView"
+  class="view"
 >
-  <i class="fas fa-edit"></i>
-  Edit Profile
-</a>
 
-          </div>
-        </div>
+  <div class="placeholder-card">
+
+    <div class="placeholder-title">
+
+      <i
+        class="fas fa-book"
+        style="color:#1e4a6b;"
+      ></i>
+
+      Book Search
+
+    </div>
+
+
+    <div
+  class="nav-item"
+  onclick="openMyLibrary()"
+>
+  <i class="fas fa-book-reader"></i>
+  <span>My Library</span>
+</div>
+    <!-- SEARCH BOX -->
+
+    <div
+      style="
+        display:flex;
+        gap:10px;
+        margin-top:20px;
+      "
+    >
+
+      <input
+        type="text"
+        id="bookSearchInput"
+        class="form-control"
+        placeholder="Search by title, author, ISBN"
+        style="flex:1;"
+          onkeydown="if(event.key === 'Enter') searchBooks()"
+      >
+<div
+  id="bookSearchResults"
+  style="margin-top:30px;"
+>
+</div>
+      <button
+  type="button"
+  class="next-btn"
+  onclick="searchBooks()"
+>
+  <i class="fas fa-search"></i>
+  Search
+</button>
+
+    </div>
+
+
+    <!-- BOOK RESULTS -->
+
+    <div
+      id="bookSearchResults"
+      style="
+        margin-top:30px;
+      "
+    >
+
+      <div
+        style="
+          color:#3a5670;
+          text-align:center;
+          padding:20px;
+        "
+      >
+
+        <i class="fas fa-search"></i>
+
+        Search for a book to see availability.
+
       </div>
+
     </div>
 
-    <!-- 5. QUESTION PAPER VIEW -->
-    <div id="questionPaperView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-file-alt" style="color:#1e4a6b;"></i> Previous Question Papers</div>
-        <ul style="list-style:none; padding:0;">
-          <li style="padding:12px; border-bottom:1px solid #e2eaf1;"><i class="fas fa-file-pdf" style="color:red;"></i>  <a href="#">End Sem Exam 2023-24 · IT-401</a> (Download)</li>
-          <li style="padding:12px; border-bottom:1px solid #e2eaf1;"><i class="fas fa-file-pdf" style="color:red;"></i>  <a href="#">Mid Sem Exam 2023 · CS-302</a> (Download)</li>
-          <li style="padding:12px; border-bottom:1px solid #e2eaf1;"><i class="fas fa-file-pdf" style="color:red;"></i>  <a href="#">Previous Year 2022-23 · Mathematics-III</a> (Download)</li>
-        </ul>
-      </div>
-    </div>
+  </div>
 
-    <!-- 6. TEST RESULT VIEW -->
-    <div id="testResultView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-chart-line" style="color:#1e4a6b;"></i> Test Results</div>
-        <table style="width:100%; border-collapse:collapse;">
-          <tr><th>Subject</th><th>Mid Sem</th><th>Internal</th><th>Total</th></tr>
-          <tr><td>Data Structures</td><td>28/30</td><td>45/50</td><td>73/80</td></tr>
-          <tr><td>DBMS</td><td>25/30</td><td>42/50</td><td>67/80</td></tr>
-          <tr><td>Operating Systems</td><td>27/30</td><td>44/50</td><td>71/80</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <!-- 7. BOOK SEARCH VIEW -->
-    <div id="bookSearchView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-book-search" style="color:#1e4a6b;"></i> Book Search</div>
-        <div style="display:flex; gap:10px;">
-          <input type="text" class="form-control" placeholder="Search by title, author, ISBN" style="flex:1;">
-          <button class="next-btn"><i class="fas fa-search"></i> Search</button>
-        </div>
-        <div style="margin-top:30px; color:#3a5670;">Recently added: "Introduction to Algorithms" (CLRS) – Available: 2 copies</div>
-      </div>
-    </div>
-
-    <!-- 8. SOFT SKILLS VIEW -->
-    <div id="softSkillsView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-lightbulb" style="color:#1e4a6b;"></i> Soft Skills Training</div>
-        <div class="info-message">Upcoming workshop: "Effective Communication & Interview Skills" – 15th March 2026, 10:00 AM</div>
-        <p style="margin-top:20px;">Modules: Group Discussion, Presentation Skills, Resume Writing, Aptitude.</p>
-        <button class="btn-primary" style="margin-top:20px;">Register for workshop</button>
-      </div>
-    </div>
-
-    <!-- 9. TECHNICAL STUFF VIEW -->
-    <div id="technicalStuffView" class="view">
-      <div class="placeholder-card">
-        <div class="placeholder-title"><i class="fas fa-cogs" style="color:#1e4a6b;"></i> Technical Stuff</div>
-        <p>Lab resources, coding contests, hackathons, and technical club activities.</p>
-        <ul>
-          <li>⚡ CodeChef Chapter meet: Every Saturday</li>
-          <li>⚡ Python Bootcamp – starts 01/03/2026</li>
-          <li>⚡ Hackathon 2026: Registrations open</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 10. CHANGE PASSWORD VIEW -->
-    <div id="changePasswordView" class="view">
-      <div class="placeholder-card change-pwd-form">
-        <div class="placeholder-title"><i class="fas fa-key" style="color:#1e4a6b;"></i> Change Password</div>
-        <div class="form-group">
-          <label>Current Password</label>
-          <input type="password" class="form-control" placeholder="Enter current password">
-        </div>
-        <div class="form-group">
-          <label>New Password</label>
-          <input type="password" class="form-control" placeholder="Enter new password">
-        </div>
-        <div class="form-group">
-          <label>Confirm New Password</label>
-          <input type="password" class="form-control" placeholder="Re-enter new password">
-        </div>
-        <button class="btn-primary" onclick="alert('Password changed successfully (demo)');">Update Password</button>
-      </div>
-    </div>
-
-    <!-- Persistent Copyright Footer (NRI replaced with Maa Maturani Devi) -->
-    <div class="footer-copy">
-      <span>© 2023-24 CollegeERP · Maa Maturani Devi Pharmacy College</span>
-      <span style="display:flex; gap:16px;">📋 Student Dashboard | ERP v2.1</span>
-    </div>
-  </main>
 </div>
 
-<!-- ========== SCRIPT: SIDEBAR NAVIGATION + GO/NOTICE FUNCTIONALITY ========== -->
+
+    <!-- =====================================================
+         8. SOFT SKILLS
+         ===================================================== -->
+
+    <div
+      id="softSkillsView"
+      class="view"
+    >
+
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-lightbulb"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Soft Skills Training
+
+        </div>
+
+
+        <div class="info-message">
+
+          Upcoming workshop:
+          "Effective Communication & Interview Skills"
+
+        </div>
+
+
+        <p style="margin-top:20px;">
+
+          Modules:
+          Group Discussion,
+          Presentation Skills,
+          Resume Writing,
+          Aptitude.
+
+        </p>
+
+
+        <button
+          class="btn-primary"
+          style="margin-top:20px;"
+        >
+          Register for workshop
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         9. TECHNICAL STUFF
+         ===================================================== -->
+
+    <div
+      id="technicalStuffView"
+      class="view"
+    >
+
+      <div class="placeholder-card">
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-cogs"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Technical Stuff
+
+        </div>
+
+
+        <p>
+          Lab resources, coding contests,
+          hackathons, and technical club activities.
+        </p>
+
+
+        <ul>
+
+          <li>
+            ⚡ CodeChef Chapter meet: Every Saturday
+          </li>
+
+          <li>
+            ⚡ Python Bootcamp – starts 01/03/2026
+          </li>
+
+          <li>
+            ⚡ Hackathon 2026: Registrations open
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         10. CHANGE PASSWORD
+         ===================================================== -->
+
+    <div
+      id="changePasswordView"
+      class="view"
+    >
+
+      <div
+        class="placeholder-card change-pwd-form"
+      >
+
+        <div class="placeholder-title">
+
+          <i
+            class="fas fa-key"
+            style="color:#1e4a6b;"
+          ></i>
+
+          Change Password
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Current Password
+          </label>
+
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Enter current password"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            New Password
+          </label>
+
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Enter new password"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Confirm New Password
+          </label>
+
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Re-enter new password"
+          >
+
+        </div>
+
+
+        <button
+          class="btn-primary"
+          onclick="alert('Password changed successfully (demo)');"
+        >
+          Update Password
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="footer-copy">
+
+      <span>
+        © 2023-24 CollegeERP ·
+        Maa Maturani Devi Pharmacy College
+      </span>
+
+      <span
+        style="
+          display:flex;
+          gap:16px;
+        "
+      >
+        📋 Student Dashboard | ERP v2.1
+      </span>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
 <script>
-  (function() {
-    "use strict";
 
-    // ------- SIDEBAR NAVIGATION -------
-    const navItems = document.querySelectorAll('.nav-item');
-    const views = document.querySelectorAll('.view');
+function openQuestionPapers() {
 
-    function activateView(viewId) {
-      // hide all views
-      views.forEach(v => v.classList.remove('active-view'));
-      // show selected
-      const activeView = document.getElementById(viewId);
-      if (activeView) activeView.classList.add('active-view');
-    }
+  window.location.href =
+    "/erp/students/question-papers";
 
-    navItems.forEach(item => {
-      item.addEventListener('click', function(e) {
-        // remove active class from all nav items
-        navItems.forEach(nav => nav.classList.remove('active'));
-        // add active to clicked item
-        this.classList.add('active');
-        // get target view
-        const viewId = this.getAttribute('data-view');
-        if (viewId) activateView(viewId);
-      });
+}
+
+function openMyLibrary() {
+
+  window.location.href =
+    "/erp/students/my-library";
+
+}
+
+(function () {
+
+  "use strict";
+
+
+  /* ========================================================
+     SIDEBAR NAVIGATION
+     ======================================================== */
+
+  const navItems =
+    document.querySelectorAll(".nav-item");
+
+  const views =
+    document.querySelectorAll(".view");
+
+
+  function activateView(viewId) {
+
+    views.forEach(function (view) {
+
+      view.classList.remove(
+        "active-view"
+      );
+
     });
 
-    // ------- ORIGINAL DASHBOARD FUNCTIONALITY (GO, NEXT) -------
-    const goBtn = document.getElementById('goBtn');
-    const nextBtn1 = document.getElementById('nextNotice1');
-    const nextBtn2 = document.getElementById('nextNotice2');
-    const noticeRows = document.querySelectorAll('#noticeTableBody tr');
-    const noticeCounterBadge = document.getElementById('noticeCounterBadge');
 
-    let currentNoticeIndex = 0;
-    const totalNotices = noticeRows.length; // 7
+    const activeView =
+      document.getElementById(viewId);
 
-    function clearHighlight() {
-      noticeRows.forEach(row => row.classList.remove('note-highlight'));
+
+    if (activeView) {
+
+      activeView.classList.add(
+        "active-view"
+      );
+
     }
 
-    function updateNoticeDisplay(index) {
-      if (totalNotices === 0) return;
-      index = (index % totalNotices + totalNotices) % totalNotices;
-      currentNoticeIndex = index;
-      clearHighlight();
-      if (noticeRows[currentNoticeIndex]) {
-        noticeRows[currentNoticeIndex].classList.add('note-highlight');
+  }
+
+
+  navItems.forEach(function (item) {
+
+    item.addEventListener(
+      "click",
+      function () {
+
+        navItems.forEach(
+          function (nav) {
+
+            nav.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        this.classList.add(
+          "active"
+        );
+
+
+        const viewId =
+          this.getAttribute(
+            "data-view"
+          );
+
+
+        if (viewId) {
+
+          activateView(
+            viewId
+          );
+
+
+          /* Load result only when clicked */
+
+          if (
+            viewId ===
+            "testResultView"
+          ) {
+
+            loadStudentResults();
+
+          }
+
+        }
+
       }
-      if (noticeCounterBadge) {
-        noticeCounterBadge.textContent = `${currentNoticeIndex+1}/${totalNotices}`;
+    );
+
+  });
+
+// ==========================================
+// BOOK SEARCH
+// ==========================================
+window.searchBooks = async function () {
+
+  const input =
+    document.getElementById("bookSearchInput");
+
+  const results =
+    document.getElementById("bookSearchResults");
+
+  const search =
+    input.value.trim();
+
+
+  if (!search) {
+
+    results.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:20px;
+        color:#666;
+      ">
+        Please enter book name, author or ISBN.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML = `
+    <div style="
+      text-align:center;
+      padding:20px;
+    ">
+      <i class="fas fa-spinner fa-spin"></i>
+      Searching...
+    </div>
+  `;
+
+
+  try {
+
+    const response = await fetch(
+      "/erp/library/search?search=" +
+      encodeURIComponent(search)
+    );
+
+    const data = await response.json();
+
+
+    if (!data.success) {
+
+      results.innerHTML = `
+        <div style="
+          text-align:center;
+          padding:20px;
+          color:red;
+        ">
+          ${data.message || "Unable to search books."}
+        </div>
+      `;
+
+      return;
+    }
+
+
+    if (!data.books || data.books.length === 0) {
+
+      results.innerHTML = `
+        <div style="
+          text-align:center;
+          padding:20px;
+          color:#666;
+        ">
+
+          <i class="fas fa-book-open"></i>
+
+          No books found.
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    let html = `
+      <div style="
+        display:grid;
+        gap:15px;
+      ">
+    `;
+
+
+    data.books.forEach(book => {
+
+      const available =
+        Number(book.availableCopies || 0);
+
+
+      html += `
+
+        <div style="
+          border:1px solid #ddd;
+          border-radius:8px;
+          padding:18px;
+          background:#fff;
+        ">
+
+          <div style="
+            font-size:18px;
+            font-weight:600;
+            color:#1e4a6b;
+            margin-bottom:8px;
+          ">
+
+            <i class="fas fa-book"></i>
+
+            ${book.bookName}
+
+          </div>
+
+
+          <div style="
+            color:#555;
+            line-height:1.8;
+          ">
+
+            <div>
+              <strong>Author:</strong>
+              ${book.author || "-"}
+            </div>
+
+            <div>
+              <strong>ISBN:</strong>
+              ${book.isbn || "-"}
+            </div>
+
+            <div>
+              <strong>Category:</strong>
+              ${book.category || "-"}
+            </div>
+
+            <div>
+              <strong>Publisher:</strong>
+              ${book.publisher || "-"}
+            </div>
+
+            <div>
+              <strong>Total Copies:</strong>
+              ${book.quantity}
+            </div>
+
+            <div>
+              <strong>Available Copies:</strong>
+
+              ${
+                available > 0
+                ? `<span style="color:green;font-weight:bold;">
+                     ${available} Available
+                   </span>`
+                : `<span style="color:red;font-weight:bold;">
+                     Not Available
+                   </span>`
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+    html += `</div>`;
+
+    results.innerHTML = html;
+
+
+  } catch (error) {
+
+    console.error(
+      "Book Search Error:",
+      error
+    );
+
+    results.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:20px;
+        color:red;
+      ">
+        Unable to search books.
+      </div>
+    `;
+
+  }
+
+}
+  /* ========================================================
+     STUDENT RESULT
+     ======================================================== */
+
+  async function loadStudentResults() {
+
+    const loading =
+      document.getElementById(
+        "resultLoading"
+      );
+
+    const content =
+      document.getElementById(
+        "resultContent"
+      );
+
+    const error =
+      document.getElementById(
+        "resultError"
+      );
+
+
+    if (
+      !loading ||
+      !content ||
+      !error
+    ) {
+
+      return;
+
+    }
+
+
+    loading.style.display =
+      "block";
+
+    content.style.display =
+      "none";
+
+    error.style.display =
+      "none";
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/students/results/data"
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "Unable to load results."
+        );
+
       }
+
+
+      loading.style.display =
+        "none";
+
+      content.style.display =
+        "block";
+
+
+      /* -----------------------------------------
+         NO RESULT
+         ----------------------------------------- */
+
+      if (
+        !data.marks ||
+        data.marks.length === 0
+      ) {
+
+        content.innerHTML = `
+
+          <div class="info-message">
+
+            <strong>
+              No Result Available
+            </strong>
+
+            <br>
+
+            Your test result has not
+            been uploaded yet.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      /* -----------------------------------------
+         RESULT ROWS
+         ----------------------------------------- */
+
+      let rows = "";
+
+
+      data.marks.forEach(
+        function (mark) {
+
+          const maxMarks =
+            Number(
+              mark.maxMarks || 0
+            );
+
+
+          const obtainedMarks =
+            Number(
+              mark.marks || 0
+            );
+
+
+          const percentage =
+            maxMarks > 0
+              ? (
+                  obtainedMarks /
+                  maxMarks
+                ) * 100
+              : 0;
+
+
+          let grade = "F";
+
+
+          if (percentage >= 90) {
+
+            grade = "A+";
+
+          } else if (
+            percentage >= 80
+          ) {
+
+            grade = "A";
+
+          } else if (
+            percentage >= 70
+          ) {
+
+            grade = "B+";
+
+          } else if (
+            percentage >= 60
+          ) {
+
+            grade = "B";
+
+          } else if (
+            percentage >= 50
+          ) {
+
+            grade = "C";
+
+          } else if (
+            percentage >= 40
+          ) {
+
+            grade = "D";
+
+          }
+
+
+          const status =
+            percentage >= 40
+              ? "Pass"
+              : "Fail";
+
+
+          rows += `
+
+            <tr>
+
+              <td>
+                ${mark.subject || "-"}
+              </td>
+
+              <td>
+                ${mark.examType || "-"}
+              </td>
+
+              <td>
+                ${obtainedMarks}
+              </td>
+
+              <td>
+                ${maxMarks}
+              </td>
+
+              <td>
+                ${percentage.toFixed(2)}%
+              </td>
+
+              <td>
+                ${grade}
+              </td>
+
+              <td>
+                ${status}
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      );
+
+
+      /* -----------------------------------------
+         RESULT CONTENT
+         ----------------------------------------- */
+
+      const student =
+        data.student || {};
+
+
+      content.innerHTML = `
+
+        <div
+          class="info-message"
+          style="margin-bottom:20px;"
+        >
+
+          <strong>
+            ${student.name || "-"}
+          </strong>
+
+          <br>
+
+          Enrollment:
+          ${student.enrollment || "-"}
+
+          <br>
+
+          Course:
+          ${student.course || "D.Pharm"}
+
+          <br>
+
+          Semester:
+          ${student.semester || "1st Semester"}
+
+          <br>
+
+          Session:
+          ${student.session || "-"}
+
+        </div>
+
+
+        <div class="table-responsive">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Subject
+                </th>
+
+                <th>
+                  Exam Type
+                </th>
+
+                <th>
+                  Obtained
+                </th>
+
+                <th>
+                  Max Marks
+                </th>
+
+                <th>
+                  Percentage
+                </th>
+
+                <th>
+                  Grade
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              ${rows}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <div
+          class="stats-grid"
+          style="margin-top:25px;"
+        >
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Total Marks
+            </div>
+
+            <div class="stat-number">
+              ${data.totalMaxMarks || 0}
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Obtained Marks
+            </div>
+
+            <div class="stat-number">
+              ${data.totalObtainedMarks || 0}
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Percentage
+            </div>
+
+            <div class="stat-number">
+              ${data.percentage || "0.00"}%
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
     }
 
-    function nextNotice() {
-      if (totalNotices === 0) return;
-      let newIndex = currentNoticeIndex + 1;
-      if (newIndex >= totalNotices) newIndex = 0;
-      updateNoticeDisplay(newIndex);
+    catch (err) {
+
+      console.error(
+        "Result Loading Error:",
+        err
+      );
+
+
+      loading.style.display =
+        "none";
+
+
+      error.style.display =
+        "block";
+
+
+      error.textContent =
+        "Unable to load result. Please try again.";
+
     }
 
-    // initial highlight
-    if (totalNotices > 0) updateNoticeDisplay(0);
+  }
 
-    // GO button
-    if (goBtn) {
-      goBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert(' GO clicked! ERP session 2023-24 · Redirecting to dashboard.');
-      });
+
+  /* ========================================================
+     GO BUTTON
+     ======================================================== */
+
+  const goBtn =
+    document.getElementById(
+      "goBtn"
+    );
+
+
+  if (goBtn) {
+
+    goBtn.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+
+
+        alert(
+          "ERP session " +
+          "<%= erpUser?.session || 'N/A' %>" +
+          " · Student Dashboard"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ========================================================
+     NOTICE HIGHLIGHT
+     ======================================================== */
+
+  const noticeRows =
+    document.querySelectorAll(
+      "#noticeTableBody tr"
+    );
+
+
+  let currentNoticeIndex = 0;
+
+
+  const totalNotices =
+    noticeRows.length;
+
+
+  function clearHighlight() {
+
+    noticeRows.forEach(
+      function (row) {
+
+        row.classList.remove(
+          "note-highlight"
+        );
+
+      }
+    );
+
+  }
+
+
+  function updateNoticeDisplay(
+    index
+  ) {
+
+    if (
+      totalNotices === 0
+    ) {
+
+      return;
+
     }
 
-    // NEXT buttons
-    if (nextBtn1) nextBtn1.addEventListener('click', (e) => { e.preventDefault(); nextNotice(); });
-    if (nextBtn2) nextBtn2.addEventListener('click', (e) => { e.preventDefault(); nextNotice(); });
 
-  })();
+    index =
+      (
+        index %
+        totalNotices +
+        totalNotices
+      ) %
+      totalNotices;
+
+
+    currentNoticeIndex =
+      index;
+
+
+    clearHighlight();
+
+
+    if (
+      noticeRows[
+        currentNoticeIndex
+      ]
+    ) {
+
+      noticeRows[
+        currentNoticeIndex
+      ].classList.add(
+        "note-highlight"
+      );
+
+    }
+
+  }
+
+
+  if (
+    totalNotices > 0
+  ) {
+
+    updateNoticeDisplay(0);
+
+  }
+
+})();
+
 </script>
 
-<!-- 
-  ===== COLLEGE NAME FULLY UPDATED =====
-  - Every "NRI Institute" replaced with "Maa Maturani Devi Pharmacy College"
-  - Sidebar footer, main footer, and all notice texts now reflect the new college name.
-  - All interactive features (GO, NEXT, sidebar navigation) remain 100% functional.
-  - Exact student navigation menu preserved.
--->
-   
 </body>
+
 </html>

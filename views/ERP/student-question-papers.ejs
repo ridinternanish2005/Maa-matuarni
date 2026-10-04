@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Question Papers</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #123f63;
+      color: white;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #1268a3;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background: #0d527f;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>Question Papers</h2>
+
+    <% if (papers.length === 0) { %>
+
+      <p>
+        No question papers available.
+      </p>
+
+    <% } else { %>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Exam Type</th>
+            <th>Session</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% papers.forEach((paper) => { %>
+
+            <tr>
+
+              <td>
+                <%= paper.title %>
+              </td>
+
+              <td>
+                <%= paper.subject %>
+              </td>
+
+              <td>
+                <%= paper.examType %>
+              </td>
+
+              <td>
+                <%= paper.session %>
+              </td>
+
+              <td>
+
+                <a
+                  class="btn"
+                  href="/erp/question-papers/<%= paper._id %>/view"
+                  target="_blank"
+                >
+                  View PDF
+                </a>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+</body>
+</html>

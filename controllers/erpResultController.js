@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 import StudentResult from "../models/StudentResult.js";
+import FacultyMark from "../models/FacultyMark.js";
+import StudentProfile from "../models/StudentProfile.js";
 
 
 // ======================================================
@@ -21,7 +23,7 @@ const calculateGrade = (percentage) => {
 // ======================================================
 export const getResultManagement = async (req, res) => {
   try {
-    return res.render("ERP/result-management", {
+   return res.render("ERP/student-results", {
       erpUser: req.session.erpUser
     });
   } catch (error) {
@@ -247,34 +249,46 @@ export const getAllResults = async (req, res) => {
 // ======================================================
 // STUDENT RESULT PAGE
 // ======================================================
+// ======================================================
+// STUDENT RESULT PAGE
+// ======================================================
 export const getStudentResults = async (req, res) => {
   try {
-
     if (!req.session?.erpUser) {
       return res.redirect("/erp");
     }
 
-
     const enrollment =
-      req.session.erpUser.enrollment;
+      req.session.erpUser.enrollment?.trim().toUpperCase();
 
+    if (!enrollment) {
+      return res.redirect("/erp");
+    }
 
-    const user =
-      await User.findOne({
-        enrollment: enrollment,
-        role: "student"
-      }).lean();
-
+    // ---------------------------------------------
+    // FIND STUDENT
+    // ---------------------------------------------
+    const user = await User.findOne({
+      enrollment,
+      role: "student",
+    }).lean();
 
     if (!user) {
       return res.status(404).send(
         "Student account not found."
       );
     }
+    const studentProfile = await StudentProfile.findOne({
+  userId: user._id,
+  enrollment: user.enrollment
+}).lean();
 
+const semester = studentProfile?.semester || "1st Semester";
 
+    // ---------------------------------------------
+    // CHECK ACTIVE ACCOUNT
+    // ---------------------------------------------
     if (user.active === false) {
-
       req.session.destroy(() => {});
 
       return res.status(403).send(
@@ -282,93 +296,262 @@ export const getStudentResults = async (req, res) => {
       );
     }
 
+    // ==================================================
+    // GET FACULTY UPLOADED MARKS
+    // ==================================================
 
-    const results =
-      await StudentResult.find({
-        enrollment: user.enrollment,
-        session: user.session
+    const facultyMarks = await FacultyMark.find({
+      studentId: user._id,
+      enrollment: user.enrollment,
+      session: user.session,
+    })
+      .sort({
+        subject: 1,
+        examType: 1,
       })
-        .sort({
-          semester: 1,
-          examName: 1,
-          subject: 1
+      .lean();
+
+
+    // ==================================================
+    // CONVERT FACULTY MARKS TO RESULT FORMAT
+    // ==================================================
+
+    let finalResults = [];
+
+    if (facultyMarks.length > 0) {
+
+      const groupedResults = {};
+
+      facultyMarks.forEach((mark) => {
+
+        // Exam type ko exam name maan rahe hain
+        const key = mark.examType || "Assessment";
+
+        if (!groupedResults[key]) {
+
+          groupedResults[key] = {
+           semester: semester,
+
+            examName:
+              mark.examType || "Assessment",
+
+            results: [],
+
+            totalMarks: 0,
+
+            obtainedMarks: 0,
+          };
+        }
+
+
+        const maxMarks =
+          Number(mark.maxMarks || 0);
+
+        const obtainedMarks =
+          Number(mark.marks || 0);
+
+
+        const percentage =
+          maxMarks > 0
+            ? (obtainedMarks / maxMarks) * 100
+            : 0;
+
+
+        const grade =
+          calculateGrade(percentage);
+
+
+        const status =
+          percentage >= 40
+            ? "Pass"
+            : "Fail";
+
+
+        groupedResults[key].results.push({
+
+          subject:
+            mark.subject || "N/A",
+
+          maxMarks,
+
+          obtainedMarks,
+
+          grade,
+
+          status,
+
+          remarks:
+            mark.remarks || "",
+        });
+
+
+        groupedResults[key].totalMarks +=
+          maxMarks;
+
+
+        groupedResults[key].obtainedMarks +=
+          obtainedMarks;
+
+      });
+
+
+      // ---------------------------------------------
+      // FINAL RESULT SUMMARY
+      // ---------------------------------------------
+
+      finalResults =
+        Object.values(groupedResults);
+
+
+      finalResults.forEach((group) => {
+
+        group.percentage =
+          group.totalMarks > 0
+            ? (
+                (group.obtainedMarks /
+                  group.totalMarks) *
+                100
+              ).toFixed(2)
+            : "0.00";
+
+
+        group.grade =
+          calculateGrade(
+            Number(group.percentage)
+          );
+
+
+        group.status =
+          group.results.some(
+            (item) =>
+              item.status === "Fail"
+          )
+            ? "Fail"
+            : "Pass";
+
+      });
+
+    }
+
+
+    // ==================================================
+    // FALLBACK: OLD STUDENT RESULT SYSTEM
+    // ==================================================
+
+    if (facultyMarks.length === 0) {
+
+      const results =
+        await StudentResult.find({
+          enrollment: user.enrollment,
+          session: user.session,
         })
-        .lean();
+          .sort({
+            semester: 1,
+            examName: 1,
+            subject: 1,
+          })
+          .lean();
 
 
-    // ---------------------------------------------
-    // GROUP RESULTS
-    // ---------------------------------------------
-    const groupedResults = {};
+      const groupedResults = {};
 
 
-    results.forEach((result) => {
+      results.forEach((result) => {
 
-      const key =
-        `${result.semester}__${result.examName}`;
-
-
-      if (!groupedResults[key]) {
-
-        groupedResults[key] = {
-          semester: result.semester,
-
-          examName: result.examName,
-
-          results: [],
-
-          totalMarks: 0,
-
-          obtainedMarks: 0
-        };
-      }
+        const key =
+          `${result.semester}__${result.examName}`;
 
 
-      groupedResults[key].results.push(result);
+        if (!groupedResults[key]) {
+
+          groupedResults[key] = {
+
+            semester:
+              result.semester,
+
+            examName:
+              result.examName,
+
+            results: [],
+
+            totalMarks: 0,
+
+            obtainedMarks: 0,
+          };
+
+        }
 
 
-      groupedResults[key].totalMarks +=
-        Number(result.maxMarks || 0);
+        groupedResults[key].results.push({
+
+          subject:
+            result.subject,
+
+          maxMarks:
+            Number(result.maxMarks || 0),
+
+          obtainedMarks:
+            Number(result.obtainedMarks || 0),
+
+          grade:
+            result.grade || "N/A",
+
+          status:
+            result.status || "Fail",
+
+          remarks:
+            result.remarks || "",
+        });
 
 
-      groupedResults[key].obtainedMarks +=
-        Number(result.obtainedMarks || 0);
-    });
+        groupedResults[key].totalMarks +=
+          Number(result.maxMarks || 0);
 
 
-    const finalResults =
-      Object.values(groupedResults);
+        groupedResults[key].obtainedMarks +=
+          Number(result.obtainedMarks || 0);
+
+      });
 
 
-    // ---------------------------------------------
-    // CALCULATE SUMMARY
-    // ---------------------------------------------
-    finalResults.forEach((group) => {
-
-      group.percentage =
-        group.totalMarks > 0
-          ? (
-              (group.obtainedMarks /
-                group.totalMarks) *
-              100
-            ).toFixed(2)
-          : "0.00";
+      finalResults =
+        Object.values(groupedResults);
 
 
-      group.grade =
-        calculateGrade(
-          Number(group.percentage)
-        );
+      finalResults.forEach((group) => {
+
+        group.percentage =
+          group.totalMarks > 0
+            ? (
+                (group.obtainedMarks /
+                  group.totalMarks) *
+                100
+              ).toFixed(2)
+            : "0.00";
 
 
-      group.status =
-        group.results.some(
-          (item) => item.status === "Fail"
-        )
-          ? "Fail"
-          : "Pass";
-    });
+        group.grade =
+          calculateGrade(
+            Number(group.percentage)
+          );
 
+
+        group.status =
+          group.results.some(
+            (item) =>
+              item.status === "Fail"
+          )
+            ? "Fail"
+            : "Pass";
+
+      });
+
+    }
+
+
+    // ==================================================
+    // RENDER STUDENT RESULT PAGE
+    // ==================================================
 
     return res.render(
       "ERP/student-results",
@@ -377,7 +560,7 @@ export const getStudentResults = async (req, res) => {
 
         user: user,
 
-        results: finalResults
+        results: finalResults,
       }
     );
 
@@ -388,7 +571,6 @@ export const getStudentResults = async (req, res) => {
       "Student Results Error:",
       error
     );
-
 
     return res.status(500).send(
       "Unable to load student results."

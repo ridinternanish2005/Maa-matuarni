@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Library Fine Management</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e4a6b;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .issued {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .returned {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .overdue {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .fine {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .no-fine {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+      💰 Library Fine Management
+    </h2>
+
+
+    <p style="color:#666;margin-bottom:20px;">
+      Fine Rate: ₹10 per late day
+    </p>
+
+
+    <% if (!issues || issues.length === 0) { %>
+
+      <div class="empty">
+
+        <h3>
+          No Library Records
+        </h3>
+
+        <p>
+          No book issue records found.
+        </p>
+
+      </div>
+
+
+    <% } else { %>
+
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Student</th>
+
+              <th>Enrollment</th>
+
+              <th>Book</th>
+
+              <th>Due Date</th>
+
+              <th>Return Date</th>
+
+              <th>Late Days</th>
+
+              <th>Fine</th>
+
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+
+            <% issues.forEach(issue => { %>
+
+              <tr>
+
+
+                <td>
+
+                  <%= issue.studentName %>
+
+                </td>
+
+
+                <td>
+
+                  <%= issue.enrollment %>
+
+                </td>
+
+
+                <td>
+
+                  <strong>
+                    <%= issue.bookName %>
+                  </strong>
+
+                </td>
+
+
+                <td>
+
+                  <%= new Date(
+                    issue.dueDate
+                  ).toLocaleDateString("en-IN") %>
+
+                </td>
+
+
+                <td>
+
+                  <% if (issue.returnDate) { %>
+
+                    <%= new Date(
+                      issue.returnDate
+                    ).toLocaleDateString("en-IN") %>
+
+                  <% } else { %>
+
+                    -
+
+                  <% } %>
+
+                </td>
+
+
+                <td>
+
+                  <%= issue.lateDays %>
+
+                </td>
+
+
+                <td>
+
+                  <% if (issue.fineAmount > 0) { %>
+
+                    <span class="fine">
+
+                      ₹<%= issue.fineAmount %>
+
+                    </span>
+
+                  <% } else { %>
+
+                    <span class="no-fine">
+
+                      ₹0
+
+                    </span>
+
+                  <% } %>
+
+                </td>
+
+
+                <td>
+
+
+                  <% if (
+                    issue.displayStatus === "Overdue"
+                  ) { %>
+
+                    <span class="status overdue">
+                      Overdue
+                    </span>
+
+
+                  <% } else if (
+                    issue.displayStatus === "Returned"
+                  ) { %>
+
+                    <span class="status returned">
+                      Returned
+                    </span>
+
+
+                  <% } else { %>
+
+                    <span class="status issued">
+                      Issued
+                    </span>
+
+                  <% } %>
+
+
+                </td>
+
+
+              </tr>
+
+            <% }) %>
+
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+    <% } %>
+
+
+  </div>
+
+</div>
+
+
+</body>
+
+</html>

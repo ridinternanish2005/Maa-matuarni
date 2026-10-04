@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Faculty Management</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      margin-top: 7px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    button {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      color: white;
+      background: #2563eb;
+    }
+
+    .save-btn {
+      margin-top: 15px;
+    }
+
+    .status-btn {
+      background: #dc2626;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    .active {
+      color: green;
+      font-weight: bold;
+    }
+
+    .inactive {
+      color: red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+  <h1>Faculty Management</h1>
+
+
+  <!-- FACULTY PROFILE -->
+
+  <div class="card">
+
+    <h2>Add / Update Faculty Profile</h2>
+
+
+    <form id="facultyForm">
+
+      <div class="grid">
+
+
+        <div>
+
+          <label>
+            Faculty Enrollment
+          </label>
+
+          <input
+            type="text"
+            name="enrollment"
+            placeholder="FAC001"
+            required
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Department
+          </label>
+
+          <input
+            type="text"
+            name="department"
+            value="Pharmacy"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Designation
+          </label>
+
+          <input
+            type="text"
+            name="designation"
+            value="Faculty"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Qualification
+          </label>
+
+          <input
+            type="text"
+            name="qualification"
+            placeholder="B.Pharm / M.Pharm"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Mobile
+          </label>
+
+          <input
+            type="text"
+            name="mobile"
+            placeholder="Mobile Number"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Email
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="faculty@example.com"
+          >
+
+        </div>
+
+
+        <div class="full">
+
+          <label>
+            Subjects
+          </label>
+
+          <textarea
+            name="subjects"
+            placeholder="Pharmaceutics, Pharmacology, Pharmaceutical Chemistry"
+          ></textarea>
+
+          <small>
+            Multiple subjects comma se separate karo.
+          </small>
+
+        </div>
+
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="save-btn"
+      >
+        Save Faculty Profile
+      </button>
+
+
+    </form>
+
+
+    <p id="message"></p>
+
+  </div>
+
+
+
+  <!-- FACULTY LIST -->
+
+  <div class="card">
+
+    <h2>Faculty List</h2>
+
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Name</th>
+
+          <th>Enrollment</th>
+
+          <th>Department</th>
+
+          <th>Designation</th>
+
+          <th>Subjects</th>
+
+          <th>Status</th>
+
+          <th>Action</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="facultyTable">
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+
+async function loadFaculty() {
+
+  try {
+
+    const response =
+      await fetch("/erp/faculty");
+
+
+    const data =
+      await response.json();
+
+
+    const table =
+      document.getElementById(
+        "facultyTable"
+      );
+
+
+    table.innerHTML = "";
+
+
+    if (!data.success) {
+
+      table.innerHTML = `
+        <tr>
+          <td colspan="7">
+            ${data.message}
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+
+    if (data.faculty.length === 0) {
+
+      table.innerHTML = `
+        <tr>
+          <td colspan="7">
+            No faculty found.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+
+    data.faculty.forEach(
+      (faculty) => {
+
+        const row =
+          document.createElement("tr");
+
+
+        const status =
+          faculty.active
+            ? `<span class="active">Active</span>`
+            : `<span class="inactive">Inactive</span>`;
+
+
+        const subjects =
+          faculty.subjects?.length
+            ? faculty.subjects.join(", ")
+            : "Not Assigned";
+
+
+        row.innerHTML = `
+
+          <td>
+            ${faculty.name}
+          </td>
+
+          <td>
+            ${faculty.enrollment}
+          </td>
+
+          <td>
+            ${faculty.department}
+          </td>
+
+          <td>
+            ${faculty.designation}
+          </td>
+
+          <td>
+            ${subjects}
+          </td>
+
+          <td>
+            ${status}
+          </td>
+
+          <td>
+
+            <button
+              class="status-btn"
+              onclick="
+                toggleFaculty('${faculty.id}')
+              "
+            >
+              ${faculty.active
+                ? "Deactivate"
+                : "Activate"}
+            </button>
+
+          </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+
+document
+  .getElementById("facultyForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const formData =
+        new FormData(this);
+
+
+      const body =
+        Object.fromEntries(
+          formData.entries()
+        );
+
+
+      const response =
+        await fetch(
+          "/erp/faculty/profile",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(body)
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      document.getElementById(
+        "message"
+      ).textContent =
+        data.message;
+
+
+      if (data.success) {
+
+        this.reset();
+
+        loadFaculty();
+
+      }
+
+    }
+  );
+
+
+
+async function toggleFaculty(id) {
+
+  const response =
+    await fetch(
+      `/erp/faculty/${id}/status`,
+      {
+        method: "PATCH"
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  alert(data.message);
+
+
+  if (data.success) {
+
+    loadFaculty();
+
+  }
+
+}
+
+
+loadFaculty();
+
+</script>
+
+
+</body>
+
+</html>

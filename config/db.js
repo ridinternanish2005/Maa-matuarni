@@ -1,11 +1,4 @@
 import mongoose from "mongoose";
-import dns from "node:dns";
-
-// MongoDB Atlas DNS resolution
-dns.setServers([
-  "8.8.8.8",
-  "1.1.1.1"
-]);
 
 const connectDB = async () => {
   try {
@@ -16,7 +9,8 @@ const connectDB = async () => {
     const connection = await mongoose.connect(
       process.env.MONGO_URI,
       {
-        serverSelectionTimeoutMS: 10000
+        serverSelectionTimeoutMS: 15000,
+        connectTimeoutMS: 15000,
       }
     );
 

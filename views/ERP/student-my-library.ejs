@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>My Library</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e4a6b;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .issued {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .returned {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .overdue {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .book-icon {
+      font-size: 35px;
+      color: #1e4a6b;
+      margin-bottom: 10px;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+
+      📚 My Library
+
+    </h2>
+
+
+    <% if (!issues || issues.length === 0) { %>
+
+
+      <div class="empty">
+
+        <div class="book-icon">
+          📖
+        </div>
+
+        <h3>
+          No Library Records
+        </h3>
+
+        <p>
+          You have not issued any book yet.
+        </p>
+
+      </div>
+
+
+    <% } else { %>
+
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Book Name</th>
+
+              <th>Issue Date</th>
+
+              <th>Due Date</th>
+
+              <th>Return Date</th>
+
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+
+            <% issues.forEach(issue => { %>
+
+
+              <tr>
+
+                <td>
+
+                  <strong>
+                    <%= issue.bookName %>
+                  </strong>
+
+                </td>
+
+
+                <td>
+
+                  <%= new Date(
+                    issue.issueDate
+                  ).toLocaleDateString("en-IN") %>
+
+                </td>
+
+
+                <td>
+
+                  <%= new Date(
+                    issue.dueDate
+                  ).toLocaleDateString("en-IN") %>
+
+                </td>
+
+
+                <td>
+
+                  <% if (issue.returnDate) { %>
+
+                    <%= new Date(
+                      issue.returnDate
+                    ).toLocaleDateString("en-IN") %>
+
+                  <% } else { %>
+
+                    -
+
+                  <% } %>
+
+                </td>
+
+
+                <td>
+
+
+                  <% if (
+                    issue.displayStatus === "Overdue"
+                  ) { %>
+
+
+                    <span class="status overdue">
+
+                      Overdue
+
+                    </span>
+
+
+                  <% } else if (
+                    issue.displayStatus === "Returned"
+                  ) { %>
+
+
+                    <span class="status returned">
+
+                      Returned
+
+                    </span>
+
+
+                  <% } else { %>
+
+
+                    <span class="status issued">
+
+                      Issued
+
+                    </span>
+
+
+                  <% } %>
+
+
+                </td>
+
+
+              </tr>
+
+
+            <% }) %>
+
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+    <% } %>
+
+
+  </div>
+
+</div>
+
+
+</body>
+
+</html>

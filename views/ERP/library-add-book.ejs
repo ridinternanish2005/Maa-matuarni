@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Add Library Book</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #123f63;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin-top: 7px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 13px;
+      border: none;
+      border-radius: 6px;
+      background: #1268a3;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d527f;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+      <i class="fas fa-book"></i>
+      Add Library Book
+    </h2>
+
+
+    <form id="addBookForm">
+
+
+      <label>
+        Book Name
+      </label>
+
+      <input
+        type="text"
+        name="bookName"
+        placeholder="Enter book name"
+        required
+      >
+
+
+      <label>
+        Author
+      </label>
+
+      <input
+        type="text"
+        name="author"
+        placeholder="Enter author name"
+        required
+      >
+
+
+      <label>
+        ISBN
+      </label>
+
+      <input
+        type="text"
+        name="isbn"
+        placeholder="Enter ISBN"
+      >
+
+
+      <label>
+        Category
+      </label>
+
+      <input
+        type="text"
+        name="category"
+        placeholder="Example: Pharmacology"
+      >
+
+
+      <label>
+        Publisher
+      </label>
+
+      <input
+        type="text"
+        name="publisher"
+        placeholder="Enter publisher"
+      >
+
+
+      <label>
+        Quantity
+      </label>
+
+      <input
+        type="number"
+        name="quantity"
+        min="1"
+        placeholder="Enter quantity"
+        required
+      >
+
+
+      <label>
+        Description
+      </label>
+
+      <textarea
+        name="description"
+        placeholder="Enter book description"
+      ></textarea>
+
+
+      <button type="submit">
+
+        <i class="fas fa-plus"></i>
+
+        Add Book
+
+      </button>
+
+
+    </form>
+
+
+    <div id="message"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById(
+    "addBookForm"
+  );
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+form.addEventListener(
+  "submit",
+  async function (e) {
+
+    e.preventDefault();
+
+
+    const formData =
+      new FormData(form);
+
+
+    const data =
+      Object.fromEntries(
+        formData.entries()
+      );
+
+
+    message.innerText =
+      "Saving book...";
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/library/add-book",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body:
+              JSON.stringify(data),
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      if (result.success) {
+
+        message.innerText =
+          result.message;
+
+        form.reset();
+
+      } else {
+
+        message.innerText =
+          result.message ||
+          "Unable to add book.";
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.innerText =
+        "Something went wrong.";
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

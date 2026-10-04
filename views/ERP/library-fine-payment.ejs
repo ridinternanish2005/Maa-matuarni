@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Fine Payment</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e4a6b;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #1e4a6b;
+      color: white;
+    }
+
+    .paid {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .unpaid {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .pay-btn {
+      background: #198754;
+      color: white;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pay-btn:hover {
+      background: #146c43;
+    }
+
+    .pay-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .fine {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    #message {
+      display: none;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+      💰 Fine Payment
+    </h2>
+
+    <p style="color:#666;margin-bottom:20px;">
+      Manage student library fines.
+    </p>
+
+
+    <div id="message"></div>
+
+
+    <% if (!issues || issues.length === 0) { %>
+
+      <div class="empty">
+
+        <h3>
+          No Fine Records
+        </h3>
+
+        <p>
+          No library fine is currently available.
+        </p>
+
+      </div>
+
+
+    <% } else { %>
+
+
+      <div style="overflow-x:auto;">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Student</th>
+
+              <th>Enrollment</th>
+
+              <th>Book</th>
+
+              <th>Late Days</th>
+
+              <th>Fine</th>
+
+              <th>Status</th>
+
+              <th>Payment Date</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+
+            <% issues.forEach(issue => { %>
+
+              <tr>
+
+                <td>
+                  <%= issue.studentName %>
+                </td>
+
+
+                <td>
+                  <%= issue.enrollment %>
+                </td>
+
+
+                <td>
+                  <strong>
+                    <%= issue.bookName %>
+                  </strong>
+                </td>
+
+
+                <td>
+                  <%= issue.lateDays %>
+                </td>
+
+
+                <td>
+
+                  <span class="fine">
+                    ₹<%= issue.fineAmount %>
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <% if (issue.finePaid) { %>
+
+                    <span class="paid">
+                      Paid
+                    </span>
+
+                  <% } else { %>
+
+                    <span class="unpaid">
+                      Unpaid
+                    </span>
+
+                  <% } %>
+
+                </td>
+
+
+                <td>
+
+                  <% if (issue.finePaidDate) { %>
+
+                    <%= new Date(
+                      issue.finePaidDate
+                    ).toLocaleDateString("en-IN") %>
+
+                  <% } else { %>
+
+                    -
+
+                  <% } %>
+
+                </td>
+
+
+                <td>
+
+                  <% if (!issue.finePaid) { %>
+
+                    <button
+                      class="pay-btn"
+                      onclick="markFinePaid('<%= issue._id %>')"
+                    >
+                      Mark as Paid
+                    </button>
+
+                  <% } else { %>
+
+                    <button
+                      class="pay-btn"
+                      disabled
+                    >
+                      Paid
+                    </button>
+
+                  <% } %>
+
+                </td>
+
+              </tr>
+
+            <% }) %>
+
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+    <% } %>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+async function markFinePaid(issueId) {
+
+  const confirmPayment =
+    confirm(
+      "Are you sure you want to mark this fine as paid?"
+    );
+
+
+  if (!confirmPayment) {
+    return;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/erp/library/fine-payment/pay",
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            issueId: issueId
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    message.style.display =
+      "block";
+
+
+    if (data.success) {
+
+      message.style.background =
+        "#d4edda";
+
+      message.style.color =
+        "#155724";
+
+      message.textContent =
+        data.message;
+
+
+      setTimeout(
+        function() {
+          location.reload();
+        },
+        1000
+      );
+
+
+    } else {
+
+      message.style.background =
+        "#f8d7da";
+
+      message.style.color =
+        "#721c24";
+
+      message.textContent =
+        data.message ||
+        "Unable to update payment.";
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Fine Payment Error:",
+      error
+    );
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    message.style.display =
+      "block";
+
+    message.style.background =
+      "#f8d7da";
+
+    message.style.color =
+      "#721c24";
+
+    message.textContent =
+      "Unable to update payment.";
+
+  }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

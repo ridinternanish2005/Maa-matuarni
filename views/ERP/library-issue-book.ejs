@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Issue Book</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e4a6b;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 13px;
+      background: #1e4a6b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #163a55;
+    }
+
+    #message {
+      margin-top: 20px;
+      padding: 12px;
+      display: none;
+      border-radius: 6px;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>
+
+      <i class="fas fa-book"></i>
+
+      Issue Book
+
+    </h2>
+
+
+    <form id="issueBookForm">
+
+
+      <!-- STUDENT -->
+
+      <label>
+        Select Student
+      </label>
+
+      <select
+        name="studentId"
+        required
+      >
+
+        <option value="">
+          Select Student
+        </option>
+
+        <% students.forEach(student => { %>
+
+          <option
+            value="<%= student._id %>"
+          >
+
+            <%= student.name %>
+            -
+            <%= student.enrollment %>
+
+          </option>
+
+        <% }) %>
+
+      </select>
+
+
+      <!-- BOOK -->
+
+      <label>
+        Select Book
+      </label>
+
+      <select
+        name="bookId"
+        required
+      >
+
+        <option value="">
+          Select Book
+        </option>
+
+        <% books.forEach(book => { %>
+
+          <option
+            value="<%= book._id %>"
+          >
+
+            <%= book.bookName %>
+
+            -
+            Available:
+            <%= book.availableCopies %>
+
+          </option>
+
+        <% }) %>
+
+      </select>
+
+
+      <!-- DUE DATE -->
+
+      <label>
+        Due Date
+      </label>
+
+      <input
+        type="date"
+        name="dueDate"
+        required
+      >
+
+
+      <button type="submit">
+
+        <i class="fas fa-book-reader"></i>
+
+        Issue Book
+
+      </button>
+
+
+    </form>
+
+
+    <div id="message"></div>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById(
+    "issueBookForm"
+  );
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+form.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const formData =
+      new FormData(form);
+
+
+    const data =
+      Object.fromEntries(
+        formData.entries()
+      );
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/library/issue-book",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(data)
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      message.style.display =
+        "block";
+
+
+      if (result.success) {
+
+        message.style.background =
+          "#d4edda";
+
+        message.style.color =
+          "#155724";
+
+        message.innerHTML =
+          result.message;
+
+        form.reset();
+
+      } else {
+
+        message.style.background =
+          "#f8d7da";
+
+        message.style.color =
+          "#721c24";
+
+        message.innerHTML =
+          result.message;
+
+      }
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.style.display =
+        "block";
+
+      message.style.background =
+        "#f8d7da";
+
+      message.style.color =
+        "#721c24";
+
+      message.innerHTML =
+        "Unable to issue book.";
+
+    }
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
