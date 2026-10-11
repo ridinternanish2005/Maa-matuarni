@@ -33,11 +33,56 @@ export const getAttendance = async (req, res) => {
     }
 
     // Student ki attendance MongoDB se lao
-    const attendance = await StudentAttendance.find({
-      enrollment: user.enrollment
-    })
-      .sort({ date: -1 })
-      .lean();
+ 
+const attendance = await StudentAttendance.find({
+  enrollment: user.enrollment,
+  session: user.session
+})
+  .sort({ date: -1 })
+  .lean();
+
+
+  
+    // ==========================================
+    // SUBJECT-WISE ATTENDANCE
+    // ==========================================
+
+    const subjectMap = {};
+
+    attendance.forEach((item) => {
+      const subjectName = item.subject || "Other";
+
+      if (!subjectMap[subjectName]) {
+        subjectMap[subjectName] = {
+          subject: subjectName,
+          totalClasses: 0,
+          presentClasses: 0,
+          absentClasses: 0,
+          leaveClasses: 0
+        };
+      }
+
+      subjectMap[subjectName].totalClasses++;
+
+      if (item.status === "Present") {
+        subjectMap[subjectName].presentClasses++;
+      } else if (item.status === "Absent") {
+        subjectMap[subjectName].absentClasses++;
+      } else if (item.status === "Leave") {
+        subjectMap[subjectName].leaveClasses++;
+      }
+    });
+
+    const subjectStats = Object.values(subjectMap).map((item) => ({
+      ...item,
+      attendancePercentage:
+        item.totalClasses > 0
+          ? (
+              (item.presentClasses / item.totalClasses) * 100
+            ).toFixed(2)
+          : "0.00"
+    }));
+
 
     // Total attendance
     const totalClasses = attendance.length;
@@ -63,18 +108,19 @@ export const getAttendance = async (req, res) => {
         ? ((presentClasses / totalClasses) * 100).toFixed(2)
         : "0.00";
 
-    return res.render("ERP/student-attendance", {
-      erpUser: req.session.erpUser,
-      user,
-      attendance,
-      stats: {
-        totalClasses,
-        presentClasses,
-        absentClasses,
-        leaveClasses,
-        attendancePercentage
-      }
-    });
+   return res.render("ERP/student-attendance", {
+  erpUser: req.session.erpUser,
+  user,
+  attendance,
+  subjectStats,
+  stats: {
+    totalClasses,
+    presentClasses,
+    absentClasses,
+    leaveClasses,
+    attendancePercentage
+  }
+});
 
   } catch (error) {
     console.error("Student Attendance Error:", error);

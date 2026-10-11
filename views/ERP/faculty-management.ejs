@@ -55,9 +55,11 @@
 
     label {
       font-weight: bold;
+      display: block;
     }
 
     input,
+    select,
     textarea {
       width: 100%;
       padding: 11px;
@@ -68,6 +70,7 @@
 
     textarea {
       min-height: 90px;
+      resize: vertical;
     }
 
     button {
@@ -87,6 +90,11 @@
       background: #dc2626;
     }
 
+    .subject-btn {
+      background: #16a34a;
+      margin-left: 5px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -97,6 +105,7 @@
       padding: 12px;
       border-bottom: 1px solid #eee;
       text-align: left;
+      vertical-align: middle;
     }
 
     th {
@@ -111,6 +120,45 @@
     .inactive {
       color: red;
       font-weight: bold;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: white;
+      width: 100%;
+      max-width: 500px;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .cancel-btn {
+      background: #64748b;
+    }
+
+    .small-text {
+      color: #666;
+      font-size: 13px;
+      margin-top: 6px;
     }
 
     @media (max-width: 700px) {
@@ -135,6 +183,12 @@
 
 
 <body>
+<%
+  const safeFacultyList =
+    typeof facultyList !== "undefined" && Array.isArray(facultyList)
+      ? facultyList
+      : [];
+%>
 
 <div class="container">
 
@@ -142,11 +196,13 @@
   <h1>Faculty Management</h1>
 
 
-  <!-- FACULTY PROFILE -->
+  <!-- ==========================================
+       ADD FACULTY PROFILE
+  =========================================== -->
 
   <div class="card">
 
-    <h2>Add / Update Faculty Profile</h2>
+    <h2>Add Faculty Profile</h2>
 
 
     <form id="facultyForm">
@@ -154,21 +210,47 @@
       <div class="grid">
 
 
-        <div>
+        <!-- FACULTY -->
+
+        <div class="full">
 
           <label>
-            Faculty Enrollment
+            Select Faculty
           </label>
 
-          <input
-            type="text"
-            name="enrollment"
-            placeholder="FAC001"
+          <select
+            name="userId"
+            id="userId"
             required
           >
 
+            <option value="">
+              Select Faculty
+            </option>
+
+          <% safeFacultyList.forEach(function(faculty) { %>
+
+              <% if (!faculty.profile) { %>
+
+                <option value="<%= faculty._id %>">
+                  <%= faculty.name %> -
+                  <%= faculty.enrollment %>
+                </option>
+
+              <% } %>
+
+            <% }); %>
+
+          </select>
+
+          <div class="small-text">
+            Sirf wahi faculty dikhenge jinka profile abhi create nahi hua hai.
+          </div>
+
         </div>
 
+
+        <!-- DEPARTMENT -->
 
         <div>
 
@@ -180,10 +262,13 @@
             type="text"
             name="department"
             value="Pharmacy"
+            required
           >
 
         </div>
 
+
+        <!-- DESIGNATION -->
 
         <div>
 
@@ -200,6 +285,8 @@
         </div>
 
 
+        <!-- QUALIFICATION -->
+
         <div>
 
           <label>
@@ -214,6 +301,8 @@
 
         </div>
 
+
+        <!-- MOBILE -->
 
         <div>
 
@@ -230,6 +319,8 @@
         </div>
 
 
+        <!-- EMAIL -->
+
         <div>
 
           <label>
@@ -245,6 +336,8 @@
         </div>
 
 
+        <!-- SUBJECTS -->
+
         <div class="full">
 
           <label>
@@ -256,9 +349,9 @@
             placeholder="Pharmaceutics, Pharmacology, Pharmaceutical Chemistry"
           ></textarea>
 
-          <small>
+          <div class="small-text">
             Multiple subjects comma se separate karo.
-          </small>
+          </div>
 
         </div>
 
@@ -277,13 +370,18 @@
     </form>
 
 
-    <p id="message"></p>
+    <p
+      id="message"
+      class="message"
+    ></p>
 
   </div>
 
 
 
-  <!-- FACULTY LIST -->
+  <!-- ==========================================
+       FACULTY LIST
+  =========================================== -->
 
   <div class="card">
 
@@ -315,7 +413,136 @@
       </thead>
 
 
-      <tbody id="facultyTable">
+      <tbody>
+
+       <% if (safeFacultyList.length === 0) { %>
+
+          <tr>
+
+            <td colspan="7">
+              No faculty found.
+            </td>
+
+          </tr>
+
+        <% } else { %>
+
+
+        <% safeFacultyList.forEach(function(faculty) { %>
+
+            <tr>
+
+              <td>
+                <%= faculty.name %>
+              </td>
+
+
+              <td>
+                <%= faculty.enrollment %>
+              </td>
+
+
+              <td>
+
+                <%= faculty.profile
+                  ? faculty.profile.department
+                  : "Not Added" %>
+
+              </td>
+
+
+              <td>
+
+                <%= faculty.profile
+                  ? faculty.profile.designation
+                  : "Not Added" %>
+
+              </td>
+
+
+              <td>
+
+                <% if (
+                  faculty.profile &&
+                  faculty.profile.subjects &&
+                  faculty.profile.subjects.length > 0
+                ) { %>
+
+              <%= faculty.profile?.assignedSubjects?.length
+  ? faculty.profile.assignedSubjects
+      .map(subject => `${subject.name} (${subject.code})`)
+      .join(", ")
+  : "No subjects assigned" %>
+
+                <% } else { %>
+
+                  <span style="color:#777;">
+                    Not Assigned
+                  </span>
+
+                <% } %>
+
+              </td>
+
+
+              <td>
+
+                <% if (faculty.active) { %>
+
+                  <span class="active">
+                    Active
+                  </span>
+
+                <% } else { %>
+
+                  <span class="inactive">
+                    Inactive
+                  </span>
+
+                <% } %>
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="status-btn"
+                  onclick="toggleFaculty('<%= faculty._id %>')"
+                >
+
+                  <%= faculty.active
+                    ? "Deactivate"
+                    : "Activate" %>
+
+                </button>
+
+
+                <% if (faculty.profile) { %>
+
+     
+
+<button
+  type="button"
+  class="subject-btn"
+  data-profile-id="<%= faculty.profile._id %>"
+  data-faculty-name="<%= faculty.name %>"
+  onclick="openSubjectModal(this.dataset.profileId, this.dataset.facultyName)"
+>
+  Subjects
+</button>
+
+
+
+                <% } %>
+
+              </td>
+
+            </tr>
+
+          <% }); %>
+
+        <% } %>
 
       </tbody>
 
@@ -328,227 +555,828 @@
 
 
 
+<!-- ==========================================
+     SUBJECT MODAL
+=========================================== -->
+
+<div id="subjectModal" class="modal">
+
+  <div class="modal-box">
+
+    <h2>Assign Subjects</h2>
+
+    <p id="selectedFaculty"></p>
+
+    <input
+      type="hidden"
+      id="selectedProfileId"
+    >
+
+    <!-- Course -->
+    <label for="assignmentCourse">
+      Course
+    </label>
+
+    <select id="assignmentCourse">
+      <option value="">Select Course</option>
+    </select>
+
+
+    <!-- Semester -->
+    <label for="assignmentSemester">
+      Semester
+    </label>
+
+    <select
+      id="assignmentSemester"
+      disabled
+    >
+      <option value="">Select Semester</option>
+    </select>
+
+
+    <!-- Subject -->
+    <label for="assignmentSubject">
+      Subject
+    </label>
+
+    <select
+      id="assignmentSubject"
+      disabled
+    >
+      <option value="">Select Subject</option>
+    </select>
+
+
+    <button
+      type="button"
+      onclick="addSelectedSubject()"
+    >
+      + Add Subject
+    </button>
+
+
+    <!-- Selected Subjects -->
+    <div class="small-text">
+      Selected Subjects
+    </div>
+
+    <div id="selectedSubjectsList">
+      No subjects selected.
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        onclick="saveSubjects()"
+      >
+        Save Subjects
+      </button>
+
+      <button
+        type="button"
+        class="cancel-btn"
+        onclick="closeSubjectModal()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+
+    <p
+      id="subjectMessage"
+      class="message"
+    ></p>
+
+  </div>
+
+</div>
+
 <script>
 
-
-async function loadFaculty() {
-
-  try {
-
-    const response =
-      await fetch("/erp/faculty");
-
-
-    const data =
-      await response.json();
-
-
-    const table =
-      document.getElementById(
-        "facultyTable"
-      );
-
-
-    table.innerHTML = "";
-
-
-    if (!data.success) {
-
-      table.innerHTML = `
-        <tr>
-          <td colspan="7">
-            ${data.message}
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-
-    if (data.faculty.length === 0) {
-
-      table.innerHTML = `
-        <tr>
-          <td colspan="7">
-            No faculty found.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-
-    data.faculty.forEach(
-      (faculty) => {
-
-        const row =
-          document.createElement("tr");
-
-
-        const status =
-          faculty.active
-            ? `<span class="active">Active</span>`
-            : `<span class="inactive">Inactive</span>`;
-
-
-        const subjects =
-          faculty.subjects?.length
-            ? faculty.subjects.join(", ")
-            : "Not Assigned";
-
-
-        row.innerHTML = `
-
-          <td>
-            ${faculty.name}
-          </td>
-
-          <td>
-            ${faculty.enrollment}
-          </td>
-
-          <td>
-            ${faculty.department}
-          </td>
-
-          <td>
-            ${faculty.designation}
-          </td>
-
-          <td>
-            ${subjects}
-          </td>
-
-          <td>
-            ${status}
-          </td>
-
-          <td>
-
-            <button
-              class="status-btn"
-              onclick="
-                toggleFaculty('${faculty.id}')
-              "
-            >
-              ${faculty.active
-                ? "Deactivate"
-                : "Activate"}
-            </button>
-
-          </td>
-
-        `;
-
-
-        table.appendChild(row);
-
-      }
-    );
-
-
-  } catch (error) {
-
-    console.error(error);
-
-  }
-
-}
-
-
+// ==========================================
+// CREATE FACULTY PROFILE
+// ==========================================
 
 document
   .getElementById("facultyForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+  .addEventListener("submit", async function (event) {
 
-      event.preventDefault();
+    event.preventDefault();
 
+    const formData = new FormData(this);
 
-      const formData =
-        new FormData(this);
+    const body = Object.fromEntries(formData.entries());
 
+    try {
 
-      const body =
-        Object.fromEntries(
-          formData.entries()
-        );
+      const response = await fetch(
+        "/erp/faculty-management",
+        {
+          method: "POST",
 
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-      const response =
-        await fetch(
-          "/erp/faculty/profile",
-          {
-            method: "POST",
+          body: JSON.stringify(body)
+        }
+      );
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+      const data = await response.json();
 
-            body:
-              JSON.stringify(body)
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      document.getElementById(
-        "message"
-      ).textContent =
+      document.getElementById("message").textContent =
         data.message;
-
 
       if (data.success) {
 
+        alert("Faculty profile created successfully.");
+
         this.reset();
 
-        loadFaculty();
-
+        window.location.reload();
       }
 
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("message").textContent =
+        "Something went wrong.";
     }
-  );
+
+});
 
 
+// ==========================================
+// ACTIVATE / DEACTIVATE FACULTY
+// ==========================================
 
 async function toggleFaculty(id) {
 
-  const response =
-    await fetch(
-      `/erp/faculty/${id}/status`,
+  try {
+
+    const response = await fetch(
+      `/erp/faculty-management/${id}/status`,
       {
         method: "PATCH"
       }
     );
 
+    const data = await response.json();
 
-  const data =
-    await response.json();
+    alert(data.message);
+
+    if (data.success) {
+
+      window.location.reload();
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Unable to update faculty status.");
+  }
+
+}
 
 
-  alert(data.message);
+// ==========================================
+// FACULTY SUBJECT ASSIGNMENT
+// ==========================================
+
+let assignmentCourses = [];
+
+let selectedSubjects = [];
 
 
-  if (data.success) {
+// ==========================================
+// LOAD COURSES
+// ==========================================
 
-    loadFaculty();
+async function loadAssignmentCourses() {
+
+  try {
+
+    const response = await fetch(
+      "/erp/faculty-management/assignment-courses"
+    );
+
+    const data = await response.json();
+
+    if (!data.success) {
+
+      throw new Error(data.message);
+
+    }
+
+    assignmentCourses = data.courses || [];
+
+    const courseSelect =
+      document.getElementById("assignmentCourse");
+
+    courseSelect.innerHTML =
+      `<option value="">Select Course</option>`;
+
+    assignmentCourses.forEach(course => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = course._id;
+
+      option.textContent =
+        `${course.courseCode} - ${course.courseName}`;
+
+      courseSelect.appendChild(option);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Load Assignment Courses Error:",
+      error
+    );
+
+    document.getElementById(
+      "subjectMessage"
+    ).textContent =
+      "Unable to load courses.";
 
   }
 
 }
 
 
-loadFaculty();
+// ==========================================
+// COURSE CHANGE
+// ==========================================
+
+document
+  .getElementById("assignmentCourse")
+  .addEventListener("change", function () {
+
+    const courseId = this.value;
+
+    const semesterSelect =
+      document.getElementById("assignmentSemester");
+
+    const subjectSelect =
+      document.getElementById("assignmentSubject");
+
+
+    semesterSelect.innerHTML =
+      `<option value="">Select Semester</option>`;
+
+    subjectSelect.innerHTML =
+      `<option value="">Select Subject</option>`;
+
+
+    subjectSelect.disabled = true;
+
+
+    if (!courseId) {
+
+      semesterSelect.disabled = true;
+
+      return;
+    }
+
+
+    const course =
+      assignmentCourses.find(
+        item => item._id === courseId
+      );
+
+
+    if (!course) {
+
+      semesterSelect.disabled = true;
+
+      return;
+    }
+
+
+    course.semesters.forEach(semester => {
+
+      if (!semester.active) return;
+
+
+      const option =
+        document.createElement("option");
+
+
+      option.value =
+        semester._id;
+
+
+      option.textContent =
+        semester.name;
+
+
+      semesterSelect.appendChild(option);
+
+    });
+
+
+    semesterSelect.disabled = false;
+
+});
+
+
+// ==========================================
+// SEMESTER CHANGE
+// ==========================================
+
+document
+  .getElementById("assignmentSemester")
+  .addEventListener("change", function () {
+
+    const courseId =
+      document.getElementById(
+        "assignmentCourse"
+      ).value;
+
+
+    const semesterId =
+      this.value;
+
+
+    const subjectSelect =
+      document.getElementById(
+        "assignmentSubject"
+      );
+
+
+    subjectSelect.innerHTML =
+      `<option value="">Select Subject</option>`;
+
+
+    if (!courseId || !semesterId) {
+
+      subjectSelect.disabled = true;
+
+      return;
+    }
+
+
+    const course =
+      assignmentCourses.find(
+        item => item._id === courseId
+      );
+
+
+    if (!course) return;
+
+
+    const semester =
+      course.semesters.find(
+        item => item._id === semesterId
+      );
+
+
+    if (!semester) return;
+
+
+    semester.subjects.forEach(subject => {
+
+      if (!subject.active) return;
+
+
+      const option =
+        document.createElement("option");
+
+
+      option.value =
+        subject._id;
+
+
+      option.textContent =
+        `${subject.name} (${subject.code})`;
+
+
+      subjectSelect.appendChild(option);
+
+    });
+
+
+    subjectSelect.disabled = false;
+
+});
+
+
+// ==========================================
+// ADD SELECTED SUBJECT
+// ==========================================
+
+function addSelectedSubject() {
+
+  const courseId =
+    document.getElementById(
+      "assignmentCourse"
+    ).value;
+
+
+  const semesterId =
+    document.getElementById(
+      "assignmentSemester"
+    ).value;
+
+
+  const subjectId =
+    document.getElementById(
+      "assignmentSubject"
+    ).value;
+
+
+  if (
+    !courseId ||
+    !semesterId ||
+    !subjectId
+  ) {
+
+    alert(
+      "Please select Course, Semester and Subject."
+    );
+
+    return;
+  }
+
+
+  const course =
+    assignmentCourses.find(
+      item => item._id === courseId
+    );
+
+
+  if (!course) return;
+
+
+  const semester =
+    course.semesters.find(
+      item => item._id === semesterId
+    );
+
+
+  if (!semester) return;
+
+
+  const subject =
+    semester.subjects.find(
+      item => item._id === subjectId
+    );
+
+
+  if (!subject) return;
+
+
+  const alreadyAdded =
+    selectedSubjects.some(
+      item =>
+        item.name === subject.name &&
+        item.code === subject.code
+    );
+
+
+  if (alreadyAdded) {
+
+    alert("Subject already added.");
+
+    return;
+  }
+
+
+  selectedSubjects.push({
+
+    subjectId: subject._id,
+
+    courseId: course._id,
+
+    semesterId: semester._id,
+
+    name: subject.name,
+
+    code: subject.code
+
+  });
+
+
+  renderSelectedSubjects();
+
+}
+
+
+// ==========================================
+// SHOW SELECTED SUBJECTS
+// ==========================================
+
+function renderSelectedSubjects() {
+
+  const container =
+    document.getElementById(
+      "selectedSubjectsList"
+    );
+
+
+  if (selectedSubjects.length === 0) {
+
+    container.innerHTML =
+      "No subjects selected.";
+
+    return;
+  }
+
+
+  container.innerHTML =
+    selectedSubjects
+      .map((subject, index) => {
+
+        return `
+
+          <div
+            class="selected-subject-item"
+            style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              padding:8px;
+              margin-top:6px;
+              border:1px solid #ddd;
+              border-radius:6px;
+            "
+          >
+
+            <span>
+              ${subject.name}
+              ${subject.code
+                ? `(${subject.code})`
+                : ""}
+            </span>
+
+
+            <button
+              type="button"
+              onclick="removeSelectedSubject(${index})"
+              style="
+                background:#dc2626;
+                padding:5px 10px;
+              "
+            >
+              Remove
+            </button>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+// ==========================================
+// REMOVE SUBJECT
+// ==========================================
+
+function removeSelectedSubject(index) {
+
+  selectedSubjects.splice(index, 1);
+
+  renderSelectedSubjects();
+
+}
+
+
+// ==========================================
+// OPEN SUBJECT MODAL
+// ==========================================
+
+
+ // ==========================================
+ // OPEN SUBJECT MODAL
+ // ==========================================
+
+function openSubjectModal(profileId, facultyName) {
+  selectedSubjects = [];
+
+  document.getElementById("selectedProfileId").value = profileId;
+
+  document.getElementById("selectedFaculty").textContent =
+    "Faculty: " + facultyName;
+
+  document.getElementById("subjectMessage").textContent = "";
+
+  renderSelectedSubjects();
+
+  document.getElementById("assignmentCourse").value = "";
+
+  document.getElementById("assignmentSemester").innerHTML =
+    '<option value="">Select Semester</option>';
+
+  document.getElementById("assignmentSubject").innerHTML =
+    '<option value="">Select Subject</option>';
+
+  document.getElementById("assignmentSemester").disabled = true;
+  document.getElementById("assignmentSubject").disabled = true;
+
+  document.getElementById("subjectModal").style.display = "flex";
+
+  loadAssignmentCourses();
+}
+
+ {
+
+  // Reset selected subjects
+  selectedSubjects = [];
+
+
+  // Existing subjects ko preserve karo
+  if (subjects) {
+
+    const oldSubjects =
+      String(subjects)
+        .split(",")
+        .map(subject => subject.trim())
+        .filter(Boolean);
+
+
+    oldSubjects.forEach(subject => {
+
+      selectedSubjects.push({
+
+        subjectId: null,
+
+        courseId: null,
+
+        semesterId: null,
+
+        name: subject,
+
+        code: ""
+
+      });
+
+    });
+
+  }
+
+
+  // Faculty ID
+  document.getElementById(
+    "selectedProfileId"
+  ).value = profileId;
+
+
+  // Faculty name
+  document.getElementById(
+    "selectedFaculty"
+  ).textContent =
+    "Faculty: " + facultyName;
+
+
+  // Clear message
+  document.getElementById(
+    "subjectMessage"
+  ).textContent = "";
+
+
+  // Show selected subjects
+  renderSelectedSubjects();
+
+
+  // Reset dropdowns
+  document.getElementById(
+    "assignmentCourse"
+  ).value = "";
+
+
+  document.getElementById(
+    "assignmentSemester"
+  ).innerHTML =
+    `<option value="">Select Semester</option>`;
+
+
+  document.getElementById(
+    "assignmentSubject"
+  ).innerHTML =
+    `<option value="">Select Subject</option>`;
+
+
+  document.getElementById(
+    "assignmentSemester"
+  ).disabled = true;
+
+
+  document.getElementById(
+    "assignmentSubject"
+  ).disabled = true;
+
+
+  // Load courses
+  loadAssignmentCourses();
+
+
+  // Open modal
+  document.getElementById(
+    "subjectModal"
+  ).style.display = "flex";
+
+}
+
+
+// ==========================================
+// CLOSE SUBJECT MODAL
+// ==========================================
+
+function closeSubjectModal() {
+
+  document.getElementById(
+    "subjectModal"
+  ).style.display = "none";
+
+}
+
+
+// ==========================================
+// SAVE SUBJECTS
+// ==========================================
+
+
+
+async function saveSubjects() {
+  const profileId =
+    document.getElementById("selectedProfileId").value;
+
+  if (!profileId) {
+    alert("Faculty profile not found.");
+    return;
+  }
+
+  if (selectedSubjects.length === 0) {
+    alert("Please select at least one subject.");
+    return;
+  }
+
+  const subjectAssignments = selectedSubjects.map(subject => ({
+    courseId: String(subject.courseId),
+    semesterId: String(subject.semesterId),
+    subjectId: String(subject.subjectId)
+  }));
+
+  const hasInvalidAssignment = subjectAssignments.some(subject =>
+    !subject.courseId ||
+    !subject.semesterId ||
+    !subject.subjectId
+  );
+
+  if (hasInvalidAssignment) {
+    alert("Course, Semester aur Subject dropdown se subjects select karein.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `/erp/faculty-management/${profileId}/subjects`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          subjectAssignments
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    document.getElementById("subjectMessage").textContent =
+      data.message || "Request completed.";
+
+    if (!response.ok || !data.success) {
+      alert(data.message || "Unable to assign subjects.");
+      return;
+    }
+
+    alert("Subjects assigned successfully.");
+    closeSubjectModal();
+    window.location.reload();
+
+  } catch (error) {
+    console.error("Save Subjects Error:", error);
+    alert("Unable to assign subjects. Check the terminal.");
+  }
+}
+
 
 </script>
-
 
 </body>
 

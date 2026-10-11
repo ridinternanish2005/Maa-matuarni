@@ -76,7 +76,7 @@ const studentProfile =
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   >
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
 
     /* =========================================================
@@ -836,7 +836,122 @@ const studentProfile =
         Student Dashboard
       </h2>
 
+<!-- ===================================================
+     STUDENT ACADEMIC DETAILS
+     =================================================== -->
 
+<div
+  class="placeholder-card"
+  style="margin-top:20px;"
+>
+
+  <div class="placeholder-title">
+
+    <i
+      class="fas fa-graduation-cap"
+      style="color:#1e4a6b;"
+    ></i>
+
+    Academic Details
+
+  </div>
+
+
+  <div
+    class="stats-grid"
+    style="margin-top:20px;"
+  >
+
+    <!-- COURSE -->
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        COURSE
+      </div>
+
+      <div
+        style="
+          font-size:1.5rem;
+          font-weight:700;
+          color:#0e3b5c;
+          margin-top:10px;
+        "
+      >
+        <%= studentProfile?.course || "Not Assigned" %>
+      </div>
+
+    </div>
+
+
+    <!-- SEMESTER -->
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        SEMESTER
+      </div>
+
+      <div
+        style="
+          font-size:1.5rem;
+          font-weight:700;
+          color:#0e3b5c;
+          margin-top:10px;
+        "
+      >
+        <%= studentProfile?.semester || "Not Assigned" %>
+      </div>
+
+    </div>
+
+
+    <!-- SESSION -->
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        SESSION
+      </div>
+
+      <div
+        style="
+          font-size:1.5rem;
+          font-weight:700;
+          color:#0e3b5c;
+          margin-top:10px;
+        "
+      >
+        <%= erpUser?.session || "N/A" %>
+      </div>
+
+    </div>
+
+
+    <!-- ENROLLMENT -->
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        ENROLLMENT
+      </div>
+
+      <div
+        style="
+          font-size:1.5rem;
+          font-weight:700;
+          color:#0e3b5c;
+          margin-top:10px;
+        "
+      >
+        <%= erpUser?.enrollment || "N/A" %>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
       <!-- LIBRARY STATS -->
 
       <div class="stats-grid">
@@ -1226,233 +1341,166 @@ const studentProfile =
     </div>
 
 
-    <!-- =====================================================
-         2. STUDENT DUE
-         ===================================================== -->
+<!-- =====================================================
+     2. STUDENT DUE
+     ===================================================== -->
 
-    <div
-      id="studentDueView"
-      class="view"
-    >
+<div id="studentDueView" class="view">
 
-      <div class="placeholder-card">
+  <div class="placeholder-card">
 
-        <div class="placeholder-title">
+    <div class="placeholder-title">
+      <i class="fas fa-wallet" style="color:#1e4a6b;"></i>
+      Student Due
+    </div>
 
-          <i
-            class="fas fa-wallet"
-            style="color:#1e4a6b;"
-          ></i>
+    <div class="placeholder-text">
+      Current semester fee details
+    </div>
 
-          Student Due
+    <!-- FEE SUMMARY -->
+    <div class="stats-grid">
 
+      <div class="stat-card">
+        <div class="stat-label">TOTAL FEE</div>
+        <div class="stat-number">
+          ₹<%= studentTotalFees.toLocaleString("en-IN") %>
         </div>
+      </div>
 
-
-        <div class="placeholder-text">
-
-          Current semester fee details
-
+      <div class="stat-card">
+        <div class="stat-label">PAID FEE</div>
+        <div class="stat-number">
+          ₹<%= studentPaidFees.toLocaleString("en-IN") %>
         </div>
+      </div>
 
-
-        <!-- FEE SUMMARY -->
-
-        <div class="stats-grid">
-
-
-          <!-- TOTAL -->
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              TOTAL FEE
-            </div>
-
-            <div class="stat-number">
-
-              ₹<%= studentTotalFees.toLocaleString("en-IN") %>
-
-            </div>
-
-          </div>
-
-
-          <!-- PAID -->
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              PAID FEE
-            </div>
-
-            <div class="stat-number">
-
-              ₹<%= studentPaidFees.toLocaleString("en-IN") %>
-
-            </div>
-
-          </div>
-
-
-          <!-- PENDING -->
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              PENDING FEE
-            </div>
-
-            <div class="stat-number">
-
-              ₹<%= studentPendingFees.toLocaleString("en-IN") %>
-
-            </div>
-
-          </div>
-
+      <div class="stat-card">
+        <div class="stat-label">PENDING FEE</div>
+        <div class="stat-number">
+          ₹<%= studentPendingFees.toLocaleString("en-IN") %>
         </div>
-
-
-        <!-- FEE STATUS -->
-
-        <div class="info-message">
-
-          <% if (studentPendingFees > 0) { %>
-
-            <strong>
-              Fee Pending
-            </strong>
-
-            <br>
-
-            Your pending fee is
-
-            <strong>
-              ₹<%= studentPendingFees.toLocaleString("en-IN") %>
-            </strong>.
-
-          <% } else { %>
-
-            <strong>
-              No dues pending
-            </strong>
-
-            <br>
-
-            All fees have been paid.
-
-          <% } %>
-
-        </div>
-
-
-        <!-- SEMESTER WISE FEES -->
-
-        <div class="section-title">
-          💰 Semester Wise Fees
-        </div>
-
-        <div class="table-responsive">
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-                <th>Semester</th>
-                <th>Total Fee</th>
-                <th>Paid</th>
-                <th>Pending</th>
-                <th>Status</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              <% if (studentFees.length > 0) { %>
-
-                <% studentFees.forEach(fee => { %>
-
-                  <tr>
-
-                    <td>
-                      <%= fee.semester || "N/A" %>
-                    </td>
-
-                    <td>
-                      ₹<%= Number(
-                        fee.totalFees || 0
-                      ).toLocaleString("en-IN") %>
-                    </td>
-
-                    <td>
-                      ₹<%= Number(
-                        fee.paidFees || 0
-                      ).toLocaleString("en-IN") %>
-                    </td>
-
-                    <td>
-                      ₹<%= Number(
-                        fee.pendingFees || 0
-                      ).toLocaleString("en-IN") %>
-                    </td>
-
-                    <td>
-
-                      <% if (
-                        Number(fee.pendingFees || 0) > 0
-                      ) { %>
-
-                        <span
-                          style="color:#c62828;font-weight:600;"
-                        >
-                          Pending
-                        </span>
-
-                      <% } else { %>
-
-                        <span
-                          style="color:#2e7d32;font-weight:600;"
-                        >
-                          Paid
-                        </span>
-
-                      <% } %>
-
-                    </td>
-
-                  </tr>
-
-                <% }) %>
-
-              <% } else { %>
-
-                <tr>
-
-                  <td
-                    colspan="5"
-                    style="text-align:center;"
-                  >
-                    No fee records found.
-                  </td>
-
-                </tr>
-
-              <% } %>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
       </div>
 
     </div>
+
+    <!-- FEE STATUS -->
+    <div class="info-message">
+
+      <% if (studentPendingFees > 0) { %>
+        <strong>Fee Pending</strong>
+        <br>
+        Your pending fee is
+        <strong>
+          ₹<%= studentPendingFees.toLocaleString("en-IN") %>
+        </strong>.
+      <% } else { %>
+        <strong>No dues pending</strong>
+        <br>
+        All fees have been paid.
+      <% } %>
+
+    </div>
+
+    <!-- SEMESTER WISE FEES -->
+    <div class="section-title">
+      💰 Semester Wise Fees
+    </div>
+
+    <div class="table-responsive">
+      <table>
+
+        <thead>
+          <tr>
+            <th>Semester</th>
+            <th>Total Fee</th>
+            <th>Paid</th>
+            <th>Pending</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% if (studentFees.length > 0) { %>
+
+            <% studentFees.forEach(fee => { %>
+
+              <tr>
+
+                <td>
+                  <%= fee.semester || "N/A" %>
+                </td>
+
+                <td>
+                  ₹<%= Number(fee.totalFees || 0).toLocaleString("en-IN") %>
+                </td>
+
+                <td>
+                  ₹<%= Number(fee.paidFees || 0).toLocaleString("en-IN") %>
+                </td>
+
+                <td>
+                  ₹<%= Number(fee.pendingFees || 0).toLocaleString("en-IN") %>
+                </td>
+
+                <td>
+                  <% if (Number(fee.pendingFees || 0) > 0) { %>
+                    <span style="color:#c62828;font-weight:600;">
+                      Pending
+                    </span>
+                  <% } else { %>
+                    <span style="color:#2e7d32;font-weight:600;">
+                      Paid
+                    </span>
+                  <% } %>
+                </td>
+
+                <td>
+                  <% if (Number(fee.pendingFees || 0) > 0 && fee._id) { %>
+
+                    <button
+                      type="button"
+                      class="next-btn"
+                      onclick="paySemesterFee('<%= fee._id %>', this)"
+                    >
+                      <i class="fas fa-credit-card"></i>
+                      Pay Now
+                    </button>
+
+                  <% } else { %>
+
+                    <span style="color:#2e7d32;font-weight:600;">
+                      No Dues
+                    </span>
+
+                  <% } %>
+                </td>
+
+              </tr>
+
+            <% }) %>
+
+          <% } else { %>
+
+            <tr>
+              <td colspan="6" style="text-align:center;">
+                No fee records found.
+              </td>
+            </tr>
+
+          <% } %>
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
 
 
     <!-- =====================================================
@@ -2940,6 +2988,110 @@ window.searchBooks = async function () {
   }
 
 })();
+
+
+
+
+
+async function paySemesterFee(feeId, button) {
+  if (typeof Razorpay === "undefined") {
+    alert("Razorpay load nahi hua. Internet connection check karein.");
+    return;
+  }
+
+  const originalText = button.innerHTML;
+  button.disabled = true;
+  button.textContent = "Please wait...";
+
+  try {
+    const response = await fetch("/erp/students/fees/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ feeId: feeId })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "Payment order create nahi hua.");
+    }
+
+    const options = {
+      key: data.keyId,
+      amount: data.amount,
+      currency: data.currency,
+      name: "Maa Maturani Devi Pharmacy College",
+      description: "Semester Fee Payment",
+      order_id: data.orderId,
+      prefill: { name: data.studentName || "" },
+
+      handler: async function (payment) {
+        try {
+          const verifyResponse = await fetch(
+            "/erp/students/fees/verify-payment",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "same-origin",
+              body: JSON.stringify({
+                feeId: feeId,
+                razorpay_order_id: payment.razorpay_order_id,
+                razorpay_payment_id: payment.razorpay_payment_id,
+                razorpay_signature: payment.razorpay_signature
+              })
+            }
+          );
+
+          const result = await verifyResponse.json();
+
+          if (!verifyResponse.ok || !result.success) {
+            alert(
+              result.message ||
+              "Payment verify nahi hua. College se payment status confirm karein."
+            );
+            return;
+          }
+
+          alert("Payment successful! Receipt No: " + result.receiptNo);
+          window.location.reload();
+
+        } catch (error) {
+          alert("Payment status confirm nahi ho saka. College se status check karein.");
+        } finally {
+          button.disabled = false;
+          button.innerHTML = originalText;
+        }
+      },
+
+      modal: {
+        ondismiss: function () {
+          button.disabled = false;
+          button.innerHTML = originalText;
+        }
+      },
+
+      theme: { color: "#1e4a6b" }
+    };
+
+    const checkout = new Razorpay(options);
+
+    checkout.on("payment.failed", function (event) {
+      alert(event.error?.description || "Payment fail hua.");
+      button.disabled = false;
+      button.innerHTML = originalText;
+    });
+
+    checkout.open();
+
+  } catch (error) {
+    alert(error.message || "Payment start nahi ho paya.");
+    button.disabled = false;
+    button.innerHTML = originalText;
+  }
+}
+
+
 
 </script>
 

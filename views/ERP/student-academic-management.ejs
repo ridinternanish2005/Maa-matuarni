@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Student Academic Management</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 6px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+    }
+
+    .assign-btn {
+      background: #16a34a;
+      margin-top: 0;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+  <h1>
+    Student Academic Management
+  </h1>
+
+
+  <!-- ======================================
+       ASSIGN FORM
+  ======================================= -->
+
+  <div class="card">
+
+    <h2>
+      Assign Course & Semester
+    </h2>
+
+
+    <label>
+      Student
+    </label>
+
+    <select id="studentId">
+
+      <option value="">
+        Select Student
+      </option>
+
+      <% students.forEach(student => { %>
+
+        <option value="<%= student._id %>">
+
+          <%= student.name %>
+          -
+          <%= student.enrollment %>
+
+        </option>
+
+      <% }) %>
+
+    </select>
+
+
+    <label>
+      Course
+    </label>
+
+    <select id="courseId">
+
+      <option value="">
+        Select Course
+      </option>
+
+      <% courses.forEach(course => { %>
+
+        <option value="<%= course._id %>">
+
+          <%= course.courseCode %>
+          -
+          <%= course.courseName %>
+
+        </option>
+
+      <% }) %>
+
+    </select>
+
+
+    <label>
+      Semester
+    </label>
+
+    <select id="semesterId" disabled>
+
+      <option value="">
+        Select Semester
+      </option>
+
+    </select>
+
+
+    <button
+      type="button"
+      onclick="assignAcademic()"
+    >
+      Assign Course & Semester
+    </button>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+  </div>
+
+
+  <!-- ======================================
+       STUDENT LIST
+  ======================================= -->
+
+  <div class="card">
+
+    <h2>
+      Student List
+    </h2>
+
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Name
+          </th>
+
+          <th>
+            Enrollment
+          </th>
+
+          <th>
+            Course
+          </th>
+
+          <th>
+            Semester
+          </th>
+
+          <th>
+            Status
+          </th>
+
+          <th>
+            Action
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <% students.forEach(student => { %>
+
+          <tr>
+
+            <td>
+              <%= student.name %>
+            </td>
+
+            <td>
+              <%= student.enrollment %>
+            </td>
+
+            <td>
+
+              <%= student.profile?.courseCode
+                || "Not Assigned" %>
+
+            </td>
+
+            <td>
+
+              <%= student.profile?.semester
+                || "Not Assigned" %>
+
+            </td>
+
+            <td>
+
+              <%= student.active
+                ? "Active"
+                : "Inactive" %>
+
+            </td>
+
+            <td>
+
+              <button
+                class="assign-btn"
+                onclick="selectStudent('<%= student._id %>')"
+              >
+                Assign
+              </button>
+
+            </td>
+
+          </tr>
+
+        <% }) %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+  const courses = <%- JSON.stringify(courses) %>;
+
+
+  // ==========================================
+  // COURSE CHANGE
+  // ==========================================
+
+  document
+    .getElementById("courseId")
+    .addEventListener("change", function () {
+
+      const courseId = this.value;
+
+      const semesterSelect =
+        document.getElementById("semesterId");
+
+
+      semesterSelect.innerHTML =
+        '<option value="">Select Semester</option>';
+
+
+      semesterSelect.disabled = true;
+
+
+      if (!courseId) {
+        return;
+      }
+
+
+      const course =
+        courses.find(
+          item => item._id === courseId
+        );
+
+
+      if (!course) {
+        return;
+      }
+
+
+      course.semesters
+        .filter(
+          semester => semester.active !== false
+        )
+        .forEach(semester => {
+
+          const option =
+            document.createElement("option");
+
+          option.value =
+            semester._id;
+
+          option.textContent =
+            semester.name;
+
+          semesterSelect.appendChild(
+            option
+          );
+
+        });
+
+
+      semesterSelect.disabled = false;
+
+    });
+
+
+  // ==========================================
+  // SELECT STUDENT
+  // ==========================================
+
+  function selectStudent(studentId) {
+
+    document.getElementById(
+      "studentId"
+    ).value = studentId;
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  // ==========================================
+  // ASSIGN
+  // ==========================================
+
+  async function assignAcademic() {
+
+    const studentId =
+      document.getElementById(
+        "studentId"
+      ).value;
+
+    const courseId =
+      document.getElementById(
+        "courseId"
+      ).value;
+
+    const semesterId =
+      document.getElementById(
+        "semesterId"
+      ).value;
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    if (
+      !studentId ||
+      !courseId ||
+      !semesterId
+    ) {
+
+      message.style.color = "red";
+
+      message.innerText =
+        "Student, Course and Semester select karein.";
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/erp/student-academic-management/assign",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              studentId,
+              courseId,
+              semesterId
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "Assignment failed."
+        );
+
+      }
+
+
+      message.style.color =
+        "green";
+
+      message.innerText =
+        "Course and Semester assigned successfully.";
+
+
+      setTimeout(() => {
+
+        window.location.reload();
+
+      }, 1000);
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.style.color =
+        "red";
+
+      message.innerText =
+        error.message;
+
+    }
+
+  }
+
+</script>
+
+
+</body>
+
+</html>

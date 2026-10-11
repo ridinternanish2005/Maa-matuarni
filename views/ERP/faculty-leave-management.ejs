@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Faculty Leave Management</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    select,
+    textarea {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 60px;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    .pending {
+      color: #b45309;
+      font-weight: bold;
+    }
+
+    .approved {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .rejected {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h1>Faculty Leave Management</h1>
+
+
+    <% if (!leaves || leaves.length === 0) { %>
+
+      <p>No leave applications found.</p>
+
+    <% } else { %>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Faculty</th>
+
+            <th>Enrollment</th>
+
+            <th>Leave Type</th>
+
+            <th>From</th>
+
+            <th>To</th>
+
+            <th>Reason</th>
+
+            <th>Status</th>
+
+            <th>Remark</th>
+
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <% leaves.forEach(leave => { %>
+
+            <tr>
+
+              <td>
+                <%= leave.facultyName %>
+              </td>
+
+              <td>
+                <%= leave.facultyEnrollment %>
+              </td>
+
+              <td>
+                <%= leave.leaveType %>
+              </td>
+
+              <td>
+                <%= new Date(leave.fromDate).toLocaleDateString("en-IN") %>
+              </td>
+
+              <td>
+                <%= new Date(leave.toDate).toLocaleDateString("en-IN") %>
+              </td>
+
+              <td>
+                <%= leave.reason %>
+              </td>
+
+              <td>
+
+                <% if (leave.status === "Pending") { %>
+
+                  <span class="pending">
+                    Pending
+                  </span>
+
+                <% } else if (leave.status === "Approved") { %>
+
+                  <span class="approved">
+                    Approved
+                  </span>
+
+                <% } else { %>
+
+                  <span class="rejected">
+                    Rejected
+                  </span>
+
+                <% } %>
+
+              </td>
+
+              <td>
+
+                <textarea
+                  id="remark-<%= leave._id %>"
+                  placeholder="Remark"
+                ><%= leave.adminRemark || "" %></textarea>
+
+              </td>
+
+              <td>
+
+                <% if (leave.status === "Pending") { %>
+
+                  <button
+                    onclick="updateLeave('<%= leave._id %>', 'Approved')"
+                  >
+                    Approve
+                  </button>
+
+
+                  <button
+                    onclick="updateLeave('<%= leave._id %>', 'Rejected')"
+                  >
+                    Reject
+                  </button>
+
+                <% } else { %>
+
+                  <span>
+                    Completed
+                  </span>
+
+                <% } %>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+
+<script>
+
+async function updateLeave(id, status) {
+
+  const remarkElement =
+    document.getElementById(`remark-${id}`);
+
+  const adminRemark =
+    remarkElement
+      ? remarkElement.value.trim()
+      : "";
+
+
+  try {
+
+    const response = await fetch(
+      `/erp/faculty-leave-management/${id}/status`,
+      {
+        method: "PATCH",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          status,
+          adminRemark
+        })
+      }
+    );
+
+
+    const data = await response.json();
+
+
+    if (!response.ok) {
+
+      alert(
+        data.message ||
+        "Unable to update leave."
+      );
+
+      return;
+    }
+
+
+    alert(data.message);
+
+    window.location.reload();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Something went wrong.");
+
+  }
+
+}
+
+</script>
+
+</body>
+
+</html>

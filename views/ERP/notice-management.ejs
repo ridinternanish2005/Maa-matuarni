@@ -412,20 +412,9 @@
 
           <div class="notice-footer">
 
-            <button
-              class="<%= notice.published
-                ? 'btn-danger'
-                : 'btn-success'
-              %>"
-              onclick="toggleNotice('<%= notice._id %>')"
-            >
-
-              <%= notice.published
-                ? "Unpublish"
-                : "Publish"
-              %>
-
-            </button>
+         <button onclick="toggleNoticeStatus('<%= notice._id %>')">
+  <%= notice.active ? "Unpublish" : "Publish" %>
+</button>
 
           </div>
 
@@ -526,47 +515,29 @@
   );
 
 
-  async function toggleNotice(id) {
-
-    try {
-
-      const response = await fetch(
-        `/erp/notices/${id}/status`,
-        {
-          method: "PATCH"
-        }
-      );
-
-
-      const result =
-        await response.json();
-
-
-      if (!result.success) {
-
-        alert(
-          result.message ||
-          "Unable to change notice status."
-        );
-
-        return;
+async function toggleNoticeStatus(id) {
+  try {
+    const response = await fetch(`/erp/notices/${id}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
       }
+    });
 
+    const data = await response.json();
 
-      location.reload();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Server error."
-      );
-
+    if (!response.ok) {
+      throw new Error(data.message || "Server error");
     }
 
+    alert(data.message);
+    location.reload();
+
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
   }
+}
 
 </script>
 

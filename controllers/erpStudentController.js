@@ -147,13 +147,13 @@ export const getStudentDashboard = async (req, res) => {
     // STUDENT ATTENDANCE
     // ==========================================
 
-    const attendance =
-      await StudentAttendance.find({
-        enrollment: user.enrollment
-      })
-        .sort({ date: -1 })
-        .lean();
-
+ const attendance =
+  await StudentAttendance.find({
+    enrollment: user.enrollment,
+    session: user.session
+  })
+    .sort({ date: -1 })
+    .lean();
     // ==========================================
     // ATTENDANCE CALCULATION
     // ==========================================

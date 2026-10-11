@@ -207,17 +207,11 @@
             Select Subject
           </option>
 
-
-          <% subjects.forEach(
-            (subject) => {
-          %>
-
-            <option value="<%= subject %>">
-              <%= subject %>
-            </option>
-
-          <% }) %>
-
+<% subjects.forEach((subject) => { %>
+  <option value="<%= subject.subjectId %>">
+    <%= subject.label %>
+  </option>
+<% }) %>
         </select>
 
       </div>

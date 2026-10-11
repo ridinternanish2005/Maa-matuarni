@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Course Management</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1f2937;
+      padding: 25px;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .header {
+      background: #ffffff;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .header h1 {
+      margin: 0 0 5px;
+    }
+
+    .header p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      padding: 10px 15px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    .course {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .course-header {
+      background: #f8fafc;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .course-title h3 {
+      margin: 0 0 5px;
+    }
+
+    .course-title p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .active {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .inactive {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .semester {
+      margin: 15px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+    }
+
+    .semester-header {
+      padding: 14px;
+      background: #f9fafb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .semester-header h4 {
+      margin: 0;
+    }
+
+    .subjects {
+      padding: 15px;
+    }
+
+    .subject-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      gap: 10px;
+    }
+
+    .subject-row:last-child {
+      border-bottom: 0;
+    }
+
+    .subject-info strong {
+      display: block;
+    }
+
+    .subject-info small {
+      color: #6b7280;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .empty {
+      padding: 25px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      border-radius: 7px;
+      margin-bottom: 15px;
+    }
+
+    .message.success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .message.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    @media (max-width: 900px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-header,
+      .semester-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .subject-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <h1>Course Management</h1>
+    <p>
+      Manage courses, semesters and subjects
+    </p>
+  </div>
+
+  <div id="message" class="message"></div>
+
+  <!-- ===================================== -->
+  <!-- ADD COURSE -->
+  <!-- ===================================== -->
+
+  <div class="card">
+
+    <h2>Add Course</h2>
+
+    <form id="courseForm">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Course Code</label>
+
+          <input
+            type="text"
+            id="courseCode"
+            placeholder="Example: BPHARM"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Course Name</label>
+
+          <input
+            type="text"
+            id="courseName"
+            placeholder="Example: Bachelor of Pharmacy"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Duration</label>
+
+          <input
+            type="number"
+            id="duration"
+            min="1"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Duration Unit</label>
+
+          <select id="durationUnit">
+            <option value="Years">Years</option>
+            <option value="Months">Months</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Department</label>
+
+          <input
+            type="text"
+            id="department"
+            value="Pharmacy"
+          >
+        </div>
+
+        <div class="form-group full">
+          <label>Description</label>
+
+          <textarea
+            id="description"
+            placeholder="Course description"
+          ></textarea>
+        </div>
+
+      </div>
+
+      <br>
+
+      <button
+        type="submit"
+        class="btn-primary"
+      >
+        Add Course
+      </button>
+
+    </form>
+
+  </div>
+
+  <!-- ===================================== -->
+  <!-- COURSES -->
+  <!-- ===================================== -->
+
+  <div id="coursesContainer">
+
+    <div class="empty">
+      Loading courses...
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const messageBox =
+  document.getElementById("message");
+
+function showMessage(message, type = "success") {
+
+  messageBox.textContent = message;
+
+  messageBox.className =
+    "message " + type;
+
+  setTimeout(() => {
+    messageBox.className = "message";
+  }, 3000);
+}
+
+
+// ==========================================
+// ADD COURSE
+// ==========================================
+
+document.getElementById("courseForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("/erp/courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        courseCode: document.getElementById("courseCode").value,
+        courseName: document.getElementById("courseName").value,
+        duration: document.getElementById("duration").value,
+        durationUnit: document.getElementById("durationUnit").value,
+        department: document.getElementById("department").value,
+        description: document.getElementById("description").value
+      })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    showMessage("Course added successfully.", "success");
+
+    document.getElementById("courseForm").reset();
+
+    document.getElementById("department").value = "Pharmacy";
+
+    loadCourses();
+
+  } catch (error) {
+    console.error("Add Course Error:", error);
+    showMessage(error.message, "error");
+  }
+});
+// ==========================================
+// LOAD COURSES
+// ==========================================
+
+async function loadCourses() {
+
+  try {
+
+    const response =
+      await fetch("/erp/courses");
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    renderCourses(data.courses);
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "coursesContainer"
+    ).innerHTML = `
+      <div class="empty">
+        Unable to load courses.
+      </div>
+    `;
+  }
+}
+
+
+// ==========================================
+// RENDER COURSES
+// ==========================================
+
+function renderCourses(courses) {
+
+  const container =
+    document.getElementById(
+      "coursesContainer"
+    );
+
+  if (!courses.length) {
+
+    container.innerHTML = `
+      <div class="card empty">
+        No courses found. Add your first course.
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    courses.map(course => {
+
+      const semesters =
+        course.semesters || [];
+
+      return `
+
+        <div class="course">
+
+          <div class="course-header">
+
+            <div class="course-title">
+
+              <h3>
+                ${escapeHtml(course.courseName)}
+              </h3>
+
+              <p>
+                Code:
+                <strong>
+                  ${escapeHtml(course.courseCode)}
+                </strong>
+
+                &nbsp; | &nbsp;
+
+                Duration:
+                ${course.duration}
+                ${course.durationUnit}
+
+                &nbsp; | &nbsp;
+
+                Department:
+                ${escapeHtml(course.department)}
+              </p>
+
+              <br>
+
+              <span class="status ${
+                course.active
+                  ? "active"
+                  : "inactive"
+              }">
+                ${
+                  course.active
+                    ? "Active"
+                    : "Inactive"
+                }
+              </span>
+
+            </div>
+
+            <div class="actions">
+
+              <button
+                class="btn-secondary"
+                onclick="addSemester('${course._id}')"
+              >
+                + Add Semester
+              </button>
+
+              <button
+                class="${
+                  course.active
+                    ? "btn-danger"
+                    : "btn-success"
+                }"
+                onclick="toggleCourse('${course._id}')"
+              >
+                ${
+                  course.active
+                    ? "Deactivate"
+                    : "Activate"
+                }
+              </button>
+
+            </div>
+
+          </div>
+
+          ${
+            course.description
+              ? `
+                <div style="padding:15px;">
+                  ${escapeHtml(course.description)}
+                </div>
+              `
+              : ""
+          }
+
+          ${
+            semesters.length
+              ? semesters.map(
+                  semester =>
+                    renderSemester(
+                      course,
+                      semester
+                    )
+                ).join("")
+              : `
+                <div class="empty">
+                  No semesters added yet.
+                </div>
+              `
+          }
+
+        </div>
+
+      `;
+
+    }).join("");
+}
+
+
+// ==========================================
+// RENDER SEMESTER
+// ==========================================
+
+function renderSemester(
+  course,
+  semester
+) {
+
+  const subjects =
+    semester.subjects || [];
+
+  return `
+
+    <div class="semester">
+
+      <div class="semester-header">
+
+        <div>
+
+          <h4>
+            ${escapeHtml(semester.name)}
+          </h4>
+
+          <small>
+            Semester ${semester.semesterNumber}
+          </small>
+
+          <br>
+
+          <span class="status ${
+            semester.active
+              ? "active"
+              : "inactive"
+          }">
+            ${
+              semester.active
+                ? "Active"
+                : "Inactive"
+            }
+          </span>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn-primary"
+       onclick="addSubject(
+  '${course._id}',
+  '${semester._id}',
+  event
+)"
+          >
+            + Add Subject
+          </button>
+
+          <button
+            class="${
+              semester.active
+                ? "btn-danger"
+                : "btn-success"
+            }"
+            onclick="toggleSemester(
+              '${course._id}',
+              '${semester._id}'
+            )"
+          >
+            ${
+              semester.active
+                ? "Deactivate"
+                : "Activate"
+            }
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="subjects">
+
+        ${
+          subjects.length
+            ? subjects.map(
+                subject =>
+                  renderSubject(
+                    course,
+                    semester,
+                    subject
+                  )
+              ).join("")
+            : `
+              <div class="empty">
+                No subjects added.
+              </div>
+            `
+        }
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+// ==========================================
+// RENDER SUBJECT
+// ==========================================
+
+function renderSubject(
+  course,
+  semester,
+  subject
+) {
+
+  return `
+
+    <div class="subject-row">
+
+      <div class="subject-info">
+
+        <strong>
+          ${escapeHtml(subject.name)}
+        </strong>
+
+        <small>
+
+          ${
+            subject.code
+              ? `Code: ${escapeHtml(subject.code)} | `
+              : ""
+          }
+
+          Type:
+          ${escapeHtml(subject.type)}
+
+          |
+
+          Credits:
+          ${subject.credits}
+
+        </small>
+
+        <br>
+
+        <span class="status ${
+          subject.active
+            ? "active"
+            : "inactive"
+        }">
+          ${
+            subject.active
+              ? "Active"
+              : "Inactive"
+          }
+        </span>
+
+      </div>
+
+      <button
+        class="${
+          subject.active
+            ? "btn-danger"
+            : "btn-success"
+        }"
+        onclick="toggleSubject(
+          '${course._id}',
+          '${semester._id}',
+          '${subject._id}'
+        )"
+      >
+        ${
+          subject.active
+            ? "Deactivate"
+            : "Activate"
+        }
+      </button>
+
+    </div>
+
+  `;
+}
+
+
+// ==========================================
+// ADD SEMESTER
+// ==========================================
+
+async function addSemester(courseId) {
+
+  const semesterNumber =
+    prompt("Enter semester number:");
+
+  if (!semesterNumber) return;
+
+  const name =
+    prompt(
+      "Enter semester name:",
+      `Semester ${semesterNumber}`
+    );
+
+  if (!name) return;
+
+  try {
+
+    const response =
+      await fetch(
+        `/erp/courses/${courseId}/semesters`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            semesterNumber:
+              Number(semesterNumber),
+            name
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    showMessage(
+      "Semester added successfully."
+    );
+
+    loadCourses();
+
+  } catch (error) {
+
+    showMessage(
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+// ==========================================
+// ADD SUBJECT
+// ==========================================
+
+async function addSubject(courseId, semesterId, event) {
+
+    // Check if bulk form already exists
+    const oldForm = document.getElementById(
+        `bulkSubjectForm-${semesterId}`
+    );
+
+    if (oldForm) {
+        oldForm.remove();
+        return;
+    }
+
+    // Find the semester card
+    const semesterButton = event.currentTarget;
+
+    const form = document.createElement("div");
+
+    form.id = `bulkSubjectForm-${semesterId}`;
+
+    form.style.marginTop = "15px";
+    form.style.padding = "15px";
+    form.style.border = "1px solid #ddd";
+    form.style.borderRadius = "10px";
+    form.style.background = "#f8f9fa";
+
+    form.innerHTML = `
+        <h4>Add Multiple Subjects</h4>
+
+        <p>
+            One subject per line:
+        </p>
+
+        <p>
+            <b>Format:</b>
+            Subject Name | Code | Type | Credits
+        </p>
+
+        <textarea
+            id="bulkSubjects-${semesterId}"
+            rows="8"
+            style="width:100%; padding:10px;"
+            placeholder="Example:
+Human Anatomy and Physiology II | BP201T | Theory | 4
+Pharmaceutical Organic Chemistry I | BP202T | Theory | 4
+Biochemistry | BP203T | Theory | 4"
+        ></textarea>
+
+        <br><br>
+
+        <button
+            type="button"
+            onclick="saveBulkSubjects('${courseId}', '${semesterId}')"
+            style="background:#198754;color:white;border:0;padding:10px 15px;border-radius:6px;"
+        >
+            Add All Subjects
+        </button>
+
+        <button
+            type="button"
+            onclick="document.getElementById('bulkSubjectForm-${semesterId}').remove()"
+            style="background:#dc3545;color:white;border:0;padding:10px 15px;border-radius:6px;margin-left:8px;"
+        >
+            Cancel
+        </button>
+    `;
+
+    semesterButton.parentElement.appendChild(form);
+}
+
+
+async function saveBulkSubjects(courseId, semesterId) {
+
+    const textarea = document.getElementById(
+        `bulkSubjects-${semesterId}`
+    );
+
+    const text = textarea.value.trim();
+
+    if (!text) {
+        alert("Please enter subjects.");
+        return;
+    }
+
+    const lines = text
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line);
+
+    let successCount = 0;
+
+    for (const line of lines) {
+
+        const parts = line.split("|").map(item => item.trim());
+
+        if (parts.length !== 4) {
+            alert(
+                "Wrong format:\n\n" +
+                line +
+                "\n\nCorrect format:\n" +
+                "Subject Name | Code | Type | Credits"
+            );
+            return;
+        }
+
+        const [name, code, type, credits] = parts;
+
+        if (!name || !code || !type || !credits) {
+            alert("All fields are required:\n" + line);
+            return;
+        }
+
+        const response = await fetch(
+            `/erp/courses/${courseId}/semesters/${semesterId}/subjects`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    code: code,
+                    type: type,
+                    credits: Number(credits)
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            alert(
+                "Subject add nahi hua:\n\n" +
+                name +
+                "\n\n" +
+                (data.message || "Unknown error")
+            );
+            return;
+        }
+
+        successCount++;
+    }
+
+    alert(
+        successCount +
+        " subjects successfully added."
+    );
+
+    loadCourses();
+}
+
+// ==========================================
+// TOGGLE COURSE
+// ==========================================
+
+async function toggleCourse(id) {
+
+  try {
+
+    const response =
+      await fetch(
+        `/erp/courses/${id}/status`,
+        {
+          method: "PATCH"
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    showMessage(data.message);
+
+    loadCourses();
+
+  } catch (error) {
+
+    showMessage(
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+// ==========================================
+// TOGGLE SEMESTER
+// ==========================================
+
+async function toggleSemester(
+  courseId,
+  semesterId
+) {
+
+  try {
+
+    const response =
+      await fetch(
+        `/erp/courses/${courseId}/semesters/${semesterId}/status`,
+        {
+          method: "PATCH"
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    showMessage(data.message);
+
+    loadCourses();
+
+  } catch (error) {
+
+    showMessage(
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+// ==========================================
+// TOGGLE SUBJECT
+// ==========================================
+
+async function toggleSubject(
+  courseId,
+  semesterId,
+  subjectId
+) {
+
+  try {
+
+    const response =
+      await fetch(
+        `/erp/courses/${courseId}/semesters/${semesterId}/subjects/${subjectId}/status`,
+        {
+          method: "PATCH"
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    showMessage(data.message);
+
+    loadCourses();
+
+  } catch (error) {
+
+    showMessage(
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+// ==========================================
+// ESCAPE HTML
+// ==========================================
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+// ==========================================
+// INITIAL LOAD
+// ==========================================
+
+loadCourses();
+
+</script>
+
+</body>
+</html>

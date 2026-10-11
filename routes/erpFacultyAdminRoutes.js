@@ -2,50 +2,44 @@ import express from "express";
 
 import {
   getFacultyManagement,
-  getAllFaculty,
-  saveFacultyProfile,
+  createFacultyProfile,
+  updateFacultyProfile,
+  assignFacultySubjects,
   toggleFacultyStatus
-} from "../controllers/erpFacultyController.js";
+} from "../controllers/facultyManagementController.js";
 
 import { requireERPRole } from "../middleware/erpAuth.js";
 
 const router = express.Router();
 
-
-// Faculty Management Page
-
 router.get(
   "/faculty-management",
-  requireERPRole("admin"),
+  requireERPRole("admin", "principal"),
   getFacultyManagement
 );
 
-
-// Get all faculty
-
-router.get(
-  "/faculty",
-  requireERPRole("admin"),
-  getAllFaculty
-);
-
-
-// Save faculty profile
-
 router.post(
-  "/faculty/profile",
-  requireERPRole("admin"),
-  saveFacultyProfile
+  "/faculty-management",
+  requireERPRole("admin", "principal"),
+  createFacultyProfile
 );
 
+router.put(
+  "/faculty-management/:id",
+  requireERPRole("admin", "principal"),
+  updateFacultyProfile
+);
 
-// Activate / Deactivate faculty
+router.put(
+  "/faculty-management/:id/subjects",
+  requireERPRole("admin", "principal"),
+  assignFacultySubjects
+);
 
 router.patch(
-  "/faculty/:id/status",
-  requireERPRole("admin"),
+  "/faculty-management/:id/status",
+  requireERPRole("admin", "principal"),
   toggleFacultyStatus
 );
-
 
 export default router;

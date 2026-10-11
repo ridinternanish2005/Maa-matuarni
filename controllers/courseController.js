@@ -1,15 +1,20 @@
-import path from "path";
-import { fileURLToPath } from "url";
-import courseModel from "../models/courseModel.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import Course from "../models/Course.js";
 
-export const getAllCourses = (req, res) => {
+export const getAllCourses = async (req, res) => {
+  try {
+    const courses = await Course.find()
+      .sort({ courseName: 1 })
+      .lean();
 
-    const courses = courseModel.getCourses();   // model data
+    return res.render("allcourses", {
+      courses: courses
+    });
+  } catch (error) {
+    console.error("Get All Courses Error:", error);
 
-    console.log(courses); // optional
-
-    res.sendFile(path.join(__dirname, "../views/allcourses.ejs"));
+    return res.status(500).send(
+      "Unable to load courses."
+    );
+  }
 };

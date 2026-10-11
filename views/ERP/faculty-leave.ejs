@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Faculty Leave Application</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1,
+    h2 {
+      margin-top: 0;
+    }
+
+    .info {
+      margin-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    .pending {
+      color: #b45309;
+      font-weight: bold;
+    }
+
+    .approved {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .rejected {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <h1>Leave Application</h1>
+
+    <div class="info">
+      <strong>Faculty:</strong>
+      <%= user.name %>
+    </div>
+
+    <div class="info">
+      <strong>Enrollment:</strong>
+      <%= user.enrollment %>
+    </div>
+
+    <div class="info">
+      <strong>Session:</strong>
+      <%= user.session %>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Apply Leave</h2>
+
+    <form id="leaveForm">
+
+      <div class="form-group">
+
+        <label>Leave Type</label>
+
+        <select id="leaveType" required>
+
+          <option value="">
+            Select Leave Type
+          </option>
+
+          <option value="Casual">
+            Casual
+          </option>
+
+          <option value="Medical">
+            Medical
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>From Date</label>
+
+        <input
+          type="date"
+          id="fromDate"
+          required
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>To Date</label>
+
+        <input
+          type="date"
+          id="toDate"
+          required
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Reason</label>
+
+        <textarea
+          id="reason"
+          placeholder="Enter leave reason"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <button type="submit">
+        Submit Leave
+      </button>
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+    </form>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>My Leave Applications</h2>
+
+    <% if (!leaves || leaves.length === 0) { %>
+
+      <p>No leave applications found.</p>
+
+    <% } else { %>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Leave Type</th>
+
+            <th>From</th>
+
+            <th>To</th>
+
+            <th>Reason</th>
+
+            <th>Status</th>
+
+            <th>Admin Remark</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% leaves.forEach(leave => { %>
+
+            <tr>
+
+              <td>
+                <%= leave.leaveType %>
+              </td>
+
+              <td>
+                <%= new Date(leave.fromDate).toLocaleDateString("en-IN") %>
+              </td>
+
+              <td>
+                <%= new Date(leave.toDate).toLocaleDateString("en-IN") %>
+              </td>
+
+              <td>
+                <%= leave.reason %>
+              </td>
+
+              <td>
+
+                <% if (leave.status === "Pending") { %>
+
+                  <span class="pending">
+                    Pending
+                  </span>
+
+                <% } else if (leave.status === "Approved") { %>
+
+                  <span class="approved">
+                    Approved
+                  </span>
+
+                <% } else { %>
+
+                  <span class="rejected">
+                    Rejected
+                  </span>
+
+                <% } %>
+
+              </td>
+
+              <td>
+                <%= leave.adminRemark || "-" %>
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const form = document.getElementById("leaveForm");
+
+  const message = document.getElementById("message");
+
+
+  form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+
+    const leaveType =
+      document.getElementById("leaveType").value;
+
+    const fromDate =
+      document.getElementById("fromDate").value;
+
+    const toDate =
+      document.getElementById("toDate").value;
+
+    const reason =
+      document.getElementById("reason").value.trim();
+
+
+    message.textContent = "Submitting...";
+
+
+    try {
+
+      const response = await fetch(
+        "/erp/faculty/leave",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            leaveType,
+            fromDate,
+            toDate,
+            reason
+          })
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      if (!response.ok) {
+
+        message.textContent =
+          data.message || "Unable to submit leave.";
+
+        return;
+      }
+
+
+      message.textContent =
+        data.message;
+
+
+      form.reset();
+
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.textContent =
+        "Something went wrong.";
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>

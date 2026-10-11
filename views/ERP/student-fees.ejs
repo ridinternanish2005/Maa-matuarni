@@ -383,6 +383,30 @@
 
               <!-- PAYMENT HISTORY -->
 
+              
+<!-- ONLINE FEE PAYMENT -->
+<% if (Number(fee.pendingFees || 0) > 0) { %>
+  <div class="border rounded p-3 mb-3 bg-light">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <div>
+        <div class="fw-bold">Pay Semester Fee Online</div>
+        <div class="text-muted small">
+          Pending: ₹<%= Number(fee.pendingFees || 0).toLocaleString("en-IN") %>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="paySemesterFee('<%= fee._id %>', this)"
+      >
+        Pay Now
+      </button>
+    </div>
+  </div>
+<% } %>
+
+
               <% if (
                 fee.payments &&
                 fee.payments.length > 0
@@ -605,6 +629,133 @@
 
 
 </div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+  async function paySemesterFee(feeId, button) {
+    if (typeof Razorpay === "undefined") {
+      alert("Payment service load nahi hui. Internet check karke dobara try karein.");
+      return;
+    }
+
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Please wait...";
+
+    try {
+      const orderResponse = await fetch(
+        "/erp/students/fees/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({ feeId })
+        }
+      );
+
+      const orderData = await orderResponse.json();
+
+      if (!orderResponse.ok || !orderData.success) {
+        throw new Error(orderData.message || "Order create nahi hua.");
+      }
+
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "Maa Maturani Devi Pharmacy College",
+        description: "Semester Fee Payment",
+        order_id: orderData.orderId,
+
+        prefill: {
+          name: orderData.studentName
+        },
+
+        notes: {
+          enrollment: orderData.enrollment
+        },
+
+        handler: async function (response) {
+          try {
+            const verifyResponse = await fetch(
+              "/erp/students/fees/verify-payment",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({
+                  feeId,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature
+                })
+              }
+            );
+
+            const verifyData = await verifyResponse.json();
+
+            if (!verifyResponse.ok || !verifyData.success) {
+              alert(
+                verifyData.message ||
+                "Payment verify nahi hua. Payment status college office se confirm karein."
+              );
+              return;
+            }
+
+            alert(
+              "Payment successful! Receipt No: " +
+              verifyData.receiptNo
+            );
+
+            window.location.reload();
+          } catch (error) {
+            alert(
+              "Payment status confirm nahi ho saka. Dobara payment karne se pehle status check karein."
+            );
+          } finally {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        },
+
+        modal: {
+          ondismiss: function () {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        },
+
+        theme: {
+          color: "#198754"
+        }
+      };
+
+      const checkout = new Razorpay(options);
+
+      checkout.on("payment.failed", function (response) {
+        alert(
+          response.error?.description ||
+          "Payment failed. Please check the payment status."
+        );
+        button.disabled = false;
+        button.textContent = originalText;
+      });
+
+      checkout.open();
+    } catch (error) {
+      alert(error.message || "Payment start nahi ho paya.");
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+</script>
+
 
 
 </body>

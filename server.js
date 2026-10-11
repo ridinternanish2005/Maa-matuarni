@@ -6,6 +6,7 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
+import { fileURLToPath } from "url";
 import path from "path";
 
 import connectDB from "./config/db.js";
@@ -46,9 +47,9 @@ import erpStudentTimetableRoutes from "./routes/erpStudentTimetableRoutes.js";
 
 import erpAssignmentAdminRoutes from "./routes/erpAssignmentAdminRoutes.js";
 import erpStudentAssignmentRoutes from "./routes/erpStudentAssignmentRoutes.js";
-
-
-
+import facultyLeaveRoutes from "./routes/facultyLeaveRoutes.js";
+import noticeRoutes from "./routes/noticeRoutes.js";
+import erpRazorpayRoutes from "./routes/erpRazorpayRoutes.js";
 import erpFacultyAttendanceRoutes
   from "./routes/erpFacultyAttendanceRoutes.js";
 import erpFacultyAdminRoutes
@@ -65,14 +66,28 @@ import questionPaperRoutes
 
   import libraryRoutes
   from "./routes/libraryRoutes.js";
-  ///////////////////////////////////////////////////////////
+
+  import facultyManagementRoutes
+  from "./routes/facultyManagementRoutes.js";
+  
+  
+  import courseManagementRoutes
+  from "./routes/courseManagementRoutes.js";
+
+  import studentAcademicRoutes
+  from "./routes/studentAcademicRoutes.js";
+
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 // DNS
 dns.setServers([
   "8.8.8.8",
   "1.1.1.1"
 ]);
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // App
 const app = express();
 
@@ -88,6 +103,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+
 // View Engine
 app.set("view engine", "ejs");
 
@@ -97,26 +113,17 @@ app.set("views", [
   path.join(process.cwd(), "svic_college/views")
 ]);
 
-
 // Static Files
-app.use(
-  express.static(
-    path.join(process.cwd(), "public")
-  )
-);
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   "/school",
-  express.static(
-    path.join(process.cwd(), "school/public")
-  )
+  express.static(path.join(process.cwd(), "school/public"))
 );
 
 app.use(
   "/svic_college",
-  express.static(
-    path.join(process.cwd(), "svic_college/public")
-  )
+  express.static(path.join(process.cwd(), "svic_college/public"))
 );
 
 
@@ -207,6 +214,7 @@ app.use("/erp", erpAssignmentAdminRoutes);
 
 app.use("/erp/students", erpStudentAssignmentRoutes);
 
+
 app.use(
   "/erp",
   erpResultAdminRoutes
@@ -249,14 +257,29 @@ app.use(
 
 app.use(
   "/erp",
-  questionPaperRoutes
+  libraryRoutes
 );
 
 app.use(
   "/erp",
-  libraryRoutes
+  facultyManagementRoutes
 );
-///////////////////////////////////////////////////////////////////
+
+app.use(
+  "/erp",
+  courseManagementRoutes
+);
+
+app.use(
+  "/erp",
+  studentAcademicRoutes
+);
+
+app.use("/erp", facultyManagementRoutes);
+app.use("/erp", facultyLeaveRoutes);
+app.use("/erp", noticeRoutes);
+app.use("/erp/students", erpRazorpayRoutes);
+
 // Health Check
 app.get("/health", (req, res) => {
   res.json({
@@ -292,7 +315,7 @@ const startServer = async () => {
     await connectDB();
 
     app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
     });
 
   } catch (error) {

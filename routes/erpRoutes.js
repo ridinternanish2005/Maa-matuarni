@@ -15,7 +15,8 @@ import {
 import {
   showLogin,
   login,
-  logout
+  logout,
+  changePassword
 } from "../controllers/erpAuthController.js";
 
 import {
@@ -125,16 +126,6 @@ router.get(
 // FACULTY DASHBOARD
 // ==========================================
 
-router.get(
-  "/faculty",
-  requireERPRole("faculty"),
-  (req, res) => {
-    res.render("ERP/faculty", {
-      erpUser: req.session.erpUser
-    });
-  }
-);
-
 
 // ==========================================
 // PRINCIPAL DASHBOARD
@@ -148,6 +139,11 @@ router.get(
       erpUser: req.session.erpUser
     });
   }
+);
+router.patch(
+  "/faculty/change-password",
+  requireERPRole("faculty"),
+  changePassword
 );
 
 

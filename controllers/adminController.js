@@ -179,7 +179,7 @@ export const createUser = async (req, res) => {
       role,
       session: session.trim(),
       active: true,
-      mustChangePassword: true
+      mustChangePassword: false
     });
 
     return res.status(201).json({

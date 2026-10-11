@@ -122,12 +122,9 @@ export const login = async (req, res) => {
 
 
 
-// ===============================
-// CHANGE PASSWORD
-// ===============================
+
 export const changePassword = async (req, res) => {
   try {
-    // Login required
     if (!req.session?.erpUser) {
       return res.status(401).json({
         success: false,
@@ -135,17 +132,15 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    const { newPassword, confirmPassword } = req.body;
+    const { currentPassword, newPassword, confirmPassword } = req.body;
 
-    // Required fields
-    if (!newPassword || !confirmPassword) {
+    if (!currentPassword || !newPassword || !confirmPassword) {
       return res.status(400).json({
         success: false,
-        message: "All fields are required."
+        message: "All password fields are required."
       });
     }
 
-    // Password match
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
         success: false,
@@ -153,80 +148,62 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    // Minimum length
     if (newPassword.length < 8) {
       return res.status(400).json({
         success: false,
-        message: "Password must be at least 8 characters."
+        message: "New password must be at least 8 characters."
       });
     }
 
-    // Get user from database
-    const user = await User.findOne({
-      enrollment: req.session.erpUser.enrollment
-    }).select("+password");
+    if (currentPassword === newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "New password must be different from current password."
+      });
+    }
 
-    if (!user) {
+    const user = await User.findById(
+      req.session.erpUser.id
+    ).select("+password");
+
+    if (!user || user.active === false) {
       req.session.destroy(() => {});
 
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
-        message: "User account not found."
+        message: "Account not found or deactivated. Please login again."
       });
     }
 
-    if (user.active === false) {
-      req.session.destroy(() => {});
+    const passwordMatch = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
 
-      return res.status(403).json({
+    if (!passwordMatch) {
+      return res.status(400).json({
         success: false,
-        message: "Your account has been deactivated."
+        message: "Current password is incorrect."
       });
     }
 
-    // Hash new password
-    const hashedPassword = await bcrypt.hash(newPassword, 12);
-
-    user.password = hashedPassword;
+    user.password = await bcrypt.hash(newPassword, 12);
     user.mustChangePassword = false;
 
     await user.save();
 
-    // Update session
     req.session.erpUser.mustChangePassword = false;
 
     await new Promise((resolve, reject) => {
-      req.session.save((err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+      req.session.save((error) => {
+        if (error) reject(error);
+        else resolve();
       });
     });
 
-    // Role based dashboard
-    let redirect;
-
-    if (user.role === "student") {
-      redirect = "/erp/student";
-    } else if (user.role === "faculty") {
-      redirect = "/erp/faculty";
-    } else if (user.role === "admin") {
-      redirect = "/erp/admin";
-    } else if (user.role === "principal") {
-      redirect = "/erp/principal";
-    } else {
-      return res.status(403).json({
-        success: false,
-        message: "Invalid user role."
-      });
-    }
-
     return res.status(200).json({
       success: true,
-      message: "Password changed successfully.",
-      redirect
+      message: "Password changed successfully."
     });
 
   } catch (error) {
@@ -234,10 +211,11 @@ export const changePassword = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Unable to change password."
+      message: "Unable to change password. Please try again."
     });
   }
 };
+
 
 
 // ===============================

@@ -25,17 +25,50 @@ const studentProfileSchema = new mongoose.Schema(
       trim: true
     },
 
+    // ==========================================
+    // ACADEMIC INFORMATION
+    // ==========================================
+
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      default: null,
+      index: true
+    },
+
     course: {
       type: String,
-      default: "D.Pharm",
+      default: "",
       trim: true
+    },
+
+    courseCode: {
+      type: String,
+      default: "",
+      trim: true,
+      uppercase: true
+    },
+
+    semesterId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+      index: true
     },
 
     semester: {
       type: String,
-      default: "1st Semester",
+      default: "",
       trim: true
     },
+
+    semesterNumber: {
+      type: Number,
+      default: null
+    },
+
+    // ==========================================
+    // PERSONAL INFORMATION
+    // ==========================================
 
     mobile: {
       type: String,

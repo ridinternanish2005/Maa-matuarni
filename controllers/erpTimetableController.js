@@ -250,3 +250,45 @@ export const getStudentTimetable = async (req, res) => {
     );
   }
 };
+
+// ======================================================
+// FACULTY - VIEW OWN TIMETABLE
+// ======================================================
+
+export const getFacultyTimetable = async (req, res) => {
+  try {
+    if (!req.session?.erpUser) {
+      return res.redirect("/erp");
+    }
+
+    const facultyName = req.session.erpUser.name;
+    const facultySession = req.session.erpUser.session;
+
+    const timetable = await Timetable.find({
+      faculty: facultyName,
+      session: facultySession,
+      active: true
+    })
+      .sort({
+        day: 1,
+        startTime: 1
+      })
+      .lean();
+
+    return res.json({
+      success: true,
+      timetable
+    });
+
+  } catch (error) {
+    console.error(
+      "Faculty Timetable Error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to load faculty timetable."
+    });
+  }
+};

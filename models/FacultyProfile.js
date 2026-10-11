@@ -56,11 +56,47 @@ const facultyProfileSchema = new mongoose.Schema(
       lowercase: true
     },
 
-    subjects: {
-      type: [String],
-      default: []
-    },
+  subjects: {
+  type: [
+    {
+      courseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+        required: true
+      },
+      semesterId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+      },
+      subjectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+      }
+    }
+  ],
+  default: []
+},
 
+subjectAssignments: {
+  type: [
+    {
+      courseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+        required: true
+      },
+      semesterId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+      },
+      subjectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+      }
+    }
+  ],
+  default: []
+},
     active: {
       type: Boolean,
       default: true
