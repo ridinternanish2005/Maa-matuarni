@@ -48,11 +48,5 @@ router.patch(
   toggleFacultyStatus
 );
 
-// ⭐ COURSE → SEMESTER → SUBJECT
-router.get(
-  "/faculty-management/assignment-courses",
-  requireERPRole("admin", "principal"),
-  getFacultyAssignmentCourses
-);
 
 export default router;

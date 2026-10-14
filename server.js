@@ -24,10 +24,12 @@ import adminUserRoutes from "./routes/adminUserRoutes.js";
 
 import erpStudentRoutes from "./routes/erpStudentRoutes.js";
 import erpStudentAttendanceRoutes from "./routes/erpStudentAttendanceRoutes.js";
+
+import principalRoutes from "./routes/principalRoutes.js";
 import erpAttendanceAdminRoutes
   from "./routes/erpAttendanceAdminRoutes.js";
   import erpFeeRoutes from "./routes/erpFeeRoutes.js";
-  import erpStudentFeeRoutes from "./routes/erpStudentFeeRoutes.js";
+import erpStudentFeeRoutes from "./routes/erpStudentFeeRoutes.js";
 
 import erpResultAdminRoutes
   from "./routes/erpResultAdminRoutes.js";
@@ -36,7 +38,7 @@ import erpStudentResultRoutes
   from "./routes/erpStudentResultRoutes.js";
   import erpDocumentAdminRoutes from "./routes/erpDocumentAdminRoutes.js";
 import erpStudentDocumentRoutes from "./routes/erpStudentDocumentRoutes.js";
-
+import studentRoutes from "./routes/studentRoutes1.js";
 
 
 import erpNoticeAdminRoutes from "./routes/erpNoticeAdminRoutes.js";
@@ -187,7 +189,7 @@ app.use("/msd-school", webRoutes);
 
 app.use("/api/admission-enquiry", admissionEnquiryRoutes);
 app.use("/api/students", studentRoutes1);
-
+app.use("/api/students", studentRoutes);
 app.use("/api/admissions", admissionRoutes);
 
 app.use("/admin", adminRoutes);  //admin routes
@@ -214,7 +216,7 @@ app.use("/erp", erpAssignmentAdminRoutes);
 
 app.use("/erp/students", erpStudentAssignmentRoutes);
 
-
+app.use("/principal", principalRoutes);
 app.use(
   "/erp",
   erpResultAdminRoutes

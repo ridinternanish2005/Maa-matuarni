@@ -131,15 +131,15 @@ router.get(
 // PRINCIPAL DASHBOARD
 // ==========================================
 
+
 router.get(
   "/principal",
   requireERPRole("principal"),
   (req, res) => {
-    res.render("ERP/principal", {
-      erpUser: req.session.erpUser
-    });
+    return res.redirect("/principal/dashboard");
   }
 );
+
 router.patch(
   "/faculty/change-password",
   requireERPRole("faculty"),

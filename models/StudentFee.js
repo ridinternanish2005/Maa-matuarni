@@ -141,7 +141,6 @@ const studentFeeSchema = new mongoose.Schema(
 
 // Automatically calculate pending amount and status
 studentFeeSchema.pre("validate", function (next) {
-
   this.pendingFees = Math.max(
     this.totalFees - this.paidFees,
     0

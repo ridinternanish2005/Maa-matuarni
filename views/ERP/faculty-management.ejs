@@ -462,11 +462,11 @@
 
               <td>
 
-                <% if (
-                  faculty.profile &&
-                  faculty.profile.subjects &&
-                  faculty.profile.subjects.length > 0
-                ) { %>
+            <% if (
+  faculty.profile &&
+  faculty.profile.assignedSubjects &&
+  faculty.profile.assignedSubjects.length > 0
+) { %>
 
               <%= faculty.profile?.assignedSubjects?.length
   ? faculty.profile.assignedSubjects
@@ -1191,104 +1191,7 @@ function openSubjectModal(profileId, facultyName) {
   loadAssignmentCourses();
 }
 
- {
 
-  // Reset selected subjects
-  selectedSubjects = [];
-
-
-  // Existing subjects ko preserve karo
-  if (subjects) {
-
-    const oldSubjects =
-      String(subjects)
-        .split(",")
-        .map(subject => subject.trim())
-        .filter(Boolean);
-
-
-    oldSubjects.forEach(subject => {
-
-      selectedSubjects.push({
-
-        subjectId: null,
-
-        courseId: null,
-
-        semesterId: null,
-
-        name: subject,
-
-        code: ""
-
-      });
-
-    });
-
-  }
-
-
-  // Faculty ID
-  document.getElementById(
-    "selectedProfileId"
-  ).value = profileId;
-
-
-  // Faculty name
-  document.getElementById(
-    "selectedFaculty"
-  ).textContent =
-    "Faculty: " + facultyName;
-
-
-  // Clear message
-  document.getElementById(
-    "subjectMessage"
-  ).textContent = "";
-
-
-  // Show selected subjects
-  renderSelectedSubjects();
-
-
-  // Reset dropdowns
-  document.getElementById(
-    "assignmentCourse"
-  ).value = "";
-
-
-  document.getElementById(
-    "assignmentSemester"
-  ).innerHTML =
-    `<option value="">Select Semester</option>`;
-
-
-  document.getElementById(
-    "assignmentSubject"
-  ).innerHTML =
-    `<option value="">Select Subject</option>`;
-
-
-  document.getElementById(
-    "assignmentSemester"
-  ).disabled = true;
-
-
-  document.getElementById(
-    "assignmentSubject"
-  ).disabled = true;
-
-
-  // Load courses
-  loadAssignmentCourses();
-
-
-  // Open modal
-  document.getElementById(
-    "subjectModal"
-  ).style.display = "flex";
-
-}
 
 
 // ==========================================
