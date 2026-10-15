@@ -256,18 +256,14 @@
         </div>
 
 
-        <div class="form-group">
+       
+<div class="form-group">
+  <label for="facultyId">Select Faculty</label>
+  <select id="facultyId" required>
+    <option value="">Select Faculty</option>
+  </select>
+</div>
 
-          <label>Faculty</label>
-
-          <input
-            type="text"
-            id="faculty"
-            placeholder="Faculty Name"
-            required
-          >
-
-        </div>
 
 
         <div class="form-group">
@@ -450,6 +446,39 @@
     document.getElementById("timetableForm");
 
 
+const facultySelect = document.getElementById("facultyId");
+
+
+async function loadFaculty() {
+  try {
+    const response = await fetch("/erp/faculty-list");
+    const result = await response.json();
+
+    facultySelect.innerHTML =
+      '<option value="">Select Faculty</option>';
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Unable to load faculty.");
+    }
+
+    result.faculty.forEach((faculty) => {
+      const option = document.createElement("option");
+
+      option.value = faculty.id;
+      option.textContent =
+        `${faculty.name} (${faculty.enrollment})`;
+
+      facultySelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Load Faculty Error:", error);
+    facultySelect.innerHTML =
+      '<option value="">Unable to load faculty</option>';
+  }
+}
+
+loadFaculty();
+
   form.addEventListener(
     "submit",
     async function(event) {
@@ -471,8 +500,8 @@
         subject:
           document.getElementById("subject").value,
 
-        faculty:
-          document.getElementById("faculty").value,
+        facultyId:
+  document.getElementById("facultyId").value,
 
         startTime:
           document.getElementById("startTime").value,
@@ -542,6 +571,37 @@
   );
 
 
+
+
+async function loadFaculty() {
+  try {
+    const response = await fetch("/erp/faculty-list");
+    const result = await response.json();
+
+    facultySelect.innerHTML =
+      '<option value="">Select Faculty</option>';
+
+    if (!response.ok || !result.success) {
+      throw new Error("Faculty list load nahi hui");
+    }
+
+    result.faculty.forEach((faculty) => {
+      const option = document.createElement("option");
+
+      option.value = faculty.id;
+      option.textContent =
+        `${faculty.name} (${faculty.enrollment})`;
+
+      facultySelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    facultySelect.innerHTML =
+      '<option value="">Unable to load faculty</option>';
+  }
+}
+
+loadFaculty();
   async function removeTimetable(id) {
 
     const confirmDelete =

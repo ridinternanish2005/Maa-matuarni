@@ -34,12 +34,18 @@ const timetableSchema = new mongoose.Schema(
       trim: true
     },
 
-    faculty: {
-      type: String,
-      required: true,
-      trim: true
-    },
+   faculty: {
+  type: String,
+  required: true,
+  trim: true
+},
 
+facultyId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
+  default: null,
+  index: true
+},
     startTime: {
       type: String,
       required: true,

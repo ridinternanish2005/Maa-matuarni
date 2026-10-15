@@ -138,6 +138,114 @@
         min-width: 800px;
       }
     }
+    /* Responsive Upload Marks page */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-row > div {
+  min-width: 0;
+}
+
+input,
+select,
+button {
+  max-width: 100%;
+}
+
+.table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper table {
+  width: 100%;
+}
+
+/* Tablet and mobile */
+@media (max-width: 800px) {
+  .container {
+    margin: 0 auto;
+    padding: 12px;
+  }
+
+  .header {
+    padding: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .table-wrapper table {
+    min-width: 760px;
+  }
+
+  .marks-input {
+    width: 85px;
+  }
+
+  .remarks-input {
+    min-width: 140px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+  }
+
+  .header {
+    padding: 14px;
+  }
+
+  .header h1 {
+    font-size: 23px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  select,
+  input {
+    font-size: 16px;
+  }
+
+  .btn {
+    padding: 12px 16px;
+  }
+
+  .back-btn {
+    display: block;
+    margin-bottom: 12px;
+  }
+}
   </style>
 </head>
 
@@ -181,21 +289,22 @@
         <div>
           <label>Subject</label>
 
-          <select name="subject" required>
+         <select name="subject" required>
+  <option value="">Select Subject</option>
 
-            <option value="">
-              Select Subject
-            </option>
+  <% (subjectOptions || []).forEach(subject => { %>
+    <option value="<%= subject.subjectId %>">
+      <%= subject.label %>
+    </option>
+  <% }) %>
+</select>
 
-            <% profile.subjects.forEach(subject => { %>
-
-              <option value="<%= subject %>">
-                <%= subject %>
-              </option>
-
-            <% }) %>
-
-          </select>
+<% if (!subjectOptions || subjectOptions.length === 0) { %>
+  <p style="color: #b91c1c; margin-top: 8px;">
+    No active subjects assigned to your faculty account.
+    Please contact the administrator.
+  </p>
+<% } %>
         </div>
 
 

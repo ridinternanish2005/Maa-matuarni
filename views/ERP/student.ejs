@@ -1,55 +1,91 @@
 <%
+
 /* =========================================================
+
    SAFE DATA
+
    ========================================================= */
 
 const studentTotalFees =
+
   typeof totalFees !== "undefined"
+
     ? Number(totalFees || 0)
+
     : 0;
 
 const studentPaidFees =
+
   typeof paidFees !== "undefined"
+
     ? Number(paidFees || 0)
+
     : 0;
 
 const studentPendingFees =
+
   typeof pendingFees !== "undefined"
+
     ? Number(pendingFees || 0)
+
     : 0;
 
 const studentFees =
+
   typeof fees !== "undefined" &&
+
   Array.isArray(fees)
+
     ? fees
+
     : [];
 
 const studentTransactions =
+
   typeof lastFiveTransactions !== "undefined" &&
+
   Array.isArray(lastFiveTransactions)
+
     ? lastFiveTransactions
+
     : [];
 
 const safeAttendanceStats =
+
   typeof attendanceStats !== "undefined" &&
+
   attendanceStats
+
     ? attendanceStats
+
     : {
+
         totalClasses: 0,
+
         presentClasses: 0,
+
         absentClasses: 0,
+
         leaveClasses: 0,
+
         attendancePercentage: "0.00"
+
       };
 
 const studentProfile =
+
   typeof profile !== "undefined" &&
+
   profile
+
     ? profile
+
     : {};
+
 %>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -57,547 +93,929 @@ const studentProfile =
   <meta charset="UTF-8">
 
   <meta
+
     name="viewport"
+
     content="width=device-width, initial-scale=1.0, maximum-scale=2.0"
+
   >
 
   <title>
+
     CollegeERP · Maa Maturani Devi Pharmacy College
+
   </title>
 
   <!-- Google Font -->
+
   <link
+
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+
     rel="stylesheet"
+
   >
 
   <!-- Font Awesome -->
+
   <link
+
     rel="stylesheet"
+
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+
   >
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <style>
 
     /* =========================================================
+
        GLOBAL
+
        ========================================================= */
 
     * {
+
       margin: 0;
+
       padding: 0;
+
       box-sizing: border-box;
+
     }
 
     body {
+
       font-family: 'Inter', -apple-system, sans-serif;
+
       background: #e9ecf1;
+
       color: #1a2639;
+
       line-height: 1.5;
+
     }
 
     /* =========================================================
+
        DASHBOARD LAYOUT
+
        ========================================================= */
 
     .dashboard-wrapper {
+
       display: flex;
+
       min-height: 100vh;
+
       max-width: 1600px;
+
       margin: 0 auto;
+
       background: #f8fafd;
+
       box-shadow: 0 0 30px rgba(0,0,0,0.03);
+
     }
 
     /* =========================================================
+
        SIDEBAR
+
        ========================================================= */
 
     .sidebar {
+
       width: 280px;
+
       background: linear-gradient(
+
         180deg,
+
         #0a2a3f 0%,
+
         #0d344b 100%
+
       );
+
       color: #e7f0f9;
+
       display: flex;
+
       flex-direction: column;
+
       flex-shrink: 0;
+
       padding: 28px 18px;
+
       box-shadow: 4px 0 18px rgba(0,20,40,0.08);
+
     }
 
     .sidebar-header {
+
       padding-bottom: 16px;
+
       border-bottom: 1px solid #2e4e64;
+
       margin-bottom: 20px;
+
     }
 
     .erp-code-big {
+
       font-size: 1.6rem;
+
       font-weight: 700;
+
       color: white;
+
       letter-spacing: -0.5px;
+
       line-height: 1.2;
+
     }
 
     .erp-session-badge {
+
       display: inline-block;
+
       background: #1e4f6b;
+
       padding: 6px 16px;
+
       border-radius: 30px;
+
       font-size: 0.95rem;
+
       font-weight: 500;
+
       color: white;
+
       margin-top: 8px;
+
       border: 1px solid #3d7e9a;
+
     }
 
     .nav-caption {
+
       font-size: 0.75rem;
+
       text-transform: uppercase;
+
       letter-spacing: 2px;
+
       font-weight: 600;
+
       color: #9bbad0;
+
       margin-bottom: 16px;
+
     }
 
     .student-nav {
+
       display: flex;
+
       flex-direction: column;
+
       gap: 6px;
+
       flex: 1;
+
     }
 
     .nav-item {
+
       display: flex;
+
       align-items: center;
+
       gap: 16px;
+
       padding: 12px 20px;
+
       border-radius: 14px;
+
       font-weight: 500;
+
       color: #cbdbe8;
+
       transition: all 0.18s;
+
       cursor: pointer;
+
       font-size: 0.95rem;
+
     }
 
     .nav-item i {
+
       width: 24px;
+
       text-align: center;
+
       font-size: 1.1rem;
+
       color: #aac7db;
+
     }
 
     .nav-item.active {
+
       background: #1e4f6b;
+
       color: white;
+
       box-shadow: 0 6px 12px rgba(0,30,50,0.25);
+
     }
 
     .nav-item.active i {
+
       color: white;
+
     }
 
     .nav-item:not(.active):hover {
+
       background: #1f4459;
+
       color: white;
+
     }
 
     .sidebar-footer {
+
       margin-top: 40px;
+
       padding-top: 20px;
+
       border-top: 1px solid #2e4e64;
+
       font-size: 0.8rem;
+
       color: #adc4d6;
+
     }
 
     /* =========================================================
+
        MAIN CONTENT
+
        ========================================================= */
 
     .main-content {
+
       flex: 1;
+
       padding: 28px 32px;
+
       background: #f4f7fc;
+
       overflow-x: auto;
+
       display: flex;
+
       flex-direction: column;
+
     }
 
     .erp-header {
+
       display: flex;
+
       flex-wrap: wrap;
+
       align-items: baseline;
+
       justify-content: space-between;
+
       margin-bottom: 10px;
+
     }
 
     .erp-title {
+
       font-size: 28px;
+
       font-weight: 700;
+
       letter-spacing: -0.4px;
+
       color: #0b2f4e;
+
     }
 
     .erp-code-area {
+
       display: flex;
+
       flex-wrap: wrap;
+
       align-items: center;
+
       gap: 16px;
+
       background: #f0f4fa;
+
       padding: 8px 18px;
+
       border-radius: 40px;
+
     }
 
     .erp-code {
+
       font-weight: 600;
+
       color: #1e3b5a;
+
     }
 
     .erp-session {
+
       background: #2c3e50;
+
       color: white;
+
       padding: 6px 16px;
+
       border-radius: 30px;
+
       font-size: 0.95rem;
+
       font-weight: 500;
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 10px;
+
     }
 
     #goBtn {
+
       background: #0066cc;
+
       border: none;
+
       color: white;
+
       font-weight: 600;
+
       padding: 4px 18px;
+
       border-radius: 30px;
+
       font-size: 0.95rem;
+
       cursor: pointer;
+
       transition: 0.15s;
+
       border: 1px solid #ffffff30;
+
       letter-spacing: 0.5px;
+
     }
 
     #goBtn:hover {
+
       background: #004c99;
+
       transform: scale(1.02);
+
       box-shadow: 0 4px 8px rgba(0,80,150,0.2);
+
     }
 
     /* =========================================================
+
        VIEWS
+
        ========================================================= */
 
     .view {
+
       display: none;
+
       margin-top: 20px;
+
     }
 
     .view.active-view {
+
       display: block;
+
     }
 
     /* =========================================================
+
        HEADINGS
+
        ========================================================= */
 
     h2 {
+
       font-size: 1.9rem;
+
       font-weight: 600;
+
       margin: 20px 0 12px 0;
+
       color: #0b2f4e;
+
       border-left: 8px solid #2a7faa;
+
       padding-left: 18px;
+
     }
 
     /* =========================================================
+
        STATS
+
        ========================================================= */
 
     .stats-grid {
+
       display: grid;
+
       grid-template-columns: repeat(4, 1fr);
+
       gap: 22px;
+
       margin: 28px 0 32px;
+
     }
 
     .stat-card {
+
       background: #ffffff;
+
       border-radius: 18px;
+
       padding: 20px 16px;
+
       box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+
       border: 1px solid #e9edf4;
+
       transition: 0.1s;
+
     }
 
     .stat-card:hover {
+
       border-color: #b0c8da;
+
       background: #fbfdff;
+
     }
 
     .stat-label {
+
       font-size: 0.9rem;
+
       text-transform: uppercase;
+
       letter-spacing: 0.8px;
+
       font-weight: 600;
+
       color: #4a657d;
+
     }
 
     .stat-number {
+
       font-size: 2.8rem;
+
       font-weight: 700;
+
       color: #0e3b5c;
+
       line-height: 1;
+
       margin-top: 8px;
+
     }
 
     /* =========================================================
+
        SECTION
+
        ========================================================= */
 
     .section-title {
+
       font-size: 1.4rem;
+
       font-weight: 600;
+
       margin: 32px 0 12px 0;
+
       color: #1e3b5a;
+
       display: flex;
+
       align-items: center;
+
       gap: 10px;
+
     }
 
     /* =========================================================
+
        TABLE
+
        ========================================================= */
 
     .table-responsive {
+
       overflow-x: auto;
+
       margin: 18px 0 10px;
+
       border-radius: 16px;
+
       border: 1px solid #dfe6ed;
+
       background: white;
+
     }
 
     table {
+
       width: 100%;
+
       border-collapse: collapse;
+
       font-size: 0.9rem;
+
       min-width: 600px;
+
     }
 
     th {
+
       background: #eef3f9;
+
       font-weight: 600;
+
       color: #1f3a57;
+
       padding: 14px 12px;
+
       white-space: nowrap;
+
       border-bottom: 2px solid #cbd6e2;
+
     }
 
     td {
+
       padding: 14px 12px;
+
       border-bottom: 1px solid #e3eaf0;
+
       vertical-align: top;
+
     }
 
     /* =========================================================
+
        BUTTONS
+
        ========================================================= */
 
     .next-btn {
+
       background: #1e4a6b;
+
       border: none;
+
       color: white;
+
       font-weight: 600;
+
       padding: 8px 22px;
+
       border-radius: 30px;
+
       font-size: 0.85rem;
+
       cursor: pointer;
+
       transition: 0.15s;
+
       border: 1px solid #ffffff40;
+
       letter-spacing: 0.8px;
+
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
     }
 
     .next-btn:hover {
+
       background: #0e3d5e;
+
       box-shadow: 0 6px 12px rgba(20,80,120,0.15);
+
     }
 
     .btn-primary {
+
       background: #1e4a6b;
+
       color: white;
+
       border: none;
+
       padding: 14px 30px;
+
       border-radius: 40px;
+
       font-weight: 600;
+
       cursor: pointer;
+
       transition: 0.15s;
+
     }
 
     .btn-primary:hover {
+
       background: #0e3d5e;
+
     }
 
     /* =========================================================
+
        ATTENDANCE
+
        ========================================================= */
 
     .attendance-cards {
+
       display: grid;
+
       grid-template-columns: repeat(5, 1fr);
+
       gap: 18px;
+
       margin: 20px 0;
+
     }
 
     .attendance-card {
+
       background: white;
+
       border: 1px solid #e2eaf1;
+
       border-radius: 18px;
+
       padding: 20px;
+
       text-align: center;
+
       box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+
     }
 
     .attendance-card h4 {
+
       color: #4a657d;
+
       font-size: 0.9rem;
+
       margin-bottom: 10px;
+
     }
 
     .attendance-card strong {
+
       color: #0e3b5c;
+
       font-size: 2rem;
+
     }
 
     /* =========================================================
+
        PLACEHOLDER
+
        ========================================================= */
 
     .placeholder-card {
+
       background: white;
+
       border-radius: 24px;
+
       padding: 32px 40px;
+
       box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+
       border: 1px solid #e2eaf1;
+
       margin-top: 24px;
+
     }
 
     .placeholder-title {
+
       font-size: 1.8rem;
+
       font-weight: 600;
+
       color: #0b2f4e;
+
       margin-bottom: 16px;
+
       display: flex;
+
       align-items: center;
+
       gap: 12px;
+
     }
 
     .placeholder-text {
+
       color: #3a5670;
+
       font-size: 1.1rem;
+
       margin-bottom: 24px;
+
     }
 
     .info-message {
+
       background: #e8f0fe;
+
       padding: 20px;
+
       border-radius: 16px;
+
       color: #004d7c;
+
       border-left: 6px solid #2a7faa;
+
     }
 
     /* =========================================================
+
        FORM
+
        ========================================================= */
 
     .change-pwd-form {
+
       max-width: 500px;
+
     }
 
     .form-group {
+
       margin-bottom: 20px;
+
     }
 
     .form-group label {
+
       display: block;
+
       font-weight: 600;
+
       color: #1e3b5a;
+
       margin-bottom: 6px;
+
     }
 
     .form-control {
+
       width: 100%;
+
       padding: 14px 18px;
+
       border: 1px solid #cbd6e2;
+
       border-radius: 30px;
+
       font-size: 1rem;
+
       background: white;
+
     }
 
     /* =========================================================
+
        NOTICE
+
        ========================================================= */
 
     .note-highlight {
+
       background-color: #fff9e0 !important;
+
       border-left: 6px solid #ffb74d;
+
       transition: 0.2s;
+
     }
 
     .change-password-table td:first-child {
+
       font-weight: 500;
+
       color: #0a3144;
+
       white-space: nowrap;
+
     }
 
     /* =========================================================
+
        LINKS
+
        ========================================================= */
 
     a {
+
       color: #1e6bb8;
+
       text-decoration: none;
+
       font-weight: 500;
+
       border-bottom: 1px dotted #7ba5c7;
+
     }
 
     a:hover {
+
       color: #0a3e62;
+
       border-bottom: 1px solid;
+
     }
 
     /* =========================================================
+
        FOOTER
+
        ========================================================= */
 
     .footer-copy {
+
       margin-top: 48px;
+
       padding-top: 24px;
+
       border-top: 2px solid #dce3ec;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       color: #4e627c;
+
       font-size: 0.9rem;
+
       flex-wrap: wrap;
+
     }
 
     /* =========================================================
+
        RESPONSIVE
+
        ========================================================= */
 
     @media (max-width: 1100px) {
 
       .stats-grid {
+
         grid-template-columns: repeat(2, 1fr);
+
       }
 
       .attendance-cards {
+
         grid-template-columns: repeat(3, 1fr);
+
       }
 
     }
@@ -605,15 +1023,21 @@ const studentProfile =
     @media (max-width: 900px) {
 
       .dashboard-wrapper {
+
         flex-direction: column;
+
       }
 
       .sidebar {
+
         width: 100%;
+
       }
 
       .attendance-cards {
+
         grid-template-columns: repeat(2, 1fr);
+
       }
 
     }
@@ -621,30 +1045,100 @@ const studentProfile =
     @media (max-width: 550px) {
 
       .main-content {
+
         padding: 20px 16px;
+
       }
 
       .stats-grid {
+
         grid-template-columns: 1fr;
+
       }
 
       .attendance-cards {
+
         grid-template-columns: 1fr;
+
       }
 
       .erp-header {
+
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 12px;
+
       }
 
       .placeholder-card {
+
         padding: 22px 18px;
+
       }
 
     }
 
-  </style>
+  
+
+    /* Updated responsive dashboard styling */
+    :root { --ui-primary:#2563eb; --ui-sidebar:#0f172a; --ui-bg:#f4f7fb; --ui-text:#1f2937; --ui-muted:#64748b; }
+    body { background:var(--ui-bg); color:var(--ui-text); overflow-x:hidden; }
+    .sidebar { background:var(--ui-sidebar); box-shadow:4px 0 18px #0f172a12; }
+    .nav-item.active { background:#2563eb; color:#fff; }
+    .nav-item:not(.active):hover { background:#1e293b; color:#fff; }
+    .main-content, .main, .content-area { min-width:0; }
+    .topbar, .header, .top-bar { background:#fff; box-shadow:0 2px 7px #00000008; border-bottom:1px solid #e2e8f0; }
+    .stat-card, .card, .panel, .content-card { border-radius:12px; box-shadow:0 3px 12px #00000008; }
+    .table-container, .table-wrap { max-width:100%; overflow-x:auto; }
+    table { width:100%; }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:#2563eb; box-shadow:0 0 0 3px #2563eb18; }
+    @media (max-width:750px) {
+      .sidebar { z-index:1000; }
+      .main-content, .main, .content-area { margin-left:0 !important; width:100% !important; }
+      .content, .main-content, .content-area { padding:15px !important; }
+      .topbar, .header, .top-bar { padding:14px 16px !important; }
+      .stat-grid, .stats-grid, .cards, .dashboard-cards { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+    }
+    @media (max-width:480px) {
+      .stat-grid, .stats-grid, .cards, .dashboard-cards { grid-template-columns:1fr !important; }
+    }
+
+    /* Final dashboard UI alignment */
+    body { background:#f4f7fb; color:#1f2937; overflow-x:hidden; }
+    .dashboard-wrapper { display:flex; min-height:100vh; max-width:none; margin:0; background:#f4f7fb; }
+    .sidebar { width:260px; min-width:260px; height:100vh; min-height:100vh; position:fixed; top:0; left:0; overflow-y:auto; z-index:1000; padding:22px 14px; background:#0f172a; color:#fff; transition:transform .25s ease; }
+    .sidebar-header { border-bottom-color:#334155; }
+    .nav-item { border-radius:8px; margin:5px 0; padding:12px; color:#cbd5e1; }
+    .nav-item.active { background:#2563eb; color:#fff; }
+    .nav-item:not(.active):hover { background:#1e293b; color:#fff; }
+    .main-content { margin-left:260px; width:calc(100% - 260px); min-width:0; padding:0; }
+    .erp-header { position:sticky; top:0; z-index:100; background:#fff; border-bottom:1px solid #e2e8f0; box-shadow:0 2px 7px #00000008; padding:17px 25px; }
+    .erp-title { display:flex; align-items:center; gap:12px; color:#0f172a; font-weight:700; }
+    .view { display:none; min-width:0; }
+    .view.active-view { display:block; }
+    .stat-card, .placeholder-card, .content-card, .panel, .fee-card, .attendance-card { border-radius:12px; box-shadow:0 3px 12px #00000008; }
+    .table-wrap, .table-responsive { width:100%; max-width:100%; overflow-x:auto; }
+    table { width:100%; }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:#2563eb; box-shadow:0 0 0 3px #2563eb18; }
+    #studentMenuToggle { display:none; border:0; border-radius:7px; padding:8px 12px; background:#2563eb; color:#fff; cursor:pointer; }
+    @media (max-width:750px) {
+      .sidebar { transform:translateX(-100%); width:260px; min-width:260px; box-shadow:5px 0 25px #00000020; }
+      .sidebar.open { transform:translateX(0); }
+      .main-content { margin-left:0; width:100%; }
+      #studentMenuToggle { display:inline-block; }
+      .erp-header { padding:14px 16px; }
+      .erp-title { font-size:18px; }
+      .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .attendance-cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width:480px) {
+      .main-content { padding:0; }
+      .stats-grid, .attendance-cards { grid-template-columns:1fr; }
+    }
+    @media print { .sidebar, #studentMenuToggle { display:none !important; } .main-content { margin:0; width:100%; } }
+</style>
 
 </head>
 
@@ -653,7 +1147,9 @@ const studentProfile =
 <div class="dashboard-wrapper">
 
   <!-- =======================================================
+
        SIDEBAR
+
        ======================================================= -->
 
   <aside class="sidebar">
@@ -661,99 +1157,165 @@ const studentProfile =
     <div class="sidebar-header">
 
       <div class="erp-code-big">
+
         <%= erpUser?.enrollment || "Student" %>
+
       </div>
 
       <span class="erp-session-badge">
+
         <%= erpUser?.session || "N/A" %>
+
       </span>
 
     </div>
 
     <div class="nav-caption">
+
       MAIN NAVIGATION
+
     </div>
 
     <div class="student-nav">
 
       <div
+
         class="nav-item active"
+
         data-view="dashboardView"
+
       >
+
         <i class="fas fa-tachometer-alt"></i>
+
         <span>Dashboard</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="studentDueView"
+
       >
+
         <i class="fas fa-wallet"></i>
+
         <span>Student Due</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="busHostelView"
+
       >
+
         <i class="fas fa-bus"></i>
+
         <span>Bus/Hostel Opt</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="studentProfileView"
+
       >
+
         <i class="fas fa-id-card"></i>
+
         <span>Student Profile</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="questionPaperView"
+
       >
+
         <i class="fas fa-file-alt"></i>
+
         <span>Question Paper</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="testResultView"
+
       >
+
         <i class="fas fa-chart-line"></i>
+
         <span>Test Result</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="bookSearchView"
+
       >
+
         <i class="fas fa-book"></i>
+
         <span>Book Search</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="softSkillsView"
+
       >
+
         <i class="fas fa-lightbulb"></i>
+
         <span>Soft Skills</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="technicalStuffView"
+
       >
+
         <i class="fas fa-cogs"></i>
+
         <span>Technical Stuff</span>
+
       </div>
 
       <div
+
         class="nav-item"
+
         data-view="changePasswordView"
+
       >
+
         <i class="fas fa-key"></i>
+
         <span>Change Password</span>
+
       </div>
 
     </div>
@@ -761,16 +1323,23 @@ const studentProfile =
     <div class="sidebar-footer">
 
       <div
+
         style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"
+
       >
 
         <i
+
           class="fas fa-user-graduate"
+
           style="font-size:1.2rem;"
+
         ></i>
 
         <span style="font-weight:500;">
+
           Student Login • Maa Maturani Devi
+
         </span>
 
       </div>
@@ -787,9 +1356,10 @@ const studentProfile =
 
   </aside>
 
-
   <!-- =======================================================
+
        MAIN CONTENT
+
        ======================================================= -->
 
   <main class="main-content">
@@ -799,13 +1369,18 @@ const studentProfile =
     <div class="erp-header">
 
       <div class="erp-title">
+        <button type="button" id="studentMenuToggle" aria-label="Open navigation menu">☰</button>
+
         CollegeERP
+
       </div>
 
       <div class="erp-code-area">
 
         <span class="erp-code">
+
           <%= erpUser?.enrollment || "Student" %>
+
         </span>
 
         <span class="erp-session">
@@ -813,7 +1388,9 @@ const studentProfile =
           <%= erpUser?.session || "N/A" %>
 
           <button id="goBtn">
+
             GO
+
           </button>
 
         </span>
@@ -822,44 +1399,60 @@ const studentProfile =
 
     </div>
 
-
     <!-- =====================================================
+
          1. DASHBOARD
+
          ===================================================== -->
 
     <div
+
       id="dashboardView"
+
       class="view active-view"
+
     >
 
       <h2>
+
         Student Dashboard
+
       </h2>
 
 <!-- ===================================================
+
      STUDENT ACADEMIC DETAILS
+
      =================================================== -->
 
 <div
+
   class="placeholder-card"
+
   style="margin-top:20px;"
+
 >
 
   <div class="placeholder-title">
 
     <i
+
       class="fas fa-graduation-cap"
+
       style="color:#1e4a6b;"
+
     ></i>
 
     Academic Details
 
   </div>
 
-
   <div
+
     class="stats-grid"
+
     style="margin-top:20px;"
+
   >
 
     <!-- COURSE -->
@@ -867,84 +1460,125 @@ const studentProfile =
     <div class="stat-card">
 
       <div class="stat-label">
+
         COURSE
+
       </div>
 
       <div
+
         style="
+
           font-size:1.5rem;
+
           font-weight:700;
+
           color:#0e3b5c;
+
           margin-top:10px;
+
         "
+
       >
+
         <%= studentProfile?.course || "Not Assigned" %>
+
       </div>
 
     </div>
-
 
     <!-- SEMESTER -->
 
     <div class="stat-card">
 
       <div class="stat-label">
+
         SEMESTER
+
       </div>
 
       <div
+
         style="
+
           font-size:1.5rem;
+
           font-weight:700;
+
           color:#0e3b5c;
+
           margin-top:10px;
+
         "
+
       >
+
         <%= studentProfile?.semester || "Not Assigned" %>
+
       </div>
 
     </div>
-
 
     <!-- SESSION -->
 
     <div class="stat-card">
 
       <div class="stat-label">
+
         SESSION
+
       </div>
 
       <div
+
         style="
+
           font-size:1.5rem;
+
           font-weight:700;
+
           color:#0e3b5c;
+
           margin-top:10px;
+
         "
+
       >
+
         <%= erpUser?.session || "N/A" %>
+
       </div>
 
     </div>
-
 
     <!-- ENROLLMENT -->
 
     <div class="stat-card">
 
       <div class="stat-label">
+
         ENROLLMENT
+
       </div>
 
       <div
+
         style="
+
           font-size:1.5rem;
+
           font-weight:700;
+
           color:#0e3b5c;
+
           margin-top:10px;
+
         "
+
       >
+
         <%= erpUser?.enrollment || "N/A" %>
+
       </div>
 
     </div>
@@ -952,6 +1586,7 @@ const studentProfile =
   </div>
 
 </div>
+
       <!-- LIBRARY STATS -->
 
       <div class="stats-grid">
@@ -959,140 +1594,171 @@ const studentProfile =
         <div class="stat-card">
 
           <div class="stat-label">
+
             TOTAL BOOKS
+
           </div>
 
           <div class="stat-number">
+
             0
+
           </div>
 
         </div>
 
-
         <div class="stat-card">
 
           <div class="stat-label">
+
             TOTAL BOOK ISSUED
+
           </div>
 
           <div class="stat-number">
+
             0
+
           </div>
 
         </div>
 
-
         <div class="stat-card">
 
           <div class="stat-label">
+
             TOTAL MEMBERS
+
           </div>
 
           <div class="stat-number">
+
             0
+
           </div>
 
         </div>
 
-
         <div class="stat-card">
 
           <div class="stat-label">
+
             TOTAL BOOK RETURNED
+
           </div>
 
           <div class="stat-number">
+
             0
+
           </div>
 
         </div>
 
       </div>
 
-
       <!-- ===================================================
+
            ATTENDANCE
+
            =================================================== -->
 
       <div class="attendance-section">
 
         <h2>
+
           📋 Display of Attendance
+
         </h2>
 
         <div class="attendance-cards">
-
 
           <!-- TOTAL -->
 
           <div class="attendance-card">
 
             <h4>
+
               Total Classes
+
             </h4>
 
             <strong>
+
               <%= safeAttendanceStats.totalClasses || 0 %>
+
             </strong>
 
           </div>
-
 
           <!-- PRESENT -->
 
           <div class="attendance-card">
 
             <h4>
+
               Present
+
             </h4>
 
             <strong>
+
               <%= safeAttendanceStats.presentClasses || 0 %>
+
             </strong>
 
           </div>
-
 
           <!-- ABSENT -->
 
           <div class="attendance-card">
 
             <h4>
+
               Absent
+
             </h4>
 
             <strong>
+
               <%= safeAttendanceStats.absentClasses || 0 %>
+
             </strong>
 
           </div>
-
 
           <!-- LEAVE -->
 
           <div class="attendance-card">
 
             <h4>
+
               Leave
+
             </h4>
 
             <strong>
+
               <%= safeAttendanceStats.leaveClasses || 0 %>
+
             </strong>
 
           </div>
-
 
           <!-- PERCENTAGE -->
 
           <div class="attendance-card">
 
             <h4>
+
               Attendance
+
             </h4>
 
             <strong>
+
               <%= safeAttendanceStats.attendancePercentage || "0.00" %>%
+
             </strong>
 
           </div>
@@ -1100,27 +1766,63 @@ const studentProfile =
         </div>
 
 
-        <a
-          href="/erp/students/attendance"
-          class="next-btn"
-          style="display:inline-block; margin-top:15px;"
-        >
+<button
+  type="button"
+  class="next-btn"
+  onclick="toggleStudentAttendance()"
+>
+  <i class="fas fa-calendar-check"></i>
+  View Attendance Details
+</button>
 
-          <i class="fas fa-calendar-check"></i>
 
-          View Attendance Details
+<div id="studentAttendanceDetails" style="display:none; margin-top:20px;">
+  <h3>Attendance History</h3>
 
-        </a>
+  <% if (typeof attendance !== "undefined" && attendance.length > 0) { %>
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="padding:10px; text-align:left;">Date</th>
+            <th style="padding:10px; text-align:left;">Subject</th>
+            <th style="padding:10px; text-align:left;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% attendance.forEach(function(item) { %>
+            <tr>
+              <td style="padding:10px;">
+                <%= item.date ? new Date(item.date).toLocaleDateString("en-IN") : "-" %>
+              </td>
+              <td style="padding:10px;">
+                <%= item.subject || "-" %>
+              </td>
+              <td style="padding:10px;">
+                <%= item.status || "-" %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <p>Attendance records abhi available nahi hain.</p>
+  <% } %>
+</div>
 
       </div>
 
-
       <!-- ===================================================
+
            LAST FIVE TRANSACTIONS
+
            =================================================== -->
 
       <div class="section-title">
+
         💰 Last Five Transactions
+
       </div>
 
       <div class="table-responsive">
@@ -1130,9 +1832,13 @@ const studentProfile =
           <thead>
 
             <tr>
+
               <th>Date</th>
+
               <th>Receipt No.</th>
+
               <th>Amount</th>
+
             </tr>
 
           </thead>
@@ -1148,22 +1854,31 @@ const studentProfile =
                   <td>
 
                     <%= transaction.paymentDate
+
                       ? new Date(
+
                           transaction.paymentDate
+
                         ).toLocaleDateString("en-IN")
+
                       : "N/A"
+
                     %>
 
                   </td>
 
                   <td>
+
                     <%= transaction.receiptNo || "N/A" %>
+
                   </td>
 
                   <td>
 
                     ₹<%= Number(
+
                       transaction.amount || 0
+
                     ).toLocaleString("en-IN") %>
 
                   </td>
@@ -1177,10 +1892,15 @@ const studentProfile =
               <tr>
 
                 <td
+
                   colspan="3"
+
                   style="text-align:center;"
+
                 >
+
                   No transactions found.
+
                 </td>
 
               </tr>
@@ -1193,27 +1913,36 @@ const studentProfile =
 
       </div>
 
-
       <!-- ===================================================
+
            NOTICES
+
            =================================================== -->
 
       <div class="section-title">
+
         🔐 Notices
+
       </div>
 
       <div class="table-responsive">
 
         <table
+
           class="change-password-table"
+
           id="noticeTable"
+
         >
 
           <thead>
 
             <tr>
+
               <th>Date</th>
+
               <th>Note</th>
+
             </tr>
 
           </thead>
@@ -1223,111 +1952,155 @@ const studentProfile =
             <tr data-notice-index="0">
 
               <td>
+
                 25-07-25
+
               </td>
 
               <td>
+
                 Sub: Beginning of New Semester.
+
                 Dear Parents. You are hereby informed
+
                 that as per the university ordinance,
+
                 it is mandatory to have 75% attendance.
+
                 Students with less than 75% attendance
+
                 will be debarred from appearing in
+
                 the upcoming university examination.
+
               </td>
 
             </tr>
-
 
             <tr data-notice-index="1">
 
               <td>
+
                 09-07-24
+
               </td>
 
               <td>
+
                 Dear Students and Parents, Greeting
+
                 from Maa Maturani Devi Pharmacy College
+
                 Bhopal. For the new session, kindly
+
                 ensure all outstanding fees are submitted
+
                 before the deadline.
+
               </td>
 
             </tr>
-
 
             <tr data-notice-index="2">
 
               <td>
+
                 26-06-24
+
               </td>
 
               <td>
+
                 Dear Students and Parents, this is to
+
                 inform all students that the new
+
                 academic session will commence soon.
+
                 Please ensure all fees are paid on time.
+
               </td>
 
             </tr>
-
 
             <tr data-notice-index="3">
 
               <td>
+
                 01-04-24
+
               </td>
 
               <td>
+
                 All students are instructed to visit
+
                 the college portal for Mid Sem Time Table.
+
                 It is mandatory for all students to enter
+
                 the examination hall on time.
+
               </td>
 
             </tr>
-
 
             <tr data-notice-index="4">
 
               <td>
+
                 14-03-24
+
               </td>
 
               <td>
+
                 All students are strictly instructed
+
                 to follow campus timings.
+
               </td>
 
             </tr>
-
 
             <tr data-notice-index="5">
 
               <td>
+
                 19-02-24
+
               </td>
 
               <td>
+
                 Students promoted to the next semester
+
                 must clear their dues and maintain
+
                 minimum attendance as per university
+
                 guidelines.
+
               </td>
 
             </tr>
 
-
             <tr data-notice-index="6">
 
               <td>
+
                 19-02-24
+
               </td>
 
               <td>
+
                 Tuition fee and other fees should be
+
                 deposited through the approved online
+
                 ERP payment mode.
+
               </td>
 
             </tr>
@@ -1340,9 +2113,10 @@ const studentProfile =
 
     </div>
 
-
 <!-- =====================================================
+
      2. STUDENT DUE
+
      ===================================================== -->
 
 <div id="studentDueView" class="view">
@@ -1350,75 +2124,121 @@ const studentProfile =
   <div class="placeholder-card">
 
     <div class="placeholder-title">
+
       <i class="fas fa-wallet" style="color:#1e4a6b;"></i>
+
       Student Due
+
     </div>
 
     <div class="placeholder-text">
+
       Current semester fee details
+
     </div>
 
     <!-- FEE SUMMARY -->
+
     <div class="stats-grid">
 
       <div class="stat-card">
+
         <div class="stat-label">TOTAL FEE</div>
+
         <div class="stat-number">
+
           ₹<%= studentTotalFees.toLocaleString("en-IN") %>
+
         </div>
+
       </div>
 
       <div class="stat-card">
+
         <div class="stat-label">PAID FEE</div>
+
         <div class="stat-number">
+
           ₹<%= studentPaidFees.toLocaleString("en-IN") %>
+
         </div>
+
       </div>
 
       <div class="stat-card">
+
         <div class="stat-label">PENDING FEE</div>
+
         <div class="stat-number">
+
           ₹<%= studentPendingFees.toLocaleString("en-IN") %>
+
         </div>
+
       </div>
 
     </div>
 
     <!-- FEE STATUS -->
+
     <div class="info-message">
 
       <% if (studentPendingFees > 0) { %>
+
         <strong>Fee Pending</strong>
+
         <br>
+
         Your pending fee is
+
         <strong>
+
           ₹<%= studentPendingFees.toLocaleString("en-IN") %>
+
         </strong>.
+
       <% } else { %>
+
         <strong>No dues pending</strong>
+
         <br>
+
         All fees have been paid.
+
       <% } %>
 
     </div>
 
     <!-- SEMESTER WISE FEES -->
+
     <div class="section-title">
+
       💰 Semester Wise Fees
+
     </div>
 
     <div class="table-responsive">
+
       <table>
 
         <thead>
+
           <tr>
+
             <th>Semester</th>
+
             <th>Total Fee</th>
+
             <th>Paid</th>
+
             <th>Pending</th>
+
             <th>Status</th>
+
             <th>Action</th>
+
           </tr>
+
         </thead>
 
         <tbody>
@@ -1430,52 +2250,81 @@ const studentProfile =
               <tr>
 
                 <td>
+
                   <%= fee.semester || "N/A" %>
+
                 </td>
 
                 <td>
+
                   ₹<%= Number(fee.totalFees || 0).toLocaleString("en-IN") %>
+
                 </td>
 
                 <td>
+
                   ₹<%= Number(fee.paidFees || 0).toLocaleString("en-IN") %>
+
                 </td>
 
                 <td>
+
                   ₹<%= Number(fee.pendingFees || 0).toLocaleString("en-IN") %>
+
                 </td>
 
                 <td>
+
                   <% if (Number(fee.pendingFees || 0) > 0) { %>
+
                     <span style="color:#c62828;font-weight:600;">
+
                       Pending
+
                     </span>
+
                   <% } else { %>
+
                     <span style="color:#2e7d32;font-weight:600;">
+
                       Paid
+
                     </span>
+
                   <% } %>
+
                 </td>
 
                 <td>
+
                   <% if (Number(fee.pendingFees || 0) > 0 && fee._id) { %>
 
                     <button
+
                       type="button"
+
                       class="next-btn"
+
                       onclick="paySemesterFee('<%= fee._id %>', this)"
+
                     >
+
                       <i class="fas fa-credit-card"></i>
+
                       Pay Now
+
                     </button>
 
                   <% } else { %>
 
                     <span style="color:#2e7d32;font-weight:600;">
+
                       No Dues
+
                     </span>
 
                   <% } %>
+
                 </td>
 
               </tr>
@@ -1485,9 +2334,13 @@ const studentProfile =
           <% } else { %>
 
             <tr>
+
               <td colspan="6" style="text-align:center;">
+
                 No fee records found.
+
               </td>
+
             </tr>
 
           <% } %>
@@ -1495,21 +2348,25 @@ const studentProfile =
         </tbody>
 
       </table>
+
     </div>
 
   </div>
 
 </div>
 
-
-
     <!-- =====================================================
+
          3. BUS / HOSTEL
+
          ===================================================== -->
 
     <div
+
       id="busHostelView"
+
       class="view"
+
     >
 
       <div class="placeholder-card">
@@ -1517,8 +2374,11 @@ const studentProfile =
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-bus"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Bus / Hostel Options
@@ -1528,82 +2388,129 @@ const studentProfile =
         <div class="placeholder-text">
 
           Select your accommodation and
+
           transport preferences.
 
         </div>
 
-
         <div
+
           style="
+
             display:flex;
+
             gap:30px;
+
             flex-wrap:wrap;
+
           "
+
         >
 
           <div
+
             style="
+
               background:#eef3f9;
+
               padding:20px;
+
               border-radius:20px;
+
               flex:1;
+
             "
+
           >
 
             <i
+
               class="fas fa-hotel"
+
               style="font-size:1.8rem;"
+
             ></i>
 
             <h3 style="margin:10px 0;">
+
               Hostel
+
             </h3>
 
             <p>
+
               Boys Hostel · Seat available: 12
+
               <br>
+
               Girls Hostel · Seat available: 8
+
             </p>
 
             <button
+
               class="next-btn"
+
               style="margin-top:10px;"
+
             >
+
               Opt for Hostel
+
             </button>
 
           </div>
 
-
           <div
+
             style="
+
               background:#eef3f9;
+
               padding:20px;
+
               border-radius:20px;
+
               flex:1;
+
             "
+
           >
 
             <i
+
               class="fas fa-bus"
+
               style="font-size:1.8rem;"
+
             ></i>
 
             <h3 style="margin:10px 0;">
+
               Bus Transport
+
             </h3>
 
             <p>
+
               5 routes available · Bhopal city
+
               <br>
+
               Monthly pass: ₹850
+
             </p>
 
             <button
+
               class="next-btn"
+
               style="margin-top:10px;"
+
             >
+
               Opt for Bus
+
             </button>
 
           </div>
@@ -1614,14 +2521,18 @@ const studentProfile =
 
     </div>
 
-
     <!-- =====================================================
+
          4. STUDENT PROFILE
+
          ===================================================== -->
 
     <div
+
       id="studentProfileView"
+
       class="view"
+
     >
 
       <div class="placeholder-card">
@@ -1629,89 +2540,137 @@ const studentProfile =
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-id-card"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Student Profile
 
         </div>
 
-
         <div
+
           style="
+
             display:flex;
+
             gap:30px;
+
             align-items:flex-start;
+
             flex-wrap:wrap;
+
           "
+
         >
 
           <div
-            style="
-              font-size:4rem;
-              color:#1e4a6b;
-            "
-          >
-            <i class="fas fa-user-circle"></i>
-          </div>
 
+            style="
+
+              font-size:4rem;
+
+              color:#1e4a6b;
+
+            "
+
+          >
+
+            <i class="fas fa-user-circle"></i>
+
+          </div>
 
           <div>
 
             <p>
+
               <strong>Name:</strong>
+
               <%= erpUser?.name || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Enrollment:</strong>
+
               <%= erpUser?.enrollment || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Course:</strong>
+
               <%= studentProfile?.course || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Semester:</strong>
+
               <%= studentProfile?.semester || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Father's Name:</strong>
+
               <%= studentProfile?.fatherName || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Mother's Name:</strong>
+
               <%= studentProfile?.motherName || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Mobile:</strong>
+
               <%= studentProfile?.mobile || "N/A" %>
+
             </p>
 
             <p>
+
               <strong>Email:</strong>
+
               <%= studentProfile?.email || "N/A" %>
+
             </p>
 
             <p>
-              <strong>Address:</strong>
-              <%= studentProfile?.address || "N/A" %>
-            </p>
 
+              <strong>Address:</strong>
+
+              <%= studentProfile?.address || "N/A" %>
+
+            </p>
 
             <a
+
               href="/erp/students/profile"
+
               class="next-btn"
+
               style="
+
                 display:inline-block;
+
                 margin-top:15px;
+
               "
+
             >
 
               <i class="fas fa-edit"></i>
@@ -1728,18 +2687,24 @@ const studentProfile =
 
     </div>
 
-
     <!-- =====================================================
+
          5. QUESTION PAPER
+
          ===================================================== -->
 
   <!-- =====================================================
+
      5. QUESTION PAPER
+
      ===================================================== -->
 
 <div
+
   id="questionPaperView"
+
   class="view"
+
 >
 
   <div class="placeholder-card">
@@ -1747,44 +2712,69 @@ const studentProfile =
     <div class="placeholder-title">
 
       <i
+
         class="fas fa-file-alt"
+
         style="color:#1e4a6b;"
+
       ></i>
 
       Previous Question Papers
 
     </div>
 
-
     <div
+
       style="
+
         margin-top:20px;
+
         text-align:center;
+
       "
+
     >
 
       <p
+
         style="
+
           color:#666;
+
           margin-bottom:20px;
+
         "
+
       >
+
         View and download previous question papers.
+
       </p>
 
-
       <button
+
         type="button"
+
         onclick="openQuestionPapers()"
+
         style="
+
           background:#1e4a6b;
+
           color:white;
+
           border:none;
+
           padding:12px 25px;
+
           border-radius:6px;
+
           cursor:pointer;
+
           font-size:15px;
+
         "
+
       >
 
         <i class="fas fa-file-pdf"></i>
@@ -1799,14 +2789,18 @@ const studentProfile =
 
 </div>
 
-
     <!-- =====================================================
+
          6. TEST RESULT
+
          ===================================================== -->
 
     <div
+
       id="testResultView"
+
       class="view"
+
     >
 
       <div class="placeholder-card">
@@ -1814,14 +2808,16 @@ const studentProfile =
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-chart-line"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Test Results
 
         </div>
-
 
         <div id="resultLoading">
 
@@ -1829,37 +2825,52 @@ const studentProfile =
 
         </div>
 
-
         <div
+
           id="resultError"
+
           style="
+
             display:none;
+
             color:#b00020;
+
             margin-top:15px;
+
           "
+
         ></div>
 
-
         <div
+
           id="resultContent"
+
           style="
+
             display:none;
+
             margin-top:20px;
+
           "
+
         ></div>
 
       </div>
 
     </div>
 
-
   <!-- =====================================================
+
      7. BOOK SEARCH
+
      ===================================================== -->
 
 <div
+
   id="bookSearchView"
+
   class="view"
+
 >
 
   <div class="placeholder-card">
@@ -1867,72 +2878,107 @@ const studentProfile =
     <div class="placeholder-title">
 
       <i
+
         class="fas fa-book"
+
         style="color:#1e4a6b;"
+
       ></i>
 
       Book Search
 
     </div>
 
-
     <div
+
   class="nav-item"
+
   onclick="openMyLibrary()"
+
 >
+
   <i class="fas fa-book-reader"></i>
+
   <span>My Library</span>
+
 </div>
+
     <!-- SEARCH BOX -->
 
     <div
+
       style="
+
         display:flex;
+
         gap:10px;
+
         margin-top:20px;
+
       "
+
     >
 
       <input
+
         type="text"
+
         id="bookSearchInput"
+
         class="form-control"
+
         placeholder="Search by title, author, ISBN"
+
         style="flex:1;"
+
           onkeydown="if(event.key === 'Enter') searchBooks()"
+
       >
-<div
-  id="bookSearchResults"
-  style="margin-top:30px;"
->
-</div>
-      <button
+
+<button
+
   type="button"
+
   class="next-btn"
+
   onclick="searchBooks()"
+
 >
+
   <i class="fas fa-search"></i>
+
   Search
+
 </button>
 
     </div>
 
-
     <!-- BOOK RESULTS -->
 
     <div
+
       id="bookSearchResults"
+
       style="
+
         margin-top:30px;
+
       "
+
     >
 
       <div
+
         style="
+
           color:#3a5670;
+
           text-align:center;
+
           padding:20px;
+
         "
+
       >
 
         <i class="fas fa-search"></i>
@@ -1947,14 +2993,18 @@ const studentProfile =
 
 </div>
 
-
     <!-- =====================================================
+
          8. SOFT SKILLS
+
          ===================================================== -->
 
     <div
+
       id="softSkillsView"
+
       class="view"
+
     >
 
       <div class="placeholder-card">
@@ -1962,53 +3012,67 @@ const studentProfile =
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-lightbulb"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Soft Skills Training
 
         </div>
 
-
         <div class="info-message">
 
           Upcoming workshop:
+
           "Effective Communication & Interview Skills"
 
         </div>
 
-
         <p style="margin-top:20px;">
 
           Modules:
+
           Group Discussion,
+
           Presentation Skills,
+
           Resume Writing,
+
           Aptitude.
 
         </p>
 
-
         <button
+
           class="btn-primary"
+
           style="margin-top:20px;"
+
         >
+
           Register for workshop
+
         </button>
 
       </div>
 
     </div>
 
-
     <!-- =====================================================
+
          9. TECHNICAL STUFF
+
          ===================================================== -->
 
     <div
+
       id="technicalStuffView"
+
       class="view"
+
     >
 
       <div class="placeholder-card">
@@ -2016,33 +3080,43 @@ const studentProfile =
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-cogs"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Technical Stuff
 
         </div>
 
-
         <p>
-          Lab resources, coding contests,
-          hackathons, and technical club activities.
-        </p>
 
+          Lab resources, coding contests,
+
+          hackathons, and technical club activities.
+
+        </p>
 
         <ul>
 
           <li>
+
             ⚡ CodeChef Chapter meet: Every Saturday
+
           </li>
 
           <li>
+
             ⚡ Python Bootcamp – starts 01/03/2026
+
           </li>
 
           <li>
+
             ⚡ Hackathon 2026: Registrations open
+
           </li>
 
         </ul>
@@ -2051,107 +3125,146 @@ const studentProfile =
 
     </div>
 
-
     <!-- =====================================================
+
          10. CHANGE PASSWORD
+
          ===================================================== -->
 
     <div
+
       id="changePasswordView"
+
       class="view"
+
     >
 
       <div
+
         class="placeholder-card change-pwd-form"
+
       >
 
         <div class="placeholder-title">
 
           <i
+
             class="fas fa-key"
+
             style="color:#1e4a6b;"
+
           ></i>
 
           Change Password
 
         </div>
 
-
         <div class="form-group">
 
           <label>
+
             Current Password
+
           </label>
 
           <input
+
             type="password"
+
             class="form-control"
+
             placeholder="Enter current password"
+
           >
 
         </div>
 
-
         <div class="form-group">
 
           <label>
+
             New Password
+
           </label>
 
           <input
+
             type="password"
+
             class="form-control"
+
             placeholder="Enter new password"
+
           >
 
         </div>
-
 
         <div class="form-group">
 
           <label>
+
             Confirm New Password
+
           </label>
 
           <input
+
             type="password"
+
             class="form-control"
+
             placeholder="Re-enter new password"
+
           >
 
         </div>
-
 
         <button
+
           class="btn-primary"
+
           onclick="alert('Password changed successfully (demo)');"
+
         >
+
           Update Password
+
         </button>
 
       </div>
 
     </div>
 
-
     <!-- =====================================================
+
          FOOTER
+
          ===================================================== -->
 
     <div class="footer-copy">
 
       <span>
+
         © 2023-24 CollegeERP ·
+
         Maa Maturani Devi Pharmacy College
+
       </span>
 
       <span
+
         style="
+
           display:flex;
+
           gap:16px;
+
         "
+
       >
+
         📋 Student Dashboard | ERP v2.1
+
       </span>
 
     </div>
@@ -2160,9 +3273,10 @@ const studentProfile =
 
 </div>
 
-
 <!-- =========================================================
+
      JAVASCRIPT
+
      ========================================================= -->
 
 <script>
@@ -2170,13 +3284,29 @@ const studentProfile =
 function openQuestionPapers() {
 
   window.location.href =
+
     "/erp/students/question-papers";
 
+}
+
+function toggleStudentAttendance() {
+  const section = document.getElementById("studentAttendanceDetails");
+
+  if (!section) return;
+
+  section.style.display =
+    section.style.display === "none" ? "block" : "none";
+}
+function showStudentSection(section) {
+  if (section === "attendance") {
+    window.location.href = "/erp/students/attendance";
+  }
 }
 
 function openMyLibrary() {
 
   window.location.href =
+
     "/erp/students/my-library";
 
 }
@@ -2185,84 +3315,112 @@ function openMyLibrary() {
 
   "use strict";
 
+  const studentSidebar = document.querySelector(".sidebar");
+  const studentMenuToggle = document.getElementById("studentMenuToggle");
+  if (studentSidebar && studentMenuToggle) {
+    studentMenuToggle.addEventListener("click", function () {
+      studentSidebar.classList.toggle("open");
+    });
+  }
 
   /* ========================================================
+
      SIDEBAR NAVIGATION
+
      ======================================================== */
 
   const navItems =
+
     document.querySelectorAll(".nav-item");
 
   const views =
-    document.querySelectorAll(".view");
 
+    document.querySelectorAll(".view");
 
   function activateView(viewId) {
 
     views.forEach(function (view) {
 
       view.classList.remove(
+
         "active-view"
+
       );
 
     });
 
-
     const activeView =
-      document.getElementById(viewId);
 
+      document.getElementById(viewId);
 
     if (activeView) {
 
       activeView.classList.add(
+
         "active-view"
+
       );
 
     }
 
   }
 
-
   navItems.forEach(function (item) {
 
     item.addEventListener(
+
       "click",
+
       function () {
 
         navItems.forEach(
+
           function (nav) {
 
             nav.classList.remove(
+
               "active"
+
             );
 
           }
-        );
 
+        );
 
         this.classList.add(
+
           "active"
+
         );
 
+        if (studentSidebar && window.matchMedia("(max-width: 750px)").matches) {
+          studentSidebar.classList.remove("open");
+        }
 
         const viewId =
-          this.getAttribute(
-            "data-view"
-          );
 
+          this.getAttribute(
+
+            "data-view"
+
+          );
 
         if (viewId) {
 
           activateView(
-            viewId
-          );
 
+            viewId
+
+          );
 
           /* Load result only when clicked */
 
           if (
+
             viewId ===
+
             "testResultView"
+
           ) {
 
             loadStudentResults();
@@ -2272,85 +3430,121 @@ function openMyLibrary() {
         }
 
       }
+
     );
 
   });
 
 // ==========================================
+
 // BOOK SEARCH
+
 // ==========================================
+
 window.searchBooks = async function () {
 
   const input =
+
     document.getElementById("bookSearchInput");
 
   const results =
+
     document.getElementById("bookSearchResults");
 
   const search =
-    input.value.trim();
 
+    input.value.trim();
 
   if (!search) {
 
     results.innerHTML = `
+
       <div style="
+
         text-align:center;
+
         padding:20px;
+
         color:#666;
+
       ">
+
         Please enter book name, author or ISBN.
+
       </div>
+
     `;
 
     return;
+
   }
 
-
   results.innerHTML = `
-    <div style="
-      text-align:center;
-      padding:20px;
-    ">
-      <i class="fas fa-spinner fa-spin"></i>
-      Searching...
-    </div>
-  `;
 
+    <div style="
+
+      text-align:center;
+
+      padding:20px;
+
+    ">
+
+      <i class="fas fa-spinner fa-spin"></i>
+
+      Searching...
+
+    </div>
+
+  `;
 
   try {
 
     const response = await fetch(
+
       "/erp/library/search?search=" +
+
       encodeURIComponent(search)
+
     );
 
     const data = await response.json();
 
-
     if (!data.success) {
 
       results.innerHTML = `
+
         <div style="
+
           text-align:center;
+
           padding:20px;
+
           color:red;
+
         ">
+
           ${data.message || "Unable to search books."}
+
         </div>
+
       `;
 
       return;
-    }
 
+    }
 
     if (!data.books || data.books.length === 0) {
 
       results.innerHTML = `
+
         <div style="
+
           text-align:center;
+
           padding:20px;
+
           color:#666;
+
         ">
 
           <i class="fas fa-book-open"></i>
@@ -2358,40 +3552,55 @@ window.searchBooks = async function () {
           No books found.
 
         </div>
+
       `;
 
       return;
+
     }
 
-
     let html = `
-      <div style="
-        display:grid;
-        gap:15px;
-      ">
-    `;
 
+      <div style="
+
+        display:grid;
+
+        gap:15px;
+
+      ">
+
+    `;
 
     data.books.forEach(book => {
 
       const available =
-        Number(book.availableCopies || 0);
 
+        Number(book.availableCopies || 0);
 
       html += `
 
         <div style="
+
           border:1px solid #ddd;
+
           border-radius:8px;
+
           padding:18px;
+
           background:#fff;
+
         ">
 
           <div style="
+
             font-size:18px;
+
             font-weight:600;
+
             color:#1e4a6b;
+
             margin-bottom:8px;
+
           ">
 
             <i class="fas fa-book"></i>
@@ -2400,48 +3609,74 @@ window.searchBooks = async function () {
 
           </div>
 
-
           <div style="
+
             color:#555;
+
             line-height:1.8;
+
           ">
 
             <div>
+
               <strong>Author:</strong>
+
               ${book.author || "-"}
+
             </div>
 
             <div>
+
               <strong>ISBN:</strong>
+
               ${book.isbn || "-"}
+
             </div>
 
             <div>
+
               <strong>Category:</strong>
+
               ${book.category || "-"}
+
             </div>
 
             <div>
+
               <strong>Publisher:</strong>
+
               ${book.publisher || "-"}
+
             </div>
 
             <div>
+
               <strong>Total Copies:</strong>
+
               ${book.quantity}
+
             </div>
 
             <div>
+
               <strong>Available Copies:</strong>
 
               ${
+
                 available > 0
+
                 ? `<span style="color:green;font-weight:bold;">
+
                      ${available} Available
+
                    </span>`
+
                 : `<span style="color:red;font-weight:bold;">
+
                      Not Available
+
                    </span>`
+
               }
 
             </div>
@@ -2454,114 +3689,152 @@ window.searchBooks = async function () {
 
     });
 
-
     html += `</div>`;
 
     results.innerHTML = html;
 
-
   } catch (error) {
 
     console.error(
+
       "Book Search Error:",
+
       error
+
     );
 
     results.innerHTML = `
+
       <div style="
+
         text-align:center;
+
         padding:20px;
+
         color:red;
+
       ">
+
         Unable to search books.
+
       </div>
+
     `;
 
   }
 
 }
+
   /* ========================================================
+
      STUDENT RESULT
+
      ======================================================== */
 
   async function loadStudentResults() {
 
     const loading =
+
       document.getElementById(
+
         "resultLoading"
+
       );
 
     const content =
+
       document.getElementById(
+
         "resultContent"
+
       );
 
     const error =
+
       document.getElementById(
+
         "resultError"
+
       );
 
-
     if (
+
       !loading ||
+
       !content ||
+
       !error
+
     ) {
 
       return;
 
     }
 
-
     loading.style.display =
+
       "block";
 
     content.style.display =
+
       "none";
 
     error.style.display =
-      "none";
 
+      "none";
 
     try {
 
       const response =
+
         await fetch(
+
           "/erp/students/results/data"
+
         );
 
-
       const data =
+
         await response.json();
 
-
       if (
+
         !response.ok ||
+
         !data.success
+
       ) {
 
         throw new Error(
+
           data.message ||
+
           "Unable to load results."
+
         );
 
       }
 
-
       loading.style.display =
+
         "none";
 
       content.style.display =
+
         "block";
 
-
       /* -----------------------------------------
+
          NO RESULT
+
          ----------------------------------------- */
 
       if (
+
         !data.marks ||
+
         data.marks.length === 0
+
       ) {
 
         content.innerHTML = `
@@ -2569,12 +3842,15 @@ window.searchBooks = async function () {
           <div class="info-message">
 
             <strong>
+
               No Result Available
+
             </strong>
 
             <br>
 
             Your test result has not
+
             been uploaded yet.
 
           </div>
@@ -2585,114 +3861,148 @@ window.searchBooks = async function () {
 
       }
 
-
       /* -----------------------------------------
+
          RESULT ROWS
+
          ----------------------------------------- */
 
       let rows = "";
 
-
       data.marks.forEach(
+
         function (mark) {
 
           const maxMarks =
-            Number(
-              mark.maxMarks || 0
-            );
 
+            Number(
+
+              mark.maxMarks || 0
+
+            );
 
           const obtainedMarks =
+
             Number(
+
               mark.marks || 0
+
             );
 
-
           const percentage =
+
             maxMarks > 0
+
               ? (
+
                   obtainedMarks /
+
                   maxMarks
+
                 ) * 100
+
               : 0;
 
-
           let grade = "F";
-
 
           if (percentage >= 90) {
 
             grade = "A+";
 
           } else if (
+
             percentage >= 80
+
           ) {
 
             grade = "A";
 
           } else if (
+
             percentage >= 70
+
           ) {
 
             grade = "B+";
 
           } else if (
+
             percentage >= 60
+
           ) {
 
             grade = "B";
 
           } else if (
+
             percentage >= 50
+
           ) {
 
             grade = "C";
 
           } else if (
+
             percentage >= 40
+
           ) {
 
             grade = "D";
 
           }
 
-
           const status =
-            percentage >= 40
-              ? "Pass"
-              : "Fail";
 
+            percentage >= 40
+
+              ? "Pass"
+
+              : "Fail";
 
           rows += `
 
             <tr>
 
               <td>
+
                 ${mark.subject || "-"}
+
               </td>
 
               <td>
+
                 ${mark.examType || "-"}
+
               </td>
 
               <td>
+
                 ${obtainedMarks}
+
               </td>
 
               <td>
+
                 ${maxMarks}
+
               </td>
 
               <td>
+
                 ${percentage.toFixed(2)}%
+
               </td>
 
               <td>
+
                 ${grade}
+
               </td>
 
               <td>
+
                 ${status}
+
               </td>
 
             </tr>
@@ -2700,50 +4010,60 @@ window.searchBooks = async function () {
           `;
 
         }
+
       );
 
-
       /* -----------------------------------------
+
          RESULT CONTENT
+
          ----------------------------------------- */
 
       const student =
-        data.student || {};
 
+        data.student || {};
 
       content.innerHTML = `
 
         <div
+
           class="info-message"
+
           style="margin-bottom:20px;"
+
         >
 
           <strong>
+
             ${student.name || "-"}
+
           </strong>
 
           <br>
 
           Enrollment:
+
           ${student.enrollment || "-"}
 
           <br>
 
           Course:
+
           ${student.course || "D.Pharm"}
 
           <br>
 
           Semester:
+
           ${student.semester || "1st Semester"}
 
           <br>
 
           Session:
+
           ${student.session || "-"}
 
         </div>
-
 
         <div class="table-responsive">
 
@@ -2754,37 +4074,50 @@ window.searchBooks = async function () {
               <tr>
 
                 <th>
+
                   Subject
+
                 </th>
 
                 <th>
+
                   Exam Type
+
                 </th>
 
                 <th>
+
                   Obtained
+
                 </th>
 
                 <th>
+
                   Max Marks
+
                 </th>
 
                 <th>
+
                   Percentage
+
                 </th>
 
                 <th>
+
                   Grade
+
                 </th>
 
                 <th>
+
                   Status
+
                 </th>
 
               </tr>
 
             </thead>
-
 
             <tbody>
 
@@ -2796,46 +4129,58 @@ window.searchBooks = async function () {
 
         </div>
 
-
         <div
+
           class="stats-grid"
+
           style="margin-top:25px;"
+
         >
 
           <div class="stat-card">
 
             <div class="stat-label">
+
               Total Marks
+
             </div>
 
             <div class="stat-number">
+
               ${data.totalMaxMarks || 0}
+
             </div>
 
           </div>
 
-
           <div class="stat-card">
 
             <div class="stat-label">
+
               Obtained Marks
+
             </div>
 
             <div class="stat-number">
+
               ${data.totalObtainedMarks || 0}
+
             </div>
 
           </div>
 
-
           <div class="stat-card">
 
             <div class="stat-label">
+
               Percentage
+
             </div>
 
             <div class="stat-number">
+
               ${data.percentage || "0.00"}%
+
             </div>
 
           </div>
@@ -2849,138 +4194,171 @@ window.searchBooks = async function () {
     catch (err) {
 
       console.error(
+
         "Result Loading Error:",
+
         err
+
       );
 
-
       loading.style.display =
+
         "none";
 
-
       error.style.display =
+
         "block";
 
-
       error.textContent =
+
         "Unable to load result. Please try again.";
 
     }
 
   }
 
-
   /* ========================================================
+
      GO BUTTON
+
      ======================================================== */
 
   const goBtn =
-    document.getElementById(
-      "goBtn"
-    );
 
+    document.getElementById(
+
+      "goBtn"
+
+    );
 
   if (goBtn) {
 
     goBtn.addEventListener(
+
       "click",
+
       function (event) {
 
         event.preventDefault();
 
-
         alert(
+
           "ERP session " +
+
           "<%= erpUser?.session || 'N/A' %>" +
+
           " · Student Dashboard"
+
         );
 
       }
+
     );
 
   }
 
-
   /* ========================================================
+
      NOTICE HIGHLIGHT
+
      ======================================================== */
 
   const noticeRows =
-    document.querySelectorAll(
-      "#noticeTableBody tr"
-    );
 
+    document.querySelectorAll(
+
+      "#noticeTableBody tr"
+
+    );
 
   let currentNoticeIndex = 0;
 
-
   const totalNotices =
-    noticeRows.length;
 
+    noticeRows.length;
 
   function clearHighlight() {
 
     noticeRows.forEach(
+
       function (row) {
 
         row.classList.remove(
+
           "note-highlight"
+
         );
 
       }
+
     );
 
   }
 
-
   function updateNoticeDisplay(
+
     index
+
   ) {
 
     if (
+
       totalNotices === 0
+
     ) {
 
       return;
 
     }
 
-
     index =
+
       (
+
         index %
+
         totalNotices +
+
         totalNotices
+
       ) %
+
       totalNotices;
 
-
     currentNoticeIndex =
-      index;
 
+      index;
 
     clearHighlight();
 
-
     if (
+
       noticeRows[
+
         currentNoticeIndex
+
       ]
+
     ) {
 
       noticeRows[
+
         currentNoticeIndex
+
       ].classList.add(
+
         "note-highlight"
+
       );
 
     }
 
   }
 
-
   if (
+
     totalNotices > 0
+
   ) {
 
     updateNoticeDisplay(0);
@@ -2989,109 +4367,167 @@ window.searchBooks = async function () {
 
 })();
 
-
-
-
-
 async function paySemesterFee(feeId, button) {
+
   if (typeof Razorpay === "undefined") {
+
     alert("Razorpay load nahi hua. Internet connection check karein.");
+
     return;
+
   }
 
   const originalText = button.innerHTML;
+
   button.disabled = true;
+
   button.textContent = "Please wait...";
 
   try {
+
     const response = await fetch("/erp/students/fees/create-order", {
+
       method: "POST",
+
       headers: { "Content-Type": "application/json" },
+
       credentials: "same-origin",
+
       body: JSON.stringify({ feeId: feeId })
+
     });
 
     const data = await response.json();
 
     if (!response.ok || !data.success) {
+
       throw new Error(data.message || "Payment order create nahi hua.");
+
     }
 
     const options = {
+
       key: data.keyId,
+
       amount: data.amount,
+
       currency: data.currency,
+
       name: "Maa Maturani Devi Pharmacy College",
+
       description: "Semester Fee Payment",
+
       order_id: data.orderId,
+
       prefill: { name: data.studentName || "" },
 
       handler: async function (payment) {
+
         try {
+
           const verifyResponse = await fetch(
+
             "/erp/students/fees/verify-payment",
+
             {
+
               method: "POST",
+
               headers: { "Content-Type": "application/json" },
+
               credentials: "same-origin",
+
               body: JSON.stringify({
+
                 feeId: feeId,
+
                 razorpay_order_id: payment.razorpay_order_id,
+
                 razorpay_payment_id: payment.razorpay_payment_id,
+
                 razorpay_signature: payment.razorpay_signature
+
               })
+
             }
+
           );
 
           const result = await verifyResponse.json();
 
           if (!verifyResponse.ok || !result.success) {
+
             alert(
+
               result.message ||
+
               "Payment verify nahi hua. College se payment status confirm karein."
+
             );
+
             return;
+
           }
 
           alert("Payment successful! Receipt No: " + result.receiptNo);
+
           window.location.reload();
 
         } catch (error) {
+
           alert("Payment status confirm nahi ho saka. College se status check karein.");
+
         } finally {
+
           button.disabled = false;
+
           button.innerHTML = originalText;
+
         }
+
       },
 
       modal: {
+
         ondismiss: function () {
+
           button.disabled = false;
+
           button.innerHTML = originalText;
+
         }
+
       },
 
       theme: { color: "#1e4a6b" }
+
     };
 
     const checkout = new Razorpay(options);
 
     checkout.on("payment.failed", function (event) {
+
       alert(event.error?.description || "Payment fail hua.");
+
       button.disabled = false;
+
       button.innerHTML = originalText;
+
     });
 
     checkout.open();
 
   } catch (error) {
+
     alert(error.message || "Payment start nahi ho paya.");
+
     button.disabled = false;
+
     button.innerHTML = originalText;
+
   }
+
 }
-
-
 
 </script>
 

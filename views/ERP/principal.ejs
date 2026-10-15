@@ -4,308 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Principal Dashboard | Maa Maturani ERP</title>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b;
-    }
-
-    .layout { display: flex; min-height: 100vh; }
-
-    .sidebar {
-      width: 245px;
-      min-height: 100vh;
-      background: #0f172a;
-      color: white;
-      padding: 22px 14px;
-      flex-shrink: 0;
-    }
-
-    .brand { font-size: 21px; font-weight: bold; margin-bottom: 8px; }
-    .subbrand { color: #94a3b8; font-size: 13px; margin-bottom: 28px; }
-
-    .user-info {
-      padding: 14px 8px;
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
-      margin-bottom: 20px;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .nav-btn {
-      display: block;
-      width: 100%;
-      border: 0;
-      background: transparent;
-      color: #cbd5e1;
-      text-align: left;
-      padding: 13px 12px;
-      margin: 5px 0;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .nav-btn:hover, .nav-btn.active {
-      background: #2563eb;
-      color: white;
-    }
-
-    .main { flex: 1; min-width: 0; }
-
-    .topbar {
-      background: white;
-      padding: 20px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 7px #0000000d;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .topbar h2 { margin: 0; font-size: 21px; }
-
-    .content { padding: 26px; }
-
-    .section { display: none; }
-    .section.active { display: block; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card, .panel {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px #0000000a;
-    }
-
-    .stat-card .label { color: #64748b; font-size: 14px; }
-    .stat-card .number { font-size: 30px; font-weight: bold; margin-top: 12px; }
-    .blue { border-left: 5px solid #2563eb; }
-    .green { border-left: 5px solid #16a34a; }
-    .orange { border-left: 5px solid #f59e0b; }
-    .purple { border-left: 5px solid #7c3aed; }
-
-    .panel { margin-bottom: 22px; min-width: 0; }
-    .panel h3 { margin-top: 0; margin-bottom: 20px; font-size: 20px; }
-
-    .table-wrap { width: 100%; overflow-x: auto; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 600px;
-    }
-
-    th, td {
-      padding: 13px 12px;
-      text-align: left;
-      border-bottom: 1px solid #e2e8f0;
-      font-size: 14px;
-    }
-
-    th { background: #f8fafc; color: #334155; }
-    tbody tr:hover { background: #f8fafc; }
-
-    .search {
-      width: 100%;
-      max-width: 350px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 7px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .search:focus, .form-control:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px #2563eb1a;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .muted { color: #64748b; }
-    .notice-item { padding: 13px 0; border-bottom: 1px solid #e2e8f0; }
-    .notice-item:last-child { border-bottom: 0; }
-
-    .menu-toggle {
-      display: none;
-      border: 0;
-      padding: 8px 12px;
-      background: #2563eb;
-      color: white;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    button {
-      font-family: inherit;
-    }
-
-    .btn {
-      display: inline-block;
-      border: 0;
-      border-radius: 7px;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background .2s;
-    }
-
-    .btn-primary { background: #2563eb; color: white; }
-    .btn-primary:hover { background: #1d4ed8; }
-
-    .btn-secondary { background: #64748b; color: white; }
-    .btn-secondary:hover { background: #475569; }
-
-    .btn-danger { background: #dc2626; color: white; }
-    .btn-danger:hover { background: #b91c1c; }
-
-    .btn-success { background: #16a34a; color: white; }
-    .btn-success:hover { background: #15803d; }
-
-    .student-form {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      min-width: 0;
-    }
-
-    .form-group label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-    }
-
-    .form-control {
-      width: 100%;
-      min-width: 0;
-      padding: 11px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 7px;
-      background: white;
-      color: #1e293b;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .message {
-      display: none;
-      padding: 11px 14px;
-      margin: 15px 0;
-      border-radius: 7px;
-      font-size: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .message.show { display: block; }
-    .message.success { background: #dcfce7; color: #166534; }
-    .message.error { background: #fee2e2; color: #991b1b; }
-
-    .table-actions {
-      display: flex;
-      gap: 7px;
-      align-items: center;
-    }
-
-    .table-actions .btn {
-      padding: 7px 11px;
-      font-size: 12px;
-    }
-
-    .empty-cell {
-      text-align: center;
-      padding: 24px;
-      color: #64748b;
-    }
-
-    .logout-link {
-      display: inline-block;
-      text-decoration: none;
-      background: #dc2626;
-      color: white;
-      padding: 9px 13px;
-      border-radius: 7px;
-      font-size: 13px;
-    }
-
-    @media (max-width: 1000px) {
-      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 700px) {
-      .layout { display: block; }
-      .sidebar { display: none; width: 100%; min-height: auto; }
-      .sidebar.open { display: block; }
-      .menu-toggle { display: inline-block; }
-      .content { padding: 15px; }
-      .topbar { padding: 15px; }
-      .cards, .form-grid { grid-template-columns: 1fr; }
-      .panel { padding: 16px; }
-      .stat-card { padding: 18px; }
-    }
-
-    @media print {
-      .sidebar, .topbar, .menu-toggle, .no-print { display: none !important; }
-      .main { width: 100%; }
-      .content { padding: 0; }
-      .section { display: none !important; }
-      #reports { display: block !important; }
-      .panel { box-shadow: none; }
-    }
-  </style>
+<link rel="stylesheet" href="/css/principle.css">
 </head>
-
 <body>
+
 <div class="layout">
 
-  <aside class="sidebar" id="sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="principalSidebar">
+
     <div class="brand">Maa Maturani ERP</div>
     <div class="subbrand">College Management System</div>
 
@@ -315,29 +22,74 @@
       Session: <%= principal.session || "—" %>
     </div>
 
-    <button type="button" class="nav-btn active" data-section="dashboard">🏠 Dashboard</button>
-    <button type="button" class="nav-btn" data-section="students">🎓 Students</button>
-    <button type="button" class="nav-btn" data-section="faculty">👨‍🏫 Faculty</button>
-    <button type="button" class="nav-btn" data-section="courses">📚 Courses</button>
-    <button type="button" class="nav-btn" data-section="attendance">📅 Attendance</button>
-    <button type="button" class="nav-btn" data-section="fees">💰 Fees</button>
-    <button type="button" class="nav-btn" data-section="notices">📢 Notices</button>
-    <button type="button" class="nav-btn" data-section="reports">📊 Reports</button>
+    <button type="button" class="nav-btn active"
+            data-section="dashboard">🏠 Dashboard</button>
+
+    <button type="button" class="nav-btn"
+            data-section="students">🎓 Students</button>
+
+    <button type="button" class="nav-btn"
+            data-section="faculty">👨‍🏫 Faculty</button>
+
+    <button type="button" class="nav-btn"
+            data-section="courses">📚 Courses</button>
+
+    <button type="button" class="nav-btn"
+            data-section="attendance">📅 Attendance</button>
+
+    <button type="button" class="nav-btn"
+            data-section="fees">💰 Fees</button>
+
+    <button type="button" class="nav-btn"
+            data-section="notices">📢 Notices</button>
+
+    <button type="button" class="nav-btn"
+            data-section="reports">📊 Reports</button>
+
   </aside>
 
+  <!-- MOBILE SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- MAIN CONTENT -->
   <main class="main">
+
     <header class="topbar">
-      <div style="display:flex;align-items:center;gap:12px">
-        <button type="button" class="menu-toggle" id="menuToggle">☰</button>
+
+      <!-- LEFT SIDE: MENU + TITLE -->
+      <div class="topbar-left">
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-controls="principalSidebar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars" aria-hidden="true"></i>
+          <span>Menu</span>
+        </button>
+
         <h2 id="pageTitle">🏠 Dashboard</h2>
+
       </div>
 
-      <div>
-        <span class="badge">Session: <%= principal.session || "—" %></span>
-        &nbsp; <strong><%= principal.name || "Principal" %></strong>
+      <!-- RIGHT SIDE: SESSION + PRINCIPAL -->
+      <div class="topbar-right">
+        <span class="badge">
+          Session: <%= principal.session || "—" %>
+        </span>
+
+        <strong>
+          <%= principal.name || "Principal" %>
+        </strong>
       </div>
+
     </header>
 
+    <!-- YOUR EXISTING DASHBOARD SECTIONS CONTINUE BELOW -->
+```
     <div class="content">
 
       <!-- DASHBOARD -->
@@ -923,6 +675,51 @@
 </div>
 
 <script>
+(function () {
+  const sidebar = document.getElementById("principalSidebar");
+  const toggle = document.getElementById("menuToggle");
+  const overlay = document.getElementById("sidebarOverlay");
+
+  if (!sidebar || !toggle || !overlay) {
+    console.error("Principal sidebar toggle elements missing.");
+    return;
+  }
+
+  function openSidebar() {
+    sidebar.classList.add("open");
+    overlay.classList.add("active");
+    toggle.setAttribute("aria-expanded", "true");
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  toggle.addEventListener("click", function () {
+    sidebar.classList.contains("open")
+      ? closeSidebar()
+      : openSidebar();
+  });
+
+  overlay.addEventListener("click", closeSidebar);
+
+  sidebar.querySelectorAll("button, a, [data-view]").forEach(function (item) {
+    item.addEventListener("click", function () {
+      if (window.innerWidth <= 900) closeSidebar();
+    });
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeSidebar();
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 900) closeSidebar();
+  });
+})();
+
   // ---------------- NAVIGATION ----------------
   const navButtons = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".section");

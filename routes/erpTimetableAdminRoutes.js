@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   getTimetableManagement,
+  getFacultyListForTimetable,
   createTimetable,
   getAllTimetable,
   deactivateTimetable
@@ -16,7 +17,11 @@ router.get(
   requireERPRole("admin"),
   getTimetableManagement
 );
-
+router.get(
+  "/faculty-list",
+  requireERPRole("admin"),
+  getFacultyListForTimetable
+);
 router.post(
   "/timetable",
   requireERPRole("admin"),

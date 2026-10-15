@@ -726,14 +726,13 @@ export const getFacultyDashboard = async (req, res) => {
       .select("name enrollment session active")
       .sort({ name: 1 })
       .lean();
-
-    const timetable = await Timetable.find({
-      faculty: user.name,
-      session: user.session,
-      active: true
-    })
-      .sort({ day: 1, startTime: 1 })
-      .lean();
+const timetable = await Timetable.find({
+  facultyId: user._id,
+  session: user.session,
+  active: true
+})
+  .sort({ day: 1, startTime: 1 })
+  .lean();
 
     const todayName = new Intl.DateTimeFormat("en-US", {
       weekday: "long"
