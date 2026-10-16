@@ -632,3 +632,581 @@ img {
     opacity: 1;
   }
 }
+/* MOBILE HEADER: ERP LOGIN + FACULTY ENQUIRY */
+
+.mobile-utility-links {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Existing desktop utility bar is hidden;
+     its two important links appear beside the logo instead. */
+  .top-header {
+    display: none !important;
+  }
+
+  body {
+    padding-top: 90px;
+  }
+
+  .header-container {
+    width: 100%;
+  }
+
+  .main-header {
+    width: 100%;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 6px;
+    height: 90px;
+    padding: 8px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+
+  .logo img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 88px;
+    max-height: 48px;
+    object-fit: contain;
+  }
+
+  .mobile-utility-links {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .mobile-utility-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 5px;
+    border-radius: 6px;
+    color: #fff !important;
+    font-size: clamp(9px, 2.6vw, 12px);
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .mobile-erp-link {
+    background: #0b5ed7;
+  }
+
+  .mobile-enquiry-link {
+    background: #d63384;
+  }
+
+  .menu-icon {
+    display: flex;
+    flex: 0 0 25px;
+    width: 25px;
+    min-width: 25px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  /* Keep the existing hamburger menu below the header */
+  .menu {
+    top: 90px;
+    height: calc(100vh - 90px);
+    height: calc(100dvh - 90px);
+  }
+}
+
+/* Smaller mobile screens */
+@media (max-width: 360px) {
+  .nav {
+    gap: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .logo img {
+    max-width: 72px;
+  }
+
+  .mobile-utility-links {
+    gap: 3px;
+  }
+
+  .mobile-utility-links a {
+    padding: 6px 3px;
+    font-size: 9px;
+  }
+
+  .menu-icon {
+    flex-basis: 23px;
+    width: 23px;
+    min-width: 23px;
+  }
+}
+/* =========================================
+   PREMIUM MOBILE HEADER - CLEAN DESIGN
+   ========================================= */
+
+.mobile-utility-links {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 7px;
+    padding: 8px 10px;
+    min-height: 90px;
+  }
+
+  /* College Logo */
+  .logo {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    width: auto;
+    height: auto;
+    max-width: 88px;
+    max-height: 48px;
+    object-fit: contain;
+  }
+
+  /* ERP and Faculty Enquiry */
+  .mobile-utility-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .mobile-utility-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 7px;
+    border-radius: 7px;
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(10px, 2.8vw, 12px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+    animation: mobileButtonEnter 0.45s ease-out both;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .mobile-utility-links a:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+
+  .mobile-erp-link {
+    background: #1764d8;
+  }
+
+  .mobile-erp-link:hover {
+    background: #104eae;
+    box-shadow: 0 4px 9px rgba(23, 100, 216, 0.20);
+  }
+
+  .mobile-enquiry-link {
+    background: #c52d78;
+  }
+
+  .mobile-enquiry-link:hover {
+    background: #a91f64;
+    box-shadow: 0 4px 9px rgba(197, 45, 120, 0.20);
+  }
+
+  .mobile-utility-links a:active {
+    transform: scale(0.96);
+  }
+
+  /* Hamburger */
+  .menu-icon {
+    display: flex;
+    flex: 0 0 26px;
+    width: 26px;
+    min-width: 26px;
+    height: 22px;
+    margin: 0;
+  }
+
+  .menu-icon span {
+    background: #083d5d;
+  }
+
+  /* Existing navigation dropdown */
+  .menu {
+    top: 90px;
+    height: calc(100vh - 90px);
+    height: calc(100dvh - 90px);
+  }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+  .nav {
+    gap: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .logo img {
+    max-width: 74px;
+  }
+
+  .mobile-utility-links {
+    gap: 4px;
+  }
+
+  .mobile-utility-links a {
+    padding: 7px 5px;
+    font-size: 10px;
+  }
+
+  .menu-icon {
+    flex-basis: 23px;
+    width: 23px;
+    min-width: 23px;
+  }
+}
+
+/* Soft entrance animation - no continuous pulsing */
+@keyframes mobileButtonEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-utility-links a {
+    animation: none;
+    transition: none;
+  }
+}
+/* ======================================
+   MOBILE HEADER — BIG LOGO + SOFT POP
+   ====================================== */
+
+@media (max-width: 768px) {
+
+  /* Header spacing */
+  .nav {
+    min-height: 82px;
+    height: 82px;
+    padding: 6px 8px;
+    gap: 4px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  /* Bigger College Logo */
+  .logo {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .logo img {
+    display: block;
+    width: 108px;
+    max-width: 108px;
+    height: auto;
+    max-height: 58px;
+    object-fit: contain;
+  }
+
+  /* Keep both buttons close together */
+  .mobile-utility-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 3px;
+    margin: 0;
+  }
+
+  .mobile-utility-links a {
+    padding: 7px 5px;
+    border-radius: 6px;
+    font-size: clamp(9px, 2.7vw, 11px);
+    line-height: 1.2;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.12);
+    animation: headerButtonPop 2.2s ease-in-out infinite;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-erp-link {
+    background: linear-gradient(135deg, #1764d8, #0b5ed7);
+  }
+
+  .mobile-enquiry-link {
+    background: linear-gradient(135deg, #d63384, #bd246f);
+  }
+
+  .mobile-utility-links a:active {
+    transform: scale(0.94);
+  }
+
+  /* Hamburger */
+  .menu-icon {
+    flex: 0 0 25px;
+    width: 25px;
+    min-width: 25px;
+    height: 22px;
+    margin: 0;
+  }
+
+  /* Menu opens immediately below the header */
+  .menu {
+    top: 82px;
+    height: calc(100vh - 82px);
+    height: calc(100dvh - 82px);
+  }
+
+  /* Keep content below the fixed header */
+  body {
+    padding-top: 82px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .nav {
+    padding-left: 5px;
+    padding-right: 5px;
+    gap: 3px;
+  }
+
+  .logo img {
+    width: 91px;
+    max-width: 91px;
+    max-height: 52px;
+  }
+
+  .mobile-utility-links {
+    gap: 2px;
+  }
+
+  .mobile-utility-links a {
+    padding: 6px 4px;
+    font-size: 9px;
+  }
+
+  .menu-icon {
+    flex-basis: 22px;
+    width: 22px;
+    min-width: 22px;
+  }
+}
+
+/* Gentle pop animation */
+@keyframes headerButtonPop {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-utility-links a {
+    animation: none;
+  }
+}
+
+/* =========================================
+   MOBILE ONLY — BIGGER HEADER & LOGO
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  /* Header ki height badhao */
+  .nav {
+    height: 96px !important;
+    min-height: 96px;
+    padding: 10px 9px;
+    gap: 5px;
+  }
+
+  /* College logo bigger */
+  .logo {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+  }
+
+  .logo img {
+    width: 125px !important;
+    max-width: 125px !important;
+    height: 66px !important;
+    max-height: 66px !important;
+    object-fit: contain;
+  }
+
+  /* ERP Login and Faculty Enquiry buttons */
+  .mobile-utility-links {
+    gap: 4px;
+  }
+
+  .mobile-utility-links a {
+    min-height: 34px;
+    padding: 9px 6px;
+    font-size: 10px;
+    border-radius: 7px;
+  }
+
+  /* Hamburger button */
+  .menu-icon {
+    flex: 0 0 27px;
+    width: 27px;
+    min-width: 27px;
+    height: 24px;
+  }
+
+  /* Navigation logo/header ke neeche open ho */
+  .menu {
+    top: 96px !important;
+    height: calc(100vh - 96px);
+    height: calc(100dvh - 96px);
+  }
+
+  /* Fixed header ke neeche page content */
+  body {
+    padding-top: 96px;
+  }
+}
+
+/* Extra-small mobile */
+@media (max-width: 360px) {
+
+  .nav {
+    padding-left: 5px;
+    padding-right: 5px;
+    gap: 3px;
+  }
+
+  .logo img {
+    width: 108px !important;
+    max-width: 108px !important;
+    height: 60px !important;
+    max-height: 60px !important;
+  }
+
+  .mobile-utility-links {
+    gap: 3px;
+  }
+
+  .mobile-utility-links a {
+    padding: 8px 4px;
+    font-size: 9px;
+  }
+}
+
+/* MOBILE ONLY: BIG LOGO + SMALL BUTTONS */
+
+@media (max-width: 768px) {
+
+  /* College logo bigger */
+  .logo img {
+    width: 140px !important;
+    max-width: 140px !important;
+    height: auto !important;
+    max-height: 70px !important;
+    object-fit: contain;
+  }
+
+  /* ERP Login and Faculty Enquiry smaller */
+  .mobile-utility-links {
+    gap: 3px;
+  }
+
+  .mobile-utility-links a {
+    min-height: 27px;
+    padding: 5px 4px;
+    font-size: 9px;
+    line-height: 1.1;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.10);
+  }
+}
+
+/* Small mobile phones */
+@media (max-width: 360px) {
+
+  .nav {
+    gap: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .logo img {
+    width: 118px !important;
+    max-width: 118px !important;
+    max-height: 62px !important;
+  }
+
+  .mobile-utility-links {
+    gap: 2px;
+  }
+
+  .mobile-utility-links a {
+    padding: 5px 3px;
+    font-size: 8px;
+    min-height: 25px;
+  }
+
+  .menu-icon {
+    width: 22px;
+    min-width: 22px;
+    flex-basis: 22px;
+  }
+}
