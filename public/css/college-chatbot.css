@@ -1,0 +1,35 @@
+:root{--college-ai-primary:#0b5c83;--college-ai-accent:#ff6b35}
+.college-ai-root,.college-ai-root *{box-sizing:border-box}
+.college-ai-root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;position:fixed;right:22px;bottom:22px;z-index:99999;color:#182230}
+.college-ai-launcher{display:flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 19px;background:linear-gradient(135deg,#083d5d,#0b78a5);color:#fff;font-weight:700;box-shadow:0 8px 30px #082f493d;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.college-ai-launcher:hover{transform:translateY(-2px);box-shadow:0 12px 34px #082f494a}
+.college-ai-launcher-icon{display:grid;place-items:center;background:#ffffff25;border-radius:50%;width:28px;height:28px;font-size:19px}
+.college-ai-panel{display:none;position:absolute;right:0;bottom:65px;width:min(390px,calc(100vw - 28px));height:min(610px,calc(100dvh - 115px));min-height:400px;background:#fff;border:1px solid #dce5eb;border-radius:20px;box-shadow:0 20px 70px #0b253b35;overflow:hidden;flex-direction:column}
+.college-ai-panel.is-open{display:flex;animation:college-ai-pop .18s ease-out}
+@keyframes college-ai-pop{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.college-ai-header{display:flex;align-items:center;gap:11px;padding:16px;background:linear-gradient(120deg,#083d5d,#087ca5);color:white}
+.college-ai-avatar{width:39px;height:39px;border-radius:13px;background:#ffffff22;display:grid;place-items:center;font-size:22px}
+.college-ai-heading{display:flex;flex:1;flex-direction:column;gap:4px;font-size:14px}
+.college-ai-heading span{font-size:11px;color:#d5edf6}
+.college-ai-heading i{display:inline-block;width:7px;height:7px;background:#6ef0b0;border-radius:50%;margin-right:5px}
+.college-ai-close{border:0;background:transparent;color:#fff;font-size:28px;line-height:1;cursor:pointer;padding:2px 5px}
+.college-ai-welcome{padding:15px 15px 12px;background:#f5f9fc;border-bottom:1px solid #e8eef3}
+.college-ai-welcome strong{font-size:14px;color:#102d42}
+.college-ai-welcome p{font-size:12px;line-height:1.55;margin:6px 0 11px;color:#526575}
+.college-ai-suggestions{display:flex;flex-wrap:wrap;gap:7px}
+.college-ai-suggestions button{border:1px solid #c7dce8;border-radius:999px;background:#fff;color:#07577b;padding:7px 10px;font-size:11px;font-weight:650;cursor:pointer}
+.college-ai-suggestions button:hover{background:#e8f5fb}
+.college-ai-messages{padding:15px;display:flex;flex:1;flex-direction:column;gap:12px;overflow-y:auto;background:#fff}
+.college-ai-message{max-width:88%;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;padding:11px 13px;border-radius:14px}
+.college-ai-message.bot{align-self:flex-start;background:#f0f5f8;color:#263c4c;border-bottom-left-radius:5px}
+.college-ai-message.user{align-self:flex-end;background:#0b6388;color:white;border-bottom-right-radius:5px}
+.college-ai-message.error{background:#fff0ed;color:#9b3020}
+.college-ai-typing{color:#627889;font-size:12px;padding:0 15px 8px}
+.college-ai-form{display:flex;align-items:flex-end;gap:8px;padding:11px 12px;border-top:1px solid #e6edf1;background:#fff}
+.college-ai-form textarea{font:inherit;font-size:13px;line-height:1.4;resize:none;max-height:95px;min-height:40px;flex:1;border:1px solid #d5e0e7;border-radius:12px;padding:11px 12px;outline:none}
+.college-ai-form textarea:focus{border-color:#0b78a5;box-shadow:0 0 0 3px #0b78a515}
+.college-ai-form button{height:40px;width:42px;flex:0 0 42px;border:0;border-radius:12px;background:#0b6388;color:#fff;font-size:19px;cursor:pointer}
+.college-ai-form button:disabled{opacity:.55;cursor:wait}
+.college-ai-disclaimer{text-align:center;font-size:10px;color:#8796a1;padding:0 10px 10px;background:#fff}
+.college-ai-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:480px){.college-ai-root{right:12px;bottom:12px}.college-ai-panel{right:-2px;bottom:61px;width:calc(100vw - 24px);height:min(640px,calc(100dvh - 90px));min-height:360px}.college-ai-launcher{padding:11px 15px}}

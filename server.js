@@ -8,6 +8,7 @@ import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import path from "path";
+import { readFileSync } from "node:fs";
 
 import connectDB from "./config/db.js";
 
@@ -40,7 +41,7 @@ import erpStudentResultRoutes
 import erpStudentDocumentRoutes from "./routes/erpStudentDocumentRoutes.js";
 import studentRoutes from "./routes/studentRoutes1.js";
 
-
+import collegeChatbotRoutes from "./routes/chatbotRoutes.js";
 import erpNoticeAdminRoutes from "./routes/erpNoticeAdminRoutes.js";
 import erpStudentNoticeRoutes from "./routes/erpStudentNoticeRoutes.js";
 
@@ -171,6 +172,38 @@ app.use(
   })
 );
 
+
+
+// College AI Chatbot API
+app.use("/api/college-assistant", collegeChatbotRoutes);
+
+// Add the floating College AI Assistant to rendered HTML pages site-wide.
+// It is injected at response time so existing EJS templates do not need editing.
+app.use((req, res, next) => {
+  const originalSend = res.send.bind(res);
+  res.send = (body) => {
+    const contentType = res.getHeader("Content-Type") || "";
+    if (
+      typeof body === "string" &&
+      String(contentType).includes("text/html") &&
+      !req.path.startsWith("/api/") &&
+      !body.includes('id="college-ai-root"')
+    ) {
+      const widgetPath = path.join(__dirname, "public", "college-chatbot-widget.html");
+      try {
+        
+        const widget = readFileSync(widgetPath, "utf8");
+        body = body.includes("</body>")
+          ? body.replace("</body>", `${widget}\n</body>`)
+          : `${body}${widget}`;
+      } catch (error) {
+        console.error("Could not inject College AI widget:", error.message);
+      }
+    }
+    return originalSend(body);
+  };
+  next();
+});
 
 // Routes
 

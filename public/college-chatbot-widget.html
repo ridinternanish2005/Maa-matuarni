@@ -1,0 +1,31 @@
+<!-- Universal AI / College Assistant -->
+<link rel="stylesheet" href="/css/college-chatbot.css">
+<div id="college-ai-root" class="college-ai-root">
+  <button id="college-ai-launcher" class="college-ai-launcher" type="button" aria-label="Open College AI Assistant" aria-expanded="false">
+    <span class="college-ai-launcher-icon" aria-hidden="true">✦</span><span class="college-ai-launcher-label">Ask AI</span>
+  </button>
+  <section id="college-ai-panel" class="college-ai-panel" aria-label="College AI Assistant" aria-hidden="true">
+    <header class="college-ai-header">
+      <div class="college-ai-avatar" aria-hidden="true">✦</div>
+      <div class="college-ai-heading"><strong>College AI Assistant</strong><span><i></i> Here to help</span></div>
+      <button id="college-ai-close" class="college-ai-close" type="button" aria-label="Close chat">×</button>
+    </header>
+    <div class="college-ai-welcome">
+      <strong>Namaste! 👋</strong>
+      <p>Ask about college, courses, admission, fees, or general study and coding questions.</p>
+      <div class="college-ai-suggestions">
+        <button type="button" data-question="What courses are available?">Courses</button>
+        <button type="button" data-question="How can I apply for admission?">Admission</button>
+        <button type="button" data-question="What is the college fee structure?">Fees</button>
+      </div>
+    </div>
+    <div id="college-ai-messages" class="college-ai-messages" role="log" aria-live="polite"></div>
+    <form id="college-ai-form" class="college-ai-form">
+      <label class="college-ai-sr-only" for="college-ai-input">Type your question</label>
+      <textarea id="college-ai-input" rows="1" maxlength="2000" placeholder="Ask anything..." required></textarea>
+      <button id="college-ai-send" type="submit" aria-label="Send message">➤</button>
+    </form>
+    <div class="college-ai-disclaimer">AI can make mistakes. Confirm official college details with the college.</div>
+  </section>
+</div>
+<script src="/js/college-chatbot.js" defer></script>
