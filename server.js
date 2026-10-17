@@ -183,12 +183,12 @@ app.use((req, res, next) => {
   const originalSend = res.send.bind(res);
   res.send = (body) => {
     const contentType = res.getHeader("Content-Type") || "";
-    if (
-      typeof body === "string" &&
-      String(contentType).includes("text/html") &&
-      !req.path.startsWith("/api/") &&
-      !body.includes('id="college-ai-root"')
-    ) {
+if (
+  typeof body === "string" &&
+  /<!doctype html|<html[\s>]/i.test(body) &&
+  !req.path.startsWith("/api/") &&
+  !body.includes('id="college-ai-root"')
+) {
       const widgetPath = path.join(__dirname, "public", "college-chatbot-widget.html");
       try {
         
