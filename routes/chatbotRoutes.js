@@ -115,7 +115,61 @@ const baseUrl = (process.env.AI_BASE_URL || "https://api.openai.com/v1").replace
       }
     }
 
-    return res.json({ success: true, answer: localAnswer(message), mode: "knowledge-base" });
+if (apiKey) {
+  try {
+    const response = await fetch(`${baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model,
+        temperature: 0.3,
+        messages: [
+          {
+            role: "system",
+            content: `You are the helpful assistant for the Maa Maturani Devi Pharmacy College website. Answer in the language used by the user (Hindi, Hinglish, or English). Help with general knowledge, study, coding, and college questions. Use this college knowledge only as the source for college-specific facts: ${collegeKnowledge}. Never invent fees, contact details, admission dates, approvals, affiliation, placement statistics or policies. If not present, say it is not verified and direct the user to the official Contact/Admission section. Keep answers clear and concise.`
+          },
+          { role: "user", content: message }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        "AI provider HTTP error:",
+        response.status,
+        errorText
+      );
+    } else {
+      const data = await response.json();
+      const answer = data?.choices?.[0]?.message?.content?.trim();
+
+      if (answer) {
+        return res.json({
+          success: true,
+          answer,
+          mode: "ai"
+        });
+      }
+
+      console.error("AI provider returned an empty answer.");
+    }
+  } catch (error) {
+    console.error("AI provider request failed:", error.message);
+  }
+} else {
+  console.error("AI API key is missing in environment variables.");
+}
+
+return res.json({
+  success: true,
+  answer: localAnswer(message),
+  mode: "knowledge-base"
+});
+
   } catch (error) {
     console.error("Chatbot error:", error);
     return res.status(500).json({ success: false, message: "Chat assistant is temporarily unavailable." });
