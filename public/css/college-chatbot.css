@@ -153,3 +153,48 @@
   background: rgba(127, 127, 127, 0.15);
   overflow-wrap: anywhere;
 }
+
+
+/* Fix: AI chatbot input should remain editable */
+#college-ai-root .college-ai-form {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+#college-ai-root #college-ai-input {
+  display: block;
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  width: 0;
+  min-width: 0;
+  min-height: 40px;
+  max-height: 95px;
+  padding: 11px 12px;
+  border: 1px solid #d5e0e7;
+  border-radius: 12px;
+  background: #fff;
+  color: #182230;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#college-ai-root #college-ai-input:focus {
+  border-color: #0b78a5;
+  box-shadow: 0 0 0 3px #0b78a515;
+}
+
+#college-ai-root #college-ai-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

@@ -1,100 +1,80 @@
 
 (() => {
+  "use strict";
+
+  // ---------- Get HTML elements ----------
   const launcher = document.getElementById("college-ai-launcher");
   const panel = document.getElementById("college-ai-panel");
   const close = document.getElementById("college-ai-close");
   const form = document.getElementById("college-ai-form");
   const input = document.getElementById("college-ai-input");
+  // ---------- Fix Space key in chatbot ----------
+input.addEventListener(
+  "keydown",
+  function (event) {
+    if (event.code === "Space" || event.key === " ") {
+      event.stopImmediatePropagation();
+    }
+  },
+  true
+);
   const messages = document.getElementById("college-ai-messages");
   const send = document.getElementById("college-ai-send");
   const mic = document.getElementById("college-ai-mic");
 
-  if (!launcher || !panel || !form || !input || !messages) return;
+  // Stop if the chatbot HTML is not present
+  if (!launcher || !panel || !form || !input || !messages) {
+    return;
+  }
 
-  // Browser voice features
+  // Prevent duplicate initialization if this script runs again
+  if (form.dataset.chatbotInitialized === "true") {
+    return;
+  }
+  form.dataset.chatbotInitialized = "true";
+
+  // ---------- State ----------
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
   let recognition = null;
   let listening = false;
+  let isSending = false;
 
   const speechSupported = "speechSynthesis" in window;
 
-  // ---------- Voice recognition ----------
-  if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-    recognition.lang = "hi-IN";
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-      listening = true;
-
-      if (mic) {
-        mic.textContent = "⏹";
-        mic.title = "Stop listening";
-        mic.setAttribute("aria-label", "Stop listening");
-      }
-    };
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript.trim();
-
-      if (transcript) {
-        input.value = transcript;
-        input.dispatchEvent(new Event("input"));
-        ask(transcript);
-      }
-    };
-
-    recognition.onerror = (event) => {
-      const errors = {
-        "not-allowed": "Microphone permission allow karo.",
-        "no-speech": "Awaaz nahi mili. Dobara bolkar dekho.",
-        network: "Voice recognition ke liye network problem hai.",
-        "audio-capture": "Microphone detect nahi hua."
-      };
-
-      if (event.error !== "aborted") {
-        addMessage(
-          errors[event.error] || "Voice recognition nahi chal saka.",
-          "bot",
-          "error"
-        );
-      }
-    };
-
-    recognition.onend = () => {
-      listening = false;
-
-      if (mic) {
-        mic.textContent = "🎤";
-        mic.title = "Speak your question";
-        mic.setAttribute("aria-label", "Speak your question");
-      }
-    };
-  }
-
-  // ---------- Open / close chatbot ----------
-  function toggle(open) {
+  // ---------- Open / Close Chatbot ----------
+  function toggleChat(open) {
     panel.classList.toggle("is-open", open);
     panel.setAttribute("aria-hidden", String(!open));
     launcher.setAttribute("aria-expanded", String(open));
 
     if (open) {
-      setTimeout(() => input.focus(), 50);
+      window.setTimeout(() => input.focus(), 50);
     }
   }
 
   launcher.addEventListener("click", () => {
-    toggle(!panel.classList.contains("is-open"));
+    toggleChat(!panel.classList.contains("is-open"));
   });
 
-  close?.addEventListener("click", () => toggle(false));
+  close?.addEventListener("click", () => {
+    toggleChat(false);
+  });
 
-  // ---------- Safe Markdown renderer ----------
-  // Allows common Markdown formatting without injecting raw HTML.
+  // ---------- Auto-resize Textarea ----------
+  function resizeInput() {
+    input.style.height = "auto";
+    input.style.height = `${Math.min(input.scrollHeight, 95)}px`;
+  }
+
+  input.addEventListener("input", resizeInput);
+
+  // ---------- Safe Markdown Renderer ----------
+  // Supports headings, paragraphs, bold, italic, links,
+  // inline code, fenced code blocks and ordered/unordered lists.
+  // Uses DOM text nodes instead of injecting raw HTML.
+
   function renderMarkdown(text, container) {
     container.replaceChildren();
 
@@ -108,11 +88,9 @@
     let codeLanguage = "";
     let inCode = false;
 
-    function inlineMarkdown(value, parent) {
-      // Escape all HTML by creating text nodes, not using innerHTML.
-      // Recognize links, bold, italic and inline code.
+    function appendInline(value, parent) {
       const pattern =
-        /(`[^`\n]+`|\*\*[\s\S]+?\*\*|__[\s\S]+?__|\*[^*\n]+\*|_[^_\n]+_|https?:\/\/[^\s<]+)/g;
+        /(`[^`\n]+`|\*\*[^*\n]+?\*\*|__[^_\n]+?__|\*[^*\n]+?\*|_[^_\n]+?_|https?:\/\/[^\s<]+)/g;
 
       let lastIndex = 0;
       let match;
@@ -120,7 +98,9 @@
       while ((match = pattern.exec(value)) !== null) {
         if (match.index > lastIndex) {
           parent.appendChild(
-            document.createTextNode(value.slice(lastIndex, match.index))
+            document.createTextNode(
+              value.slice(lastIndex, match.index)
+            )
           );
         }
 
@@ -135,15 +115,15 @@
           (token.startsWith("__") && token.endsWith("__"))
         ) {
           const strong = document.createElement("strong");
-          inlineMarkdown(token.slice(2, -2), strong);
+          appendInline(token.slice(2, -2), strong);
           parent.appendChild(strong);
         } else if (
           (token.startsWith("*") && token.endsWith("*")) ||
           (token.startsWith("_") && token.endsWith("_"))
         ) {
-          const em = document.createElement("em");
-          inlineMarkdown(token.slice(1, -1), em);
-          parent.appendChild(em);
+          const italic = document.createElement("em");
+          appendInline(token.slice(1, -1), italic);
+          parent.appendChild(italic);
         } else if (/^https?:\/\//i.test(token)) {
           const cleanUrl = token.replace(/[.,!?;:)]+$/, "");
           const trailing = token.slice(cleanUrl.length);
@@ -184,7 +164,7 @@
       if (!paragraph.length) return;
 
       const p = document.createElement("p");
-      inlineMarkdown(paragraph.join(" "), p);
+      appendInline(paragraph.join(" "), p);
       container.appendChild(p);
       paragraph = [];
     }
@@ -210,6 +190,7 @@
 
       const pre = document.createElement("pre");
       const code = document.createElement("code");
+
       code.textContent = codeLines.join("\n");
       pre.appendChild(code);
       wrapper.appendChild(pre);
@@ -218,11 +199,13 @@
       copyButton.type = "button";
       copyButton.className = "college-ai-code-copy";
       copyButton.textContent = "Copy code";
+
       copyButton.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(codeLines.join("\n"));
           copyButton.textContent = "Copied!";
-          setTimeout(() => {
+
+          window.setTimeout(() => {
             copyButton.textContent = "Copy code";
           }, 1500);
         } catch {
@@ -265,11 +248,10 @@
         continue;
       }
 
-      if (/^\s*[-*_]{3,}\s*$/.test(line)) {
+      if (/^\s*([-*_])(?:\s*\1){2,}\s*$/.test(line)) {
         flushParagraph();
         flushList();
-        const hr = document.createElement("hr");
-        container.appendChild(hr);
+        container.appendChild(document.createElement("hr"));
         continue;
       }
 
@@ -283,7 +265,7 @@
           `h${Math.min(heading[1].length, 4)}`
         );
 
-        inlineMarkdown(heading[2], h);
+        appendInline(heading[2], h);
         container.appendChild(h);
         continue;
       }
@@ -303,7 +285,7 @@
         }
 
         const li = document.createElement("li");
-        inlineMarkdown((unordered || ordered)[1], li);
+        appendInline((unordered || ordered)[1], li);
         list.appendChild(li);
         continue;
       }
@@ -320,31 +302,31 @@
     flushList();
   }
 
-  // ---------- Display a message ----------
+  // ---------- Display Chat Message ----------
   function addMessage(text, role, extraClass = "") {
-    const el = document.createElement("div");
-    el.className = `college-ai-message ${role} ${extraClass}`.trim();
+    const element = document.createElement("div");
+
+    element.className =
+      `college-ai-message ${role} ${extraClass}`.trim();
 
     if (role === "bot" && !extraClass.includes("error")) {
-      renderMarkdown(text, el);
+      renderMarkdown(text, element);
     } else {
-      // User messages and errors remain plain text.
-      el.textContent = String(text ?? "");
+      element.textContent = String(text ?? "");
     }
 
-    messages.appendChild(el);
+    messages.appendChild(element);
     messages.scrollTop = messages.scrollHeight;
 
-    return el;
+    return element;
   }
 
-  // ---------- Speak AI answer aloud ----------
+  // ---------- Speak AI Answer ----------
   function speakAnswer(text) {
     if (!speechSupported || !text) return;
 
     window.speechSynthesis.cancel();
 
-    // Remove Markdown syntax before speaking.
     const plainText = String(text)
       .replace(/```[\w+#.-]*\n?/g, "")
       .replace(/[`*_#]/g, "")
@@ -352,6 +334,8 @@
       .replace(/^\s*[-+]\s+/gm, "")
       .replace(/^\s*\d+[.)]\s+/gm, "")
       .trim();
+
+    if (!plainText) return;
 
     const utterance = new SpeechSynthesisUtterance(plainText);
     const hasHindi = /[\u0900-\u097F]/.test(plainText);
@@ -363,7 +347,9 @@
     const voices = window.speechSynthesis.getVoices();
 
     const matchingVoice = voices.find((voice) =>
-      voice.lang.toLowerCase().startsWith(hasHindi ? "hi" : "en-in")
+      hasHindi
+        ? voice.lang.toLowerCase().startsWith("hi")
+        : voice.lang.toLowerCase().startsWith("en-in")
     );
 
     if (matchingVoice) {
@@ -373,10 +359,13 @@
     window.speechSynthesis.speak(utterance);
   }
 
-  // ---------- Send a question to the backend ----------
+  // ---------- Send Question to Backend ----------
   async function ask(question) {
-    const cleaned = question.trim();
-    if (!cleaned) return;
+    // Trim only the start/end of the message.
+    // Spaces between words remain unchanged.
+    const cleaned = String(question ?? "").trim();
+
+    if (!cleaned || isSending) return;
 
     if (speechSupported) {
       window.speechSynthesis.cancel();
@@ -385,7 +374,9 @@
     addMessage(cleaned, "user");
 
     input.value = "";
-    input.style.height = "auto";
+    resizeInput();
+
+    isSending = true;
 
     if (send) send.disabled = true;
     if (mic) mic.disabled = true;
@@ -403,35 +394,100 @@
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: cleaned })
+        body: JSON.stringify({
+          message: cleaned
+        })
       });
 
       const data = await response.json();
       typing.remove();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || "Please try again.");
+        throw new Error(
+          data.message || "Please try again."
+        );
       }
 
       addMessage(data.answer, "bot");
       speakAnswer(data.answer);
-    } catch (err) {
+    } catch (error) {
       typing.remove();
 
       addMessage(
-        err.message ||
+        error.message ||
           "Assistant is temporarily unavailable. Please try again.",
         "bot",
         "error"
       );
     } finally {
+      isSending = false;
+
       if (send) send.disabled = false;
       if (mic) mic.disabled = false;
+
       input.focus();
     }
   }
 
-  // ---------- Microphone button ----------
+  // ---------- Microphone / Voice Recognition ----------
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "hi-IN";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      listening = true;
+
+      if (mic) {
+        mic.textContent = "⏹";
+        mic.title = "Stop listening";
+        mic.setAttribute("aria-label", "Stop listening");
+      }
+    };
+
+    recognition.onresult = (event) => {
+      const transcript =
+        event.results[0][0].transcript.trim();
+
+      if (transcript) {
+        input.value = transcript;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        ask(transcript);
+      }
+    };
+
+    recognition.onerror = (event) => {
+      const errors = {
+        "not-allowed": "Microphone permission allow karo.",
+        "no-speech": "Awaaz nahi mili. Dobara bolkar dekho.",
+        network: "Voice recognition ke liye network problem hai.",
+        "audio-capture": "Microphone detect nahi hua."
+      };
+
+      if (event.error !== "aborted") {
+        addMessage(
+          errors[event.error] ||
+            "Voice recognition nahi chal saka.",
+          "bot",
+          "error"
+        );
+      }
+    };
+
+    recognition.onend = () => {
+      listening = false;
+
+      if (mic) {
+        mic.textContent = "🎤";
+        mic.title = "Speak your question";
+        mic.setAttribute("aria-label", "Speak your question");
+      }
+    };
+  }
+
   mic?.addEventListener("click", () => {
     if (!recognition) {
       addMessage(
@@ -462,26 +518,27 @@
     }
   });
 
-  // ---------- Form submit ----------
+  // ---------- Form Submit ----------
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     ask(input.value);
   });
 
-  // ---------- Auto-resize input ----------
-  input.addEventListener("input", () => {
-    input.style.height = "auto";
-    input.style.height = `${Math.min(input.scrollHeight, 95)}px`;
-  });
-
+  // ---------- Keyboard Handling ----------
   input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
+    // Do not block Space or normal text input.
+    // Enter sends; Shift + Enter inserts a new line.
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey &&
+      !event.isComposing
+    ) {
       event.preventDefault();
       form.requestSubmit();
     }
   });
 
-  // ---------- Suggested questions ----------
+  // ---------- Suggested Questions ----------
   document.querySelectorAll("[data-question]").forEach((button) => {
     button.addEventListener("click", () => {
       ask(button.getAttribute("data-question") || "");
