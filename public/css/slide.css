@@ -418,3 +418,22 @@
 .hero.pause-on-hover:hover .hero-slide.active img {
     animation-play-state: paused;
 }
+
+
+/* Hide Pause/Play button and slide counter */
+.hero-controls,
+.play-pause-btn,
+.slide-counter {
+    display: none !important;
+}
+
+
+/* Hide pause/play button and slide counter */
+.hero-controls {
+    display: none !important;
+}
+
+.play-pause-btn,
+.slide-counter {
+    display: none !important;
+}

@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevBtn = document.querySelector('.hero-nav-prev');
     const nextBtn = document.querySelector('.hero-nav-next');
     const playPauseBtn = document.querySelector('.play-pause-btn');
-    const playPauseIcon = playPauseBtn.querySelector('i');
+ const playPauseIcon = playPauseBtn
+    ? playPauseBtn.querySelector('i')
+    : null;
     const currentSlideEl = document.querySelector('.current-slide');
     const totalSlidesEl = document.querySelector('.total-slides');
     
@@ -67,34 +69,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Function to start auto-play
-    function startAutoPlay() {
-        if (autoPlayInterval) {
-            clearInterval(autoPlayInterval);
+ 
+function startAutoPlay() {
+    clearInterval(autoPlayInterval);
+
+    autoPlayInterval = setInterval(() => {
+        if (isAutoPlaying) {
+            nextSlide();
         }
-        
-        autoPlayInterval = setInterval(() => {
-            if (isAutoPlaying) {
-                nextSlide();
-            }
-        }, slideDuration);
-        
+    }, slideDuration);
+
+    if (playPauseIcon && playPauseBtn) {
         playPauseIcon.classList.remove('fa-play');
         playPauseIcon.classList.add('fa-pause');
         playPauseBtn.classList.add('active');
         playPauseBtn.title = 'Pause Auto-Play';
-        isAutoPlaying = true;
     }
-    
-    // Function to stop auto-play
-    function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
+
+    isAutoPlaying = true;
+}
+
+function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+
+    if (playPauseIcon && playPauseBtn) {
         playPauseIcon.classList.remove('fa-pause');
         playPauseIcon.classList.add('fa-play');
         playPauseBtn.classList.remove('active');
         playPauseBtn.title = 'Play Auto-Play';
-        isAutoPlaying = false;
     }
-    
+
+    isAutoPlaying = false;
+}
+
     // Function to toggle auto-play
     function toggleAutoPlay() {
         if (isAutoPlaying) {
@@ -141,7 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Play/Pause button
+// Play/Pause button (safe if button is removed)
+if (playPauseBtn) {
     playPauseBtn.addEventListener('click', toggleAutoPlay);
+}
     
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
