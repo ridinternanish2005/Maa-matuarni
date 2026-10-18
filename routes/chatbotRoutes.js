@@ -74,9 +74,9 @@ function localAnswer(message) {
   if (/(who are you|your name|तुम कौन|आप कौन)/i.test(q)) {
     return "मैं आपकी वेबसाइट का College AI Assistant हूँ। मैं कॉलेज की उपलब्ध जानकारी और सामान्य पढ़ाई/टेक्नोलॉजी के सवालों में मदद करता हूँ।";
   }
-  if (/(javascript|python|mern|react|node\.?js|mongodb|html|css|programming|coding|ai kya|artificial intelligence)/i.test(q)) {
-    return "मैं इस विषय में मदद कर सकता हूँ। अपना सवाल थोड़ा specific लिखें—जैसे definition, example, code या step-by-step explanation।";
-  }
+if (/(javascript|python|mern|react|node\.?js|mongodb|html|css|programming|coding|artificial intelligence|ai kya)/i.test(q)) {
+  return "मैं इस विषय में मदद कर सकता हूँ। अपना सवाल थोड़ा specific लिखें—जैसे definition, example, code या step-by-step explanation।";
+}
   return "मुझे इस सवाल का verified जवाब अभी उपलब्ध जानकारी में नहीं मिला। कृपया अपना सवाल दूसरे तरीके से पूछें या कॉलेज के official Contact/Admission page से पुष्टि करें। मैं फीस, dates, phone numbers या approvals का अनुमान नहीं लगाता।";
 }
 
@@ -88,7 +88,7 @@ router.post("/chat", async (req, res) => {
 
     // Optional OpenAI-compatible API. Without credentials, verified local FAQ answers still work.
     const apiKey = process.env.AI_API_KEY || process.env.OPENAI_API_KEY;
-    const baseUrl = (process.env.AI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
+const baseUrl = (process.env.AI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
     const model = process.env.AI_MODEL || "gpt-4o-mini";
 
     if (apiKey) {

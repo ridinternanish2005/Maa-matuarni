@@ -33,3 +33,26 @@
 .college-ai-disclaimer{text-align:center;font-size:10px;color:#8796a1;padding:0 10px 10px;background:#fff}
 .college-ai-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:480px){.college-ai-root{right:12px;bottom:12px}.college-ai-panel{right:-2px;bottom:61px;width:calc(100vw - 24px);height:min(640px,calc(100dvh - 90px));min-height:360px}.college-ai-launcher{padding:11px 15px}}
+
+
+/* Voice input button */
+#college-ai-mic {
+  height: 40px;
+  width: 42px;
+  flex: 0 0 42px;
+  border: 1px solid #c7dce8;
+  border-radius: 12px;
+  background: #f0f8fc;
+  color: #07577b;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+#college-ai-mic:hover {
+  background: #dff1fa;
+}
+
+#college-ai-mic:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
