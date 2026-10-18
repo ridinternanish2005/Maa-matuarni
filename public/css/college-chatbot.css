@@ -56,3 +56,100 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+/* AI response Markdown formatting */
+.college-ai-message.bot p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.college-ai-message.bot p:last-child {
+  margin-bottom: 0;
+}
+
+.college-ai-message.bot h1,
+.college-ai-message.bot h2,
+.college-ai-message.bot h3,
+.college-ai-message.bot h4 {
+  margin: 14px 0 8px;
+  line-height: 1.35;
+}
+
+.college-ai-message.bot ul,
+.college-ai-message.bot ol {
+  padding-left: 22px;
+  margin: 8px 0 12px;
+}
+
+.college-ai-message.bot li {
+  margin: 5px 0;
+}
+
+.college-ai-message.bot strong {
+  font-weight: 700;
+}
+
+.college-ai-message.bot a {
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.college-ai-message.bot hr {
+  border: 0;
+  border-top: 1px solid #d1d5db;
+  margin: 12px 0;
+}
+
+.college-ai-code {
+  margin: 12px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.college-ai-code-language {
+  padding: 7px 10px;
+  font-size: 12px;
+  background: #1f2937;
+  color: #d1d5db;
+  text-transform: lowercase;
+}
+
+.college-ai-code pre {
+  margin: 0;
+  padding: 12px;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.college-ai-code pre code {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.college-ai-code-copy {
+  display: block;
+  margin: 0 10px 10px auto;
+  padding: 6px 10px;
+  border: 1px solid #6b7280;
+  border-radius: 6px;
+  background: #374151;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.college-ai-code-copy:hover {
+  background: #4b5563;
+}
+
+.college-ai-message.bot code:not(pre code) {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(127, 127, 127, 0.15);
+  overflow-wrap: anywhere;
+}
