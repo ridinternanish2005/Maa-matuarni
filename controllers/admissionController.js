@@ -1,11 +1,15 @@
+
 import AdmissionApplication from "../models/Admission.js";
 
+// Show Admission Form
+export const showAdmissionForm = (req, res) => {
+  return res.render("Admission/admission");
+};
+
+// Submit Admission Form
 export const createAdmission = async (req, res) => {
   try {
-    console.log("================================");
-    console.log("ADMISSION REQUEST");
-    console.log(req.body);
-    console.log("================================");
+    // console.log("ADMISSION REQUEST:", req.body);
 
     const {
       fullName,
@@ -19,25 +23,44 @@ export const createAdmission = async (req, res) => {
       percentage
     } = req.body;
 
-    // Validation
+    // Validate required fields
     if (
-      !fullName ||
-      !fatherName ||
-      !mobile ||
-      !email ||
+      !fullName?.trim() ||
+      !fatherName?.trim() ||
+      !mobile?.trim() ||
+      !email?.trim() ||
       !dob ||
       !gender ||
-      !address ||
+      !address?.trim() ||
       !course ||
       percentage === undefined ||
       percentage === ""
     ) {
-      return res.status(400).json({
-        success: false,
-        message: "Please fill all required fields"
-      });
+      return res.status(400).send(`
+        <script>
+          alert("Please fill all required fields.");
+          window.history.back();
+        </script>
+      `);
     }
 
+    // Validate percentage
+    const percentageValue = Number(percentage);
+
+    if (
+      !Number.isFinite(percentageValue) ||
+      percentageValue < 0 ||
+      percentageValue > 100
+    ) {
+      return res.status(400).send(`
+        <script>
+          alert("Percentage must be between 0 and 100.");
+          window.history.back();
+        </script>
+      `);
+    }
+
+    // Save admission to MongoDB
     const admission = await AdmissionApplication.create({
       fullName: fullName.trim(),
       fatherName: fatherName.trim(),
@@ -47,30 +70,40 @@ export const createAdmission = async (req, res) => {
       gender,
       address: address.trim(),
       course,
-      percentage: Number(percentage),
+      percentage: percentageValue,
       status: "Pending"
     });
 
-    console.log("ADMISSION SAVED SUCCESSFULLY");
-    // console.log(admission);
+    console.log(
+      "ADMISSION SAVED SUCCESSFULLY:",
+      admission._id
+    );
 
-    return res.status(201).json({
-      success: true,
-      message: "Admission submitted successfully",
-      data: admission
-    });
+    // Show success popup
+    return res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>Admission Successful</title>
+      </head>
+      <body>
+        <script>
+          alert("Admission Form Submitted Successfully!");
+          window.location.href = "/admission";
+        </script>
+      </body>
+      </html>
+    `);
 
   } catch (error) {
+    console.error("ADMISSION ERROR:", error);
 
-    console.error("================================");
-    console.error("ADMISSION ERROR");
-    console.error(error);
-    console.error("================================");
-
-    return res.status(500).json({
-      success: false,
-      message: "Failed to submit admission",
-      error: error.message
-    });
+    return res.status(500).send(`
+      <script>
+        alert("Failed to submit admission. Please try again.");
+        window.history.back();
+      </script>
+    `);
   }
 };

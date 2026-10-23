@@ -1,71 +1,159 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us</title>
-  <link rel="stylesheet" href="css/contact.css">
-  <link rel="stylesheet" href="css/footer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Contact Research Innovation & Discovery Bhopal for enquiries and support.">
+
+    <title>Contact Us</title>
+
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/footer.css">
 </head>
 
 <body>
-  <%- include('partials/Navbar') %>
-  <div class="contact-container">
-    <h1>Contact Us</h1>
-    <p>Get in touch and let us know how we can help.</p>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">
-          <img src="https://img.icons8.com/ios-filled/50/null/marker.png" alt="Location Icon">
-        </div>
-        <h2>Address</h2>
-        <p>Research Innovation & Discovery Bhopal (MP)</p>
-        <a
-          href="https://www.google.com/maps/place/RID+BHARAT/@23.2607016,77.4697768,17z/data=!4m14!1m7!3m6!1s0x397c6b005687f485:0x81aefc562b493eb0!2sRID+BHARAT!8m2!3d23.2607016!4d77.4723517!16s%2Fg%2F11w8lymm0p!3m5!1s0x397c6b005687f485:0x81aefc562b493eb0!8m2!3d23.2607016!4d77.4723517!16s%2Fg%2F11w8lymm0p?authuser=0&entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D">View
-          on map →</a>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <img src="https://img.icons8.com/ios-filled/50/null/phone.png" alt="Phone Icon">
-        </div>
-        <h2>Contact</h2>
-        <p>+91 6394213627</p>
-        <a href="tel:+916394213627">Call →</a>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <img src="https://img.icons8.com/ios-filled/50/null/email.png" alt="Email Icon">
-        </div>
-        <h2>Email</h2>
-        <p>ridorg.in@gmail.com</p>
-        <a href="https://anishkumar639421@gmail.com/">Email Now →</a>
-      </div>
-    </div>
 
+    <%- include('partials/Navbar') %>
 
-    <div class="contact-form-container">
-      <form id="contactForm" class="contact-form">
-        <h2>Send Us a Message</h2>
-        <div class="form-group">
-          <input type="text" id="name" name="name" placeholder="Your Name*" required>
-        </div>
-        <div class="form-group">
-          <input type="email" id="email" name="email" placeholder="Your Email*" required>
-        </div>
-        <div class="form-group">
-          <input type="number" id="number" name="number" placeholder="Your Number*" required>
-        </div>
-        <div class="form-group">
-          <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Send Message</button>
-      </form>
-    </div>
-  </div>
+    <main class="contact-container">
 
-  <script src="js/contact.js"></script>
-   <!-- <%- include('partials/footer') %> -->
+        <header class="contact-heading">
+            <h1>Contact Us</h1>
+            <p>Get in touch and let us know how we can help.</p>
+        </header>
+
+        <!-- Contact Information Cards -->
+        <section class="cards" aria-label="Contact information">
+
+            <article class="card">
+                <div class="icon">
+                    <img
+                        src="https://img.icons8.com/ios-filled/50/000000/marker.png"
+                        alt=""
+                        loading="lazy">
+                </div>
+
+                <h2>Address</h2>
+                <p>Research Innovation &amp; Discovery, Bhopal (MP)</p>
+
+                <a
+                    href="https://www.google.com/maps/place/RID+BHARAT/@23.2607016,77.4697768,17z/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    View on map →
+                </a>
+            </article>
+
+            <article class="card">
+                <div class="icon">
+                    <img
+                        src="https://img.icons8.com/ios-filled/50/000000/phone.png"
+                        alt=""
+                        loading="lazy">
+                </div>
+
+                <h2>Contact</h2>
+                <p>+91 6394213627</p>
+
+                <a href="tel:+916394213627">
+                    Call →
+                </a>
+            </article>
+
+            <article class="card">
+                <div class="icon">
+                    <img
+                        src="https://img.icons8.com/ios-filled/50/000000/email.png"
+                        alt=""
+                        loading="lazy">
+                </div>
+
+                <h2>Email</h2>
+                <p>ridorg.in@gmail.com</p>
+
+                <a href="mailto:ridorg.in@gmail.com">
+                    Email Now →
+                </a>
+            </article>
+
+        </section>
+
+        <!-- Contact Form -->
+        <section class="contact-form-container">
+
+            <form id="contactForm" class="contact-form">
+
+                <h2>Send Us a Message</h2>
+
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        maxlength="100"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email *</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        maxlength="254"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="number">Your Number *</label>
+                    <input
+                        type="tel"
+                        id="number"
+                        name="number"
+                        placeholder="Enter your mobile number"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        pattern="[+]?[0-9 ()-]{10,18}"
+                        maxlength="18"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message here..."
+                        rows="5"
+                        maxlength="3000"
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Send Message
+                </button>
+
+                <p id="formStatus" class="form-status"
+                    role="status" aria-live="polite"></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/contact.js" defer></script>
+
 </body>
-
 </html>

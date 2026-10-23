@@ -6,6 +6,7 @@
     <title>ANM - Auxiliary Nursing Midwifery | Complete Course Guide 2025</title>
     <!-- Google Fonts + modern styling -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -374,6 +375,373 @@
             .enquiry-section { padding: 36px 24px; }
             .elig-box { padding: 28px; }
         }
+        
+/* ===== ANM responsive improvements for all devices ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.navbar {
+    width: 100%;
+    min-width: 0;
+}
+
+.nav-links {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links a {
+    overflow-wrap: anywhere;
+}
+
+#home,
+section[id] {
+    scroll-margin-top: 100px;
+}
+
+.hero {
+    width: min(100% - 64px, 1216px);
+    margin: 48px auto 60px;
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.hero-content,
+.hero-image,
+.elig-col,
+.enquiry-info,
+.enquiry-form {
+    min-width: 0;
+}
+
+.hero-content {
+    flex: 1 1 380px;
+}
+
+.hero-image {
+    flex: 1 1 320px;
+    overflow: hidden;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    overflow-wrap: anywhere;
+}
+
+.hero-image svg {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+}
+
+section {
+    padding-inline: clamp(16px, 3vw, 32px);
+    margin-block: clamp(48px, 7vw, 85px);
+}
+
+.section-title {
+    font-size: clamp(1.65rem, 3.5vw, 2.2rem);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.section-sub {
+    padding-inline: 8px;
+}
+
+.info-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 260px), 1fr)
+    );
+}
+
+.year-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 300px), 1fr)
+    );
+}
+
+.career-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 250px), 1fr)
+    );
+}
+
+.info-card,
+.year-card,
+.career-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.curriculum,
+.elig-box,
+.enquiry-section {
+    width: 100%;
+    min-width: 0;
+    border-radius: clamp(22px, 4vw, 40px);
+}
+
+.curriculum {
+    padding: clamp(22px, 4vw, 52px);
+}
+
+.elig-box {
+    gap: clamp(24px, 4vw, 40px);
+    padding: clamp(22px, 4vw, 44px);
+}
+
+.elig-col {
+    flex: 1 1 280px;
+}
+
+.college-badge {
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.salary-card {
+    padding: clamp(22px, 4vw, 32px);
+    overflow-wrap: anywhere;
+}
+
+.enquiry-section {
+    padding: clamp(24px, 5vw, 56px);
+}
+
+.enquiry-flex {
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.enquiry-info,
+.enquiry-form {
+    flex: 1 1 280px;
+}
+
+.enquiry-form input,
+.enquiry-form select,
+.enquiry-form textarea {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 16px;
+}
+
+.enquiry-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn-primary,
+.btn-outline,
+.enquiry-form button {
+    min-height: 44px;
+}
+
+@media (max-width: 780px) {
+    .container {
+        padding-inline: 16px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding-block: 18px;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 12px 18px;
+    }
+
+    .hero {
+        width: calc(100% - 32px);
+        margin: 30px auto 48px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+        flex: auto;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.9rem, 7vw, 2.5rem);
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-buttons button {
+        width: 100%;
+    }
+
+    .hero-image {
+        padding: 20px;
+        border-radius: 28px;
+    }
+
+    section {
+        padding-inline: 16px;
+        margin-block: 48px;
+    }
+
+    .section-sub {
+        margin-bottom: 28px;
+        font-size: 1rem;
+    }
+
+    .info-grid,
+    .year-grid,
+    .career-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .info-card,
+    .year-card,
+    .career-item {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .curriculum,
+    .elig-box,
+    .enquiry-section {
+        padding: 24px 18px;
+        border-radius: 26px;
+    }
+
+    .elig-box,
+    .enquiry-flex {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .elig-col,
+    .enquiry-info,
+    .enquiry-form {
+        width: 100%;
+        flex: auto;
+    }
+
+    .college-list {
+        gap: 12px;
+    }
+
+    .college-badge {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    .salary-card {
+        border-radius: 24px;
+    }
+
+    footer {
+        padding: 30px 16px;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    .hero {
+        width: calc(100% - 24px);
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .nav-links {
+        gap: 10px 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.84rem;
+    }
+
+    .info-card,
+    .year-card,
+    .career-item {
+        padding: 20px 16px;
+    }
+
+    .curriculum,
+    .elig-box,
+    .enquiry-section {
+        padding: 20px 14px;
+    }
+
+    .college-badge {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -551,70 +919,57 @@
    
 </div>
 
+
 <script>
-    // Smooth scrolling and interactive functions
     function scrollToSection(id) {
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
+    // Sirf page ke andar wale # links handle karo
     document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('href').substring(1);
-            scrollToSection(target);
+        link.addEventListener('click', event => {
+            const href = link.getAttribute('href');
+
+            if (href && href.startsWith('#') && href.length > 1) {
+                const target = document.getElementById(href.slice(1));
+
+                if (target) {
+                    event.preventDefault();
+                    scrollToSection(target.id);
+                }
+            }
         });
     });
 
-    document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
-    document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));
+    document.getElementById('knowMoreBtn')?.addEventListener('click', () => {
+        scrollToSection('curriculum');
+    });
+
+    document.getElementById('enquiryBtn')?.addEventListener('click', () => {
+        const contact = document.getElementById('contact');
+
+        if (contact) {
+            scrollToSection('contact');
+        } else {
+            alert('Enquiry section abhi page mein add nahi kiya gaya hai.');
+        }
+    });
+
     document.getElementById('brochureBtn')?.addEventListener('click', () => {
-        alert("📥 ANM Digital Brochure will be sent to your email. Please fill the counselling form or contact us for direct download link.");
+        alert('ANM brochure abhi available nahi hai. Please college se contact karein.');
     });
 
-    // Counselling form handler
-    const submitBtn = document.getElementById('submitCounselling');
-    const feedbackSpan = document.getElementById('formFeedbackMsg');
-    
-    if(submitBtn) {
-        submitBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('studentName')?.value.trim();
-            const email = document.getElementById('studentEmail')?.value.trim();
-            const phone = document.getElementById('studentPhone')?.value.trim();
-            const state = document.getElementById('studentState')?.value;
-            const query = document.getElementById('studentQuery')?.value.trim();
-
-            if(!name || !email || !phone) {
-                feedbackSpan.innerText = "❌ Please fill in Name, Email, and Mobile Number (required fields).";
-                feedbackSpan.style.color = "#ffb347";
-                return;
-            }
-            if(!email.includes('@') || !email.includes('.')) {
-                feedbackSpan.innerText = "📧 Please enter a valid email address.";
-                return;
-            }
-            if(phone.length < 10) {
-                feedbackSpan.innerText = "📞 Please enter a valid 10-digit mobile number.";
-                return;
-            }
-            
-            feedbackSpan.innerText = `✅ Thank you ${name}! Our counselling team will contact you shortly with complete ANM guidance, college options, and career roadmap.`;
-            feedbackSpan.style.color = "#ffb347";
-            
-            // Clear form
-            document.getElementById('studentName').value = '';
-            document.getElementById('studentEmail').value = '';
-            document.getElementById('studentPhone').value = '';
-            document.getElementById('studentState').value = '';
-            document.getElementById('studentQuery').value = '';
-            
-            setTimeout(() => { feedbackSpan.innerText = ''; }, 6000);
-        });
-    }
-    
-    console.log("ANM comprehensive page loaded — all details including curriculum, career, admission, and INC guidelines.");
+    console.log('ANM course page loaded successfully.');
 </script>
+
+
   <%- include('partials/footer') %>
 </body>
 </html>

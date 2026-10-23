@@ -7,6 +7,7 @@
     <!-- Google Fonts & Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -303,6 +304,374 @@
             font-weight: 500;
             text-align: center;
         }
+        
+/* ===== B.Pharm Page: All-Device Responsive Improvements ===== */
+
+:root {
+    --primary-green: #0d9488;
+    --primary-dark: #0f766e;
+    --accent-teal: #2dd4bf;
+    --soft-bg: #ecfdf5;
+    --gray-light: #f1f5f9;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container,
+.hero-grid,
+.two-col,
+.card-grid,
+.syllabus-grid,
+.stats-grid {
+    min-width: 0;
+}
+
+.hero-text,
+.hero-image,
+.info-card,
+.card,
+.stat,
+.syllabus-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+section[id] {
+    scroll-margin-top: 100px;
+}
+
+/* Navigation */
+.nav-flex {
+    gap: 16px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+
+.nav-links a {
+    margin-left: 0;
+    padding: 8px 0;
+}
+
+/* Hero section */
+.hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.hero-text h2 {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    overflow-wrap: anywhere;
+}
+
+.hero-text p {
+    max-width: 65ch;
+}
+
+.hero-image i {
+    max-width: 100%;
+}
+
+/* Cards and content */
+.card-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.syllabus-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.info-card,
+.card,
+.stat {
+    height: 100%;
+}
+
+.list-styled li {
+    align-items: flex-start;
+}
+
+.list-styled li i {
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.section-title {
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .container {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .hero {
+        padding: 3rem 0;
+        border-radius: 0 0 32px 32px;
+    }
+
+    .hero-grid {
+        gap: 1.8rem;
+    }
+
+    .hero-text h2 {
+        font-size: clamp(1.9rem, 4vw, 2.4rem);
+    }
+
+    .section {
+        padding: 3rem 0;
+    }
+
+    .section-title {
+        font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+    }
+
+    .card,
+    .info-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .nav-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .logo {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .logo h1 {
+        font-size: 1.45rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 8px 16px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .hero {
+        padding: 2.5rem 0;
+        border-radius: 0 0 26px 26px;
+    }
+
+    .hero-grid,
+    .two-col {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        text-align: left;
+    }
+
+    .hero-text h2 {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        line-height: 1.25;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+        margin: 1rem 0 1.4rem;
+    }
+
+    .btn-hero {
+        min-height: 46px;
+        justify-content: center;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .hero-image {
+        padding: 1.5rem 1rem;
+        border-radius: 24px;
+    }
+
+    .hero-image i {
+        font-size: clamp(3.5rem, 16vw, 6rem);
+    }
+
+    .hero-image i[style*="font-size: 4rem"] {
+        font-size: 3rem !important;
+        margin-left: 6px !important;
+    }
+
+    .section {
+        padding: 2.5rem 0;
+    }
+
+    .section-title {
+        font-size: clamp(1.55rem, 6vw, 1.9rem);
+        margin-bottom: 2rem;
+        padding: 0 6px;
+    }
+
+    #eligibility,
+    #syllabus {
+        padding: 2rem 16px !important;
+        border-radius: 28px !important;
+    }
+
+    .card-grid,
+    .syllabus-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .card,
+    .info-card {
+        padding: 1.4rem;
+        border-radius: 22px;
+    }
+
+    .card h3,
+    .info-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .list-styled li {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .syllabus-item {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .stats-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .stat {
+        padding: 1.25rem;
+        border-radius: 22px;
+    }
+
+    .stat h4 {
+        font-size: 1.8rem;
+    }
+
+    footer {
+        padding: 2rem 16px;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 380px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .logo h1 {
+        font-size: 1.25rem;
+    }
+
+    .nav-links {
+        gap: 8px 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+
+    .hero-text h2 {
+        font-size: 1.75rem;
+    }
+
+    .card,
+    .info-card {
+        padding: 1.15rem;
+    }
+
+    #eligibility,
+    #syllabus {
+        padding: 1.5rem 12px !important;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -523,20 +892,27 @@
 
 
 <script>
-    // smooth scroll for nav links
-    document.querySelectorAll('.nav-links a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function (event) {
             const href = this.getAttribute('href');
-            if(href && href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if(target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Sirf current page ke section links ko smooth scroll karein
+            if (href && href.startsWith('#') && href.length > 1) {
+                const target = document.getElementById(href.slice(1));
+
+                if (target) {
+                    event.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             }
         });
     });
 </script>
+
   <%- include('partials/footer') %>
 </body>
 </html>

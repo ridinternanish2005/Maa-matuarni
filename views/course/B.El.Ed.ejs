@@ -6,6 +6,7 @@
     <title>B.El.Ed - Bachelor of Elementary Education | Complete Course Guide 2025</title>
     <!-- Google Fonts + modern styling -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -362,6 +363,449 @@
             .enquiry-section { padding: 36px 24px; }
             .elig-box { padding: 28px; }
         }
+        
+/* ===== B.El.Ed Responsive Design: All Devices ===== */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+    font: inherit;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(14px, 3vw, 32px);
+}
+
+section[id],
+#home {
+    scroll-margin-top: 100px;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    min-width: 0;
+    gap: 16px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 22px;
+}
+
+.nav-links a {
+    overflow-wrap: anywhere;
+}
+
+/* Hero */
+.hero {
+    gap: clamp(24px, 4vw, 48px);
+    margin-block: clamp(30px, 5vw, 60px);
+}
+
+.hero-content,
+.hero-image,
+.elig-col,
+.enquiry-info,
+.enquiry-form,
+.info-card,
+.career-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.hero-content {
+    flex: 1 1 380px;
+}
+
+.hero-image {
+    flex: 1 1 300px;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+
+.hero-image svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-inline: auto;
+}
+
+.hero-buttons {
+    gap: 12px;
+}
+
+.btn-primary,
+.btn-outline {
+    min-height: 44px;
+}
+
+/* Sections */
+section {
+    margin-block: clamp(48px, 7vw, 85px);
+}
+
+.section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.section-sub {
+    font-size: clamp(1rem, 1.5vw, 1.05rem);
+    padding-inline: 6px;
+}
+
+/* Cards */
+.info-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 280px), 1fr)
+    );
+    gap: clamp(16px, 3vw, 32px);
+}
+
+.info-card {
+    padding: clamp(20px, 3vw, 32px);
+}
+
+.career-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 240px), 1fr)
+    );
+    gap: clamp(16px, 2.5vw, 28px);
+}
+
+.career-item {
+    padding: clamp(20px, 3vw, 28px);
+}
+
+/* Curriculum */
+.curriculum {
+    padding: clamp(24px, 5vw, 52px);
+    border-radius: clamp(24px, 4vw, 48px);
+}
+
+.year-title {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    overflow-wrap: anywhere;
+}
+
+.subjects {
+    gap: 10px;
+}
+
+.subject-tag {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    padding: 9px 16px;
+}
+
+/* Eligibility */
+.elig-box {
+    gap: clamp(24px, 4vw, 40px);
+    padding: clamp(22px, 4vw, 44px);
+}
+
+.elig-col {
+    flex: 1 1 280px;
+}
+
+.elig-col ul {
+    padding-left: 0;
+}
+
+.elig-col li {
+    overflow-wrap: anywhere;
+}
+
+/* Colleges */
+.college-list {
+    gap: 12px;
+}
+
+.college-badge {
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+    padding: 12px 20px;
+}
+
+/* Enquiry section */
+.enquiry-section {
+    padding: clamp(24px, 5vw, 56px);
+    border-radius: clamp(24px, 4vw, 48px);
+}
+
+.enquiry-flex {
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.enquiry-info,
+.enquiry-form {
+    flex: 1 1 280px;
+}
+
+.enquiry-form input,
+.enquiry-form select,
+.enquiry-form textarea {
+    width: 100%;
+    min-width: 0;
+    border-radius: 16px;
+}
+
+.enquiry-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.enquiry-form button {
+    min-height: 46px;
+}
+
+/* Tablet */
+@media (max-width: 780px) {
+    .container {
+        padding-inline: 20px;
+    }
+
+    .navbar {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 12px 18px;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+        flex: auto;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 6vw, 2.5rem);
+    }
+
+    .hero-image {
+        padding: 24px;
+        border-radius: 32px;
+    }
+
+    .hero-buttons {
+        flex-wrap: wrap;
+    }
+
+    .curriculum {
+        padding: 28px 20px;
+    }
+
+    .elig-box {
+        padding: 26px 22px;
+    }
+
+    .enquiry-section {
+        padding: 30px 22px;
+    }
+
+    .enquiry-flex {
+        flex-direction: column;
+    }
+
+    .enquiry-info,
+    .enquiry-form {
+        width: 100%;
+        flex: auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        padding-inline: 14px;
+    }
+
+    .logo {
+        font-size: 1.45rem;
+        text-align: center;
+    }
+
+    .nav-links {
+        gap: 8px 14px;
+    }
+
+    .nav-links a {
+        font-size: 0.88rem;
+    }
+
+    .hero {
+        margin-block: 28px 40px;
+        gap: 24px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.85rem;
+    }
+
+    .hero-content p {
+        font-size: 0.98rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+        padding: 12px 16px;
+    }
+
+    section {
+        margin-block: 48px;
+    }
+
+    .section-title {
+        font-size: 1.65rem;
+    }
+
+    .info-grid,
+    .career-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .info-card,
+    .career-item {
+        padding: 22px 18px;
+        border-radius: 24px;
+    }
+
+    .curriculum {
+        padding: 24px 14px;
+        border-radius: 24px;
+    }
+
+    .year-title {
+        padding-left: 12px;
+        font-size: 1.4rem;
+    }
+
+    .subject-tag {
+        width: 100%;
+        text-align: center;
+    }
+
+    .elig-box {
+        padding: 22px 16px;
+        border-radius: 26px;
+    }
+
+    .college-list {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .college-badge {
+        width: 100%;
+    }
+
+    .enquiry-section {
+        padding: 24px 16px;
+        border-radius: 26px;
+    }
+
+    footer {
+        padding-inline: 14px;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Extra-small phones */
+@media (max-width: 360px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.65rem;
+    }
+
+    .nav-links {
+        gap: 8px 10px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+
+    .curriculum {
+        padding-inline: 12px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -533,13 +977,52 @@
         if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('href').substring(1);
-            scrollToSection(target);
-        });
+  
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', event => {
+        const href = link.getAttribute('href');
+
+        // Sirf valid internal section links handle karein
+        if (!href || !href.startsWith('#') || href.length <= 1) {
+            return;
+        }
+
+        const target = document.getElementById(href.slice(1));
+
+        if (target) {
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
+});
+
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+document.getElementById('knowMoreBtn')?.addEventListener('click', () => {
+    scrollToSection('curriculum');
+});
+
+document.getElementById('enquiryBtn')?.addEventListener('click', () => {
+    scrollToSection('contact');
+});
+
+document.getElementById('brochureBtn')?.addEventListener('click', () => {
+    alert('Brochure download link abhi configure nahi hai.');
+});
+
 
     document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
     document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));

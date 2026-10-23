@@ -6,6 +6,7 @@
     <title>D.Pharma - Diploma in Pharmacy | Complete Course Guide 2025</title>
     <!-- Google Fonts + modern styling -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -375,6 +376,354 @@
             .enquiry-section { padding: 36px 24px; }
             .elig-box { padding: 28px; }
         }
+        
+/* ===== Responsive improvements for all devices ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hero,
+.info-grid,
+.semester-grid,
+.elig-box,
+.career-grid,
+.enquiry-flex {
+    min-width: 0;
+}
+
+.hero-content,
+.hero-image,
+.info-card,
+.sem-card,
+.elig-col,
+.career-item,
+.enquiry-info,
+.enquiry-form {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.hero-image svg {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+.section-title {
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.section-sub {
+    padding-inline: 12px;
+}
+
+.info-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.semester-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.career-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+.hero-buttons {
+    align-items: center;
+}
+
+.hero-buttons button {
+    min-height: 46px;
+}
+
+.enquiry-form input,
+.enquiry-form select,
+.enquiry-form textarea,
+.enquiry-form button {
+    width: 100%;
+    min-height: 46px;
+}
+
+.enquiry-form textarea {
+    min-height: 120px;
+    border-radius: 16px;
+    resize: vertical;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .container {
+        padding-inline: 24px;
+    }
+
+    .hero {
+        gap: 28px;
+        margin-block: 36px 48px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 4vw, 2.7rem);
+    }
+
+    section {
+        margin-block: 60px;
+    }
+
+    .curriculum {
+        padding: 36px 28px;
+        border-radius: 28px;
+    }
+
+    .elig-box {
+        gap: 28px;
+        padding: 32px;
+        border-radius: 28px;
+    }
+
+    .enquiry-section {
+        padding: 36px 28px;
+        border-radius: 28px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 780px) {
+    .container {
+        padding-inline: 16px;
+    }
+
+    .navbar {
+        padding-block: 14px;
+        gap: 14px;
+    }
+
+    .logo {
+        font-size: 1.35rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 18px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 5px 0;
+    }
+
+    .btn-outline {
+        padding: 9px 16px;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        margin-block: 30px 44px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-buttons button {
+        width: 100%;
+    }
+
+    .hero-image {
+        padding: 20px 14px;
+        border-radius: 24px;
+    }
+
+    section {
+        margin-block: 48px;
+    }
+
+    .section-title {
+        font-size: clamp(1.55rem, 5.5vw, 2rem);
+        padding-inline: 12px;
+    }
+
+    .section-sub {
+        font-size: 0.98rem;
+        margin-bottom: 28px;
+    }
+
+    .info-grid,
+    .semester-grid,
+    .career-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .info-card {
+        padding: 24px 20px;
+        border-radius: 22px;
+    }
+
+    .info-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .curriculum {
+        padding: 26px 16px;
+        border-radius: 24px;
+    }
+
+    .sem-card {
+        padding: 20px 16px;
+        border-radius: 20px;
+    }
+
+    .sem-title {
+        font-size: 1.25rem;
+    }
+
+    .subject-list li {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .elig-box {
+        flex-direction: column;
+        gap: 28px;
+        padding: 24px 18px;
+        border-radius: 24px;
+    }
+
+    .college-list {
+        gap: 10px;
+    }
+
+    .college-badge {
+        max-width: 100%;
+        padding: 10px 16px;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    .salary-card {
+        padding: 24px 16px;
+        border-radius: 24px;
+    }
+
+    .salary-card p {
+        font-size: 1rem !important;
+        overflow-wrap: anywhere;
+    }
+
+    .enquiry-section {
+        padding: 28px 18px;
+        border-radius: 24px;
+    }
+
+    .enquiry-flex {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    footer {
+        padding: 28px 16px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .info-card,
+    .sem-card,
+    .career-item {
+        padding: 18px 14px;
+    }
+
+    .curriculum {
+        padding-inline: 12px;
+    }
+
+    .elig-box {
+        padding: 20px 14px;
+    }
+
+    .enquiry-section {
+        padding-inline: 14px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -555,14 +904,24 @@
         if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('href').substring(1);
-            scrollToSection(target);
-        });
-    });
+   document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
 
+        // Only handle links that point to sections on this page
+        if (href && href.startsWith('#')) {
+            const target = document.querySelector(href);
+
+            if (target) {
+                event.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
     document.getElementById('enquiryBtn')?.addEventListener('click', () => scrollToSection('contact'));
     document.getElementById('knowMoreBtn')?.addEventListener('click', () => scrollToSection('curriculum'));
     document.getElementById('brochureBtn')?.addEventListener('click', () => {
@@ -612,6 +971,8 @@
     
     console.log("D.Pharma comprehensive page loaded — all details including curriculum, career, admission, and PCI guidelines.");
 </script>
-  <%- include('partials/footer') %>
+
+ <%- include('partials/footer') %>
+
 </body>
 </html>

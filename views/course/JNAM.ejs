@@ -6,6 +6,7 @@
     <title>JNAM | Visionary Dynamics & Creative Nexus</title>
     <!-- Google Fonts + simple reset & smooth scroll -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -380,6 +381,437 @@
                 padding: 36px 24px;
             }
         }
+        
+/* ===== JNAM: Responsive design for all devices ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 3vw, 32px);
+}
+
+.navbar {
+    width: 100%;
+    min-width: 0;
+    gap: 18px;
+}
+
+.logo {
+    overflow-wrap: anywhere;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px 24px;
+}
+
+.nav-links a {
+    overflow-wrap: anywhere;
+}
+
+#home,
+section[id] {
+    scroll-margin-top: 100px;
+}
+
+/* Hero section */
+.hero {
+    width: min(calc(100% - 64px), 1216px);
+    margin: 40px auto 60px;
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.hero-content,
+.hero-image,
+.about-text,
+.about-visual,
+.contact-info,
+.contact-form {
+    min-width: 0;
+}
+
+.hero-content {
+    flex: 1 1 380px;
+}
+
+.hero-image {
+    flex: 1 1 320px;
+    overflow: hidden;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    overflow-wrap: anywhere;
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+.hero-image svg,
+.about-visual svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-inline: auto;
+}
+
+/* General sections */
+section {
+    margin-block: clamp(48px, 7vw, 90px);
+    padding-inline: clamp(16px, 3vw, 32px);
+}
+
+.section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.section-sub {
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    padding-inline: 8px;
+}
+
+.services-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 260px), 1fr)
+    );
+}
+
+.service-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.service-card h3 {
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+}
+
+/* About section */
+.about-wrap {
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.about-text {
+    flex: 1 1 380px;
+}
+
+.about-visual {
+    flex: 1 1 300px;
+}
+
+.about-text h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    overflow-wrap: anywhere;
+}
+
+.stats {
+    gap: 20px 28px;
+}
+
+.stat-item {
+    min-width: 0;
+}
+
+.stat-item h4 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Team and projects */
+.team-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 230px), 1fr)
+    );
+    gap: 24px;
+}
+
+.project-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 280px), 1fr)
+    );
+    gap: 24px;
+}
+
+.team-card,
+.project-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.project-img {
+    min-width: 0;
+    padding: 16px;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Contact section */
+.contact-section {
+    width: 100%;
+    min-width: 0;
+    padding: clamp(24px, 5vw, 56px);
+    border-radius: clamp(24px, 4vw, 48px);
+}
+
+.contact-flex {
+    gap: clamp(24px, 4vw, 40px);
+}
+
+.contact-info,
+.contact-form {
+    flex: 1 1 280px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 16px;
+}
+
+.contact-form textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.btn-primary,
+.btn-outline,
+.contact-form button {
+    min-height: 44px;
+}
+
+footer {
+    padding: 32px 16px;
+    overflow-wrap: anywhere;
+}
+
+/* Tablets and mobile */
+@media (max-width: 780px) {
+    .container {
+        padding-inline: 16px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding-block: 18px;
+    }
+
+    .logo {
+        font-size: 1.7rem;
+        text-align: center;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 12px 18px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        width: calc(100% - 32px);
+        margin: 30px auto 48px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100%;
+        flex: auto;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.9rem, 7vw, 2.6rem);
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-buttons button {
+        width: 100%;
+    }
+
+    .hero-image {
+        padding: 20px;
+        border-radius: 28px;
+    }
+
+    section {
+        margin-block: 48px;
+        padding-inline: 16px;
+    }
+
+    .section-sub {
+        margin-bottom: 28px;
+    }
+
+    .services-grid,
+    .team-grid,
+    .project-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .service-card,
+    .team-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .about-wrap {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .about-text,
+    .about-visual {
+        width: 100%;
+        flex: auto;
+    }
+
+    .about-visual {
+        padding: 24px 18px;
+        border-radius: 28px;
+    }
+
+    .stats {
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .contact-section {
+        padding: 28px 18px;
+    }
+
+    .contact-flex {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .contact-info,
+    .contact-form {
+        width: 100%;
+        flex: auto;
+    }
+
+    .contact-form button {
+        width: 100%;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 380px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    .hero {
+        width: calc(100% - 24px);
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 10px 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .service-card,
+    .team-card,
+    .project-info {
+        padding: 20px 16px;
+    }
+
+    .stats {
+        gap: 16px;
+    }
+
+    .stat-item h4 {
+        font-size: 1.5rem;
+    }
+
+    .contact-section {
+        padding: 22px 14px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -531,100 +963,57 @@
 </div>
 
 <script>
-    // interactive UI: smooth alerts and demo form with simulated submit
-    const exploreBtn = document.getElementById('exploreBtn');
-    const watchBtn = document.getElementById('watchBtn');
-    const demoNavBtn = document.getElementById('demoBtn');
-    const sendMsg = document.getElementById('sendMsgBtn');
-    const feedback = document.getElementById('formFeedback');
-
-    // smooth scroll helper
     function scrollToSection(sectionId) {
         const element = document.getElementById(sectionId);
-        if(element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
     }
 
-    // hero button actions
-    if(exploreBtn) {
-        exploreBtn.addEventListener('click', () => {
-            scrollToSection('services');
+    // Navbar: only handle valid internal links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', event => {
+            const href = link.getAttribute('href');
+
+            if (href && href.startsWith('#') && href.length > 1) {
+                const target = document.getElementById(href.slice(1));
+
+                if (target) {
+                    event.preventDefault();
+                    scrollToSection(target.id);
+                }
+            }
         });
-    }
-    if(watchBtn) {
-        watchBtn.addEventListener('click', () => {
-            alert("🎬 JNAM Showreel 2025: Immerse in creativity — full reel available upon request.");
-        });
-    }
-    if(demoNavBtn) {
-        demoNavBtn.addEventListener('click', () => {
+    });
+
+    // Explore button
+    document.getElementById('exploreBtn')?.addEventListener('click', () => {
+        scrollToSection('services');
+    });
+
+    // Showreel button
+    document.getElementById('watchBtn')?.addEventListener('click', () => {
+        alert('JNAM showreel abhi configured nahi hai.');
+    });
+
+    // Demo button, if it exists in Navbar
+    document.getElementById('demoBtn')?.addEventListener('click', () => {
+        const contact = document.getElementById('contact');
+
+        if (contact) {
             scrollToSection('contact');
-        });
-    }
-
-    // contact form simulation
-    if(sendMsg) {
-        sendMsg.addEventListener('click', (e) => {
-            e.preventDefault();
-            const nameInput = document.getElementById('contactName');
-            const emailInput = document.getElementById('contactEmail');
-            const msgInput = document.getElementById('contactMsg');
-            
-            let nameVal = nameInput ? nameInput.value.trim() : '';
-            let emailVal = emailInput ? emailInput.value.trim() : '';
-            let msgVal = msgInput ? msgInput.value.trim() : '';
-            
-            if(!nameVal || !emailVal || !msgVal) {
-                feedback.textContent = "❌ Please fill in all fields before sending.";
-                feedback.style.color = "#c2410c";
-                return;
-            }
-            if(!emailVal.includes('@') || !emailVal.includes('.')) {
-                feedback.textContent = "📧 Please enter a valid email address.";
-                feedback.style.color = "#c2410c";
-                return;
-            }
-            // simulate success
-            feedback.textContent = `✨ Thanks ${nameVal}! Your message has been received. Our team will reply within 24h.`;
-            feedback.style.color = "#1E6F9F";
-            // optional reset
-            nameInput.value = '';
-            emailInput.value = '';
-            msgInput.value = '';
-            setTimeout(() => {
-                if(feedback) feedback.textContent = '';
-            }, 5000);
-        });
-    }
-
-    // additional details: add some console presence & dynamic year in footer if needed
-    const yearSpan = document.querySelector('footer p:first-child');
-    if(yearSpan) {
-        const currentYear = new Date().getFullYear();
-        if(yearSpan.innerHTML.includes('2025')) {
-            yearSpan.innerHTML = `© ${currentYear} JNAM — Visionary Dynamics. All ideas are seeds. All rights reserved.`;
+        } else {
+            alert('Contact section abhi add nahi kiya gaya hai.');
         }
-    }
-
-    // simple interactive effect on service cards (just for delight)
-    const cards = document.querySelectorAll('.service-card');
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            const serviceName = card.querySelector('h3')?.innerText || 'service';
-            console.log(`[JNAM] interest in ${serviceName}`);
-            // subtle visual pulse (optional)
-            card.style.transform = 'scale(0.99)';
-            setTimeout(() => { card.style.transform = ''; }, 150);
-        });
     });
 
-    // extra: after page load, show tiny welcome toast style (non-intrusive console welcome)
-    window.addEventListener('load', () => {
-        console.log('JNAM page fully loaded — all details, sections, and interactive components ready.');
-        // optional prefill demo effect? none intrusive
-    });
+    console.log('JNAM page loaded successfully.');
 </script>
+
   <%- include('partials/footer') %>
 </body>
 </html>

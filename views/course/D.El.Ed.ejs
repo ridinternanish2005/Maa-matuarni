@@ -7,6 +7,7 @@
     <!-- Google Fonts & Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -303,6 +304,339 @@
             font-weight: 500;
             text-align: center;
         }
+        
+/* ===== D.El.Ed Responsive Design: All Devices ===== */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+    font: inherit;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(14px, 3vw, 24px);
+}
+
+section[id] {
+    scroll-margin-top: 100px;
+}
+
+/* Navbar */
+.nav-flex {
+    width: 100%;
+    gap: 16px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 20px;
+}
+
+.nav-links a {
+    margin-left: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Hero */
+.hero {
+    padding-block: clamp(32px, 6vw, 56px);
+    border-radius: 0 0 clamp(24px, 5vw, 48px)
+        clamp(24px, 5vw, 48px);
+}
+
+.hero-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 40px);
+}
+
+.hero-text,
+.hero-image,
+.info-card,
+.card,
+.stat {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.hero-text h2 {
+    font-size: clamp(2rem, 4.5vw, 2.7rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.hero-text p {
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+
+.hero-image {
+    padding: clamp(20px, 4vw, 30px);
+}
+
+.hero-image i {
+    font-size: clamp(3.5rem, 9vw, 7rem);
+}
+
+/* General sections */
+.section {
+    padding-block: clamp(40px, 6vw, 64px);
+}
+
+.section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.card-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 260px), 1fr)
+    );
+    gap: clamp(16px, 3vw, 28px);
+}
+
+.card {
+    padding: clamp(20px, 3vw, 28px);
+}
+
+.two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 36px);
+}
+
+.info-card {
+    padding: clamp(20px, 3vw, 32px);
+}
+
+/* Lists */
+.list-styled li {
+    align-items: flex-start;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.list-styled li i {
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+/* Stats */
+.stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 24px);
+}
+
+.stat {
+    padding: clamp(16px, 2.5vw, 24px);
+}
+
+.stat h4 {
+    font-size: clamp(1.35rem, 3vw, 2.2rem);
+    overflow-wrap: anywhere;
+}
+
+/* Syllabus */
+.syllabus-grid {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 220px), 1fr)
+    );
+    gap: 14px;
+}
+
+.syllabus-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .nav-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 10px 16px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+
+    .hero-grid,
+    .two-col {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-text h2 {
+        font-size: clamp(1.9rem, 6vw, 2.5rem);
+    }
+
+    .hero-image {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #eligibility,
+    #syllabus {
+        padding: 30px 18px !important;
+        border-radius: 28px !important;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(min(100%, 240px), 1fr)
+        );
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        padding-inline: 14px;
+    }
+
+    .hero {
+        padding-block: 30px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-text p {
+        font-size: 0.98rem;
+    }
+
+    .hero-image {
+        border-radius: 24px;
+        padding: 20px 12px;
+    }
+
+    .hero-image i {
+        font-size: 3.6rem;
+    }
+
+    .hero-image i + i {
+        font-size: 2.5rem !important;
+        margin-left: 4px !important;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .card-grid,
+    .syllabus-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card,
+    .info-card {
+        padding: 20px 16px;
+        border-radius: 22px;
+    }
+
+    .stats-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stat h4 {
+        font-size: 1.7rem;
+    }
+
+    #eligibility,
+    #syllabus {
+        padding: 24px 14px !important;
+    }
+
+    footer {
+        padding-inline: 14px;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Extra-small phones */
+@media (max-width: 360px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.6rem;
+    }
+
+    .nav-links {
+        gap: 8px 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+
+    #eligibility,
+    #syllabus {
+        padding-inline: 12px !important;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -527,6 +861,28 @@
 
 
 <script>
+    
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', event => {
+        const href = link.getAttribute('href');
+
+        if (!href || !href.startsWith('#') || href.length <= 1) {
+            return;
+        }
+
+        const target = document.getElementById(href.slice(1));
+
+        if (target) {
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
     // smooth scroll for nav links
     document.querySelectorAll('.nav-links a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {

@@ -11,8 +11,8 @@ const router = express.Router()
 
   router.get("/code",(req,res)=>{
         res.render("Admission/code")
-    })
-    router.get("/slide",(req,res)=>{
+ })
+ router.get("/slide",(req,res)=>{
         res.render("Admission/slide")
-    })
-    export default router;
+})
+export default router;

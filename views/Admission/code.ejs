@@ -1,120 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code of Conduct - College Name</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/code.css">
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7c2d12">
+  <title>Code of Conduct - HRI Group of Institutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/code.css">
+  <style>
+    :root {
+      --conduct-primary: #7c2d12;
+      --conduct-primary-dark: #5f2110;
+      --conduct-accent: #d97706;
+      --conduct-bg: #fffaf5;
+      --conduct-card: #ffffff;
+      --conduct-soft: #fff1e5;
+      --conduct-text: #292524;
+      --conduct-muted: #62534b;
+      --conduct-border: #f0dfd2;
+      --conduct-shadow: 0 10px 30px rgba(71, 35, 19, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--conduct-text);
+      background: var(--conduct-bg);
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+    img, svg { max-width: 100%; }
+    .conduct-container { width: min(1200px, 100%); margin-inline: auto; padding: 34px 24px 48px; }
+    .conduct-hero {
+      color: #fff;
+      background: linear-gradient(130deg, var(--conduct-primary-dark), #a34120);
+      padding: clamp(30px, 5vw, 56px) 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .conduct-hero::after {
+      content: "\f19d";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      right: 5%;
+      bottom: -40px;
+      font-size: clamp(90px, 15vw, 175px);
+      opacity: .09;
+      pointer-events: none;
+    }
+    .conduct-hero-inner { width: min(900px, 100%); margin: 0 auto; position: relative; z-index: 1; }
+    .conduct-kicker { display: inline-block; padding: 5px 13px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); border-radius: 999px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; }
+    .conduct-hero h1 { margin: 14px 0 8px; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; }
+    .conduct-hero p { max-width: 720px; margin: 0 auto; color: #fff1e7; font-size: clamp(.92rem, 2vw, 1.05rem); }
+    .conduct-content-wrapper { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr); gap: 26px; align-items: start; }
+    .conduct-main-content, .conduct-sidebar { min-width: 0; }
+    .conduct-section, .conduct-sidebar-card {
+      background: var(--conduct-card);
+      border: 1px solid var(--conduct-border);
+      border-radius: 18px;
+      padding: clamp(18px, 2.5vw, 28px);
+      box-shadow: var(--conduct-shadow);
+      margin-bottom: 22px;
+    }
+    .conduct-section h2, .conduct-sidebar h2 { color: var(--conduct-primary); font-size: clamp(1.15rem, 2.5vw, 1.45rem); line-height: 1.35; margin: 0 0 18px; }
+    .conduct-section h2 i, .conduct-sidebar h2 i { color: var(--conduct-accent); margin-right: 8px; }
+    .conduct-rules-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .conduct-rules-list li { position: relative; padding: 12px 14px 12px 42px; border-radius: 10px; background: #fffaf6; border: 1px solid #f6e9df; font-size: .95rem; }
+    .conduct-rules-list li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 15px; top: 14px; color: #b45309; }
+    .conduct-note { border-radius: 16px; padding: 20px; background: #fff1dc; border: 1px solid #f4d6a7; margin: 0 0 22px; }
+    .conduct-note h3 { color: #8a3416; margin: 0 0 8px; font-size: 1.1rem; }
+    .conduct-note h3 i { color: #c16a12; margin-right: 7px; }
+    .conduct-note p { margin: 0; font-size: .94rem; }
+    .conduct-policy-item { border-left: 3px solid #e7a36a; background: #fffaf6; padding: 14px 16px; border-radius: 0 10px 10px 0; margin-top: 13px; }
+    .conduct-policy-item h4 { color: var(--conduct-primary); margin: 0 0 5px; font-size: 1rem; }
+    .conduct-policy-item p { color: var(--conduct-muted); margin: 0; font-size: .92rem; }
+    .conduct-sidebar { position: sticky; top: 18px; }
+    .conduct-sidebar-card { margin-bottom: 18px; }
+    .conduct-sidebar-card .conduct-policy-item:first-of-type { margin-top: 0; }
+    .conduct-key-points { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 8px; }
+    .conduct-point-card { background: var(--conduct-card); border: 1px solid var(--conduct-border); border-radius: 16px; text-align: center; padding: 22px 16px; box-shadow: var(--conduct-shadow); min-width: 0; }
+    .conduct-point-card > i { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; color: var(--conduct-primary); background: var(--conduct-soft); font-size: 1.2rem; margin-bottom: 12px; }
+    .conduct-point-card h3 { margin: 0 0 6px; color: var(--conduct-primary); font-size: 1rem; }
+    .conduct-point-card p { margin: 0; color: var(--conduct-muted); font-size: .88rem; }
+    .conduct-contact-link { color: var(--conduct-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+    @media (max-width: 900px) {
+      .conduct-content-wrapper { grid-template-columns: minmax(0, 1fr); }
+      .conduct-sidebar { position: static; }
+      .conduct-key-points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .conduct-container { padding: 22px 14px 34px; }
+      .conduct-hero { padding-inline: 16px; }
+      .conduct-section, .conduct-sidebar-card { border-radius: 14px; padding: 18px 15px; }
+      .conduct-rules-list li { padding: 11px 11px 11px 36px; font-size: .9rem; }
+      .conduct-rules-list li::before { left: 12px; }
+      .conduct-key-points { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .conduct-point-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; text-align: left; align-items: center; padding: 16px; }
+      .conduct-point-card > i { grid-row: span 2; width: 44px; height: 44px; margin: 0; }
+      .conduct-point-card h3 { align-self: end; }
+      .conduct-point-card p { align-self: start; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
 </head>
 <body>
-    <%- include('partials/Navbar') %>
+  <%- include('partials/Navbar') %>
 
-    
-    <div class="container">
-        <div class="content-wrapper">
-            <main class="main-content">
-                <div class="section">
-                    <h2><i class="fas fa-graduation-cap"></i> Academic Conduct</h2>
-                    <ul class="rules-list">
-                        <li>Student attendance in every theory and practical subject is mandatory. Attendance should not be less than 75% per semester.</li>
-                        <li>However, 15% absence can be considered by Director/Principal as per the ordinance of the university.</li>
-                        <li>Separated attendance, completion of assignments, and passing in the internal examination are mandatory for being eligible to appear for the semester-end examination.</li>
-                        <li>Other than vacations, leave will not be entertained. Hence, it's the responsibility of Parents and guardians in non-promotion of leave of their wards.</li>
-                        <li>Admission rules and procedures are subject to amendment at any time without prior notice to the candidates.</li>
-                        <li>Students are expected to contribute towards the academic/critical/environmental initiatives that the Institute may undertake.</li>
-                    </ul>
-                </div>
-                
-                <div class="section">
-                    <h2><i class="fas fa-users"></i> Campus Discipline</h2>
-                    <ul class="rules-list">
-                        <li>All students of HRI Group of institutions are expected to maintain discipline and decorum on the campus.</li>
-                        <li>Anyone breaching disciplinary norms will invite disciplinary action as per college regulations.</li>
-                        <li>Students must carry their identity cards at all times while on campus.</li>
-                        <li>Respect for faculty, staff, and fellow students is expected at all times.</li>
-                        <li>Use of mobile phones during lectures, practical sessions, and examinations is strictly prohibited.</li>
-                        <li>Damage to college property will result in disciplinary action and financial liability.</li>
-                    </ul>
-                </div>
-                
-                <div class="important-note">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
-                    <p>The college administration reserves the right to modify these rules as necessary to maintain academic standards and campus harmony. Students are responsible for staying informed about any changes to the code of conduct published through official channels.</p>
-                </div>
-                
-                <div class="section">
-                    <h2><i class="fas fa-balance-scale"></i> Disciplinary Procedures</h2>
-                    <div class="policy-item">
-                        <h4>Minor Infractions</h4>
-                        <p>First-time minor violations may result in a verbal warning, written warning, or assignment of community service on campus.</p>
-                    </div>
-                    <div class="policy-item">
-                        <h4>Major Violations</h4>
-                        <p>Serious breaches of conduct may lead to suspension, fines, or in extreme cases, expulsion from the institution. A disciplinary committee will review each case individually.</p>
-                    </div>
-                    <div class="policy-item">
-                        <h4>Academic Integrity</h4>
-                        <p>Any form of academic dishonesty including plagiarism, cheating, or falsification of records will result in strict disciplinary action, including potential cancellation of examination results.</p>
-                    </div>
-                </div>
-            </main>
-            
-            <aside class="sidebar">
-                <h2 style="margin-top: 0;"><i class="fas fa-clipboard-list"></i> Key Requirements</h2>
-                <div class="policy-item">
-                    <h4>Minimum Attendance</h4>
-                    <p>≥75% required in each subject</p>
-                </div>
-                <div class="policy-item">
-                    <h4>Leave Policy</h4>
-                    <p>Only vacation leaves permitted (except 15% discretion)</p>
-                </div>
-                <div class="policy-item">
-                    <h4>Exam Eligibility</h4>
-                    <p>Requires separate attendance records, completed assignments, and passing internal exams</p>
-                </div>
-                <div class="policy-item">
-                    <h4>Campus Behavior</h4>
-                    <p>Maintain discipline and decorum at all times</p>
-                </div>
-                
-                <div class="important-note" style="margin-top: 25px;">
-                    <h4><i class="fas fa-phone-alt"></i> Contact for Clarifications</h4>
-                    <p>Dean of Student Affairs<br>
-                    Email: dean.students@hricollege.edu<br>
-                    Phone: +91-XXX-XXXX-XXX</p>
-                </div>
-            </aside>
-        </div>
-        
-        <div class="key-points">
-            <div class="point-card">
-                <i class="fas fa-calendar-check"></i>
-                <h3>Attendance</h3>
-                <p>75% minimum requirement with limited exceptions</p>
-            </div>
-            <div class="point-card">
-                <i class="fas fa-tasks"></i>
-                <h3>Assignments</h3>
-                <p>Timely completion mandatory for exam eligibility</p>
-            </div>
-            <div class="point-card">
-                <i class="fas fa-user-shield"></i>
-                <h3>Discipline</h3>
-                <p>Maintain campus decorum and follow all rules</p>
-            </div>
-            <div class="point-card">
-                <i class="fas fa-file-contract"></i>
-                <h3>Compliance</h3>
-                <p>Rules subject to change without prior notice</p>
-            </div>
-        </div>
+  <header class="conduct-hero">
+    <div class="conduct-hero-inner">
+      <span class="conduct-kicker">STUDENT GUIDELINES</span>
+      <h1>Code of Conduct</h1>
+      <p>Guidelines for academic responsibility, respectful campus behaviour, and maintaining a positive learning environment.</p>
     </div>
-    
-  
-  <script src="js/code.js"></script>
-    <%- include('partials/footer') %>
+  </header>
+
+  <div class="conduct-container">
+    <div class="conduct-content-wrapper">
+      <main class="conduct-main-content">
+        <section class="conduct-section">
+          <h2><i class="fas fa-graduation-cap"></i> Academic Conduct</h2>
+          <ul class="conduct-rules-list">
+            <li>Student attendance in every theory and practical subject is mandatory. Attendance should not be less than 75% per semester.</li>
+            <li>However, 15% absence can be considered by Director/Principal as per the ordinance of the university.</li>
+            <li>Separated attendance, completion of assignments, and passing in the internal examination are mandatory for being eligible to appear for the semester-end examination.</li>
+            <li>Other than vacations, leave will not be entertained. Hence, it's the responsibility of Parents and guardians in non-promotion of leave of their wards.</li>
+            <li>Admission rules and procedures are subject to amendment at any time without prior notice to the candidates.</li>
+            <li>Students are expected to contribute towards the academic/critical/environmental initiatives that the Institute may undertake.</li>
+          </ul>
+        </section>
+
+        <section class="conduct-section">
+          <h2><i class="fas fa-users"></i> Campus Discipline</h2>
+          <ul class="conduct-rules-list">
+            <li>All students of HRI Group of institutions are expected to maintain discipline and decorum on the campus.</li>
+            <li>Anyone breaching disciplinary norms will invite disciplinary action as per college regulations.</li>
+            <li>Students must carry their identity cards at all times while on campus.</li>
+            <li>Respect for faculty, staff, and fellow students is expected at all times.</li>
+            <li>Use of mobile phones during lectures, practical sessions, and examinations is strictly prohibited.</li>
+            <li>Damage to college property will result in disciplinary action and financial liability.</li>
+          </ul>
+        </section>
+
+        <section class="conduct-note">
+          <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+          <p>The college administration reserves the right to modify these rules as necessary to maintain academic standards and campus harmony. Students are responsible for staying informed about any changes to the code of conduct published through official channels.</p>
+        </section>
+
+        <section class="conduct-section">
+          <h2><i class="fas fa-balance-scale"></i> Disciplinary Procedures</h2>
+          <div class="conduct-policy-item">
+            <h4>Minor Infractions</h4>
+            <p>First-time minor violations may result in a verbal warning, written warning, or assignment of community service on campus.</p>
+          </div>
+          <div class="conduct-policy-item">
+            <h4>Major Violations</h4>
+            <p>Serious breaches of conduct may lead to suspension, fines, or in extreme cases, expulsion from the institution. A disciplinary committee will review each case individually.</p>
+          </div>
+          <div class="conduct-policy-item">
+            <h4>Academic Integrity</h4>
+            <p>Any form of academic dishonesty including plagiarism, cheating, or falsification of records will result in strict disciplinary action, including potential cancellation of examination results.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="conduct-sidebar">
+        <section class="conduct-sidebar-card">
+          <h2><i class="fas fa-clipboard-list"></i> Key Requirements</h2>
+          <div class="conduct-policy-item">
+            <h4>Minimum Attendance</h4>
+            <p>≥75% required in each subject</p>
+          </div>
+          <div class="conduct-policy-item">
+            <h4>Leave Policy</h4>
+            <p>Only vacation leaves permitted (except 15% discretion)</p>
+          </div>
+          <div class="conduct-policy-item">
+            <h4>Exam Eligibility</h4>
+            <p>Requires separate attendance records, completed assignments, and passing internal exams</p>
+          </div>
+          <div class="conduct-policy-item">
+            <h4>Campus Behavior</h4>
+            <p>Maintain discipline and decorum at all times</p>
+          </div>
+        </section>
+
+        <section class="conduct-note">
+          <h3><i class="fas fa-phone-alt"></i> Contact for Clarifications</h3>
+          <p>Dean of Student Affairs</p>
+          <p>Email: <a class="conduct-contact-link" href="mailto:dean.students@hricollege.edu">dean.students@hricollege.edu</a></p>
+          <p>Phone: +91-XXX-XXXX-XXX</p>
+        </section>
+      </aside>
+    </div>
+
+    <section class="conduct-key-points" aria-label="Code of conduct summary">
+      <article class="conduct-point-card">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Attendance</h3>
+        <p>75% minimum requirement with limited exceptions</p>
+      </article>
+      <article class="conduct-point-card">
+        <i class="fas fa-tasks"></i>
+        <h3>Assignments</h3>
+        <p>Timely completion mandatory for exam eligibility</p>
+      </article>
+      <article class="conduct-point-card">
+        <i class="fas fa-user-shield"></i>
+        <h3>Discipline</h3>
+        <p>Maintain campus decorum and follow all rules</p>
+      </article>
+      <article class="conduct-point-card">
+        <i class="fas fa-file-contract"></i>
+        <h3>Compliance</h3>
+        <p>Rules subject to change without prior notice</p>
+      </article>
+    </section>
+  </div>
+
+  <%- include('partials/footer') %>
+  <script src="/js/code.js"></script>
 </body>
 </html>

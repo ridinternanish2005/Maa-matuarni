@@ -6,6 +6,7 @@
     <title>BA Nexus | Business Analysis Hub — Strategy, Insights & Transformation</title>
     <!-- Google Fonts + modern reset -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/css/footer.css">
     <style>
         * {
             margin: 0;
@@ -403,6 +404,479 @@
             .hero-content h1 { font-size: 2.4rem; }
             .methodology { padding: 36px 24px; }
         }
+        
+/* ===== BA Nexus: All-device responsive improvements ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+}
+
+.hero,
+.about-ba,
+.contact-flex,
+.navbar {
+    min-width: 0;
+}
+
+.hero-content,
+.hero-stats,
+.ba-text,
+.contact-info,
+.contact-form,
+.comp-card,
+.case-card,
+.step {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+section[id],
+#home {
+    scroll-margin-top: 100px;
+}
+
+/* Navigation */
+.navbar {
+    gap: 18px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+}
+
+.nav-links a {
+    overflow-wrap: anywhere;
+}
+
+.btn-outline,
+.btn-primary {
+    min-height: 44px;
+}
+
+/* Hero */
+.hero {
+    width: calc(100% - 48px);
+    max-width: 1216px;
+    margin: 50px auto 70px;
+    gap: 36px;
+}
+
+.hero-content {
+    flex: 1 1 400px;
+}
+
+.hero-stats {
+    flex: 1 1 340px;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    overflow-wrap: anywhere;
+}
+
+.stat-grid {
+    justify-content: flex-start;
+    gap: 24px;
+}
+
+.stat-grid > div {
+    flex: 1 1 100px;
+    min-width: 0;
+}
+
+.stat-number {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+/* Cards */
+.competency-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.case-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.comp-card,
+.case-card,
+.step {
+    height: 100%;
+}
+
+.case-img {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: center;
+    padding: 12px;
+}
+
+/* Lifecycle */
+.methodology,
+.contact-cta {
+    min-width: 0;
+    padding: clamp(24px, 4vw, 56px);
+    border-radius: clamp(24px, 4vw, 48px);
+}
+
+.steps {
+    align-items: stretch;
+}
+
+.step {
+    flex: 1 1 180px;
+}
+
+/* About section */
+.about-ba {
+    align-items: center;
+}
+
+.ba-text {
+    flex: 1 1 400px;
+}
+
+.about-ba > div:last-child {
+    flex: 1 1 280px !important;
+    max-width: 100%;
+}
+
+.ba-list li {
+    align-items: flex-start;
+}
+
+/* Tools */
+.tools-cloud {
+    padding-inline: 8px;
+}
+
+.tool-badge {
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Contact form, if added to the page */
+.contact-info,
+.contact-form {
+    flex: 1 1 260px;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form button {
+    width: 100%;
+    min-height: 46px;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    border-radius: 20px;
+    resize: vertical;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .container {
+        padding-inline: 24px;
+    }
+
+    .navbar {
+        padding-block: 18px;
+    }
+
+    .nav-links {
+        gap: 12px 18px;
+    }
+
+    .hero {
+        width: calc(100% - 40px);
+        gap: 28px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 4.5vw, 2.7rem);
+    }
+
+    section {
+        margin-block: 60px;
+    }
+
+    .section-title {
+        font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+    }
+
+    .contact-flex {
+        gap: 24px;
+        padding: 24px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 780px) {
+    .container {
+        padding-inline: 16px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding-block: 18px;
+        gap: 16px;
+    }
+
+    .logo {
+        font-size: 1.65rem;
+        text-align: center;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 12px 18px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        width: calc(100% - 32px);
+        margin: 30px auto 48px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .hero-content,
+    .hero-stats {
+        width: 100%;
+        flex: auto;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.85rem, 7vw, 2.5rem);
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-buttons button {
+        width: 100%;
+    }
+
+    .hero-stats {
+        padding: 24px 20px;
+        border-radius: 28px;
+    }
+
+    .stat-grid {
+        gap: 20px;
+    }
+
+    section {
+        margin-block: 48px;
+    }
+
+    .section-title {
+        font-size: clamp(1.6rem, 6vw, 2rem);
+        line-height: 1.3;
+        padding-inline: 8px;
+    }
+
+    .section-sub {
+        font-size: 1rem;
+        margin-bottom: 28px;
+        padding-inline: 8px;
+    }
+
+    .competency-grid,
+    .case-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .comp-card {
+        padding: 26px 22px;
+        border-radius: 24px;
+    }
+
+    .methodology,
+    .contact-cta {
+        padding: 26px 18px;
+        border-radius: 26px;
+    }
+
+    .steps {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .step {
+        width: 100%;
+        flex: auto;
+        padding: 24px 18px;
+    }
+
+    .tools-cloud {
+        gap: 10px;
+    }
+
+    .tool-badge {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    .about-ba {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+
+    .ba-text,
+    .about-ba > div:last-child {
+        width: 100%;
+        flex: auto;
+    }
+
+    .ba-text h2,
+    .contact-cta h2 {
+        font-size: 1.7rem;
+    }
+
+    .quote {
+        padding: 22px 18px;
+    }
+
+    .case-info {
+        padding: 20px;
+    }
+
+    .contact-flex {
+        flex-direction: column;
+        gap: 24px;
+        padding: 20px 16px;
+    }
+
+    footer {
+        padding: 28px 16px;
+    }
+}
+
+/* Very small mobile */
+@media (max-width: 380px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .nav-links {
+        gap: 10px 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+
+    .hero {
+        width: calc(100% - 24px);
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-stats {
+        padding: 20px 14px;
+    }
+
+    .stat-grid {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .comp-card,
+    .case-info {
+        padding: 20px 16px;
+    }
+
+    .methodology,
+    .contact-cta {
+        padding: 22px 14px;
+    }
+
+    .tool-badge {
+        padding: 9px 12px;
+        font-size: 0.82rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -571,59 +1045,61 @@
  
 </div>
 
+
 <script>
-    // smooth scrolling for navigation and interactive alerts
     function scrollToSection(id) {
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
+    // Only handle links pointing to sections on this page
     document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            scrollToSection(targetId);
+        link.addEventListener('click', event => {
+            const href = link.getAttribute('href');
+
+            if (href && href.startsWith('#') && href.length > 1) {
+                const target = document.getElementById(href.slice(1));
+
+                if (target) {
+                    event.preventDefault();
+                    scrollToSection(target.id);
+                }
+            }
         });
     });
 
-    document.getElementById('contactNavBtn')?.addEventListener('click', () => scrollToSection('contact'));
-    document.getElementById('exploreMethod')?.addEventListener('click', () => scrollToSection('methodology'));
-    document.getElementById('downloadBriefBtn')?.addEventListener('click', () => {
-        alert("📄 BA brief PDF is ready for download. Check your email or contact us to receive the full BA capability deck.");
-    });
+    document.getElementById('contactNavBtn')
+        ?.addEventListener('click', () => {
+            const contact = document.getElementById('contact');
 
-    // contact form handling
-    const submitBtn = document.getElementById('baSubmitBtn');
-    const feedbackPara = document.getElementById('baFormFeedback');
-    if(submitBtn) {
-        submitBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('baName')?.value.trim();
-            const email = document.getElementById('baEmail')?.value.trim();
-            const msg = document.getElementById('baMsg')?.value.trim();
-            if(!name || !email || !msg) {
-                feedbackPara.innerText = "❌ Please fill in all fields to request a consultation.";
-                feedbackPara.style.color = "#FFB347";
-                return;
+            if (contact) {
+                scrollToSection('contact');
+            } else {
+                alert('Contact section abhi page mein add nahi kiya gaya hai.');
             }
-            if(!email.includes('@') || !email.includes('.')) {
-                feedbackPara.innerText = "📧 Please enter a valid email address.";
-                return;
-            }
-            feedbackPara.innerText = `✅ Thank you ${name}! A senior BA specialist will contact you within 24h.`;
-            feedbackPara.style.color = "#FFC857";
-            document.getElementById('baName').value = '';
-            document.getElementById('baEmail').value = '';
-            document.getElementById('baMsg').value = '';
-            setTimeout(() => { feedbackPara.innerText = ''; }, 5000);
         });
-    }
 
-    // optional animation on scroll / console greeting
-    window.addEventListener('load', () => {
-        console.log("BA Nexus page loaded — comprehensive business analysis details, frameworks, and success stories ready.");
-    });
+    document.getElementById('exploreMethod')
+        ?.addEventListener('click', () => {
+            scrollToSection('methodology');
+        });
+
+    document.getElementById('downloadBriefBtn')
+        ?.addEventListener('click', () => {
+            alert(
+                'BA brief PDF abhi configured nahi hai. ' +
+                'Download enable karne ke liye PDF file add karein.'
+            );
+        });
 </script>
+
+
   <%- include('partials/footer') %>
 </body>
 </html>

@@ -1,110 +1,238 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maa Maturani Devi Pharmacy College - Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Maa Maturani Devi Pharmacy College | ERP Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="/css/login.css">
 </head>
+
 <body>
-<div class="container">
-    <div class="college-info">
-        <h1>Maa Maturani Devi Pharmacy College</h1>
-        <p>College Management System</p>
-        <p>Student | Faculty | Admin Portal</p>
-    </div>
+    <main class="container">
+        <section class="college-info" aria-label="College information">
+            <div class="college-logo" aria-hidden="true">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
 
-    <div class="login-section">
-        <h2>Login</h2>
+            <h1>Maa Maturani Devi Pharmacy College</h1>
 
-        <form id="loginForm" novalidate>
-            <label for="session">Session</label>
-            <select id="session" class="form-control" required>
-                <option value="2024-25">2024-25</option>
-                <option value="2025-26" selected>2025-26</option>
-            </select>
+            <p class="tagline">College Management System</p>
 
-            <label for="enrollment">Enrollment Number</label>
-            <input
-                type="text"
-                id="enrollment"
-                class="form-control"
-                placeholder="Enter enrollment number"
-                autocomplete="username"
-                maxlength="50"
-                required
-            >
+            <p class="portal-description">
+                Welcome to the college ERP portal. Sign in using your
+                enrollment number and password to continue.
+            </p>
 
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Enter password"
-                autocomplete="current-password"
-                maxlength="128"
-                required
-            >
+            <div class="portal-types" aria-label="Portal roles">
+                <span><i class="fas fa-user-graduate"></i> Student</span>
+                <span><i class="fas fa-chalkboard-teacher"></i> Faculty</span>
+                <span><i class="fas fa-user-shield"></i> Admin</span>
+            </div>
+        </section>
 
-            <p id="loginMessage" role="alert" aria-live="polite" style="display:none;margin:10px 0;color:#b42318;"></p>
+        <section class="login-section" aria-labelledby="loginTitle">
+            <div class="login-icon" aria-hidden="true">
+                <i class="fas fa-lock"></i>
+            </div>
 
-            <button type="submit" class="btn-login" id="loginButton">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>
-        </form>
-    </div>
-</div>
+            <h2 id="loginTitle">Welcome Back</h2>
+            <p class="login-description">
+                Sign in to access your ERP dashboard.
+            </p>
 
-<script>
-const form = document.getElementById("loginForm");
-const button = document.getElementById("loginButton");
-const message = document.getElementById("loginMessage");
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="session">Academic Session</label>
+                    <select id="session" name="session" class="form-control" required>
+                        <option value="2024-25">2024-25</option>
+                        <option value="2025-26" selected>2025-26</option>
+                    </select>
+                </div>
 
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+                <div class="form-group">
+                    <label for="enrollment">Enrollment Number</label>
+                    <input
+                        type="text"
+                        id="enrollment"
+                        name="enrollment"
+                        class="form-control"
+                        placeholder="Enter enrollment number"
+                        autocomplete="username"
+                        maxlength="50"
+                        autocapitalize="characters"
+                        spellcheck="false"
+                        required
+                    >
+                </div>
 
-    const enrollment = document.getElementById("enrollment").value.trim();
-    const password = document.getElementById("password").value;
-    const session = document.getElementById("session").value;
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrap">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            maxlength="128"
+                            required
+                        >
 
-    message.style.display = "none";
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                        >
+                            <i class="fas fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
 
-    if (!enrollment || !password || !session) {
-        message.textContent = "Please fill all fields.";
-        message.style.display = "block";
-        return;
-    }
+                <p id="loginMessage"
+                   class="login-message"
+                   role="alert"
+                   aria-live="polite"
+                   hidden></p>
 
-    button.disabled = true;
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+                <button type="submit" class="btn-login" id="loginButton">
+                    <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+                    <span>Login to ERP</span>
+                </button>
+            </form>
 
-    try {
-        const response = await fetch("/erp/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            credentials: "same-origin",
-            body: JSON.stringify({ enrollment, password, session })
-        });
+            <p class="security-note">
+                <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                <span>Secure login. Please do not share your password with anyone.</span>
+            </p>
+        </section>
+    </main>
 
-        const data = await response.json();
+    <script>
+        (() => {
+            "use strict";
 
-        if (!response.ok || !data.success || !data.redirect) {
-            throw new Error(data.message || "Invalid enrollment or password.");
-        }
+            const form = document.getElementById("loginForm");
+            const sessionInput = document.getElementById("session");
+            const enrollmentInput = document.getElementById("enrollment");
+            const passwordInput = document.getElementById("password");
+            const button = document.getElementById("loginButton");
+            const buttonOriginal = button.innerHTML;
+            const message = document.getElementById("loginMessage");
+            const togglePassword = document.getElementById("togglePassword");
 
-        // Redirect comes from the server after MongoDB authentication.
-        window.location.replace(data.redirect);
-    } catch (error) {
-        message.textContent = error.message || "Login failed.";
-        message.style.display = "block";
-        button.disabled = false;
-        button.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-    }
-});
-</script>
+            function showMessage(text) {
+                message.textContent = text;
+                message.hidden = false;
+            }
+
+            function clearMessage() {
+                message.textContent = "";
+                message.hidden = true;
+            }
+
+            togglePassword.addEventListener("click", () => {
+                const show = passwordInput.type === "password";
+
+                passwordInput.type = show ? "text" : "password";
+                togglePassword.setAttribute("aria-pressed", String(show));
+                togglePassword.setAttribute(
+                    "aria-label",
+                    show ? "Hide password" : "Show password"
+                );
+
+                togglePassword.innerHTML = show
+                    ? '<i class="fas fa-eye-slash" aria-hidden="true"></i>'
+                    : '<i class="fas fa-eye" aria-hidden="true"></i>';
+            });
+
+            enrollmentInput.addEventListener("input", () => {
+                enrollmentInput.value = enrollmentInput.value.toUpperCase();
+                clearMessage();
+            });
+
+            passwordInput.addEventListener("input", clearMessage);
+            sessionInput.addEventListener("change", clearMessage);
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                clearMessage();
+
+                const enrollment = enrollmentInput.value.trim();
+                const password = passwordInput.value;
+                const session = sessionInput.value;
+
+                if (!enrollment || !password || !session) {
+                    showMessage("Please fill in all fields.");
+                    return;
+                }
+
+                button.disabled = true;
+                button.innerHTML =
+                    '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i><span>Logging in...</span>';
+
+                try {
+                    const response = await fetch("/erp/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        credentials: "same-origin",
+                        body: JSON.stringify({
+                            enrollment,
+                            password,
+                            session
+                        })
+                    });
+
+                    const contentType = response.headers.get("content-type") || "";
+
+                    if (!contentType.includes("application/json")) {
+                        throw new Error(
+                            "The server returned an unexpected response. Please refresh and try again."
+                        );
+                    }
+
+                    const data = await response.json();
+
+                    if (!response.ok || !data.success || !data.redirect) {
+                        throw new Error(
+                            data.message || "Login failed. Please check your details."
+                        );
+                    }
+
+                    // Only navigate to a same-origin path returned by the server.
+                    const destination = new URL(data.redirect, window.location.origin);
+
+                    if (destination.origin !== window.location.origin) {
+                        throw new Error("Invalid redirect returned by the server.");
+                    }
+
+                    window.location.replace(
+                        destination.pathname + destination.search + destination.hash
+                    );
+                } catch (error) {
+                    showMessage(
+                        error.message || "Unable to connect to the server. Please try again."
+                    );
+
+                    button.disabled = false;
+                    button.innerHTML = buttonOriginal;
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

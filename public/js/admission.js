@@ -1,49 +1,37 @@
-const admissionForm = document.getElementById("admissionForm");
 
-if (admissionForm) {
-  admissionForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const mobile = document.getElementById("mobile");
+  const dob = document.getElementById("dob");
+  const percentage = document.getElementById("percentage");
 
-    const formData = new FormData(admissionForm);
+  if (mobile) {
+    mobile.addEventListener("input", () => {
+      mobile.value = mobile.value.replace(/\D/g, "").slice(0, 10);
+    });
+  }
 
-    const data = {
-      fullName: formData.get("fullName"),
-      fatherName: formData.get("fatherName"),
-      mobile: formData.get("mobile"),
-      email: formData.get("email"),
-      dob: formData.get("dob"),
-      gender: formData.get("gender"),
-      address: formData.get("address"),
-      course: formData.get("course"),
-      percentage: Number(formData.get("percentage"))
-    };
+  if (dob) {
+    const today = new Date();
+    const localToday = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0")
+    ].join("-");
 
-    console.log("Sending:", data);
+    dob.max = localToday;
+  }
 
-    try {
-      const response = await fetch("/api/admissions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
+  if (percentage) {
+    percentage.addEventListener("input", () => {
+      const value = Number(percentage.value);
 
-      const result = await response.json();
-
-      console.log("Response:", result);
-
-      if (!response.ok) {
-        throw new Error(result.message || "Submission failed");
+      if (percentage.value !== "" && (value < 0 || value > 100)) {
+        percentage.setCustomValidity(
+          "Percentage must be between 0 and 100."
+        );
+      } else {
+        percentage.setCustomValidity("");
       }
-
-      alert("Admission submitted successfully!");
-
-      admissionForm.reset();
-
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
-  });
-}
+    });
+  }
+});
