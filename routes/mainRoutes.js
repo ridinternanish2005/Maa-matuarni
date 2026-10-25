@@ -33,11 +33,11 @@ router.get("/procedure",(req,res)=>{
   res.render("Admission/procedure.ejs")
 })
 //////////////////////////////////////////////////
- router.get("/c",(req,res)=>{
+ router.get("/allcourses",(req,res)=>{
     res.render("Admission/allcourecs")
  })
 
- router.get("/enqueary",(req,res)=>{
+ router.get("/enquiry",(req,res)=>{
     res.render("Admission/enquiry")
  })
 
